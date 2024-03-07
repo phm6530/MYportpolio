@@ -1,7 +1,7 @@
 import { forwardRef, useContext } from 'react';
 import styled from 'styled-components';
 import { DarkMode } from '../../../context/DarkModeContext';
-import { InputStyle , TextAreaStyle } from '../../../component/ui/TextArea'; 
+import { InputStyle, TextAreaStyle } from '../../../component/ui/TextArea';
 import ErrorBubble from '../../../component/ui/ErrorBubble';
 
 const FormInputDiv = styled.div`
@@ -14,16 +14,17 @@ const FormInputDiv = styled.div`
     /* &:last-child{
         margin-bottom: 0;
     } */
-    textarea{
+    textarea {
         width: 100%;
         min-height: 10px;
     }
-    input:focus, textarea:focus {
+    input:focus,
+    textarea:focus {
         /* outline : 1px solid red; */
-        background: #fff
+        background: #fff;
     }
-    
-    span{
+
+    span {
         left: 10px;
         display: block;
         font-weight: bold;
@@ -31,48 +32,33 @@ const FormInputDiv = styled.div`
         margin-left: 5px;
         margin-bottom: 1px;
     }
-    
-`
-const InputReply = forwardRef((fields ,ref)=>{
-  const {darkMode} = useContext(DarkMode); 
-  const { isAuth , label, error, ...props } = fields;
+`;
+const InputReply = forwardRef((fields, ref) => {
+    const { darkMode } = useContext(DarkMode);
+    const { isAuth, label, error, ...props } = fields;
 
-
-    return(
-        <>  
-            <FormInputDiv
-                $darkMode={darkMode}
-            >
+    return (
+        <>
+            <FormInputDiv $darkMode={darkMode}>
                 <span>{label}</span>
 
-                {
-                    
-                    fields.type === 'textarea' ?
-
-                    <TextAreaStyle 
-                        $error={error}
-                        {...props}    
-                    /> 
-                    
-                    : 
-                    
-                    <InputStyle 
+                {fields.type === 'textarea' ? (
+                    <TextAreaStyle $error={error} {...props} />
+                ) : (
+                    <InputStyle
                         $error={error}
                         ref={ref}
                         type={fields.name === 'password' ? 'password' : 'text'}
-                        autoComplete='off'
+                        autoComplete="off"
                         disabled={isAuth}
-                        {...props} 
+                        {...props}
                     />
-                }
+                )}
 
-           
                 {error && <ErrorBubble>{error.message}</ErrorBubble>}
             </FormInputDiv>
         </>
-        
-    )
+    );
 });
 
 export default InputReply;
-

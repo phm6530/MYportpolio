@@ -1,14 +1,12 @@
-
-
-.error{
+.error {
     color: red;
 }
 
-.errorInput{
+.errorInput {
     border: 1px solid #b40e0e;
     background-color: #fddddd;
 }
 
-.inputClear{
+.inputClear {
     color: #06b771;
 }

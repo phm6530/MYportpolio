@@ -4,12 +4,12 @@ import SKILL_ICON from '../../../../../component/icon/StackIcon';
 import styled from 'styled-components';
 
 const SkillWrap = styled.div`
-  display: flex;
-  span{
-    color: #222;
-    font-weight: bold;
-  }
-`
+    display: flex;
+    span {
+        color: #222;
+        font-weight: bold;
+    }
+`;
 
 const LabelStyle = styled.label`
     display: flex;
@@ -26,27 +26,22 @@ const LabelStyle = styled.label`
     flex-wrap: wrap;
     margin-right: 10px;
     background: #f8f8f8;
-`
+`;
 
-const Checkbox = forwardRef((props , ref) => {
+const Checkbox = forwardRef((props, ref) => {
     const { label, ...rest } = props;
     const SkillComponent = SKILL_ICON[label];
     // console.log(label);
-  return (
-    <LabelStyle>
-      <input
-        type="checkbox"
-        ref={ref}
-        value={label}
-        {...rest}
-      />
-      {SkillComponent && (
-        <SkillWrap key={`skill-${label}`}>
-          <SkillComponent label={label}/>
-        </SkillWrap>
-      )}
-    </LabelStyle>
-  );
+    return (
+        <LabelStyle>
+            <input type="checkbox" ref={ref} value={label} {...rest} />
+            {SkillComponent && (
+                <SkillWrap key={`skill-${label}`}>
+                    <SkillComponent label={label} />
+                </SkillWrap>
+            )}
+        </LabelStyle>
+    );
 });
 
 export default Checkbox;

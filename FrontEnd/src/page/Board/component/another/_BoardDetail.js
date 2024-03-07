@@ -1,14 +1,13 @@
-import { Link , useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
-export default function BoardDetail(){
+export default function BoardDetail() {
     const param = useParams();
-    return(
+    return (
         <>
-            {param.num} -  NoticeDetail
+            {param.num} - NoticeDetail
             <button>
-                <Link to='/Board'>목록</Link>
+                <Link to="/Board">목록</Link>
             </button>
         </>
-    )
+    );
 }
-

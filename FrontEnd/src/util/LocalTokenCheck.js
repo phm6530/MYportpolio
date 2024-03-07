@@ -1,4 +1,3 @@
-
 export function LocalTokenCheck() {
     const token = localStorage.getItem('token');
     if (!token) {
