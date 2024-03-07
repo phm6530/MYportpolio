@@ -16,8 +16,8 @@ const Animation = () => {
     } = useQuery('test', () => fetchData(1));
 
     //threshold - 교차 
-    return ( <
-        >
+    return ( 
+    <>
         {
             (!isLoading && data.pageData) && data.pageData.map((e, idx) => {
                 return <Fadeup key = {
@@ -27,9 +27,9 @@ const Animation = () => {
                     'right'
                 } > {
                     JSON.stringify(e)
-                } < /Fadeup>
+                } </Fadeup>
             })
-        } < />
+        } </>
     )
 }
 
