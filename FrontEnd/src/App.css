@@ -204,6 +204,9 @@ input::placeholder {
   font-size: 12px;
 }
 
+.ql-align-center {
+  text-align: center;
+}
 .ql-align-center img {
   margin: auto;
 }/*# sourceMappingURL=app.css.map */

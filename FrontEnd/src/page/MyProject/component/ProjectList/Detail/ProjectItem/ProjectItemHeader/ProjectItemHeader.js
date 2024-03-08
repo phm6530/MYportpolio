@@ -118,7 +118,7 @@ export default function ProjectItemHeader({ activeIdx, setActiveIdx, project }) 
     const { mutateAsync } = useMutation(deleteKey => projectDelete(deleteKey), {
         onSuccess: data => {
             console.log(data);
-            dispatch(alertTrunk('삭제되었습니다.', 1));
+            dispatch(alertThunk('삭제되었습니다.', 1));
             setModal(false);
             queryClient.invalidateQueries('project');
         },

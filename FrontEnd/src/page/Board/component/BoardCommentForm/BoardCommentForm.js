@@ -8,7 +8,7 @@ import styled, { keyframes } from 'styled-components';
 
 import { DarkMode } from '../../../../context/DarkModeContext';
 import CommentInput from './Detail/CommentInput';
-import { findForBadword } from 'util/filterBadWording';
+import { findForBadword } from 'utils/filterBadWording';
 import alertThunk from '../../../../store/alertTrunk';
 
 import { QuestionMark } from '../../../../component/icon/Icon';

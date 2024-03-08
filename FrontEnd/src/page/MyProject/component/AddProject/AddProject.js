@@ -16,7 +16,7 @@ import Checkbox from './Detail/CheckBox';
 import CustumDatePicker from './Detail/CustumDatePicker';
 
 import alertThunk from '../../../../store/alertTrunk';
-// import SubTitle from '../../../../component/ui/Subtitle';
+import SubTitle from '../../../../component/ui/Subtitle';
 
 import { addProjectFetch, projectEdit, uploadImage } from 'services/projectService';
 import styled from 'styled-components';
@@ -225,7 +225,9 @@ export default function AddProject() {
 
     return (
         <AdminProjectStyle>
-            {/* <SubTitle><span className='subText'>PROJECT - 썸네일</span></SubTitle> */}
+            <SubTitle>
+                <span className="subText">PROJECT - Add</span>
+            </SubTitle>
 
             <FormStyle onSubmit={handleSubmit(onSubmitHandler)}>
                 {/* CustumInputWrap ,TextAreaStyle */}

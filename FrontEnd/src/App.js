@@ -2,7 +2,7 @@ import './App.css';
 import { Provider } from 'react-redux';
 
 // Rounter
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom';
 
 import RootLayout from 'component/layout/RootLayout';
 
@@ -36,8 +36,12 @@ import { tokenCheck } from 'services/authService';
 import Todolist from './page/todo/Todolist';
 import WithAuth from 'component/hoc/WithAuth';
 
+import WithRedirect from 'component/hoc/WithRedirect';
+
+import { fetchDetail } from 'services/projectService';
+
 import Test from './test';
-import ErrorRoot from './component/Errorpage/ErrorRoot';
+import ErrorRoot from 'component/error/ErrorRoot';
 import Contact from './page/contact/Contact';
 import ProjectLayout from './page/MyProject/component/ProjectLayout';
 import ProjectList from './page/MyProject/component/ProjectList/ProjectList';
@@ -66,8 +70,7 @@ const router = createBrowserRouter([
                             },
                             {
                                 path: ':key',
-                                element: <ProjectDetail />,
-                                // loader : ProjectDetailLoader
+                                element: <WithRedirect Component={ProjectDetail} redirectPath={'/project'} />,
                             },
                         ],
                     },

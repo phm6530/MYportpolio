@@ -14,6 +14,22 @@ const projectFetch = async () => {
     }
 };
 
+// Detail
+const fetchDetail = async key => {
+    try {
+        const response = await fetch(`http://localhost:8080/project/${key}`);
+        if (!response.ok) {
+            const errorResponse = await response.json();
+            throw new Error(errorResponse.message);
+        }
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
 // Insert or Update하기
 const addProjectFetch = async (formData, Type) => {
     console.log('formData :::::: ', formData);
@@ -95,4 +111,4 @@ const uploadImage = async (img, projectKey, imgType) => {
     }
 };
 
-export { addProjectFetch, projectFetch, projectEdit, projectDelete, uploadImage };
+export { addProjectFetch, projectFetch, projectEdit, projectDelete, uploadImage, fetchDetail };
