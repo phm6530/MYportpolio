@@ -43,7 +43,7 @@ import { fetchDetail } from 'services/projectService';
 import Test from './test';
 import ErrorRoot from 'component/error/ErrorRoot';
 import Contact from './page/contact/Contact';
-import ProjectLayout from './page/MyProject/component/ProjectLayout';
+import ProjectLayout from 'features/project/ProjectLayout';
 import ProjectList from './page/MyProject/component/ProjectList/ProjectList';
 
 const router = createBrowserRouter([

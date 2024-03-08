@@ -6,7 +6,7 @@ import Fadein from '../../../../../FadeinComponent';
 import { CiCalendar } from 'react-icons/ci';
 
 import { Button } from '../../../../../component/ui/Button';
-import ProjectItemHeader from './ProjectItem/ProjectItemHeader/ProjectItemHeader';
+import ProjectItemHeader from 'features/project/component/ProjectItemHeader';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -76,6 +76,7 @@ const ProjectDescription = styled.div`
     white-space: pre-line;
     padding-bottom: 20px;
     color: #3d4757;
+    line-height: 1.3rem;
     /* border-bottom: 1px solid rgba(0,0,0,0.12); */
 `;
 
@@ -84,7 +85,7 @@ const ContentsWrap = styled.div`
     flex-direction: column;
     align-items: flex-start;
     align-items: flex-start;
-    padding: 1rem 0.5rem 0.5rem 1.5rem;
+    padding: 0.5rem 0.5rem 0.5rem 1.5rem;
     width: 65%;
     flex-grow: 1;
 `;

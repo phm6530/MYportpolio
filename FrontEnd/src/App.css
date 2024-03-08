@@ -204,9 +204,9 @@ input::placeholder {
   font-size: 12px;
 }
 
-.ql-align-center {
-  text-align: center;
+#quill_Editor h1 {
+  font-size: 1.4rem;
 }
-.ql-align-center img {
-  margin: auto;
+#quill_Editor img {
+  border-radius: 1rem;
 }/*# sourceMappingURL=app.css.map */

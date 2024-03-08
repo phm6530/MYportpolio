@@ -1,6 +1,4 @@
-import styled from 'styled-components'
-
-
+import styled from 'styled-components';
 
 const PageSubText = styled.div`
     font-size: 20px;
@@ -8,25 +6,20 @@ const PageSubText = styled.div`
     background: #fff;
     padding: 2rem;
 
-    p{
+    p {
         font-size: 14px;
         color: #fff;
-        opacity: .7;
+        opacity: 0.7;
         padding-top: 20px;
     }
-`
+`;
 const ProjectWrapStyle = styled.div`
-    display: flex;
-    flex-direction:column;
+    flex-direction: column;
     flex-wrap: wrap;
     border-radius: 1em;
     background: #fff;
     flex-grow: 1;
     overflow: hidden;
-`
+`;
 
-
-export {
-    PageSubText,
-    ProjectWrapStyle
-}
+export { PageSubText, ProjectWrapStyle };

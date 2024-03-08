@@ -1,18 +1,14 @@
 import styled, { keyframes, css } from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
-import Confirm from '../../../../../../../component/ui/Confirm';
-import Popup from '../../../../../../../component/popup/Popup';
-import { projectDelete } from 'services/projectService';
-import alertThunk from '../../../../../../../store/alertTrunk';
+import Confirm from 'component/ui/Confirm';
+import Popup from 'component/popup/Popup';
 
 // icon
 import { FaLink } from 'react-icons/fa';
 import { HiOutlineDotsVertical } from 'react-icons/hi';
 import { FaTrashAlt } from 'react-icons/fa';
 import { MdModeEdit } from 'react-icons/md';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { useMutation, useQueryClient } from 'react-query';
+import useProjectActions from 'hooks/useProjectActions';
 
 const showAni = keyframes`
     from{
@@ -54,7 +50,7 @@ const ProjectTitle = styled.div`
     font-weight: 600;
     font-size: 1.2rem;
     display: flex;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.7px;
     justify-content: space-between;
     align-items: center;
     position: relative;
@@ -89,13 +85,8 @@ const EditArea = styled.div`
 `;
 
 export default function ProjectItemHeader({ activeIdx, setActiveIdx, project }) {
-    const [modal, setModal] = useState(false);
     const [area, setArea] = useState(activeIdx);
-
-    const { login } = useSelector(state => state.authSlice);
-
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const { modal, setModal, mutateAsync, updateHandler, deleteHandler } = useProjectActions();
     const ref = useRef();
 
     useEffect(() => {
@@ -114,40 +105,6 @@ export default function ProjectItemHeader({ activeIdx, setActiveIdx, project }) 
         };
     }, []);
 
-    const queryClient = useQueryClient();
-    const { mutateAsync } = useMutation(deleteKey => projectDelete(deleteKey), {
-        onSuccess: data => {
-            console.log(data);
-            dispatch(alertThunk('삭제되었습니다.', 1));
-            setModal(false);
-            queryClient.invalidateQueries('project');
-        },
-    });
-
-    const AuthCheck = text => {
-        if (!login) {
-            dispatch(alertThunk(`${text} 권한이 없습니다.`), 0);
-            return false;
-        }
-        return true;
-    };
-
-    const projectChange = key => {
-        if (!AuthCheck('수정')) {
-            return;
-        }
-        setModal(true);
-        navigate(`/project/add?type=edit&key=${key}`);
-    };
-
-    const projectMutation = async deleteKey => {
-        //권한 확인
-        if (!AuthCheck('삭제')) {
-            return;
-        }
-        setModal(true);
-    };
-
     return (
         <>
             {modal && (
@@ -164,7 +121,6 @@ export default function ProjectItemHeader({ activeIdx, setActiveIdx, project }) 
             <ProjectItemHeaderStyle>
                 <ProjectTitle>
                     {project.title}
-
                     <FaLink size={'14'} style={{ marginRight: 'auto', marginLeft: '10px' }} />
                 </ProjectTitle>
 
@@ -178,10 +134,20 @@ export default function ProjectItemHeader({ activeIdx, setActiveIdx, project }) 
                     />
                     {area && (
                         <EditArea>
-                            <button onClick={() => projectChange(project.project_key)}>
+                            <button
+                                onClick={() => {
+                                    setModal(true);
+                                    updateHandler(project.project_key);
+                                }}
+                            >
                                 <MdModeEdit />
                             </button>
-                            <button onClick={() => projectMutation(project.project_key)}>
+                            <button
+                                onClick={() => {
+                                    setModal(true);
+                                    deleteHandler(project.project_key);
+                                }}
+                            >
                                 <FaTrashAlt />
                             </button>
                         </EditArea>

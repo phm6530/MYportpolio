@@ -217,10 +217,12 @@ input::placeholder {
 }
 
 // quill Editor Custum
-.ql-align-center {
-    text-align: center;
 
+#quill_Editor {
+    h1 {
+        font-size: 1.4rem;
+    }
     img {
-        margin: auto;
+        border-radius: 1rem;
     }
 }
