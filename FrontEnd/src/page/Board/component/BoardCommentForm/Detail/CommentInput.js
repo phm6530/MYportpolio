@@ -2,7 +2,7 @@ import { forwardRef, useContext } from 'react';
 import styled from 'styled-components';
 import { DarkMode } from '../../../../../context/DarkModeContext';
 import { InputStyle, TextAreaStyle } from '../../../../../component/ui/TextArea';
-import ErrorBubble from '../../../../../component/ui/ErrorBubble';
+import ErrorBubble from 'component/error/ErrorBubble';
 
 const FormInputDiv = styled.div`
     border-radius: 10px;

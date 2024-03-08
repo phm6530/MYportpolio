@@ -145,7 +145,7 @@ button {
 }
 
 input:disabled {
-  background: #F0F0F0;
+  background: #f0f0f0;
   opacity: 0.5;
 }
 
@@ -199,6 +199,11 @@ textarea::-moz-placeholder, input::-moz-placeholder {
   font-size: 12px;
 }
 
-textarea::placeholder, input::placeholder {
+textarea::placeholder,
+input::placeholder {
   font-size: 12px;
+}
+
+.ql-align-center img {
+  margin: auto;
 }/*# sourceMappingURL=app.css.map */

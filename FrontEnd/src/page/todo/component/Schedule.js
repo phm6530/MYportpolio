@@ -12,7 +12,7 @@ import alertThunk from '../../../store/alertTrunk';
 import Popup from '../../../component/popup/Popup';
 import Confirm from '../../../component/ui/Confirm';
 import { fetchEditSchedule, fetchDeleteSchedule, fetchToggleComplete } from '../ScheduleFetch';
-import { useAuthCheck } from '../../../component/common/AuthClientCheck';
+import { useAuthCheck } from 'hooks/useAuthCheck';
 import { Button } from '../../../component/ui/Button';
 import { TodaySeletor, dayFormetting } from './TodaySeletor';
 
@@ -29,15 +29,18 @@ const IsComplete = styled.div`
     display: flex;
     /* justify-content: space-between; */
     align-items: flex-start;
-    transition: color 0.2s ease;
+
     padding: 0.3rem 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     svg {
         opacity: 0.8;
     }
-    ${(props) => {
-        return props.$complete && 'color: rgba(0,0,0,0.4)';
-    }}
+    textarea {
+        transition: color 0.2s ease;
+        ${props => {
+            return props.$complete && `color: rgba(0,0,0,0.4);     text-decoration: line-through;`;
+        }}
+    }
 `;
 
 const FormStyle = styled.form`
@@ -97,39 +100,39 @@ const ListHandler = ({ idx, selectWork, setSelectWork, ScheduleItem }) => {
     }, [ScheduleItem, setValue]);
 
     // Edit
-    const mutation = useMutation((formData) => fetchEditSchedule(formData), {
+    const mutation = useMutation(formData => fetchEditSchedule(formData), {
         onSuccess: () => {
             queryClient.invalidateQueries('Schedule');
             dispatch(alertThunk('수정되었습니다.', 1));
             setSelectWork(null);
         },
-        onError: (error) => {
+        onError: error => {
             dispatch(alertThunk(error.message, 0));
         },
     });
 
     // Delete
-    const deleteMutation = useMutation((data) => fetchDeleteSchedule(data), {
+    const deleteMutation = useMutation(data => fetchDeleteSchedule(data), {
         onSuccess: () => {
             queryClient.invalidateQueries('Schedule');
             dispatch(alertThunk('삭제되었습니다.', 1));
         },
-        onError: (error) => {
+        onError: error => {
             dispatch(alertThunk(error.message, 0));
         },
     });
 
     // ToggleComplete
-    const toggleMutation = useMutation((data) => fetchToggleComplete(data), {
-        onSuccess: (data) => {
+    const toggleMutation = useMutation(data => fetchToggleComplete(data), {
+        onSuccess: data => {
             queryClient.invalidateQueries('Schedule');
         },
-        onError: (error) => {
+        onError: error => {
             dispatch(alertThunk(error.message, 0));
         },
     });
 
-    const onEditHandler = async (data) => {
+    const onEditHandler = async data => {
         const requstData = {
             work: data.work,
             schedule_key: ScheduleItem.schedule_key,
@@ -137,7 +140,7 @@ const ListHandler = ({ idx, selectWork, setSelectWork, ScheduleItem }) => {
         mutation.mutate(requstData);
     };
 
-    const readOnlyHandler = (idx) => {
+    const readOnlyHandler = idx => {
         if (!clientAuthCheck('수정')) return;
         setSelectWork(idx);
     };
@@ -145,12 +148,12 @@ const ListHandler = ({ idx, selectWork, setSelectWork, ScheduleItem }) => {
     //     setSelectWork(null);
     // }
 
-    const deleteSchedule = (key) => {
+    const deleteSchedule = key => {
         setModal(true);
         setDeleteKey(key);
     };
 
-    const onToggleHandler = (key) => {
+    const onToggleHandler = key => {
         if (!clientAuthCheck('변경 권한')) return;
         toggleMutation.mutate(key);
     };
@@ -184,7 +187,7 @@ const ListHandler = ({ idx, selectWork, setSelectWork, ScheduleItem }) => {
                         {...register('work', { required: '빈칸은 입력 불가합니다.' })}
                         rows={textAreaHeight}
                         readOnly={ScheduleItem.schedule_key !== selectWork}
-                        onChange={(e) => {
+                        onChange={e => {
                             setTextArerHeight(e.target.value.split(/\r\n|\r|\n/).length);
                             console.log(e.target.value.length);
                         }}

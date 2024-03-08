@@ -77,4 +77,22 @@ const projectDelete = async key => {
     }
 };
 
-export { addProjectFetch, projectFetch, projectEdit, projectDelete };
+const uploadImage = async (img, projectKey, imgType) => {
+    // projectKey 인자 추가
+    console.log(img, projectKey);
+    try {
+        const response = await fetch(`http://localhost:8080/project/imgUploader/${projectKey}?type=${imgType}`, {
+            method: 'POST',
+            body: img,
+        });
+        if (!response.ok) {
+            throw new Error('이미지가 업로드 되지 않았습니다.');
+        }
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export { addProjectFetch, projectFetch, projectEdit, projectDelete, uploadImage };

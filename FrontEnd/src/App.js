@@ -4,20 +4,20 @@ import { Provider } from 'react-redux';
 // Rounter
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import RootLayout from './component/common/RootLayout';
+import RootLayout from 'component/layout/RootLayout';
 
 // context
-import { Mode } from './context/DarkModeContext';
+import { Mode } from 'context/DarkModeContext';
 
 // redux
-import store from './store/appSlice';
+import store from 'store/appSlice';
 
 // Home
 import HomeComponent from './page/Home/HomeComponent';
 // import { projectChangeLoader } from './page/MyProject/ProjectFetch'; //add Loader
 
 // MyProject
-import MyProject from './page/MyProject/MyProject';
+import Project from 'page/Project';
 import AddProject from './page/MyProject/component/AddProject/AddProject';
 
 // Notice
@@ -32,9 +32,9 @@ import Admin from './page/admin/Admin';
 import ProjectDetail from './page/MyProject/component/ProjectList/ProjectDetail';
 
 //Auth Util 권한 Check
-import { tokenCheck } from './util/auth';
+import { tokenCheck } from 'services/authService';
 import Todolist from './page/todo/Todolist';
-import AuthComponent from './component/common/AuthComponent';
+import WithAuth from 'component/hoc/WithAuth';
 
 import Test from './test';
 import ErrorRoot from './component/Errorpage/ErrorRoot';
@@ -58,7 +58,7 @@ const router = createBrowserRouter([
                 children: [
                     {
                         // index : true,
-                        element: <MyProject />,
+                        element: <Project />,
                         children: [
                             {
                                 index: true,
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path: 'add',
-                        element: <AuthComponent Component={AddProject} redirectPath={'/project'} />,
+                        element: <WithAuth Component={AddProject} redirectPath={'/project'} />,
                         loader: tokenCheck,
                     },
                 ],
@@ -109,7 +109,7 @@ const router = createBrowserRouter([
             // 관리자페이지
             {
                 path: '/admin',
-                element: <AuthComponent Component={Admin} redirectPath={'/'} />,
+                element: <WithAuth Component={Admin} redirectPath={'/'} />,
                 loader: tokenCheck,
             },
             {

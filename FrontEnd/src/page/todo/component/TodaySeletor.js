@@ -10,7 +10,7 @@ export const TodaySeletor = () => {
 };
 
 export const dayFormetting = () => {
-    const dayCalculater = (target) => {
+    const dayCalculater = target => {
         const date = new Date(target);
         const Year = String(date.getFullYear());
         const Month = String(date.getMonth() + 1);

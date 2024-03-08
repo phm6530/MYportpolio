@@ -5,9 +5,7 @@ import styled from 'styled-components';
 
 import { ProjectWrapStyle } from './Styled/ProjectListStyled';
 
-const QuillData = styled.div`
-
-`
+const QuillData = styled.div``;
 
 export default function ProjectDetail() {
     const param = useParams();
@@ -27,33 +25,31 @@ export default function ProjectDetail() {
     };
 
     const { data, error } = useQuery('projectDetail', fetchDetail, {
-        onSuccess: (data) => {
+        onSuccess: data => {
             setProjectDetail(data.result);
-        }
+        },
     });
     console.log(projectDetail);
 
-    const renderHTML = (quillHTML)=>{
-        return {__html : quillHTML};
-    }
+    const renderHTML = quillHTML => {
+        return { __html: quillHTML };
+    };
 
     return (
         <>
-            {projectDetail && 
-                (
-                    <ProjectWrapStyle>
-                        제목 : {projectDetail.title}
-                        고객사 : {projectDetail.company}
-                        시작일 : {projectDetail.startProject}
-                        마감일 : {projectDetail.endProject}
-                        마감일 : {projectDetail.skill}
-                        <QuillData>
-                            <div dangerouslySetInnerHTML={renderHTML(projectDetail.project_description)}></div>
-                        </QuillData>
-                    </ProjectWrapStyle>
-  
-                ) 
-            }
+            {projectDetail && (
+                <ProjectWrapStyle>
+                    {/* <EditArea param={param.key} /> */}
+                    제목 : {projectDetail.title}
+                    고객사 : {projectDetail.company}
+                    시작일 : {projectDetail.startProject}
+                    마감일 : {projectDetail.endProject}
+                    마감일 : {projectDetail.skill}
+                    <QuillData>
+                        <div dangerouslySetInnerHTML={renderHTML(projectDetail.project_description)}></div>
+                    </QuillData>
+                </ProjectWrapStyle>
+            )}
         </>
     );
 }

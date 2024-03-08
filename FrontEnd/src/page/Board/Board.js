@@ -15,7 +15,7 @@ import alertThunk from '../../store/alertTrunk';
 import DashBoard from '../../component/ui/DashBoard';
 import DashBoardTitle from '../../component/ui/DashBoardTitle';
 import SubTitle from '../../component/ui/Subtitle';
-import ProfileComponent from './component/ProfileComponent';
+import UserProfile from 'component/profile/UserProfile';
 import BoardCommentList from './component/BoardCommentList/BoardCommentList';
 
 const PageText = styled.div`
@@ -69,18 +69,18 @@ export default function Board() {
 
     const { isLoading, isError } = useQuery(['board', lastPageIdx], () => fetchData(lastPageIdx), {
         refetchOnWindowFocus: false,
-        onSuccess: (data) => {
+        onSuccess: data => {
             if (data.pageData.length === 0) {
                 setFetchMoreData(false);
             }
             setTotal(data.counter);
             // console.log('userQuery 실행');
             // 이건 맞음
-            setUserFetchData((prev) => {
+            setUserFetchData(prev => {
                 return [...prev, ...data.pageData];
             });
         },
-        onError: (error) => {
+        onError: error => {
             console.log('실행');
             dispatch(alertThunk(error.message, 0));
         },
@@ -102,7 +102,7 @@ export default function Board() {
             {/* Body */}
             <BoardGrid>
                 {/* Prifile */}
-                <ProfileComponent />
+                <UserProfile />
 
                 <RightWrap id="parallex_form">
                     <BoardDashBoard>

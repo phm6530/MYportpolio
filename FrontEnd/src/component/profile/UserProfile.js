@@ -79,7 +79,7 @@ const OnLine = styled.div`
     background: #fff;
     border-radius: 1rem;
 `;
-export default function ProfileComponent() {
+export default function UserProfile() {
     const { login } = useSelector(state => state.authSlice);
     // console.log(login);
 

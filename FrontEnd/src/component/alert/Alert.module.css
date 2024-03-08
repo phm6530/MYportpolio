@@ -1,4 +1,4 @@
-.alert{
+.alert {
     position: fixed;
     width: 100%;
     text-align: center;
@@ -6,11 +6,10 @@
     z-index: 9999;
 }
 
-.alert_success{
+.alert_success {
     background-color: rgb(20, 204, 164);
 }
 
-.alert_falid{
+.alert_falid {
     background-color: rgb(238, 41, 27);
 }
-

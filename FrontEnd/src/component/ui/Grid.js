@@ -1,33 +1,25 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const GridStyle = styled.div`
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
     position: relative;
-    
-`
+`;
 const HeaderGridStyle = styled.div`
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
     padding-top: 8.5rem;
     position: relative;
-`
+`;
 
-export default function Gird({children, ...props}){
-    return(
-        <GridStyle {...props}> {children} </GridStyle>        
-    )
+export default function Gird({ children, ...props }) {
+    return <GridStyle {...props}> {children} </GridStyle>;
 }
 
-function HeaderGird({children, ...props}){
-    return(
-        <HeaderGridStyle {...props}> {children} </HeaderGridStyle>        
-    )
+function HeaderGird({ children, ...props }) {
+    return <HeaderGridStyle {...props}> {children} </HeaderGridStyle>;
 }
 
-export {
-    HeaderGird
-}
-
+export { HeaderGird };

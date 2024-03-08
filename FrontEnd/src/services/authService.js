@@ -1,7 +1,28 @@
 import { json } from 'react-router-dom';
 import store, { authAction } from '../store/appSlice';
 
-export async function tokenCheck() {
+//로그아웃
+const fetchLogout = async token => {
+    try {
+        const response = await fetch('http://localhost:8080/logout', {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                // 'Content-Type': 'application/json'
+            },
+        });
+        if (!response.ok) {
+            // const errorResponse = await response.json();
+            throw new Error('에러!');
+        }
+        return response.json();
+    } catch (error) {
+        throw new Error(error.message || '서버에 문제가 있습니다.');
+    }
+};
+
+// 토큰체크
+const tokenCheck = async () => {
     store.dispatch(authAction.loading());
     try {
         const token = localStorage.getItem('token');
@@ -26,4 +47,6 @@ export async function tokenCheck() {
         store.dispatch(authAction.complete());
         return json({ Auth: false });
     }
-}
+};
+
+export { tokenCheck, fetchLogout };

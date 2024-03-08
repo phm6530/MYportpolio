@@ -1,14 +1,14 @@
 import { useForm } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
-import { useAuthCheck } from '../../../component/common/AuthClientCheck';
+import { useAuthCheck } from 'hooks/useAuthCheck';
 import { useQueryClient, useMutation } from 'react-query';
 import { fetchAddSchedule } from '../ScheduleFetch';
 import alertThunk from '../../../store/alertTrunk';
 import styled from 'styled-components';
 import { TextAreaStyle } from '../../../component/ui/TextArea';
 import { Button } from '../../../component/ui/Button';
-import ErrorBubble from '../../../component/ui/ErrorBubble';
+import ErrorBubble from 'component/error/ErrorBubble';
 
 const AddScheduleFormStyle = styled.form`
     padding: 10px 0;
@@ -43,18 +43,18 @@ const AddSchedule = ({ selectDay }) => {
 
     const queryclient = useQueryClient();
 
-    const mutation = useMutation((data) => fetchAddSchedule(data), {
+    const mutation = useMutation(data => fetchAddSchedule(data), {
         onSuccess: () => {
             dispatch(alertThunk('일정이 등록 되었습니다.', 1));
             queryclient.invalidateQueries('Schedule');
             reset();
         },
-        onError: (error) => {
+        onError: error => {
             console.log(error);
         },
     });
 
-    const AddScheduleHandler = async (formData) => {
+    const AddScheduleHandler = async formData => {
         console.log('formData:', formData);
         const rquestData = {
             schedule_date: selectDay,
