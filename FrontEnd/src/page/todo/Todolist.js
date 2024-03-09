@@ -113,7 +113,7 @@ const StudyTimer = () => {
     //Timer Func
     const TimerFunc = () => {
         const timer = setInterval(() => {
-            setTimer((prev) => {
+            setTimer(prev => {
                 let NextSeond = prev.second + 1;
                 let NextMinit = prev.minit;
                 let NextHour = prev.Hour;
@@ -152,7 +152,7 @@ const StudyTimer = () => {
         clearInterval(id);
     };
 
-    const TimerFormetting = (target) => {
+    const TimerFormetting = target => {
         return String(target).padStart(2, 0);
     };
 
@@ -187,10 +187,10 @@ export default function Todolist() {
 
     useQuery(['Schedule', getMonth], () => scheduleFetch(getYear, getMonth), {
         refetchOnWindowFocus: false,
-        onSuccess: (data) => {
+        onSuccess: data => {
             setListData(data.restResponseData);
         },
-        onError: (error) => {
+        onError: error => {
             dispatch(alertThunk(error.message, 0));
         },
     });

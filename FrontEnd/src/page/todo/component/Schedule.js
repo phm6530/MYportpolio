@@ -91,6 +91,7 @@ const ListHandler = ({ idx, selectWork, setSelectWork, ScheduleItem }) => {
     const [deleteKey, setDeleteKey] = useState(null);
     const [textAreaHeight, setTextArerHeight] = useState(ScheduleItem.work.split(/\r\n|\r|\n/).length);
     const { schedule_key, complete, important } = ScheduleItem;
+    console.log(ScheduleItem);
     const dispatch = useDispatch();
     const queryClient = useQueryClient();
 

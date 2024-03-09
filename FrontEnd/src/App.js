@@ -22,9 +22,6 @@ import AddProject from './page/MyProject/component/AddProject/AddProject';
 
 // Notice
 import Board from './page/Board/Board';
-// import BoardDetail from './page/Board/component/BoardDetail';
-// import BoardWirte from './page/Board/BoardWIrte';
-// import { boardList } from './page/Board/Board';
 
 // admin
 import Admin from './page/admin/Admin';

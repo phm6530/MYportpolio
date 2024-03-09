@@ -54,7 +54,8 @@ const ProjectTitle = styled.div`
     justify-content: space-between;
     align-items: center;
     position: relative;
-    background: linear-gradient(to right top, #345091, #37396b, #357794);
+    background: #212224;
+    margin-bottom: 1.3rem;
     color: transparent;
     background-clip: text;
     button {
@@ -134,20 +135,10 @@ export default function ProjectItemHeader({ activeIdx, setActiveIdx, project }) 
                     />
                     {area && (
                         <EditArea>
-                            <button
-                                onClick={() => {
-                                    setModal(true);
-                                    updateHandler(project.project_key);
-                                }}
-                            >
+                            <button onClick={() => updateHandler(project.project_key)}>
                                 <MdModeEdit />
                             </button>
-                            <button
-                                onClick={() => {
-                                    setModal(true);
-                                    deleteHandler(project.project_key);
-                                }}
-                            >
+                            <button onClick={() => deleteHandler(project.project_key)}>
                                 <FaTrashAlt />
                             </button>
                         </EditArea>

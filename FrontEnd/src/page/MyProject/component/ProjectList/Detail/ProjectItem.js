@@ -17,21 +17,30 @@ const ProjectDuration = styled.div`
 `;
 
 const ProjectFadeinStyle = styled(Fadein)`
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     padding: 0 1rem;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
     overflow: hidden;
     display: flex;
     align-items: start;
     border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    img {
+        transition: all 0.5s ease;
+    }
+    &:hover {
+        img {
+            transform: scale(1.1);
+        }
+    }
 `;
 
 const ProjectImgArea = styled.div`
-    width: 35%;
+    width: 30%;
     height: 12.6rem;
     position: relative;
     overflow: hidden;
-    border-radius: 0.2rem;
+    border-radius: 0.5rem;
+
     .cateGory {
         background: red;
         position: absolute;
@@ -40,14 +49,14 @@ const ProjectImgArea = styled.div`
         font-size: 12px;
         padding: 0.2rem 0.7rem;
         color: #fff;
-        background: linear-gradient(to right, #c47cdf, #c27ce4, #df69cede);
+        background: #303441;
     }
 `;
 const ProjectSkillWrap = styled.div`
     display: flex;
-    background: linear-gradient(to top, #0000008a, #00000021, #ffffff00);
-    position: absolute;
-    width: 100%;
+    /* background: linear-gradient(to top, #0000008a, #00000021, #ffffff00); */
+    /* position: absolute; */
+    /* width: 100%; */
     bottom: 0;
     padding: 0.5rem;
     height: 50%;
@@ -66,18 +75,16 @@ const ProjectSkillWrap = styled.div`
 
 const ProjectCompany = styled.div`
     font-size: 12px;
-
-    margin-bottom: 16px;
+    margin-bottom: 3px;
     color: rgba(113 113 122);
 `;
 
 const ProjectDescription = styled.div`
-    font-size: 14px;
+    font-size: 16px;
     white-space: pre-line;
-    padding-bottom: 20px;
+    margin-bottom: 24px;
     color: #3d4757;
-    line-height: 1.3rem;
-    /* border-bottom: 1px solid rgba(0,0,0,0.12); */
+    line-height: 1.7rem;
 `;
 
 const ContentsWrap = styled.div`
@@ -85,9 +92,21 @@ const ContentsWrap = styled.div`
     flex-direction: column;
     align-items: flex-start;
     align-items: flex-start;
-    padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+    padding: 1rem 0.5rem 0.5rem 3rem;
     width: 65%;
     flex-grow: 1;
+`;
+
+const SkillStyle = styled.div`
+    display: inline-block;
+    color: #555969;
+    border-radius: 18px;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-right: 0.6rem;
+    color: rgb(75, 148, 250);
+    background-color: rgb(235, 244, 255);
 `;
 
 const ProjectButtonWrap = styled.div``;
@@ -107,21 +126,13 @@ export default function ProjectItem({ activeIdx, setActiveIdx, project }) {
                 <ProjectImgArea>
                     <img src={`http://localhost:8080/${thumbnail}`} alt="jkl" />
                     <div className="cateGory">참여율 100%</div>
-                    <ProjectSkillWrap>
-                        {skill &&
-                            skill.map((e, idx) => {
-                                const SkillCmponent = SKILL_ICON[e];
-                                return SkillCmponent ? (
-                                    <SkillCmponent key={`skill--${e}`} label={e} />
-                                ) : (
-                                    <span key={idx}>{SKILL_ICON[e] || e}</span>
-                                );
-                            })}
-                    </ProjectSkillWrap>
+                    {/* <ProjectSkillWrap></ProjectSkillWrap> */}
                 </ProjectImgArea>
 
                 <ContentsWrap>
                     {/* Header */}
+                    <ProjectCompany>{company}</ProjectCompany>
+
                     <ProjectItemHeader
                         activeIdx={activeIdx === project.id}
                         setActiveIdx={setActiveIdx}
@@ -129,9 +140,11 @@ export default function ProjectItem({ activeIdx, setActiveIdx, project }) {
                     />
 
                     {/* Company */}
-                    <ProjectCompany>{company}</ProjectCompany>
+
                     <div>
                         <ProjectDescription>{description}</ProjectDescription>
+                        {skill && skill.map((e, idx) => <SkillStyle>{e}</SkillStyle>)}
+
                         {/* <ProjectSubTitle>기술스택</ProjectSubTitle> */}
                     </div>
 
@@ -144,8 +157,8 @@ export default function ProjectItem({ activeIdx, setActiveIdx, project }) {
                                 </ProjectDuration> */}
 
                     <ProjectButtonWrap>
-                        <Button.Type onClick={() => projectView(project_url)}>VIEW</Button.Type>
-                        <Button.Type onClick={() => navigate(`${project_key}`)}>자세히보기</Button.Type>
+                        {/* <Button.Type onClick={() => projectView(project_url)}>VIEW</Button.Type> */}
+                        {/* <Button.Type onClick={() => navigate(`${project_key}`)}>More</Button.Type> */}
                     </ProjectButtonWrap>
                 </ContentsWrap>
             </ProjectFadeinStyle>

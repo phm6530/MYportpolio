@@ -8,10 +8,12 @@ import alertThunk from 'store/alertTrunk';
 
 const useProjectActions = () => {
     const queryClient = useQueryClient();
-    const { clientAuthCheck } = useAuthCheck();
+    const [modal, setModal] = useState(false);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [modal, setModal] = useState(false);
+
+    const { clientAuthCheck } = useAuthCheck();
 
     //삭제 비동기
     const { mutateAsync } = useMutation(deleteKey => projectDelete(deleteKey), {
@@ -19,6 +21,7 @@ const useProjectActions = () => {
             console.log(data);
             dispatch(alertThunk('삭제되었습니다.', 1));
             queryClient.invalidateQueries('project');
+            navigate('/project');
         },
     });
 
@@ -34,6 +37,7 @@ const useProjectActions = () => {
         if (!clientAuthCheck('삭제')) {
             return;
         }
+        setModal(true);
     };
 
     return {

@@ -1,12 +1,13 @@
-import ReactQuill from 'react-quill';
+import ReactQuill, { Quill } from 'react-quill';
 import 'quill/dist/quill.snow.css';
 
 // import SubTitle from '../../../../../component/ui/Subtitle';
 import styled from 'styled-components';
-import { useMemo, useRef, forwardRef } from 'react';
+import { useMemo, useRef, forwardRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import alertThunk from 'store/alertTrunk';
 import { uploadImage } from 'services/projectService';
+import CustomToolbar from './QuillCustumToolbar';
 
 const EditorStyle = styled.div`
     padding: 2rem 0;
@@ -15,6 +16,7 @@ const EditorStyle = styled.div`
 const ReactQuillStyle = styled(ReactQuill)`
     .ql-editor {
         height: 500px;
+        font-family: 'Poppins', 'SUIT-Regular', sans-serif;
     }
     .ql-align-center {
         text-align: center;
@@ -74,14 +76,7 @@ const QuillEditor = forwardRef(({ PROJECT_KEY, ...props }, _) => {
     const modules = useMemo(() => {
         return {
             toolbar: {
-                container: [
-                    [{ header: [1, 2, 3, false] }],
-                    ['bold', 'italic', 'underline', 'strike'],
-                    ['blockquote'],
-                    [{ list: 'ordered' }, { list: 'bullet' }],
-                    [{ color: [] }, { background: [] }],
-                    [{ align: [] }, 'link', 'image'],
-                ],
+                container: '#toolbar',
                 handlers: {
                     image: handleImageUpload,
                 },
@@ -129,6 +124,7 @@ const QuillEditor = forwardRef(({ PROJECT_KEY, ...props }, _) => {
 
     return (
         <EditorStyle>
+            <CustomToolbar />
             {/* <SubTitle><span className='subText'>PROJECT - 내용</span></SubTitle> */}
             <ReactQuillStyle modules={modules} ref={quillRef} {...props} />
         </EditorStyle>

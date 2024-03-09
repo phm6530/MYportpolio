@@ -1,7 +1,3 @@
-import React, { useEffect, useRef } from 'react';
-import ReactQuill, { Quill } from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; // 스타일시트 임포트
-
 const CustomToolbar = () => (
     <div id="toolbar">
         <span className="ql-formats">
@@ -14,7 +10,7 @@ const CustomToolbar = () => (
                 <option value="small">Small</option>
                 <option value="medium">Medium</option>
                 <option value="large">Large</option>
-                <option value="TiTle">Title</option>
+                <option value="huge">Title</option>
             </select>
             <select className="ql-header">
                 <option value="1">Header 1</option>
@@ -43,36 +39,16 @@ const CustomToolbar = () => (
         </span>
 
         <span className="ql-formats">
+            <button className="ql-align" value="" /> {/* 기본값(왼쪽 정렬) */}
+            <button className="ql-align" value="center" />
+            <button className="ql-align" value="right" />
+            <button className="ql-align" value="justify" />
+        </span>
+
+        <span className="ql-formats">
             <button className="ql-clean" />
         </span>
     </div>
 );
 
-export default function Editor() {
-    // 커스텀 버튼의 클릭 핸들러
-    function handleCustomButtonClick() {
-        console.log('커스텀 버튼 클릭됨!');
-        // 여기에 커스텀 버튼 클릭 시 실행할 로직 추가
-    }
-
-    useEffect(() => {
-        const quillCustum = document.querySelector('.ql-custum-style');
-        quillCustum.addEventListener('click', handleCustomButtonClick);
-    }, []);
-
-    return (
-        <div style={{ paddingTop: 100 }}>
-            <CustomToolbar />
-            <ReactQuill
-                modules={{
-                    toolbar: {
-                        container: '#toolbar',
-                        hanlders: {
-                            image: handleCustomButtonClick,
-                        }, // 커스텀 툴바 사용
-                    },
-                }}
-            />
-        </div>
-    );
-}
+export default CustomToolbar;

@@ -6,10 +6,21 @@ import { MdUpload } from 'react-icons/md';
 const ButtonType = styled.button`
     font-size: 12px;
     color: #222;
-    padding: 5px 10px;
-    border-radius: 4em;
-    /* background: rgba(0,0,0,0.05); */
+    /* padding: 5px 10px; */
+    display: flex;
+    align-items: center;
+    padding-bottom: 0.2rem;
     margin-right: 1rem;
+    /* border: 1px solid rgb(200, 202, 210); */
+    color: rgb(33, 34, 36);
+    font-weight: 400;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    svg {
+        margin-left: 0.5rem;
+    }
+    &:hover {
+        font-weight: bold;
+    }
 `;
 
 const ForsquareBtnStyle = styled.button`
@@ -41,7 +52,11 @@ const PopupOpenButton = styled.div`
     }
 `;
 const Type = ({ children, ...props }) => {
-    return <ButtonType {...props}>{children}</ButtonType>;
+    return (
+        <ButtonType {...props}>
+            {children} <IoMdArrowForward />
+        </ButtonType>
+    );
 };
 
 const CommonStyle = css`

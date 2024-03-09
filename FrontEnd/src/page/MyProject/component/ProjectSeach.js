@@ -37,7 +37,7 @@ const SeachArea = styled.div`
     justify-content: flex-end;
     padding: 0.5rem 1.5rem;
     border-bottom: 1px solid rgb(0 0 0 / 6%);
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     button {
         color: #222;
         font-weight: 600;
@@ -52,7 +52,7 @@ const PreViewButtonStyle = styled.button`
     /* border: 1px solid rgba(0,0,0,0.2); */
     padding: 3px 15px;
     font-size: 12px;
-    border-left: 1px solid rgba(0, 0, 0, 0.5);
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
 `;
 
 export default function ProjectSeach() {
