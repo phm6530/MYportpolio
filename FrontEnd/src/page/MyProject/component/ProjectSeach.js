@@ -110,9 +110,9 @@ export default function ProjectSeach() {
               <PreViewButton
                     seachContent='100%'
                 >웹진</PreViewButton> */}
-                <PreViewButton last={true} seachContent="개발">
+                {/* <PreViewButton last={true} seachContent="개발">
                     참여율 100%
-                </PreViewButton>
+                </PreViewButton> */}
                 <Seach>
                     <input type="text" placeholder="검색어를 적어주세요..." onChange={e => setInput(e.target.value)} />
                     <button type="submit">

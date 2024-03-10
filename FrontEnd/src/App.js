@@ -1,8 +1,12 @@
 import './App.css';
 import { Provider } from 'react-redux';
 
+import Motion from 'component/animations/Motion';
+
+import { loader } from 'component/layout/RootLayout';
+
 // Rounter
-import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, redirect, RouterProvider, useLocation } from 'react-router-dom';
 
 import RootLayout from 'component/layout/RootLayout';
 
@@ -42,6 +46,7 @@ import ErrorRoot from 'component/error/ErrorRoot';
 import Contact from './page/contact/Contact';
 import ProjectLayout from 'features/project/ProjectLayout';
 import ProjectList from './page/MyProject/component/ProjectList/ProjectList';
+import { useEffect } from 'react';
 
 const router = createBrowserRouter([
     {
@@ -50,7 +55,10 @@ const router = createBrowserRouter([
         errorElement: <ErrorRoot />,
         id: 'auth',
         children: [
-            { index: true, element: <HomeComponent /> },
+            {
+                index: true,
+                element: <HomeComponent />,
+            },
 
             // ProjectLayOut Outlet
             {

@@ -15,6 +15,8 @@ import { useSearchParams } from 'react-router-dom';
 import { scheduleFetch } from './ScheduleFetch';
 import { TodaySeletor } from './component/TodaySeletor';
 
+import Motion from 'component/animations/Motion';
+
 //그래프
 // import ReactChat from 'react-apexcharts';
 

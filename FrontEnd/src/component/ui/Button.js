@@ -4,17 +4,16 @@ import { IoMdArrowForward } from 'react-icons/io';
 import { MdUpload } from 'react-icons/md';
 
 const ButtonType = styled.button`
-    font-size: 12px;
+    font-size: 14px;
     color: #222;
     /* padding: 5px 10px; */
     display: flex;
     align-items: center;
-    padding-bottom: 0.2rem;
-    margin-right: 1rem;
+    padding: 0.5rem 1rem;
     /* border: 1px solid rgb(200, 202, 210); */
     color: rgb(33, 34, 36);
     font-weight: 400;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     svg {
         margin-left: 0.5rem;
     }

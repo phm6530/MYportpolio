@@ -12,7 +12,7 @@ import Alert from 'component/alert/Alert';
 import Popup from '../popup/Popup';
 
 import DarkModeBtn from '../ui/DarkModeBtn';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import LoginForm from '../popup/login/LoginForm';
 import TopButton from 'component/ui/TopButton';
 
@@ -48,6 +48,8 @@ export default function RootNav({ ChangePageHandler }) {
     const [active, setActive] = useState(pathname);
     const logout = useLogout();
 
+    const navigate = useNavigate();
+
     //Dark Mode
     const ctx = useContext(DarkMode);
     const NavPageObject = [
@@ -82,18 +84,11 @@ export default function RootNav({ ChangePageHandler }) {
                         {/* Nav */}
                         <ul>
                             {NavPageObject.map((e, idx) => {
+                                // console.log(e.p);
                                 if (e.AuthPage) {
                                     return (
                                         login && (
-                                            <List
-                                                key={idx}
-                                                $active={active === e.path}
-                                                onClick={() => {
-                                                    ChangePageHandler(e.path);
-                                                    setActive(e.path);
-                                                }}
-                                                to={e.path}
-                                            >
+                                            <List key={idx} $active={active === e.path}>
                                                 {e.pathName}
                                             </List>
                                         )
@@ -105,8 +100,9 @@ export default function RootNav({ ChangePageHandler }) {
                                         key={idx}
                                         $active={active === e.path}
                                         onClick={() => {
-                                            ChangePageHandler(e.path);
+                                            // ChangePageHandler(e.path);
                                             setActive(e.path);
+                                            navigate(e.path);
                                         }}
                                     >
                                         {e.pathName}

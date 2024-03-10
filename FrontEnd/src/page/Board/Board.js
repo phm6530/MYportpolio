@@ -17,6 +17,7 @@ import DashBoardTitle from '../../component/ui/DashBoardTitle';
 import SubTitle from '../../component/ui/Subtitle';
 import UserProfile from 'component/profile/UserProfile';
 import BoardCommentList from './component/BoardCommentList/BoardCommentList';
+import Motion from 'component/animations/Motion';
 
 const PageText = styled.div`
     word-break: keep-all;

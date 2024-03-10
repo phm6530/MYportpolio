@@ -55,7 +55,6 @@ const ProjectTitle = styled.div`
     align-items: center;
     position: relative;
     background: #212224;
-    margin-bottom: 1.3rem;
     color: transparent;
     background-clip: text;
     button {
@@ -74,6 +73,7 @@ const ProjectItemHeaderStyle = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
+    margin-bottom: 1rem;
 `;
 
 const EditArea = styled.div`
@@ -86,25 +86,25 @@ const EditArea = styled.div`
 `;
 
 export default function ProjectItemHeader({ activeIdx, setActiveIdx, project }) {
-    const [area, setArea] = useState(activeIdx);
-    const { modal, setModal, mutateAsync, updateHandler, deleteHandler } = useProjectActions();
-    const ref = useRef();
+    // const [area, setArea] = useState(activeIdx);
+    const { modal, setModal, mutateAsync } = useProjectActions();
+    // const ref = useRef();
 
-    useEffect(() => {
-        const outSideClickhandler = e => {
-            if (!ref.current.contains(e.target)) {
-                setActiveIdx(null);
-                setArea(false);
-                return;
-            }
-            setArea(true);
-        };
+    // useEffect(() => {
+    //     const outSideClickhandler = e => {
+    //         if (!ref.current.contains(e.target)) {
+    //             setActiveIdx(null);
+    //             setArea(false);
+    //             return;
+    //         }
+    //         setArea(true);
+    //     };
 
-        document.addEventListener('mousedown', outSideClickhandler);
-        return () => {
-            document.removeEventListener('mousedown', outSideClickhandler);
-        };
-    }, []);
+    //     document.addEventListener('mousedown', outSideClickhandler);
+    //     return () => {
+    //         document.removeEventListener('mousedown', outSideClickhandler);
+    //     };
+    // }, []);
 
     return (
         <>
@@ -125,7 +125,7 @@ export default function ProjectItemHeader({ activeIdx, setActiveIdx, project }) 
                     <FaLink size={'14'} style={{ marginRight: 'auto', marginLeft: '10px' }} />
                 </ProjectTitle>
 
-                <ProjectEditWrap ref={ref} $view={area}>
+                {/* <ProjectEditWrap ref={ref} $view={area}>
                     <IconCustum
                         $view={area}
                         onClick={e => {
@@ -136,14 +136,14 @@ export default function ProjectItemHeader({ activeIdx, setActiveIdx, project }) 
                     {area && (
                         <EditArea>
                             <button onClick={() => updateHandler(project.project_key)}>
-                                <MdModeEdit />
+                                <MdModeEdit /> <FaTrashAlt />
                             </button>
                             <button onClick={() => deleteHandler(project.project_key)}>
                                 <FaTrashAlt />
                             </button>
                         </EditArea>
                     )}
-                </ProjectEditWrap>
+                </ProjectEditWrap> */}
             </ProjectItemHeaderStyle>
         </>
     );

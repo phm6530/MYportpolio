@@ -103,15 +103,6 @@ body {
   color: rgb(233, 97, 97);
 }
 
-.loaded {
-  animation: 0.4s 0.1s ease load forwards;
-  opacity: 0;
-}
-
-.unloaded {
-  animation: 0.4s ease unload forwards;
-}
-
 @keyframes load {
   0% {
     opacity: 0;
@@ -211,13 +202,19 @@ input::placeholder {
   border-radius: 1rem;
 }
 
+.ql-editor {
+  height: auto !important;
+}
 .ql-editor .ql-size-huge {
-  background: linear-gradient(to top, #331861, #4b5787, #3b5a87);
+  background: linear-gradient(to top, #000000, #4b5787, #000000);
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
   font-weight: bold;
   font-size: 1.5rem !important;
+  margin-bottom: 1rem;
+  margin-top: 3rem;
+  display: inline-block;
 }
 .ql-editor blockquote {
   border-left: 4px solid #ccc;

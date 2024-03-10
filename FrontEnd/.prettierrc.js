@@ -1,12 +1,24 @@
-export const singleQuote = true;
-export const semi = true;
-export const useTabs = false;
-export const tabWidth = 4;
-export const trailingComma = 'all';
-export const printWidth = 120;
-export const jsxBracketSameLine = false;
-export const jsxSingleQuote = false;
-export const arrowParens = 'avoid';
+const singleQuote = true;
+const semi = true;
+const useTabs = false;
+const tabWidth = 4;
+const trailingComma = 'all';
+const printWidth = 120;
+const jsxBracketSameLine = false;
+const jsxSingleQuote = false;
+const arrowParens = 'avoid';
+
+module.exports = {
+    singleQuote,
+    semi,
+    useTabs,
+    tabWidth,
+    trailingComma,
+    printWidth,
+    jsxBracketSameLine,
+    jsxSingleQuote,
+    arrowParens,
+};
 // {
 //     "arrowParens": "avoid", // 화살표 함수 괄호 사용 방식
 //     "bracketSpacing": false, // 객체 리터럴에서 괄호에 공백 삽입 여부
