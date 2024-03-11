@@ -12,12 +12,12 @@ const BackGroundVideo = styled.div`
 
 function VideoCanvas() {
     return (
-        <></>
-        // <BackGroundVideo>
-        //     <video autoPlay loop muted>
-        //         <source src="/img/board/bg_video.mp4" type="video/mp4" />
-        //     </video>
-        // </BackGroundVideo>
+        // <></>
+        <BackGroundVideo>
+            <video autoPlay loop muted>
+                <source src="/img/board/bg_video.mp4" type="video/mp4" />
+            </video>
+        </BackGroundVideo>
     );
 }
 

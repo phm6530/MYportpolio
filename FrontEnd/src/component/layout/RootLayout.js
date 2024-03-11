@@ -6,6 +6,9 @@ import styled, { css } from 'styled-components';
 import Footer from './Footer';
 
 import { AnimatePresence } from 'framer-motion';
+import { Route, Routes } from 'react-router-dom';
+import HomeComponent from 'page/Home/HomeComponent';
+import ProjectLayout from 'features/project/ProjectLayout';
 
 // import Timer from './Timer';
 
@@ -62,17 +65,12 @@ export default function RootLayout() {
         <>
             {/* 로그인 팝업 */}
             {/* 24/1/13 - 하위컴포넌트 랜더링 문제가 있어서 변경함 */}
-
             {/* Common Nav */}
             <RootNav />
             {/* <Gird>
                 <Timer/>
             </Gird> */}
-            <AnimatePresence>
-                <Outlet />
-                {/* <AnimatedOutlet /> */}
-            </AnimatePresence>
-            {/* Footer */}
+            /{/* Footer */}
             <Footer />
         </>
     );

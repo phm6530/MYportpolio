@@ -32,7 +32,6 @@ const fetchDetail = async key => {
 
 // Insert or Update하기
 const addProjectFetch = async (formData, Type) => {
-    console.log('formData :::::: ', formData);
     try {
         const response = await fetch(
             Type !== 'edit' ? 'http://localhost:8080/project/add' : `http://localhost:8080/project/editProject`,

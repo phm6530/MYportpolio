@@ -15,7 +15,7 @@ const EditorStyle = styled.div`
 
 const ReactQuillStyle = styled(ReactQuill)`
     .ql-editor {
-        height: 500px;
+        height: 500px !important;
         font-family: 'Poppins', 'SUIT-Regular', sans-serif;
     }
     .ql-align-center {
@@ -28,7 +28,7 @@ const ReactQuillStyle = styled(ReactQuill)`
 `;
 
 const QuillEditor = forwardRef(({ PROJECT_KEY, ...props }, _) => {
-    console.log({ ...props });
+    // console.log({ ...props });
     const quillRef = useRef();
     const dispatch = useDispatch();
 

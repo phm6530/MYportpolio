@@ -39,7 +39,7 @@ const tokenCheck = async () => {
             return json({ Auth: false, message: data.message });
         }
         store.dispatch(authAction.complete());
-        console.log('datat ::::', data);
+        // console.log('datat ::::', data);
         // data를 사용하거나 반환
         return data;
     } catch (error) {

@@ -33,7 +33,7 @@ export default function Project() {
 
             <ProjectWrap>
                 <UserProfile />
-                <AnimatePresence mode="wait">
+                {/* <AnimatePresence mode="wait">
                     <motion.div
                         initial={{ opacity: 0, y: -100 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -42,10 +42,10 @@ export default function Project() {
                             duration: 0.5,
                             ease: [0.6, -0.05, 0.01, 0.99], // 예시 큐빅 베지어 값
                         }}
-                    >
-                        <Outlet />
-                    </motion.div>
-                </AnimatePresence>
+                    > */}
+                <Outlet />
+                {/* </motion.div>
+                </AnimatePresence> */}
             </ProjectWrap>
         </>
     );

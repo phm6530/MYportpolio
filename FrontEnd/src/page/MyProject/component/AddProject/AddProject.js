@@ -3,15 +3,15 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { InputStyle, TextAreaStyle } from '../../../../component/ui/TextArea';
+import { MdCancel } from 'react-icons/md';
 
 // Quill 에디터
 import QuillEditor from './Detail/QuillEditor';
 
-import { Controller, useForm } from 'react-hook-form';
-import useAuthRedirect from 'hooks/useAuthRedirect';
+import { Controller, useForm, useFieldArray } from 'react-hook-form';
 import Checkbox from './Detail/CheckBox';
 import CustumDatePicker from './Detail/CustumDatePicker';
 
@@ -28,6 +28,7 @@ const schema = Yup.object().shape({
     title: Yup.string().required('필수 입력란 입니다.'),
     skill: Yup.array().min(1, '한개 이상의 stack을 등록해주세요'),
     company: Yup.string().required('필수 입력란 입니다.'),
+    hashtag: Yup.array().min(1, '한 개 이상의 해시태그를 등록해주세요.'),
     projectUrl: Yup.string().required('필수 입력란 입니다.').url('Url 형식으로 입력해주세요. 예)https://sitename.com'),
     startDate: Yup.date()
         .max(Yup.ref('endDate'), '시작일은 종료일보다 빨라야 합니다.')
@@ -48,7 +49,7 @@ const AdminProjectStyle = styled.div`
 const InputWrap = styled.div`
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
 `;
 
 const InputLabel = styled.div`
@@ -99,13 +100,18 @@ const UPloadFileName = styled.div`
     margin-left: 1rem;
 `;
 
+const HashtagWrap = styled.div``;
+
 export default function AddProject() {
     const {
         register,
         handleSubmit,
         setValue,
         watch,
+        getValues,
         reset,
+        trigger,
+        setError,
         formState: { errors },
         control,
     } = useForm({
@@ -114,17 +120,25 @@ export default function AddProject() {
             title: '',
             skill: [],
             projectUrl: '',
+            hashtag: [],
             description: '',
             projectDescription: '',
             thumbnail: '',
         },
     });
 
+    const ref = useRef();
+
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: 'hashtag',
+    });
+
+    const location = useLocation();
+
     const thumNail = watch('thumbnail');
+    // console.log('thumNail::::::::::::::::::::::::', thumNail);
 
-    console.log('thumNail::::::::::::::::::::::::', thumNail);
-
-    console.log(errors);
     // const ctx = useContext(DarkMode);
     // console.log(ctx);
     const [PROJECT_KEY, SETPROJECT_KEY] = useState(null);
@@ -132,9 +146,11 @@ export default function AddProject() {
     // console.log('PROJECT_KEY ::::: ',PROJECT_KEY)
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     const Type = Params.get('type');
     const ProjectKey = Params.get('key');
+
+    // console.log(errors);
+    // console.log(getValues());
 
     useEffect(() => {
         const fetching = async () => {
@@ -145,7 +161,7 @@ export default function AddProject() {
         if (Type === 'edit') {
             fetching()
                 .then(res => {
-                    console.log(res);
+                    console.log(' res :::::: ', res);
                     reset({
                         idx: res.project_key,
                         title: res.title,
@@ -153,6 +169,7 @@ export default function AddProject() {
                         description: res.description.replaceAll('<br>', '\n'),
                         projectUrl: res.project_url,
                         skill: res.skill.split(','),
+                        hashtag: res.hashtag.split(','),
                         startDate: new Date(res.startProject),
                         endDate: new Date(res.endProject),
                         projectDescription: res.project_description,
@@ -165,10 +182,7 @@ export default function AddProject() {
         } else {
             SETPROJECT_KEY(uuidv4()); //신규 생성키
         }
-    }, [ProjectKey, Type, dispatch, reset]);
-
-    // 팝업
-    useAuthRedirect('/project'); //project 리턴
+    }, [ProjectKey, Type, dispatch, reset, Params]);
 
     const cancelEvent = () => {
         navigate(-1);
@@ -183,6 +197,11 @@ export default function AddProject() {
             } else {
                 setObj = { ...data, idx: PROJECT_KEY };
             }
+            // const hash = setObj.hashtag;
+
+            // const newHashArr = hash.flatMap(e => Object.values(e));
+
+            // setObj = { ...setObj, hashtag: newHashArr };
 
             console.log('setObjsetObjsetObjsetObj :::: ', setObj);
             await addProjectFetch(setObj, Type);
@@ -223,6 +242,33 @@ export default function AddProject() {
         // setValue('thumbnail', e.target.files[0], { shouldValidate: true });
     };
 
+    const isCheck = value => {
+        const skillArr = getValues('skill');
+        const same = skillArr.some(skill => skill === value);
+        return same;
+    };
+
+    const findText = (target, arr) => {
+        const result = arr.includes(target);
+        console.log(result);
+    };
+
+    const addHashtag = e => {
+        e.preventDefault();
+
+        const newValue = ref.current.value;
+        if (!newValue) {
+            setError('hashtag', { type: 'custom', message: '해시태그를 입력해주세요.' });
+            return;
+        }
+
+        if (newValue && !fields.some(field => field.value === newValue)) {
+            append(newValue);
+            trigger('hashtag');
+            ref.current.value = '';
+        }
+    };
+
     return (
         <AdminProjectStyle>
             <SubTitle>
@@ -231,6 +277,7 @@ export default function AddProject() {
 
             <FormStyle onSubmit={handleSubmit(onSubmitHandler)}>
                 {/* CustumInputWrap ,TextAreaStyle */}
+
                 <InputWrap>
                     <InputLabel>프로젝트 명 </InputLabel>
                     <CustumInputWrap type="text" placeholder="프로젝트 명을 입력해주세요." {...register('title')} />
@@ -258,10 +305,31 @@ export default function AddProject() {
                     <InputLabel>프로젝트 기술스택 </InputLabel>
                     <ProjectSkillWrap>
                         {projectStack.map(e => (
-                            <Checkbox key={e} label={e} {...register('skill')} />
+                            <Checkbox key={e} label={e} {...register('skill')} isCheck={isCheck(e)} trigger={trigger} />
                         ))}
                     </ProjectSkillWrap>
                     {errors.skill && <p className="errorMessage">{errors.skill.message}</p>}
+                </InputWrap>
+
+                <InputWrap>
+                    <InputLabel>해시태그</InputLabel>
+                    <div className="FlexColumn">
+                        <InputWrap>
+                            <CustumInputWrap ref={ref} placeholder="해시태그 추가" />
+                            <button onClick={addHashtag}>Add</button>
+                        </InputWrap>
+                        <HashtagWrap>
+                            {getValues('hashtag').map((field, index) => (
+                                <div className="hashTag" key={field.id}>
+                                    {field}
+                                    <button type="button" onClick={() => remove(index)}>
+                                        <MdCancel />
+                                    </button>
+                                </div>
+                            ))}
+                        </HashtagWrap>
+                    </div>
+                    {errors.hashtag && <p className="errorMessage">{errors.hashtag.message}</p>}
                 </InputWrap>
 
                 <InputWrap>

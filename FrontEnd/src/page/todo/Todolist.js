@@ -8,6 +8,8 @@ import Schedule from './component/Schedule';
 import alertThunk from '../../store/alertTrunk';
 import FadeinComponent from '../../FadeinComponent';
 
+import { AnimatePresence } from 'framer-motion';
+
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';

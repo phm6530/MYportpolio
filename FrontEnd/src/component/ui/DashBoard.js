@@ -107,7 +107,6 @@ export default function DashBoard({ className, page, children }) {
                     <IoMdHome /> HOME / {path}
                 </PathStyle>
             </HeaderGird>
-            asfsafasfsf
             {/* Video */}
             <VideoCanvas />
         </DashBoardStyle>

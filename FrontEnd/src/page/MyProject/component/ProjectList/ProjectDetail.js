@@ -169,6 +169,7 @@ function ProjectDetail({ result }) {
         title,
         company,
         skill,
+        hashtag,
         startProject,
         project_url,
         endProject,
@@ -176,9 +177,8 @@ function ProjectDetail({ result }) {
         thumbnail,
     } = result;
 
-    // console.log(result);
-
     const skillArr = skill.split(',');
+    const HashTagArr = hashtag.split(',');
     // console.log(skillArr);
 
     useEffect(() => {
@@ -220,10 +220,9 @@ function ProjectDetail({ result }) {
                         </ButtonArea>
                     </div>
                     <HashtagArea>
-                        <HashTag># 웹진</HashTag>
-                        <HashTag># 참여율 100%</HashTag>
-                        <HashTag># 기획</HashTag>
-                        <HashTag># React</HashTag>
+                        {HashTagArr.map(e => {
+                            return <HashTag>{`# ${e}`}</HashTag>;
+                        })}
                     </HashtagArea>
 
                     {/* <div className="company">{company}</div> */}

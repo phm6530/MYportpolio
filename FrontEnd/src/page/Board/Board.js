@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import BannerCommon from '../../component/ui/BannerCommon';
 
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Grid from '../../component/ui/Grid';
 import alertThunk from '../../store/alertTrunk';
 
@@ -86,6 +86,13 @@ export default function Board() {
             dispatch(alertThunk(error.message, 0));
         },
     });
+
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth', // 부드러운 스크롤 효과 적용
+        });
+    }, []);
 
     return (
         <>

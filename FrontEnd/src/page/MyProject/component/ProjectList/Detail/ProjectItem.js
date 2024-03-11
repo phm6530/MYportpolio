@@ -74,17 +74,8 @@ const ContentsWrap = styled.div`
     flex-grow: 1;
 `;
 
-const SkillStyle = styled.div`
-    display: inline-block;
-    color: #555969;
-    border-radius: 18px;
-    padding: 0.3rem 0.5rem;
+const HashtageStyle = styled.div`
     font-size: 0.7rem;
-    font-weight: bold;
-    margin-right: 0.6rem;
-    /* color: rgb(75, 148, 250); */
-    color: rgb(120 141 170);
-    background-color: rgb(235, 244, 255);
 `;
 
 const ViewIconAnimation = styled.div`
@@ -110,8 +101,8 @@ const ViewIconAnimation = styled.div`
 const ProjectButtonWrap = styled.div``;
 
 export default function ProjectItem({ activeIdx, setActiveIdx, project }) {
-    const { thumbnail, skill, company, title, description, project_url, project_key } = project;
-
+    const { thumbnail, skill, company, hashtag, title, description, project_key } = project;
+    console.log(hashtag);
     const navigate = useNavigate();
 
     return (
@@ -123,8 +114,6 @@ export default function ProjectItem({ activeIdx, setActiveIdx, project }) {
                     </ViewIconAnimation>
 
                     <img src={`http://localhost:8080/${thumbnail}`} alt={title} />
-                    {/* <div className="cateGory">참여율 100%</div> */}
-                    {/* <ProjectSkillWrap></ProjectSkillWrap> */}
                 </ProjectImgArea>
 
                 <ContentsWrap>
@@ -141,7 +130,12 @@ export default function ProjectItem({ activeIdx, setActiveIdx, project }) {
 
                     <div>
                         <ProjectDescription>{description}</ProjectDescription>
-                        {skill && skill.map((e, idx) => <SkillStyle key={`skill-${idx}`}>{e}</SkillStyle>)}
+                        {hashtag &&
+                            hashtag.map((e, idx) => (
+                                <HashtageStyle className="hashTag" key={`hash-${idx}`}>
+                                    # {e}
+                                </HashtageStyle>
+                            ))}
 
                         {/* <ProjectSubTitle>기술스택</ProjectSubTitle> */}
                     </div>

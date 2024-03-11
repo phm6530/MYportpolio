@@ -7,8 +7,8 @@ export function Page({ children }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, filter: 'blur(20px)' }}
             transition={{
-                duration: 0.3,
-                //ease: [0.6, -0.05, 0.01, 0.99], // 예시 큐빅 베지어 값
+                duration: 0.4,
+                // ease: [0.6, -0.05, 0.01, 0.99], // 예시 큐빅 베지어 값
             }}
         >
             {children}
