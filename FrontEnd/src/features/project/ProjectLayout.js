@@ -6,7 +6,7 @@ import Gird from 'component/ui/Grid';
 import styled from 'styled-components';
 import Project from 'page/Project';
 import ProjectList from 'page/MyProject/component/ProjectList/ProjectList';
-
+import SubTitle from 'component/ui/Subtitle';
 const ProjectGird = styled(Gird)`
     padding-top: 25rem;
     display: flex;
@@ -23,6 +23,10 @@ import ProjectDetail from 'page/MyProject/component/ProjectList/ProjectDetail';
 import AddProject from 'page/MyProject/component/AddProject/AddProject';
 import Motion from 'component/animations/Motion';
 import WithAuth from 'component/hoc/WithAuth';
+
+const FlexMotion = styled(Motion.FadeInOut)`
+    flex-grow: 1;
+`;
 
 export default function ProjectLayout() {
     const location = useLocation();
@@ -54,9 +58,9 @@ export default function ProjectLayout() {
                         <Route
                             path=":key"
                             element={
-                                <Motion.FadeInOut>
+                                <FlexMotion>
                                     <WithRedirect Component={ProjectDetail} redirectPath={'/project'} />
-                                </Motion.FadeInOut>
+                                </FlexMotion>
                             }
                         />
                         <Route

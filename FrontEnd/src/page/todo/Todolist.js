@@ -8,16 +8,13 @@ import Schedule from './component/Schedule';
 import alertThunk from '../../store/alertTrunk';
 import FadeinComponent from '../../FadeinComponent';
 
-import { AnimatePresence } from 'framer-motion';
-
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { scheduleFetch } from './ScheduleFetch';
 import { TodaySeletor } from './component/TodaySeletor';
-
-import Motion from 'component/animations/Motion';
+import { dateFormating } from 'utils/DateFormat';
 
 //그래프
 // import ReactChat from 'react-apexcharts';
@@ -52,7 +49,7 @@ const SummeryStyle = styled.div`
     margin: 0 20px;
 `;
 
-const DdayItemStyle = styled.div`
+const DdayTaskStyle = styled.div`
     display: flex;
     flex-direction: column;
     margin: 10px;
@@ -69,21 +66,28 @@ const DdayItemStyle = styled.div`
     }
 `;
 
-const DdayItem = () => {
+const DdayTask = ({ task }) => {
+    const { work, schedule_key, formatted_date } = task;
+    const currentDate = new Date();
+    const taskDate = new Date(formatted_date);
+    const dayDifference = (currentDate - taskDate) / (1000 * 3600 * 24);
+    const count = Math.ceil(dayDifference);
     return (
-        <DdayItemStyle>
-            <p>정보처리기사 실기시험</p>
-            <span>D-day</span>
-        </DdayItemStyle>
+        <DdayTaskStyle>
+            <p>{work}</p>
+            <span>D {count}</span>
+            {/* <span>{formatted_date}</span> */}
+        </DdayTaskStyle>
     );
 };
 
-const ScheduleSummary = () => {
+const DdayList = ({ DdayTasks }) => {
     return (
         <SummeryStyle>
-            <DdayItem />
-            <DdayItem />
-            <DdayItem />
+            {DdayTasks &&
+                DdayTasks.map((task, idx) => {
+                    return <DdayTask key={`DdayTask-${idx}`} task={task} />;
+                })}
         </SummeryStyle>
     );
 };
@@ -181,18 +185,19 @@ export default function Todolist() {
 
     const getYear = param.get('year') || today().split('-')[0];
     const getMonth = param.get('month') || today().split('-')[1];
+
     // const getDay = param.get('Day') || today().split('-')[2];
 
     //FetchData
     const [listData, setListData] = useState();
+    const [DdayArr, setDdayArr] = useState();
     const dispatch = useDispatch();
-
-    // console.log(listData);
 
     useQuery(['Schedule', getMonth], () => scheduleFetch(getYear, getMonth), {
         refetchOnWindowFocus: false,
         onSuccess: data => {
             setListData(data.restResponseData);
+            setDdayArr(data.D_Day);
         },
         onError: error => {
             dispatch(alertThunk(error.message, 0));
@@ -212,6 +217,7 @@ export default function Todolist() {
                     <b>MY SCHEDULE</b>
                 </DashBoardTitle>
             </DashBoard>
+
             <CalenaderGrid>
                 {/* <PageSubText>
                 웹 퍼블리셔 4년차, 프로젝트 활동을 기록합니다. <br></br>더 넓은 지식을 위해 React, Node.js를 학습 중에 있습니다.<br></br>
@@ -220,6 +226,7 @@ export default function Todolist() {
                 <FadeinComponent>
                     <ContentsWrap>
                         <StudyTimer />
+
                         {/* body */}
                         <CalendarStyle
                             setSelectDay={setSelectDay}
@@ -228,7 +235,9 @@ export default function Todolist() {
                             paramYear={getYear}
                             paramMonth={getMonth}
                         />
-                        <ScheduleSummary />
+
+                        {/* D-day 영역 */}
+                        <DdayList DdayTasks={DdayArr} />
 
                         {/* Schedule */}
                         <Schedule selectDay={selectDay} listData={listData} setSelectDay={setSelectDay} />

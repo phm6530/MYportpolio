@@ -55,15 +55,14 @@ const AddSchedule = ({ selectDay }) => {
     });
 
     const AddScheduleHandler = async formData => {
-        console.log('formData:', formData);
         const rquestData = {
             schedule_date: selectDay,
             work: formData.Schedule_title,
             important: formData.Schedule_important,
             schedule_key: uuidv4(),
         };
-        if (!clientAuthCheck('입력')) return;
 
+        if (!clientAuthCheck('입력')) return;
         mutation.mutate(rquestData);
     };
 

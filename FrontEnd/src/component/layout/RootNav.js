@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { DarkMode } from '../../context/DarkModeContext';
 import useLogout from 'hooks/useLogout';
 
@@ -50,6 +50,8 @@ export default function RootNav({ ChangePageHandler }) {
 
     const navigate = useNavigate();
 
+    const location = useLocation();
+
     //Dark Mode
     const ctx = useContext(DarkMode);
     const NavPageObject = [
@@ -60,6 +62,14 @@ export default function RootNav({ ChangePageHandler }) {
         { path: '/admin', pathName: 'Admin', AuthPage: true },
         { path: '/contact', pathName: 'contact', AuthPage: false },
     ];
+    // useEffect(() => {
+    //     const Top = setTimeout(() => {
+    //         window.scrollTo(0, 0);
+    //     }, 290);
+    //     return () => {
+    //         clearTimeout(Top);
+    //     };
+    // }, [location.pathname]);
 
     const openLoginPopup = () => setLoginModal(true);
 

@@ -115,7 +115,10 @@ export default function Board() {
                 <RightWrap id="parallex_form">
                     <BoardDashBoard>
                         <SubTitle>
-                            <div className="subText">GUEST BOARD</div>
+                            {/* <img src="/img/board/talk.png" alt="" /> */}
+                            <div className="subText">
+                                <span className="point">GUEST BOARD</span>
+                            </div>
                         </SubTitle>
                         <PageText>
                             brycpt를 이용하여 암호화 저장하고 있으며 해싱된 비밀번호 이외 어떠한 정보도 수집하지

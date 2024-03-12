@@ -5,10 +5,10 @@ export function Page({ children }) {
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0, filter: 'blur(20px)' }}
+            exit={{ opacity: 0, filter: 'blur(10px)' }}
             transition={{
-                duration: 0.4,
-                // ease: [0.6, -0.05, 0.01, 0.99], // 예시 큐빅 베지어 값
+                duration: 0.5,
+                ease: [0.6, -0.05, 0.01, 0.99], // 예시 큐빅 베지어 값
             }}
         >
             {children}
@@ -16,9 +16,10 @@ export function Page({ children }) {
     );
 }
 
-export function FadeInOut({ children }) {
+export function FadeInOut({ className, children }) {
     return (
         <motion.div
+            className={className}
             initial={{ opacity: 0, y: -100 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 100 }}

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 const PagePoint = styled.div`
     background: rgba(0, 0, 0, 0.2);
     display: inline-flex;
@@ -10,29 +9,19 @@ const PagePoint = styled.div`
     /* width: 150px; */
     border-radius: 1em;
     color: #fff;
-    img{
+
+    img {
         width: 30px;
         margin-right: 10px;
     }
-`
+`;
 
-const BannerPoint = ({ className, children}) =>{
-    return(
-        <PagePoint className={className}>
-            {children}
-        </PagePoint>
-    )
+const BannerPoint = ({ className, children }) => {
+    return <PagePoint className={className}>{children}</PagePoint>;
+};
+
+export default function BannerCommon({ children }) {
+    return <>{children}</>;
 }
-
-
-export default function BannerCommon({children}){
-
-    return(
-        <>
-            {children}
-        </>
-    )
-}
-
 
 BannerCommon.BannerPoint = BannerPoint;

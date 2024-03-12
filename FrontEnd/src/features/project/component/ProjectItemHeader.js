@@ -47,8 +47,9 @@ const ProjectEditWrap = styled.div`
 `;
 
 const ProjectTitle = styled.div`
+    margin-top: 1rem;
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 1rem;
     display: flex;
     letter-spacing: -0.7px;
     justify-content: space-between;
@@ -73,7 +74,10 @@ const ProjectItemHeaderStyle = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 0.3rem;
+    img {
+        width: 15px;
+    }
 `;
 
 const EditArea = styled.div`
@@ -120,10 +124,8 @@ export default function ProjectItemHeader({ activeIdx, setActiveIdx, project }) 
             )}
 
             <ProjectItemHeaderStyle>
-                <ProjectTitle>
-                    {project.title}
-                    <FaLink size={'14'} style={{ marginRight: 'auto', marginLeft: '10px' }} />
-                </ProjectTitle>
+                <ProjectTitle>{project.title}</ProjectTitle>
+                {/* <img src="/img/board/arrow.png" alt="" /> */}
 
                 {/* <ProjectEditWrap ref={ref} $view={area}>
                     <IconCustum

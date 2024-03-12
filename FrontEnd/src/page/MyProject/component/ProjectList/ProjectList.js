@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 import FadeinComponent from '../../../../FadeinComponent';
-import ProjectSeach from '../ProjectSeach';
 import ProjectItem from './Detail/ProjectItem';
+import SubTitle from 'component/ui/Subtitle';
 
 import { useQuery } from 'react-query';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
 import { projectFetch } from 'services/projectService';
 import { ProjectWrapStyle } from './Styled/ProjectListStyled';
+import ProjectAddBtn from 'features/project/component/Detail/ProjectAddBtn';
+import CateGoryButton from 'features/project/component/Detail/CateGoryButton';
+import ProjectSeach from 'features/project/component/Detail/ProjectSeach';
 
 const NoSeachingData = styled(FadeinComponent)`
     text-align: center;
@@ -18,6 +21,26 @@ const NoSeachingData = styled(FadeinComponent)`
     align-items: center;
     justify-content: center;
     border-radius: 1em;
+`;
+
+const ProjectListStyle = styled.div`
+    flex-direction: row;
+    border-radius: 1em;
+    background: #fff;
+    flex-grow: 1;
+    overflow: hidden;
+    padding: 2rem 2rem;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+`;
+
+const FlexRow = styled.div`
+    display: flex;
+    width: 100%;
+    margin-bottom: 3rem;
+    /* margin-top: 1rem; */
+    align-items: center;
 `;
 
 export default function ProjectList() {
@@ -39,16 +62,33 @@ export default function ProjectList() {
     const SeachValue = param.get('seach');
 
     const SeachArr = project.filter(e => {
-        return e.title.includes(SeachValue);
+        if (SeachValue === 'All') {
+            return true;
+        }
+        return e.hashtag.includes(SeachValue);
     });
     const ProjectArr = SeachValue ? SeachArr : project;
 
     return (
         <>
-            <ProjectWrapStyle>
-                <ProjectSeach />
+            <ProjectListStyle>
+                <SubTitle>
+                    {/* <img src="/img/board/talk.png" alt="" /> */}
+                    <div className="subText">
+                        <span className="point">MY PORTPOLIO</span> LIST
+                    </div>
+                    <ProjectAddBtn />
+                </SubTitle>
+
+                {/* List */}
+                <FlexRow>
+                    <CateGoryButton />
+                    <ProjectSeach />
+                </FlexRow>
                 {isLoading && <NoSeachingData>Loading...</NoSeachingData>}
-                {SeachValue && SeachArr.length === 0 && <NoSeachingData>검색과 일치하는 항목이 없음</NoSeachingData>}
+                {SeachValue && SeachArr.length === 0 && (
+                    <NoSeachingData>"{SeachValue}" 키워드와 일치하는 항목이 없음</NoSeachingData>
+                )}
                 {!isLoading && isError && 'error'}
                 {!isLoading && !isError && (
                     <>
@@ -63,7 +103,7 @@ export default function ProjectList() {
                         ))}
                     </>
                 )}
-            </ProjectWrapStyle>
+            </ProjectListStyle>
         </>
     );
 }

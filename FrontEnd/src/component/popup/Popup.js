@@ -13,7 +13,7 @@ const Backdrop = () => {
 export default function Popup({ closePopup, type, children }) {
     const [animationState, setAniamtionState] = useState(false);
     const isAuth = useSelector(state => state.authSlice.login);
-    console.log(type);
+    // console.log(type);
 
     // 닫기 & CLose 애니메이션
     const ClosePopup = useCallback(() => {
@@ -24,7 +24,7 @@ export default function Popup({ closePopup, type, children }) {
         }, 400);
     }, [closePopup, setAniamtionState]);
 
-    console.log('isAuth : ', isAuth);
+    // console.log('isAuth : ', isAuth);
 
     useEffect(() => {
         if (isAuth && type === 'Login') {

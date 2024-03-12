@@ -1,5 +1,6 @@
 // 초기데이터 로더
 const scheduleFetch = async (Year, Month) => {
+    console.log('실행해라 !!!!!!!!!!!!!!!!!!!!!!!');
     try {
         const response = await fetch(`http://localhost:8080/schedule?Year=${Year}&month=${Month}`);
         if (!response.ok) {
@@ -13,7 +14,8 @@ const scheduleFetch = async (Year, Month) => {
 };
 
 // 스케줄 추가
-const fetchAddSchedule = async (formData) => {
+const fetchAddSchedule = async formData => {
+    console.log('formData-- Dday ', formData);
     try {
         const response = await fetch('http://localhost:8080/schedule/add', {
             method: 'POST',
@@ -35,7 +37,7 @@ const fetchAddSchedule = async (formData) => {
 };
 
 // 스케줄 수정
-const fetchEditSchedule = async (formData) => {
+const fetchEditSchedule = async formData => {
     try {
         const response = await fetch('http://localhost:8080/schedule/edit', {
             method: 'POST',
@@ -57,7 +59,7 @@ const fetchEditSchedule = async (formData) => {
 };
 
 // 스케줄 삭제
-const fetchDeleteSchedule = async (formData) => {
+const fetchDeleteSchedule = async formData => {
     try {
         const response = await fetch('http://localhost:8080/schedule/delete', {
             method: 'post',
@@ -79,7 +81,7 @@ const fetchDeleteSchedule = async (formData) => {
 };
 
 // Complete Toggle
-const fetchToggleComplete = async (formData) => {
+const fetchToggleComplete = async formData => {
     try {
         const response = await fetch('http://localhost:8080/schedule/complete', {
             method: 'post',

@@ -18,7 +18,7 @@ const SKill = styled.span`
     color: #555969;
     border-radius: 18px;
     padding: 0.3rem 0.9rem;
-    font-size: 0.7rem;
+    font-size: 14px;
     font-weight: bold;
     margin-right: 0.6rem;
     color: rgb(120 141 170);
@@ -221,7 +221,7 @@ function ProjectDetail({ result }) {
                     </div>
                     <HashtagArea>
                         {HashTagArr.map(e => {
-                            return <HashTag>{`# ${e}`}</HashTag>;
+                            return <div className="hashTag">{`# ${e}`}</div>;
                         })}
                     </HashtagArea>
 

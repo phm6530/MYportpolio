@@ -16,7 +16,6 @@ const FormStyle = styled.form`
     flex-direction: column;
     width: 100%;
     align-items: flex-start;
-
     input,
     textarea {
         width: 100%;
@@ -160,7 +159,9 @@ export default function MailComponent() {
                 <FormStyle onSubmit={handleSubmit(onSubmitHandler)}>
                     <SubTitle>
                         {/* <img src="/img/contact/dev_person_1.png" alt="dev_icon" className='dev_icon'/> */}
-                        <span className="subText">HI! PHM, DEVELOPER</span>
+                        <div className="subText">
+                            <span className="point">HI! PHM, DEVELOPER</span>
+                        </div>
                     </SubTitle>
                     <RadioWrap>
                         <FieldLabel>

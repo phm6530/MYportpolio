@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import SKILL_ICON from '../../../../../component/icon/StackIcon';
 import Fadein from '../../../../../FadeinComponent';
 
@@ -18,18 +18,36 @@ const ProjectDuration = styled.div`
 `;
 
 const ProjectFadeinStyle = styled(Fadein)`
-    margin-bottom: 2rem;
-    padding: 0 1rem;
-    padding-bottom: 2rem;
-    overflow: hidden;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
     display: flex;
+    flex-direction: column;
+    flex: 0 0 calc(33.333% - 1.34rem);
+    width: 100%;
     align-items: start;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.04); */
     cursor: pointer;
+    margin-right: 2rem;
+    &:nth-child(3n + 2) {
+        margin-right: 0rem;
+    }
+    /* &:after {
+        position: absolute;
+        content: '01';
+        left: 50%;
+        top: -30px;
+        font-size: 3rem;
+        opacity: 0.2;
+        font-weight: bold;
+    } */
+
     img {
-        transition: all 0.5s ease;
+        transition: all 0.2s ease;
     }
     &:hover {
+        .projectItemImg {
+            background-size: 120%;
+        }
         .aniTarget {
             background: rgba(0, 0, 0, 0.3);
             svg {
@@ -44,38 +62,60 @@ const ProjectFadeinStyle = styled(Fadein)`
 `;
 
 const ProjectImgArea = styled.div`
-    width: 40%;
-    height: 12.6rem;
+    width: 100%;
+    height: 10.6rem;
     position: relative;
     overflow: hidden;
-    border-radius: 1rem;
+    border-radius: 0.3rem;
+    transition: all 0.5s ease;
+    margin-right: 3rem;
+    /* &::after {
+        position: absolute;
+        content: '01';
+        left: -29px;
+        background: linear-gradient(to right, #775ec2, #6672c4);
+        top: -9px;
+        padding: 0.3rem 2rem;
+        padding-top: 1rem;
+        color: #fff;
+        transform: rotate(-45deg);
+    } */
+    ${props =>
+        props.$backImg &&
+        css`
+            background-image: url(${props.$backImg});
+            background-size: 110%;
+            background-position: center center;
+        `}
 `;
 
 const ProjectCompany = styled.div`
     font-size: 12px;
     margin-bottom: 3px;
     color: rgba(113 113 122);
+    display: none;
 `;
 
 const ProjectDescription = styled.div`
-    font-size: 16px;
+    font-size: 14px;
     white-space: pre-line;
-    margin-bottom: 24px;
+    margin-bottom: 7px;
     color: #3d4757;
     line-height: 1.7rem;
+    word-break: keep-all;
 `;
 
 const ContentsWrap = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 1rem 0.5rem 0.5rem 3rem;
-    width: 65%;
+    /* padding: 1rem 0.5rem 0.5rem 3rem; */
+    /* width: 65%; */
     flex-grow: 1;
 `;
 
 const HashtageStyle = styled.div`
-    font-size: 0.7rem;
+    font-size: 0.65rem;
 `;
 
 const ViewIconAnimation = styled.div`
@@ -88,6 +128,8 @@ const ViewIconAnimation = styled.div`
     justify-content: center;
     background: rgba(0, 0, 0, 0);
     transition: all 0.5s ease;
+    overflow: hidden;
+    border-radius: 1rem;
     svg {
         opacity: 0;
         transform: translateY(40px);
@@ -102,24 +144,24 @@ const ProjectButtonWrap = styled.div``;
 
 export default function ProjectItem({ activeIdx, setActiveIdx, project }) {
     const { thumbnail, skill, company, hashtag, title, description, project_key } = project;
-    console.log(hashtag);
     const navigate = useNavigate();
 
     return (
         <>
             <ProjectFadeinStyle onClick={() => navigate(`${project_key}`)}>
-                <ProjectImgArea className="projectItemImg">
+                <ProjectImgArea $backImg={`http://localhost:8080/${thumbnail}`} className="projectItemImg">
                     <ViewIconAnimation className="aniTarget">
                         <FaMagnifyingGlass />
                     </ViewIconAnimation>
 
-                    <img src={`http://localhost:8080/${thumbnail}`} alt={title} />
+                    {/* <img src={} alt={title} /> */}
                 </ProjectImgArea>
 
                 <ContentsWrap>
                     {/* Header */}
                     <ProjectCompany>{company}</ProjectCompany>
 
+                    {/* <ProjectSubTitle>기술스택</ProjectSubTitle> */}
                     <ProjectItemHeader
                         activeIdx={activeIdx === project.id}
                         setActiveIdx={setActiveIdx}
@@ -128,18 +170,15 @@ export default function ProjectItem({ activeIdx, setActiveIdx, project }) {
 
                     {/* Company */}
 
+                    <ProjectDescription>{description}</ProjectDescription>
                     <div>
-                        <ProjectDescription>{description}</ProjectDescription>
                         {hashtag &&
                             hashtag.map((e, idx) => (
                                 <HashtageStyle className="hashTag" key={`hash-${idx}`}>
                                     # {e}
                                 </HashtageStyle>
                             ))}
-
-                        {/* <ProjectSubTitle>기술스택</ProjectSubTitle> */}
                     </div>
-
                     {/*                             
                                 <ProjectSubTitle>프로젝트 기간</ProjectSubTitle>
 

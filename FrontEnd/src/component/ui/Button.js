@@ -4,16 +4,14 @@ import { IoMdArrowForward } from 'react-icons/io';
 import { MdUpload } from 'react-icons/md';
 
 const ButtonType = styled.button`
+    position: relative;
+    border-radius: 3rem;
+    border: 2px solid transparent;
     font-size: 14px;
-    color: #222;
-    /* padding: 5px 10px; */
-    display: flex;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    /* border: 1px solid rgb(200, 202, 210); */
-    color: rgb(33, 34, 36);
-    font-weight: 400;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #3912c5;
+    border: 1px solid #b8a8f299;
+    padding: 0.4rem 0.6rem;
+    margin-top: 1.3rem;
     svg {
         margin-left: 0.5rem;
     }
@@ -29,6 +27,7 @@ const ForsquareBtnStyle = styled.button`
     padding: 2px 15px;
     border: 2px solid rgba(255, 255, 255, 0.5);
     margin-right: 5px;
+    border-radius: 3rem;
     &:hover {
         border: 2px solid rgba(255, 255, 255, 0.7);
         box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.1);
@@ -53,7 +52,8 @@ const PopupOpenButton = styled.div`
 const Type = ({ children, ...props }) => {
     return (
         <ButtonType {...props}>
-            {children} <IoMdArrowForward />
+            {children}
+            {/* <IoMdArrowForward /> */}
         </ButtonType>
     );
 };

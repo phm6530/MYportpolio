@@ -8,6 +8,16 @@ const BackGroundVideo = styled.div`
     video {
         width: 100%;
     }
+    &::after {
+        position: absolute;
+        content: '';
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.7;
+        background: linear-gradient(to left, #7264ef, #7264ef, #dd8efc);
+    }
 `;
 
 function VideoCanvas() {

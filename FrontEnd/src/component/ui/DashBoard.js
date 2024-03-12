@@ -13,6 +13,16 @@ const DashBoardStyle = styled.div`
     position: absolute;
     z-index: -1;
     transition: background 1.5s ease;
+    /* &::after {
+        position: absolute;
+        content: '';
+        left: 0;
+        z-index: -1;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to top, #f9f9f9, rgba(0, 0, 0, 0));
+    } */
     ${props => {
         switch (props.$page) {
             case 'project':
