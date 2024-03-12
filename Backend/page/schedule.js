@@ -26,16 +26,21 @@ router.get('/', async (req, res, next) => {
 
         const response = await db.query(sql, [Year, month]);
         const restResponseData = {};
+        // console.log(response);
 
         for (const item in response) {
             const data = response[item].formatted_date;
             if (!restResponseData[data]) {
-                restResponseData[data] = [];
+                restResponseData[data] = []; // 해당날짜 없으면 만들기
             }
             restResponseData[data].push(response[item]);
         }
 
-        res.json({ message: '성공', restResponseData });
+        const DdayArr = response.filter((e) => {
+            return e.important === 2;
+        });
+
+        res.json({ message: '성공', restResponseData, D_Day: DdayArr });
     } catch (error) {
         const err = new NotFoundError('에러입니다.');
         next(err);
