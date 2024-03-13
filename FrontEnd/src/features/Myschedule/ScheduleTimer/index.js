@@ -1,19 +1,35 @@
+import { FlexRow } from 'component/CommonStyle';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const StopWatch = styled.div`
-    align-items: center;
+    background: #fff;
+    padding: 2rem;
+    width: 30%;
+
     .time {
-        color: #fff;
         font-weight: bold;
         font-size: 50px;
+        letter-spacing: -0.07em;
     }
-    width: 100%;
+
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
     span {
         font-weight: bold;
-        color: #fff;
     }
+`;
+
+const Button = styled.button`
+    /* Rectangle 12 */
+    box-sizing: border-box;
+    padding: 0.6rem 0.8rem;
+    background: #6653af;
+    border-radius: 2rem;
+    margin: 0.5rem;
+    color: #fff;
+    font-size: 14px;
+    ${props => props.$on && ''}
 `;
 
 const ScheduleTimer = () => {
@@ -23,7 +39,7 @@ const ScheduleTimer = () => {
         second: 0,
     });
     const [id, setId] = useState();
-
+    const [running, setRunning] = useState(false);
     // console.log(timer);
 
     //Timer Func
@@ -53,7 +69,7 @@ const ScheduleTimer = () => {
 
     //setting Timer
     useEffect(() => {
-        const timer = TimerFunc();
+        // const timer = TimerFunc();
         return () => clearInterval(timer);
     }, []);
 
@@ -61,11 +77,13 @@ const ScheduleTimer = () => {
     const startTimer = () => {
         const timer = TimerFunc();
         setId(timer);
+        setRunning(true);
     };
 
     // End Timer
     const endTimer = () => {
         clearInterval(id);
+        setRunning(false);
     };
 
     const TimerFormetting = target => {
@@ -75,12 +93,18 @@ const ScheduleTimer = () => {
     return (
         <>
             <StopWatch>
-                <span>study Timer : </span>
+                Coding Timer
                 <div className="time">
                     {TimerFormetting(timer.Hour)} : {TimerFormetting(timer.minit)} : {TimerFormetting(timer.second)}
                 </div>
-                <button onClick={() => startTimer()}>START</button>
-                <button onClick={() => endTimer()}>STOP</button>
+                <FlexRow>
+                    <Button $on={running} onClick={() => startTimer()}>
+                        START
+                    </Button>
+                    <Button $on={running} onClick={() => endTimer()}>
+                        STOP
+                    </Button>
+                </FlexRow>
             </StopWatch>
         </>
     );

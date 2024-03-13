@@ -50,6 +50,10 @@ const CalendarDay = styled.div`
         background: rgba(0, 0, 0, 0.02);
         border-radius: 5em;
         font-weight: bold;
+        background: #7564f5;
+        span {
+            color: #fff;
+        }
     }
 `;
 
@@ -59,7 +63,7 @@ const CalendarDate = styled.div`
     text-align: center;
 
     font-size: 14px;
-    ${(props) => {
+    ${props => {
         switch (props.$headeridx) {
             case 0:
                 return 'color: #dd8a8a';
@@ -146,7 +150,7 @@ const RenderCell = ({ paramYear, paramMonth, selectDay, listData, onClickSelecto
 
     const ListKeys = listData && Object.keys(listData);
 
-    const Dateformetting = (date) => {
+    const Dateformetting = date => {
         const formetting = new Date(date).toDateString();
         return formetting;
     };
@@ -154,13 +158,12 @@ const RenderCell = ({ paramYear, paramMonth, selectDay, listData, onClickSelecto
     // 일자 갯수 구하기
     return (
         <RenderCellWrap>
-            {RenderPrevDate &&
-                RenderPrevDate.map((day) => <RenderPrevStyle key={`prev-${day}`}> {day}</RenderPrevStyle>)}
-            {RenderDate.map((day) => {
+            {RenderPrevDate && RenderPrevDate.map(day => <RenderPrevStyle key={`prev-${day}`}> {day}</RenderPrevStyle>)}
+            {RenderDate.map(day => {
                 const confirmDay = `${paramYear}-${paramMonth}-${day}`;
-                const hasSchedule = (confirmDay) => {
+                const hasSchedule = confirmDay => {
                     //Some은 element index array로 매개변수로 순회하며 하나라도 있으면 true false 반환
-                    return ListKeys?.some((e) => Dateformetting(e) === Dateformetting(confirmDay));
+                    return ListKeys?.some(e => Dateformetting(e) === Dateformetting(confirmDay));
                 };
                 return (
                     <CalendarDay
@@ -173,8 +176,7 @@ const RenderCell = ({ paramYear, paramMonth, selectDay, listData, onClickSelecto
                     </CalendarDay>
                 );
             })}
-            {RenderLastDate &&
-                RenderLastDate.map((day) => <RenderPrevStyle key={`next-${day}`}> {day}</RenderPrevStyle>)}
+            {RenderLastDate && RenderLastDate.map(day => <RenderPrevStyle key={`next-${day}`}> {day}</RenderPrevStyle>)}
         </RenderCellWrap>
     );
 };
@@ -198,7 +200,7 @@ const RenderNav = ({ paramMonth, paramYear }) => {
     const { pathname } = useLocation();
 
     // 월 변경 핸들러
-    const handleMonthChange = (type) => {
+    const handleMonthChange = type => {
         if (type === 'next') {
             if (+paramMonth === 12) {
                 navigate(`${pathname}?year=${+paramYear + 1}&month=${1}`);
@@ -231,15 +233,13 @@ const RenderNav = ({ paramMonth, paramYear }) => {
     ];
     return (
         <CalendarNavWarp>
-            <button onClick={() => handleMonthChange('prev')}>
-                <MdOutlineKeyboardArrowLeft />
-            </button>
-
             <MonthNav>
                 <span>{monthArr[+paramMonth - 1]}</span>
                 <p>{paramYear}</p>
             </MonthNav>
-
+            <button onClick={() => handleMonthChange('prev')}>
+                <MdOutlineKeyboardArrowLeft />
+            </button>
             <button onClick={() => handleMonthChange('next')}>
                 <MdOutlineKeyboardArrowRight />
             </button>
@@ -248,7 +248,7 @@ const RenderNav = ({ paramMonth, paramYear }) => {
 };
 
 export default function Calendar({ className, selectDay, listData, setSelectDay, paramYear, paramMonth }) {
-    const onClickSelector = (day) => {
+    const onClickSelector = day => {
         setSelectDay(day);
     };
 

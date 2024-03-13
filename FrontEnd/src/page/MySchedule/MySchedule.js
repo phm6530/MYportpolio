@@ -15,7 +15,9 @@ import { TodaySeletor } from 'utils/TodaySeletor';
 import ScheduleDdayList from 'features/Myschedule/ScheduleDday';
 
 // styled
-import { CalenaderGrid, CalendarStyle, ContentsWrap } from './MyScheduleStyle';
+import { FlexColumnGird, CalendarStyle, ContentsWrap } from './MyScheduleStyle';
+import { FlexRow } from 'component/CommonStyle';
+import ScheduleTimer from 'features/Myschedule/ScheduleTimer';
 
 // import { dateFormating } from 'utils/DateFormat';
 
@@ -65,26 +67,29 @@ export default function MySchedule() {
                 </DashBoardTitle>
             </DashBoard>
 
-            <CalenaderGrid>
-                <FadeinComponent>
-                    <ContentsWrap>
-                        {/* body */}
-                        <CalendarStyle
-                            setSelectDay={setSelectDay}
-                            listData={listData}
-                            selectDay={selectDay}
-                            paramYear={getYear}
-                            paramMonth={getMonth}
-                        />
+            <FlexColumnGird>
+                <FlexRow>
+                    {/* 타이머 */}
+                    <ScheduleTimer />
 
-                        {/* D-day 영역 */}
-                        <ScheduleDdayList DdayTasks={DdayArr} />
+                    {/* D-day 영역 */}
+                    <ScheduleDdayList DdayTasks={DdayArr} />
+                </FlexRow>
 
-                        {/* Schedule */}
-                        <ScheduleContainer selectDay={selectDay} listData={listData} setSelectDay={setSelectDay} />
-                    </ContentsWrap>
-                </FadeinComponent>
-            </CalenaderGrid>
+                <ContentsWrap>
+                    {/* body */}
+                    <CalendarStyle
+                        setSelectDay={setSelectDay}
+                        listData={listData}
+                        selectDay={selectDay}
+                        paramYear={getYear}
+                        paramMonth={getMonth}
+                    />
+
+                    {/* Schedule Control*/}
+                    <ScheduleContainer selectDay={selectDay} listData={listData} setSelectDay={setSelectDay} />
+                </ContentsWrap>
+            </FlexColumnGird>
         </>
     );
 }
