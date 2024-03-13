@@ -26,7 +26,7 @@ export default function ScheduleItem({ props, ScheduleCheckHandler }) {
         reset({ title, key });
     }, [reset, title, key]);
 
-    const EditHandelr = (data) => {
+    const EditHandelr = data => {
         console.log('수정할 데이터', data);
     };
 

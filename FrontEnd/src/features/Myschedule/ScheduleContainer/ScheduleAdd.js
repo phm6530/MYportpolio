@@ -1,14 +1,19 @@
-import { useForm } from 'react-hook-form';
-import { v4 as uuidv4 } from 'uuid';
-import { useDispatch } from 'react-redux';
-import { useAuthCheck } from 'hooks/useAuthCheck';
-import { useQueryClient, useMutation } from 'react-query';
-import { fetchAddSchedule } from '../ScheduleFetch';
-import alertThunk from '../../../store/alertTrunk';
 import styled from 'styled-components';
+
+import { v4 as uuidv4 } from 'uuid';
+import { useAuthCheck } from 'hooks/useAuthCheck';
+import { ReactHookForm, ReactRedux, ReactQuery } from 'lib/lib';
+import alertThunk from 'store/alertTrunk';
+
+import { fetchAddSchedule } from 'services/ScheduleService';
 import { TextAreaStyle } from '../../../component/ui/TextArea';
 import { Button } from '../../../component/ui/Button';
 import ErrorBubble from 'component/error/ErrorBubble';
+
+// lib
+const { useForm } = ReactHookForm;
+const { useDispatch } = ReactRedux;
+const { useQueryClient, useMutation } = ReactQuery;
 
 const AddScheduleFormStyle = styled.form`
     padding: 10px 0;
@@ -25,7 +30,7 @@ const TextAreaWrap = styled.div`
     width: 100%;
 `;
 
-const AddSchedule = ({ selectDay }) => {
+const ScheduleAdd = ({ selectDay }) => {
     const {
         register,
         handleSubmit,
@@ -95,4 +100,4 @@ const AddSchedule = ({ selectDay }) => {
     );
 };
 
-export default AddSchedule;
+export default ScheduleAdd;

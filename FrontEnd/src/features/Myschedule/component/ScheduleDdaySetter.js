@@ -1,15 +1,19 @@
-import DdayHandler from './component/DdayHandler';
-import { useForm, FormProvider } from 'react-hook-form';
-import { Button } from 'component/ui/Button';
+import DdayHandler from './DdayHandler';
 import styled from 'styled-components';
+
+import { ReactHookForm, ReactQuery } from 'lib/lib';
+import { Button } from 'component/ui/Button';
 import { v4 as uuidv4 } from 'uuid';
 import { InputStyle } from 'component/ui/TextArea';
-import { useMutation, useQueryClient } from 'react-query';
-import { fetchAddSchedule } from 'page/todo/ScheduleFetch';
+
+import { fetchAddSchedule } from 'services/ScheduleService';
 import alertThunk from 'store/alertTrunk';
 import { useDispatch } from 'react-redux';
 import { useAuthCheck } from 'hooks/useAuthCheck';
 import { useRef } from 'react';
+
+const { useForm, FormProvider } = ReactHookForm;
+const { useMutation, useQueryClient } = ReactQuery;
 
 const DdaySetterStyle = styled.div`
     display: flex;
@@ -17,7 +21,7 @@ const DdaySetterStyle = styled.div`
     align-items: center;
 `;
 
-const DdaySetter = () => {
+const ScheduleDdaySetter = () => {
     const dispatch = useDispatch();
     const { clientAuthCheck } = useAuthCheck();
     const childRef = useRef();
@@ -85,4 +89,4 @@ const DdaySetter = () => {
     );
 };
 
-export default DdaySetter;
+export default ScheduleDdaySetter;

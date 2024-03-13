@@ -94,8 +94,7 @@ export default function FadeinComponent({ board, position, children, ...props })
 
     return (
         <Component {...props} $visible={visible} ref={ref} $position={position}>
-            {' '}
-            {children}{' '}
+            {children}
         </Component>
     );
 }

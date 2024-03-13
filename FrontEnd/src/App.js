@@ -33,7 +33,6 @@ import ProjectDetail from './page/MyProject/component/ProjectList/ProjectDetail'
 
 //Auth Util 권한 Check
 import { tokenCheck } from 'services/authService';
-import Todolist from './page/todo/Todolist';
 import WithAuth from 'component/hoc/WithAuth';
 
 import WithRedirect from 'component/hoc/WithRedirect';
@@ -48,6 +47,7 @@ import ProjectList from './page/MyProject/component/ProjectList/ProjectList';
 import { useEffect } from 'react';
 import RootNav from 'component/layout/RootNav';
 import Footer from 'component/layout/Footer';
+import MySchedule from 'page/MySchedule/MySchedule';
 
 // const router = createBrowserRouter([
 //     {
@@ -160,7 +160,7 @@ function AnimatedRoutes() {
                     path="/todoCalnder/*"
                     element={
                         <Motion.Page>
-                            <Todolist />
+                            <MySchedule />
                         </Motion.Page>
                     }
                 />

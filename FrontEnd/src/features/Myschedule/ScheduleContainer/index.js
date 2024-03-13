@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import AddSchedule from './AddSchedule';
+import ScheduleAdd from './ScheduleAdd';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
@@ -9,12 +9,12 @@ import 'react-day-picker/dist/style.css';
 import Popup from '../../../component/popup/Popup';
 
 import { Button } from '../../../component/ui/Button';
-import { TodaySeletor, dayFormetting } from './TodaySeletor';
+import { TodaySeletor } from 'utils/TodaySeletor';
 
 // icon
-import DdayHandler from 'features/schedule/component/DdayHandler';
-import ScheduleList from 'features/schedule/ScheduleList';
-import DdaySetter from 'features/schedule/DdaySetter';
+import DdayHandler from 'features/Myschedule/component/DdayHandler';
+import ScheduleList from './ScheduleList';
+import ScheduleDdaySetter from '../component/ScheduleDdaySetter';
 
 const ScheduleWrap = styled.div`
     width: 50%;
@@ -32,7 +32,7 @@ const DayStyle = styled.span`
     color: #fff;
 `;
 
-export default function Schedule({ selectDay, listData, setSelectDay }) {
+export default function ScheduleContainer({ selectDay, listData, setSelectDay }) {
     const [_, setSeachParam] = useSearchParams();
     const today = TodaySeletor();
     const [dDayForm, setDdayForm] = useState(false); //dDay Popup
@@ -57,7 +57,7 @@ export default function Schedule({ selectDay, listData, setSelectDay }) {
         <>
             {dDayForm && (
                 <Popup closePopup={() => setDdayForm(false)}>
-                    <DdaySetter />
+                    <ScheduleDdaySetter />
                 </Popup>
             )}
 
@@ -69,11 +69,12 @@ export default function Schedule({ selectDay, listData, setSelectDay }) {
                 </ButtonNavWrap>
 
                 <DayStyle>{selectDay.replaceAll('-', '. ')}</DayStyle>
+
                 <ScheduleList
                     listData={listData}
                     selectDay={selectDay} //업로드해야할 날짜
                 />
-                <AddSchedule
+                <ScheduleAdd
                     selectDay={selectDay} //업로드해야할 날짜
                 />
             </ScheduleWrap>

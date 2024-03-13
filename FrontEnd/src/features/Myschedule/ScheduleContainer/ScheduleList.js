@@ -1,4 +1,4 @@
-import ListHandler from './component/ListHandler';
+import ListHandler from '../component/ListHandler';
 import FadeinComponent from 'FadeinComponent';
 import { useState } from 'react';
 
