@@ -164,6 +164,7 @@ function AnimatedRoutes() {
                         </Motion.Page>
                     }
                 />
+
                 <Route
                     path="/Board"
                     element={

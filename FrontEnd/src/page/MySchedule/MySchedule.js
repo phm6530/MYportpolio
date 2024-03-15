@@ -22,7 +22,7 @@ import ScheduleTimer from 'features/Myschedule/ScheduleTimer';
 // import { dateFormating } from 'utils/DateFormat';
 
 //그래프
-// import ReactChat from 'react-apexcharts';
+import ReactChat from 'react-apexcharts';
 
 // lib
 const { useQuery } = ReactQuery;

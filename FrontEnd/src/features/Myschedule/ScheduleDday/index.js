@@ -104,6 +104,7 @@ const ScheduleDdayList = ({ DdayTasks }) => {
                         <div className="point">MY SCHEDULES</div>
                     </div>
                 </SubTitle>
+
                 <SwiperStyle
                     modules={[Navigation, Pagination, FreeMode, Autoplay, EffectCreative]}
                     spaceBetween={30}
