@@ -193,6 +193,28 @@ const UploadButton = ({ children, ...props }) => {
     );
 };
 
+const SubmitButtonStyle = styled.button`
+    padding: 0.4rem 1.4rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-right: 0.5rem;
+    font-size: 12px;
+    border-radius: 2rem;
+    ${props =>
+        props.$active &&
+        `            
+            background-color: rgba(114, 100, 239, 1);
+            color: rgba(255, 255, 255, 1);
+        `};
+`;
+
+const SubmitButton = ({ children, active, ...props }) => {
+    return (
+        <SubmitButtonStyle $active={active} {...props}>
+            {children}
+        </SubmitButtonStyle>
+    );
+};
+
 export function Button({ children }) {
     return <button>{children}</button>;
 }
@@ -204,3 +226,4 @@ Button.ForsquareBtn = ForsquareBtn;
 Button.ConfirmButton = ConfirmButton;
 Button.Cancle = Cancle;
 Button.UploadButton = UploadButton;
+Button.SubmitButton = SubmitButton;

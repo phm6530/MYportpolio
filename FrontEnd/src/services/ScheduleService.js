@@ -102,4 +102,17 @@ const fetchToggleComplete = async formData => {
     }
 };
 
-export { scheduleFetch, fetchAddSchedule, fetchEditSchedule, fetchDeleteSchedule, fetchToggleComplete };
+const fetchGit = async () => {
+    try {
+        const response = await fetch('https://api.github.com/repos/phm6530/MYportpolio/commits');
+        if (!response.ok) {
+            throw new Error('Git에 문제가 있는것 같습니다.');
+        }
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export { scheduleFetch, fetchAddSchedule, fetchEditSchedule, fetchDeleteSchedule, fetchToggleComplete, fetchGit };

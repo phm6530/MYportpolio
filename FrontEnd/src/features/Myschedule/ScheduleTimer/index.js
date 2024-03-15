@@ -6,11 +6,16 @@ const StopWatch = styled.div`
     background: #fff;
     padding: 2rem;
     width: 30%;
-
+    border-radius: 2rem;
+    background: #f8fbfd;
     .time {
-        font-weight: bold;
+        letter-spacing: -0.05em;
         font-size: 50px;
-        letter-spacing: -0.07em;
+        background: linear-gradient(90deg, #8b80e6 0%, #443a8f 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: bold;
     }
 
     display: flex;
@@ -23,13 +28,36 @@ const StopWatch = styled.div`
 const Button = styled.button`
     /* Rectangle 12 */
     box-sizing: border-box;
-    padding: 0.6rem 0.8rem;
-    background: #6653af;
+    padding: 0.5rem 1.3rem;
+
     border-radius: 2rem;
     margin: 0.5rem;
-    color: #fff;
-    font-size: 14px;
-    ${props => props.$on && ''}
+    color: #4a5794;
+    font-weight: bold;
+    border: 1px solid #4a5794;
+    font-size: 12px;
+
+    ${props => {
+        if (props.$type === 'start') {
+            return props.$on
+                ? `
+                opacity: .5;
+                    background: #fff;
+                `
+                : `
+                  
+                    background:  #4a5794;
+                    color: #fff;
+                `;
+        } else {
+            return (
+                props.$on ||
+                `
+                    opacity: .5;
+                    background: #fff;`
+            );
+        }
+    }}
 `;
 
 const ScheduleTimer = () => {
@@ -98,7 +126,7 @@ const ScheduleTimer = () => {
                     {TimerFormetting(timer.Hour)} : {TimerFormetting(timer.minit)} : {TimerFormetting(timer.second)}
                 </div>
                 <FlexRow>
-                    <Button $on={running} onClick={() => startTimer()}>
+                    <Button $type="start" $on={running} onClick={() => startTimer()}>
                         START
                     </Button>
                     <Button $on={running} onClick={() => endTimer()}>

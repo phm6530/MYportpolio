@@ -10,7 +10,7 @@ const FlexColumnGird = styled(Gird)`
 
 const ContentsWrap = styled.div`
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     background: #fff;
     margin-top: 1.5rem;
 `;

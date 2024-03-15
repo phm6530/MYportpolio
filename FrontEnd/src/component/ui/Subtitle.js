@@ -4,7 +4,7 @@ const SubTitleStyle = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     align-items: center;
     .subText {
         font-size: 2rem;

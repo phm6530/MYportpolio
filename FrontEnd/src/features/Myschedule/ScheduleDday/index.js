@@ -9,6 +9,9 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import useProjectActions from 'hooks/useProjectActions';
+import Popup from 'component/popup/Popup';
+import Confirm from 'component/ui/Confirm';
 
 const SwiperStyle = styled(Swiper)`
     overflow: visible;
@@ -26,12 +29,9 @@ const SwiperStyle = styled(Swiper)`
 `;
 
 const SummeryStyle = styled.div`
-    background: #fff;
     overflow: hidden;
     border-radius: 1em;
     flex-grow: 1;
-    padding: 2rem;
-    width: 60%;
     margin-left: 1rem;
 `;
 
@@ -39,73 +39,65 @@ const DdayTaskStyle = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: 1rem;
-    padding: 15px;
     border-radius: 0.5em;
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
-
     /* background: linear-gradient(90deg, #6f58b0 0%, #5147ab 100%); */
-    box-shadow: 13px 20px 25.9px rgba(0, 0, 0, 0.25);
-    border-radius: 32px;
+    padding: 1rem;
+    /* border-radius: 32px; */
     /* Rectangle 33 */
-    transition: width 1s;
-    /* 옅은 */
-    background: linear-gradient(45deg, #9070eb 0%, #7a2e87 100%);
-    background: linear-gradient(45deg, #786ea1 -17%, #353a55, #353a55 100%);
-    width: 173px;
-    height: 197px;
-    img {
-        width: 40px;
-        filter: drop-shadow(2px 4px 6px black);
-    }
+    /* transition: width 1s; */
+
     p {
-        color: #fff;
         font-size: 14px;
         padding-bottom: 6px;
     }
     span {
-        color: #fff;
         font-weight: bold;
-        font-size: 25px;
+        font-size: 16px;
     }
 `;
-const SwiperSlideStyled = styled.div`
-    .swiper-slide {
-        width: 100px; /* 기본 너비 */
-        transition: width 0.3s; /* 너비 변경 시 부드럽게 전환되도록 설정 */
-    }
+// const SwiperSlideStyled = styled.div`
+//     .swiper-slide {
+//         width: 100px; /* 기본 너비 */
+//         transition: width 0.3s; /* 너비 변경 시 부드럽게 전환되도록 설정 */
+//     }
 
-    .swiper-slide-active {
-        width: 150px; /* 활성화된 슬라이드의 너비를 늘림 */
-    }
-`;
+//     .swiper-slide-active {
+//         width: 150px; /* 활성화된 슬라이드의 너비를 늘림 */
+//     }
+// `;
 
 const ScheduleDdayList = ({ DdayTasks }) => {
     const DdayTask = ({ task }) => {
+        const { modal, setModal, mutateAsync } = useProjectActions({ type: 'schedule' });
         const { work, schedule_key, formatted_date } = task;
         const currentDate = new Date();
         const taskDate = new Date(formatted_date);
         const dayDifference = (currentDate - taskDate) / (1000 * 3600 * 24);
         const count = Math.ceil(dayDifference);
+
         return (
-            <DdayTaskStyle>
-                <img src="/img/calendar/talk.png" alt="" />
-                <span>D {count}</span>
-                <p>{work}</p>
-                {/* <span>{formatted_date}</span> */}
-            </DdayTaskStyle>
+            <>
+                {modal && (
+                    <Popup closePopup={() => setModal(false)}>
+                        <Confirm confirm={() => mutateAsync(schedule_key)}></Confirm>
+                    </Popup>
+                )}
+
+                <DdayTaskStyle>
+                    {/* <img src="/img/calendar/talk.png" alt="" /> */}
+                    <span>D {count}</span>
+                    <p>{work}</p>
+                    <span onClick={() => setModal(true)}>삭제</span>
+                </DdayTaskStyle>
+            </>
         );
     };
 
     return (
         <>
             <SummeryStyle>
-                <SubTitle>
-                    <div className="subText">
-                        <div className="point">MY SCHEDULES</div>
-                    </div>
-                </SubTitle>
-
-                <SwiperStyle
+                {/* <SwiperStyle
                     modules={[Navigation, Pagination, FreeMode, Autoplay, EffectCreative]}
                     spaceBetween={30}
                     slidesPerView={3}
@@ -122,15 +114,11 @@ const ScheduleDdayList = ({ DdayTasks }) => {
 
                     // scrollbar={{ draggable: true }}
                 >
-                    {DdayTasks &&
-                        DdayTasks.map((task, idx) => {
-                            return (
-                                <SwiperSlide key={idx}>
-                                    <DdayTask key={`DdayTask-${idx}`} task={task} />
-                                </SwiperSlide>
-                            );
-                        })}
-                </SwiperStyle>
+                      </SwiperStyle> */}
+                {DdayTasks &&
+                    DdayTasks.map((task, idx) => {
+                        return <DdayTask key={`DdayTask-${idx}`} task={task} />;
+                    })}
             </SummeryStyle>
         </>
     );

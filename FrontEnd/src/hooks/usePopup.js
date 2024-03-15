@@ -12,7 +12,6 @@ const usePopup = () => {
         setPopupView(prev => ({ ...prev, [id]: true }));
     };
     const hidePopup = id => {
-        console.log('실행해라');
         setPopupView(prev => ({ ...prev, [id]: false }));
     };
 

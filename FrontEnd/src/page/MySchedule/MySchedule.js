@@ -12,6 +12,7 @@ import { useState } from 'react';
 
 import { scheduleFetch } from 'services/ScheduleService';
 import { TodaySeletor } from 'utils/TodaySeletor';
+import ScheduleDashBoard from 'features/Myschedule/ScheduleDashBoard';
 import ScheduleDdayList from 'features/Myschedule/ScheduleDday';
 
 // styled
@@ -69,11 +70,9 @@ export default function MySchedule() {
 
             <FlexColumnGird>
                 <FlexRow>
+                    <ScheduleDashBoard />
                     {/* 타이머 */}
                     <ScheduleTimer />
-
-                    {/* D-day 영역 */}
-                    <ScheduleDdayList DdayTasks={DdayArr} />
                 </FlexRow>
 
                 <ContentsWrap>
@@ -88,6 +87,8 @@ export default function MySchedule() {
 
                     {/* Schedule Control*/}
                     <ScheduleContainer selectDay={selectDay} listData={listData} setSelectDay={setSelectDay} />
+                    {/* D-day 영역 */}
+                    <ScheduleDdayList DdayTasks={DdayArr} />
                 </ContentsWrap>
             </FlexColumnGird>
         </>
