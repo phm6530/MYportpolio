@@ -7,7 +7,8 @@ const StopWatch = styled.div`
     padding: 2rem;
     width: 30%;
     border-radius: 2rem;
-    background: #f8fbfd;
+    /* background: #f8fbfd; */
+    background: #fff;
     .time {
         letter-spacing: -0.05em;
         font-size: 50px;
@@ -88,7 +89,12 @@ const ScheduleTimer = () => {
                     NextMinit = 0;
                 }
 
-                return { ...prev, Hour: NextHour, minit: NextMinit, second: NextSeond };
+                return {
+                    ...prev,
+                    Hour: NextHour,
+                    minit: NextMinit,
+                    second: NextSeond,
+                };
             });
         }, 1000);
         setId(timer);
@@ -123,10 +129,16 @@ const ScheduleTimer = () => {
             <StopWatch>
                 Coding Timer
                 <div className="time">
-                    {TimerFormetting(timer.Hour)} : {TimerFormetting(timer.minit)} : {TimerFormetting(timer.second)}
+                    {TimerFormetting(timer.Hour)} :
+                    {TimerFormetting(timer.minit)} :
+                    {TimerFormetting(timer.second)}
                 </div>
                 <FlexRow>
-                    <Button $type="start" $on={running} onClick={() => startTimer()}>
+                    <Button
+                        $type="start"
+                        $on={running}
+                        onClick={() => startTimer()}
+                    >
                         START
                     </Button>
                     <Button $on={running} onClick={() => endTimer()}>

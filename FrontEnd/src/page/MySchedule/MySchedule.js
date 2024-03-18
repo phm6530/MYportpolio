@@ -9,6 +9,7 @@ import FadeinComponent from 'FadeinComponent';
 
 import { ReactQuery, ReactRedux, ReactRouteDom } from 'lib/lib';
 import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
 
 import { scheduleFetch } from 'services/ScheduleService';
 import { TodaySeletor } from 'utils/TodaySeletor';
@@ -16,7 +17,7 @@ import ScheduleDashBoard from 'features/Myschedule/ScheduleDashBoard';
 import ScheduleDdayList from 'features/Myschedule/ScheduleDday';
 
 // styled
-import { FlexColumnGird, CalendarStyle, ContentsWrap } from './MyScheduleStyle';
+import { ScheduleGrid, CalendarStyle, ContentsWrap } from './MyScheduleStyle';
 import { FlexRow } from 'component/CommonStyle';
 import ScheduleTimer from 'features/Myschedule/ScheduleTimer';
 
@@ -24,6 +25,10 @@ import ScheduleTimer from 'features/Myschedule/ScheduleTimer';
 
 //그래프
 import ReactChat from 'react-apexcharts';
+import UserProfile from 'component/profile/UserProfile';
+import { FlexColumnDiv } from 'features/CommonStyles';
+import ScheduleHeader from 'features/Myschedule/Layout/ScheduleHeader';
+import ScheduleRoute from 'Route/ScheduleRoute';
 
 // lib
 const { useQuery } = ReactQuery;
@@ -68,29 +73,18 @@ export default function MySchedule() {
                 </DashBoardTitle>
             </DashBoard>
 
-            <FlexColumnGird>
-                <FlexRow>
-                    <ScheduleDashBoard />
-                    {/* 타이머 */}
-                    <ScheduleTimer />
-                </FlexRow>
+            <ScheduleGrid>
+                {/* UserProFile */}
+                <UserProfile />
 
-                <ContentsWrap>
-                    {/* body */}
-                    <CalendarStyle
-                        setSelectDay={setSelectDay}
-                        listData={listData}
-                        selectDay={selectDay}
-                        paramYear={getYear}
-                        paramMonth={getMonth}
-                    />
+                <FlexColumnDiv>
+                    {/*  */}
+                    <ScheduleHeader />
 
-                    {/* Schedule Control*/}
-                    <ScheduleContainer selectDay={selectDay} listData={listData} setSelectDay={setSelectDay} />
-                    {/* D-day 영역 */}
-                    <ScheduleDdayList DdayTasks={DdayArr} />
-                </ContentsWrap>
-            </FlexColumnGird>
+                    {/* 서브 라우터 */}
+                    <ScheduleRoute />
+                </FlexColumnDiv>
+            </ScheduleGrid>
         </>
     );
 }

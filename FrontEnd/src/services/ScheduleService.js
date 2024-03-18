@@ -2,7 +2,9 @@
 const scheduleFetch = async (Year, Month) => {
     console.log('실행해라 !!!!!!!!!!!!!!!!!!!!!!!');
     try {
-        const response = await fetch(`http://localhost:8080/schedule?Year=${Year}&month=${Month}`);
+        const response = await fetch(
+            `http://localhost:8080/schedule?Year=${Year}&month=${Month}`,
+        );
         if (!response.ok) {
             const errorResponse = await response.json();
             throw new Error(errorResponse.message);
@@ -83,13 +85,16 @@ const fetchDeleteSchedule = async formData => {
 // Complete Toggle
 const fetchToggleComplete = async formData => {
     try {
-        const response = await fetch('http://localhost:8080/schedule/complete', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
+        const response = await fetch(
+            'http://localhost:8080/schedule/complete',
+            {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ schedule_key: formData }),
             },
-            body: JSON.stringify({ schedule_key: formData }),
-        });
+        );
         if (!response.ok) {
             const errorResponse = await response.json();
             throw new Error(errorResponse.message);
@@ -104,7 +109,9 @@ const fetchToggleComplete = async formData => {
 
 const fetchGit = async () => {
     try {
-        const response = await fetch('https://api.github.com/repos/phm6530/MYportpolio/commits');
+        const response = await fetch(
+            'https://api.github.com/repos/phm6530/MYportpolio/commits',
+        );
         if (!response.ok) {
             throw new Error('Git에 문제가 있는것 같습니다.');
         }
@@ -115,4 +122,11 @@ const fetchGit = async () => {
     }
 };
 
-export { scheduleFetch, fetchAddSchedule, fetchEditSchedule, fetchDeleteSchedule, fetchToggleComplete, fetchGit };
+export {
+    scheduleFetch,
+    fetchAddSchedule,
+    fetchEditSchedule,
+    fetchDeleteSchedule,
+    fetchToggleComplete,
+    fetchGit,
+};

@@ -5,6 +5,7 @@ import ScheduleSelectBox from './SchduleSelectBox';
 import SchedulePrograss from './SchedulePrograss';
 import ScheduleMainFoucs from './ScheduleMainFoucs';
 import ScheduleGit from './ScheduleGit';
+
 import { FlexRowDiv, FlexColumnBetween } from 'features/CommonStyles';
 import { fetchGit } from 'services/ScheduleService';
 import { useQuery } from 'react-query';
@@ -14,7 +15,8 @@ const DashBoardStyle = styled.div`
 
     display: flex;
     padding: 3rem 5rem;
-    background: #f8fbfd;
+    /* background: #f8fbfd; */
+    background: #fff;
     flex-grow: 1;
     border-radius: 2rem;
     margin-right: 1.5rem;
@@ -52,11 +54,10 @@ const ScheduleDashBoard = () => {
                         <div className="point">MY SCHEDULES</div>
                     </div>
                 </SubTitle>
-                <SubDescriptionStyle>
-                    My Schedule State <br></br>D-day 설정 끝내고 / 일정변경도 끝내기
-                </SubDescriptionStyle>
+                <SubDescriptionStyle>3. 18일</SubDescriptionStyle>
                 <Button.SubmitButton active={true}>VIEW</Button.SubmitButton>
             </FlexColumnBetween>
+
             <ConTentsWrapStyle>
                 <div className="margin-bottom-2rem">
                     <ScheduleSelectBox />

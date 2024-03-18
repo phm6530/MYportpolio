@@ -32,7 +32,11 @@ const DayStyle = styled.span`
     color: #fff;
 `;
 
-export default function ScheduleContainer({ selectDay, listData, setSelectDay }) {
+export default function ScheduleContainer({
+    selectDay,
+    listData,
+    setSelectDay,
+}) {
     const [_, setSeachParam] = useSearchParams();
     const today = TodaySeletor();
     const [dDayForm, setDdayForm] = useState(false); //dDay Popup
@@ -63,9 +67,15 @@ export default function ScheduleContainer({ selectDay, listData, setSelectDay })
 
             <ScheduleWrap>
                 <ButtonNavWrap>
-                    <Button.ForsquareBtn onClick={() => todayButton()}>ToDay</Button.ForsquareBtn>
-                    <Button.ForsquareBtn onClick={() => DdayPopupShow()}>D-day 설정</Button.ForsquareBtn>
-                    <Button.ForsquareBtn onClick={() => todayButton()}>일정 변경</Button.ForsquareBtn>
+                    <Button.ForsquareBtn onClick={() => todayButton()}>
+                        ToDay
+                    </Button.ForsquareBtn>
+                    <Button.ForsquareBtn onClick={() => DdayPopupShow()}>
+                        D-day 설정
+                    </Button.ForsquareBtn>
+                    <Button.ForsquareBtn onClick={() => todayButton()}>
+                        일정 변경
+                    </Button.ForsquareBtn>
                 </ButtonNavWrap>
 
                 <DayStyle>{selectDay.replaceAll('-', '. ')}</DayStyle>

@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 // Rounter
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 
-import RootLayout from 'component/layout/RootLayout';
 import Motion from 'component/animations/Motion';
 
 // context
@@ -18,10 +17,6 @@ import { AnimatePresence } from 'framer-motion';
 // Home
 import HomeComponent from './page/Home/HomeComponent';
 // import { projectChangeLoader } from './page/MyProject/ProjectFetch'; //add Loader
-
-// MyProject
-import Project from 'page/Project';
-import AddProject from './page/MyProject/component/AddProject/AddProject';
 
 // Notice
 import Board from './page/Board/Board';
@@ -157,7 +152,7 @@ function AnimatedRoutes() {
                     }
                 />
                 <Route
-                    path="/todoCalnder/*"
+                    path="/myschedule/*"
                     element={
                         <Motion.Page>
                             <MySchedule />

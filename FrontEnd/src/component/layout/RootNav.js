@@ -57,7 +57,7 @@ export default function RootNav({ ChangePageHandler }) {
     const NavPageObject = [
         { path: '/', pathName: 'HOME', AuthPage: false },
         { path: '/project', pathName: 'PROJECT', AuthPage: false },
-        { path: '/todoCalnder', pathName: 'MY Calendar', AuthPage: false },
+        { path: '/myschedule', pathName: 'MY Calendar', AuthPage: false },
         { path: '/Board', pathName: 'Board', AuthPage: false },
         { path: '/admin', pathName: 'Admin', AuthPage: true },
         { path: '/contact', pathName: 'contact', AuthPage: false },
@@ -89,7 +89,10 @@ export default function RootNav({ ChangePageHandler }) {
             <Header>
                 <div className="wrap">
                     <nav>
-                        <DarkModeBtn onClick={ctx.toggleMode} darkMode={ctx.darkMode} />
+                        <DarkModeBtn
+                            onClick={ctx.toggleMode}
+                            darkMode={ctx.darkMode}
+                        />
 
                         {/* Nav */}
                         <ul>
@@ -98,7 +101,10 @@ export default function RootNav({ ChangePageHandler }) {
                                 if (e.AuthPage) {
                                     return (
                                         login && (
-                                            <List key={idx} $active={active === e.path}>
+                                            <List
+                                                key={idx}
+                                                $active={active === e.path}
+                                            >
                                                 {e.pathName}
                                             </List>
                                         )

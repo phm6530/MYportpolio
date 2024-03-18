@@ -1,7 +1,14 @@
 import SubTitle from 'component/ui/Subtitle';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Scrollbar, FreeMode, Autoplay, EffectCreative } from 'swiper/modules';
+import {
+    Navigation,
+    Pagination,
+    Scrollbar,
+    FreeMode,
+    Autoplay,
+    EffectCreative,
+} from 'swiper/modules';
 // Swiper modules 활성화
 
 // Import Swiper styles
@@ -32,15 +39,16 @@ const SummeryStyle = styled.div`
     overflow: hidden;
     border-radius: 1em;
     flex-grow: 1;
-    margin-left: 1rem;
+    background: #fff;
+    margin-right: 1.5rem;
+    padding: 1rem;
 `;
 
 const DdayTaskStyle = styled.div`
     display: flex;
     flex-direction: column;
-    margin-top: 1rem;
+    margin-bottom: 1rem;
     border-radius: 0.5em;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
     /* background: linear-gradient(90deg, #6f58b0 0%, #5147ab 100%); */
     padding: 1rem;
     /* border-radius: 32px; */
@@ -67,9 +75,23 @@ const DdayTaskStyle = styled.div`
 //     }
 // `;
 
+const DdayHeader = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .countNum {
+        font-size: 22px;
+        line-height: 27px;
+        letter-spacing: -0.07em;
+        color: #6859a4;
+    }
+`;
+
 const ScheduleDdayList = ({ DdayTasks }) => {
     const DdayTask = ({ task }) => {
-        const { modal, setModal, mutateAsync } = useProjectActions({ type: 'schedule' });
+        const { modal, setModal, mutateAsync } = useProjectActions({
+            type: 'schedule',
+        });
         const { work, schedule_key, formatted_date } = task;
         const currentDate = new Date();
         const taskDate = new Date(formatted_date);
@@ -80,15 +102,19 @@ const ScheduleDdayList = ({ DdayTasks }) => {
             <>
                 {modal && (
                     <Popup closePopup={() => setModal(false)}>
-                        <Confirm confirm={() => mutateAsync(schedule_key)}></Confirm>
+                        <Confirm
+                            confirm={() => mutateAsync(schedule_key)}
+                        ></Confirm>
                     </Popup>
                 )}
 
                 <DdayTaskStyle>
                     {/* <img src="/img/calendar/talk.png" alt="" /> */}
-                    <span>D {count}</span>
+                    <DdayHeader>
+                        <span className="countNum">D {count}</span>
+                        <span onClick={() => setModal(true)}>삭제</span>
+                    </DdayHeader>
                     <p>{work}</p>
-                    <span onClick={() => setModal(true)}>삭제</span>
                 </DdayTaskStyle>
             </>
         );

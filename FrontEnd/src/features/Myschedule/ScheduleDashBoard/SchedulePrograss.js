@@ -22,7 +22,6 @@ const PrograssbarStyle = styled.div`
         position: absolute;
         left: 0;
         z-index: 1;
-        box-shadow: 15px 10px 10px rgba(0, 0, 0, 0.2);
         width: ${props => `${props.$persent}%`};
         background: linear-gradient(90deg, #7264ef 0%, #b3bee7 100%);
         /* background: ${props => getBackgroundColor(props.$persent)}; */
