@@ -143,13 +143,24 @@ const ViewIconAnimation = styled.div`
 const ProjectButtonWrap = styled.div``;
 
 export default function ProjectItem({ activeIdx, setActiveIdx, project }) {
-    const { thumbnail, skill, company, hashtag, title, description, project_key } = project;
+    const {
+        thumbnail,
+        skill,
+        company,
+        hashtag,
+        title,
+        description,
+        project_key,
+    } = project;
     const navigate = useNavigate();
 
     return (
         <>
             <ProjectFadeinStyle onClick={() => navigate(`${project_key}`)}>
-                <ProjectImgArea $backImg={`http://localhost:8080/${thumbnail}`} className="projectItemImg">
+                <ProjectImgArea
+                    $backImg={`http://localhost:8080/${thumbnail}`}
+                    className="projectItemImg"
+                >
                     <ViewIconAnimation className="aniTarget">
                         <FaMagnifyingGlass />
                     </ViewIconAnimation>
@@ -174,7 +185,10 @@ export default function ProjectItem({ activeIdx, setActiveIdx, project }) {
                     <div>
                         {hashtag &&
                             hashtag.map((e, idx) => (
-                                <HashtageStyle className="hashTag" key={`hash-${idx}`}>
+                                <HashtageStyle
+                                    className="hashTag"
+                                    key={`hash-${idx}`}
+                                >
                                     # {e}
                                 </HashtageStyle>
                             ))}

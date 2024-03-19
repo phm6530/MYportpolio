@@ -2,7 +2,6 @@ import SubTitle from 'component/ui/Subtitle';
 import styled from 'styled-components';
 import { Button } from 'component/ui/Button';
 import ScheduleSelectBox from './SchduleSelectBox';
-import SchedulePrograss from './SchedulePrograss';
 import ScheduleMainFoucs from './ScheduleMainFoucs';
 import ScheduleGit from './ScheduleGit';
 
@@ -45,7 +44,7 @@ const CustumFlexWrapDiv = styled(FlexWrapDiv)`
 const ScheduleDashBoard = props => {
     useQuery('git', fetchGit, {
         onSuccess: data => {
-            console.log(data);
+            // console.log(data);
         },
         onError: error => {
             console.log(error);

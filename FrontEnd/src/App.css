@@ -349,4 +349,45 @@ input::placeholder {
 
 .margin-bottom-2rem {
   margin-bottom: 2rem;
+}
+
+.categoryTitle {
+  /* 운동 */
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  color: #3d3d3d;
+  margin-bottom: 0.2rem;
+}
+
+.circular-pbar {
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  --p: 0;
+  background: conic-gradient(#6284ff, #d35fd6 var(--p, 0), 0, #fff);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.circular-pbar:after {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 70%;
+  background: #fff;
+  position: absolute;
+  content: "";
+  border-radius: 100%;
+}
+
+.circular-pbar-counter {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  font-weight: bold;
+  z-index: 1;
 }/*# sourceMappingURL=app.css.map */

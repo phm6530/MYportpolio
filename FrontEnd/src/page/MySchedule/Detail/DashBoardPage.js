@@ -3,11 +3,16 @@ import ScheduleDashBoard from 'features/Myschedule/ScheduleDashBoard';
 
 import styled from 'styled-components';
 import ScheduleSummary from 'features/Myschedule/ScheduleSummary';
-import { filterByDate } from 'features/Myschedule/component/filterByOrder';
+import { SubTitleSchedule } from 'features/Myschedule/component/styles/ScheduleCommonStyles';
+import { FlexRow } from 'component/CommonStyle';
+import TotalGraph from 'features/Myschedule/component/TotalGraph';
+import SummaryHeader from 'features/Myschedule/ScheduleDashBoard/SummaryHeader';
 
 const Wrap = styled.div`
     display: flex;
     margin-bottom: 4rem;
+    flex-direction: row;
+    flex-wrap: wrap;
 `;
 
 const FirstWrap = styled(Wrap)`
@@ -15,11 +20,6 @@ const FirstWrap = styled(Wrap)`
 `;
 
 const DashBoardPage = props => {
-    const { listData } = props;
-
-    // today
-    const todayArr = filterByDate(listData);
-
     return (
         <>
             <FirstWrap>
@@ -28,7 +28,12 @@ const DashBoardPage = props => {
                 <ScheduleDashBoard {...props} />
             </FirstWrap>
             <Wrap>
-                <ScheduleSummary todayArr={todayArr} />
+                <SubTitleSchedule>MY Schedule Summary</SubTitleSchedule>
+                <SummaryHeader />
+                <TotalGraph {...props} />
+                <FlexRow>
+                    <ScheduleSummary {...props} />
+                </FlexRow>
             </Wrap>
             <Wrap>asgf</Wrap>
         </>

@@ -10,6 +10,7 @@ const FlexColumnDiv = styled.div`
     flex-direction: column;
     flex-grow: 1;
     align-items: flex-start;
+    width: 100%;
 `;
 
 const FlexWrapDiv = styled.div`
@@ -19,7 +20,7 @@ const FlexWrapDiv = styled.div`
     align-items: flex-end;
 `;
 
-const SubTitleTextStyle = styled.span`
+const SubTitleTextStyle = styled.div`
     font-size: 14px;
     line-height: 17px;
     width: 100%;
@@ -32,8 +33,9 @@ const SubTitleTextStyle = styled.span`
     letter-spacing: -0.05em;
     font-weight: 500;
     color: #8d93ac;
-    margin-bottom: 0.3rem;
-    span {
+    align-items: center;
+    margin-bottom: 0.5rem;
+    .percent {
         opacity: 0.5;
     }
 `;
@@ -47,6 +49,7 @@ const FlexColumnBetween = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
+    width: 100%;
 `;
 
 export {

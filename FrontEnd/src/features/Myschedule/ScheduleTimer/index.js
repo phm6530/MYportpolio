@@ -49,7 +49,10 @@ const StopWatch = styled.div`
         line-height: 36px;
         letter-spacing: -0.05em;
 
-        color: #423c77;
+        background: linear-gradient(90deg, #9047a6 0%, #5072a8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
 
     display: flex;

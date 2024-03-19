@@ -40,7 +40,8 @@ const SubTitleSchedule = styled.div`
     letter-spacing: -0.04em;
     color: #51617b;
     margin-bottom: 1rem;
-    margin-left: 0.5rem;
+    width: 100%;
+    margin-left: 0.2rem;
 `;
 
 export { HourStyle, FoucesStyle, SubTitleSchedule };
