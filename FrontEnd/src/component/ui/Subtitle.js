@@ -4,7 +4,7 @@ const SubTitleStyle = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
-    margin-bottom: 1.5rem;
+    /* margin-bottom: 1.5rem; */
     align-items: center;
     .subText {
         font-size: 2rem;
@@ -26,8 +26,8 @@ const SubTitleStyle = styled.div`
 
 const BigSubTitleStyle = styled.div``;
 
-export default function SubTitle({ children }) {
-    return <SubTitleStyle>{children}</SubTitleStyle>;
+export default function SubTitle({ className, children }) {
+    return <SubTitleStyle className={className}>{children}</SubTitleStyle>;
 }
 
 export function BigSubTitle({ children }) {

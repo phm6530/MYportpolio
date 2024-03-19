@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { projectFetch } from 'services/projectService';
 import { ProjectWrapStyle } from './Styled/ProjectListStyled';
 import ProjectAddBtn from 'features/project/component/Detail/ProjectAddBtn';
-import CateGoryButton from 'features/project/component/Detail/CateGoryButton';
+import CateGoryButton from 'component/ui/CateGoryButton';
 import ProjectSeach from 'features/project/component/Detail/ProjectSeach';
 
 const NoSeachingData = styled(FadeinComponent)`
@@ -38,14 +38,14 @@ const ProjectListStyle = styled.div`
 const FlexRow = styled.div`
     display: flex;
     width: 100%;
-    margin-bottom: 3rem;
-    /* margin-top: 1rem; */
+
     align-items: center;
 `;
 
 export default function ProjectList() {
     const location = useLocation();
-    const isProjectIndex = location.pathname === '/project' || location.pathname === '/project/';
+    const isProjectIndex =
+        location.pathname === '/project' || location.pathname === '/project/';
     const { isLoading, isError } = useQuery('project', projectFetch, {
         enabled: isProjectIndex,
         refetchOnWindowFocus: false,
@@ -68,7 +68,7 @@ export default function ProjectList() {
         return e.hashtag.includes(SeachValue);
     });
     const ProjectArr = SeachValue ? SeachArr : project;
-
+    const CateGory = ['All', '반응형', 'React', '참여율 100%'];
     return (
         <>
             <ProjectListStyle>
@@ -82,12 +82,14 @@ export default function ProjectList() {
 
                 {/* List */}
                 <FlexRow>
-                    <CateGoryButton />
+                    <CateGoryButton CateGory={CateGory} type={'queryString'} />
                     <ProjectSeach />
                 </FlexRow>
                 {isLoading && <NoSeachingData>Loading...</NoSeachingData>}
                 {SeachValue && SeachArr.length === 0 && (
-                    <NoSeachingData>"{SeachValue}" 키워드와 일치하는 항목이 없음</NoSeachingData>
+                    <NoSeachingData>
+                        "{SeachValue}" 키워드와 일치하는 항목이 없음
+                    </NoSeachingData>
                 )}
                 {!isLoading && isError && 'error'}
                 {!isLoading && !isError && (

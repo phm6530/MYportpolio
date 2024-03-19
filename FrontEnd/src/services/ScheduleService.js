@@ -1,6 +1,6 @@
 // 초기데이터 로더
 const scheduleFetch = async (Year, Month) => {
-    console.log('실행해라 !!!!!!!!!!!!!!!!!!!!!!!');
+    // console.log('실행해라 !!!!!!!!!!!!!!!!!!!!!!!');
     try {
         const response = await fetch(
             `http://localhost:8080/schedule?Year=${Year}&month=${Month}`,

@@ -10,17 +10,21 @@ export default function WithRedirect({ Component, redirectPath }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { data: projectDetail, error } = useQuery(['projectDetail', key], () => fetchDetail(key), {
-        onSuccess: data => {
-            console.log('Data: ', data);
+    const { data: projectDetail, error } = useQuery(
+        ['projectDetail', key],
+        () => fetchDetail(key),
+        {
+            onSuccess: data => {
+                console.log('Data: ', data);
+            },
+            onError: error => {
+                console.log('Error: ', error);
+                dispatch(alertThunk(error.message, 0));
+                navigate(redirectPath);
+            },
+            retry: false,
         },
-        onError: error => {
-            console.log('Error: ', error);
-            dispatch(alertThunk(error.message, 0));
-            navigate(redirectPath);
-        },
-        retry: false,
-    });
+    );
 
     if (error) {
         console.log('Error outside: ', error);

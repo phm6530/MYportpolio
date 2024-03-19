@@ -8,6 +8,8 @@ const FlexRowDiv = styled.div`
 const FlexColumnDiv = styled.div`
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
+    align-items: flex-start;
 `;
 
 const FlexWrapDiv = styled.div`
@@ -25,8 +27,12 @@ const SubTitleTextStyle = styled.span`
     /* font-weight: bold; */
     display: flex;
     width: 100%;
-    margin-bottom: 0.7rem;
     justify-content: space-between;
+    font-size: 14px;
+    letter-spacing: -0.05em;
+    font-weight: 500;
+    color: #8d93ac;
+    margin-bottom: 0.3rem;
     span {
         opacity: 0.5;
     }
@@ -43,4 +49,11 @@ const FlexColumnBetween = styled.div`
     align-items: flex-start;
 `;
 
-export { FlexColumnBetween, SubTitleTextStyle, FlexRowDiv, FlexColumnDiv, FlexWrapDiv, MarginBottom1rem };
+export {
+    FlexColumnBetween,
+    SubTitleTextStyle,
+    FlexRowDiv,
+    FlexColumnDiv,
+    FlexWrapDiv,
+    MarginBottom1rem,
+};

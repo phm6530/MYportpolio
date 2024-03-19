@@ -59,7 +59,10 @@ export default function ProjectLayout() {
                             path=":key"
                             element={
                                 <FlexMotion>
-                                    <WithRedirect Component={ProjectDetail} redirectPath={'/project'} />
+                                    <WithRedirect
+                                        Component={ProjectDetail}
+                                        redirectPath={'/project'}
+                                    />
                                 </FlexMotion>
                             }
                         />
@@ -67,7 +70,10 @@ export default function ProjectLayout() {
                             path="add"
                             element={
                                 <Motion.FadeInOut>
-                                    <WithAuth Component={AddProject} redirectPath={'/project'} />
+                                    <WithAuth
+                                        Component={AddProject}
+                                        redirectPath={'/project'}
+                                    />
                                 </Motion.FadeInOut>
                             }
                         />

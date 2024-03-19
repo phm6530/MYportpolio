@@ -331,16 +331,6 @@ input::placeholder {
   text-align: center;
 }
 
-.swiper-slide {
-  width: 100px; /* 기본 너비 */
-  transition: width 0.3s; /* 너비 변경 시 부드럽게 전환되도록 설정 */
-}
-
-/* 현재 활성화된 슬라이드의 스타일 */
-.swiper-slide-active {
-  width: 150px; /* 활성화된 슬라이드의 너비를 늘림 */
-}
-
 .margin-bottom-30 {
   margin-bottom: 30px;
 }

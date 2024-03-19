@@ -1,11 +1,26 @@
 import styled from 'styled-components';
 
 const HourStyle = styled.p`
-    font-size: 30px;
-    line-height: 30px;
-    letter-spacing: -0.05em;
-    color: #5e5ec2;
+    font-size: 20px;
     font-weight: bold;
+    letter-spacing: -0.01em;
+    color: #404d58;
+    margin-bottom: 1.8rem;
+    position: relative;
+    /* margin-left: 0.7rem; */
+    &::after {
+        position: absolute;
+        bottom: 0;
+        display: block;
+        width: calc(100% + 10px);
+        height: 14px;
+        left: -5px;
+        z-index: 0;
+        opacity: 0.1;
+        border-radius: 1em;
+        background: #b4c7ff;
+        content: '';
+    }
 `;
 
 const FoucesStyle = styled.span`
@@ -15,7 +30,17 @@ const FoucesStyle = styled.span`
     font-weight: bold;
     font-size: 12px;
     color: #404d58;
-    margin-left: 1rem;
 `;
 
-export { HourStyle, FoucesStyle };
+const SubTitleSchedule = styled.div`
+    /* D - Day */
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: -0.04em;
+    color: #51617b;
+    margin-bottom: 1rem;
+    margin-left: 0.5rem;
+`;
+
+export { HourStyle, FoucesStyle, SubTitleSchedule };

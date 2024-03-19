@@ -43,7 +43,13 @@ const BoardReplyWrap = styled.div`
     }
 `;
 
-export default function BoardCommentList({ userFetchData, moreFetchData, total, setUserFetchData, setLastPageIdx }) {
+export default function BoardCommentList({
+    userFetchData,
+    moreFetchData,
+    total,
+    setUserFetchData,
+    setLastPageIdx,
+}) {
     const [selectIdx, setSelectIdx] = useState(null);
     const refs = useRef([]);
     useEffect(() => {
@@ -100,7 +106,9 @@ export default function BoardCommentList({ userFetchData, moreFetchData, total, 
                             <div key={item.board_key}>
                                 {isFirstDay && (
                                     <Fadeup key={`date-${item.board_key}`}>
-                                        <FirstDayStyle $first={firstDiv}>{date}</FirstDayStyle>
+                                        <FirstDayStyle $first={firstDiv}>
+                                            {date}
+                                        </FirstDayStyle>
                                     </Fadeup>
                                 )}
 

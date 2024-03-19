@@ -97,7 +97,7 @@ const RadioWrap = styled.div`
     position: relative;
     width: 100%;
     margin-bottom: 20px;
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
 `;
 
 export default function MailComponent() {
@@ -119,7 +119,13 @@ export default function MailComponent() {
         setRadioIdx(0);
     }, [reset]);
 
-    const Radio = ['일반 문의', '뉴스레터', '유지보수', '홍보 페이지 제작', '기타'];
+    const Radio = [
+        '일반 문의',
+        '뉴스레터',
+        '유지보수',
+        '홍보 페이지 제작',
+        '기타',
+    ];
 
     const fetchMailHandler = async mailData => {
         setMailSubmit(true);
@@ -165,7 +171,8 @@ export default function MailComponent() {
                     </SubTitle>
                     <RadioWrap>
                         <FieldLabel>
-                            문의내용 * <span>해당 문의사항은 메일로 전달됩니다.</span>
+                            문의내용 *{' '}
+                            <span>해당 문의사항은 메일로 전달됩니다.</span>
                         </FieldLabel>
                         <Controller
                             name="radioOption"
@@ -174,7 +181,10 @@ export default function MailComponent() {
                             render={({ field }) => {
                                 return Radio.map((e, idx) => {
                                     return (
-                                        <RadioLabel $check={radioIdx === idx} key={`radio_${idx}`}>
+                                        <RadioLabel
+                                            $check={radioIdx === idx}
+                                            key={`radio_${idx}`}
+                                        >
                                             <input
                                                 type="radio"
                                                 {...field}
@@ -190,7 +200,11 @@ export default function MailComponent() {
                                 });
                             }}
                         />
-                        {errors.radioOption && <ErrorBubble>{errors.radioOption.message}</ErrorBubble>}
+                        {errors.radioOption && (
+                            <ErrorBubble>
+                                {errors.radioOption.message}
+                            </ErrorBubble>
+                        )}
                     </RadioWrap>
 
                     <InputMargin>
@@ -204,7 +218,9 @@ export default function MailComponent() {
                             })}
                             $error={errors.who}
                         />
-                        {errors.who && <ErrorBubble>{errors.who.message}</ErrorBubble>}
+                        {errors.who && (
+                            <ErrorBubble>{errors.who.message}</ErrorBubble>
+                        )}
                     </InputMargin>
 
                     <InputMargin>
@@ -218,7 +234,11 @@ export default function MailComponent() {
                             })}
                             $error={errors.yourContact}
                         />
-                        {errors.yourContact && <ErrorBubble>{errors.yourContact.message}</ErrorBubble>}
+                        {errors.yourContact && (
+                            <ErrorBubble>
+                                {errors.yourContact.message}
+                            </ErrorBubble>
+                        )}
                     </InputMargin>
 
                     <InputMargin>
@@ -237,9 +257,17 @@ export default function MailComponent() {
                             rows="7"
                             // onChange={(e) => changeHandler(e.target.value)}
                         />
-                        {errors.description && <ErrorBubble>{errors.description.message}</ErrorBubble>}
+                        {errors.description && (
+                            <ErrorBubble>
+                                {errors.description.message}
+                            </ErrorBubble>
+                        )}
                     </InputMargin>
-                    <Button.Submit style={{ marginLeft: 'auto' }} page="contact" disabled={mailSubmit}>
+                    <Button.Submit
+                        style={{ marginLeft: 'auto' }}
+                        page="contact"
+                        disabled={mailSubmit}
+                    >
                         문의 메일 보내기
                     </Button.Submit>
                 </FormStyle>

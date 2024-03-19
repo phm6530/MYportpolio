@@ -2,9 +2,7 @@ import './App.css';
 import { Provider } from 'react-redux';
 
 // Rounter
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
-
-import Motion from 'component/animations/Motion';
+import { BrowserRouter } from 'react-router-dom';
 
 // context
 import { Mode } from 'context/DarkModeContext';
@@ -12,37 +10,9 @@ import { Mode } from 'context/DarkModeContext';
 // redux
 import store from 'store/appSlice';
 
-import { AnimatePresence } from 'framer-motion';
-
-// Home
-import HomeComponent from './page/Home/HomeComponent';
-// import { projectChangeLoader } from './page/MyProject/ProjectFetch'; //add Loader
-
-// Notice
-import Board from './page/Board/Board';
-
-// admin
-import Admin from './page/admin/Admin';
-
-import ProjectDetail from './page/MyProject/component/ProjectList/ProjectDetail';
-
-//Auth Util 권한 Check
-import { tokenCheck } from 'services/authService';
-import WithAuth from 'component/hoc/WithAuth';
-
-import WithRedirect from 'component/hoc/WithRedirect';
-
-import { fetchDetail } from 'services/projectService';
-
-import Test from './test';
-import ErrorRoot from 'component/error/ErrorRoot';
-import Contact from './page/contact/Contact';
-import ProjectLayout from 'features/project/ProjectLayout';
-import ProjectList from './page/MyProject/component/ProjectList/ProjectList';
-import { useEffect } from 'react';
 import RootNav from 'component/layout/RootNav';
 import Footer from 'component/layout/Footer';
-import MySchedule from 'page/MySchedule/MySchedule';
+import AppRoute from 'Route/AppRoute';
 
 // const router = createBrowserRouter([
 //     {
@@ -129,55 +99,10 @@ import MySchedule from 'page/MySchedule/MySchedule';
 // ]);
 
 function AnimatedRoutes() {
-    const location = useLocation();
-    const pageKey = location.pathname.split('/')[1] || 'home';
-
     return (
-        <AnimatePresence mode="wait">
-            <Routes location={location} key={pageKey}>
-                <Route
-                    path="/"
-                    element={
-                        <Motion.Page>
-                            <HomeComponent />
-                        </Motion.Page>
-                    }
-                />
-                <Route
-                    path="/project/*"
-                    element={
-                        <Motion.Page>
-                            <ProjectLayout />
-                        </Motion.Page>
-                    }
-                />
-                <Route
-                    path="/myschedule/*"
-                    element={
-                        <Motion.Page>
-                            <MySchedule />
-                        </Motion.Page>
-                    }
-                />
-
-                <Route
-                    path="/Board"
-                    element={
-                        <Motion.Page>
-                            <Board />
-                        </Motion.Page>
-                    }
-                />
-                <Route
-                    path="/contact"
-                    element={
-                        <Motion.Page>
-                            <Contact />
-                        </Motion.Page>
-                    }
-                />
-            </Routes>
-        </AnimatePresence>
+        <>
+            <AppRoute />
+        </>
     );
 }
 

@@ -68,24 +68,28 @@ export default function Board() {
     const [lastPageIdx, setLastPageIdx] = useState(null);
     const dispatch = useDispatch();
 
-    const { isLoading, isError } = useQuery(['board', lastPageIdx], () => fetchData(lastPageIdx), {
-        refetchOnWindowFocus: false,
-        onSuccess: data => {
-            if (data.pageData.length === 0) {
-                setFetchMoreData(false);
-            }
-            setTotal(data.counter);
-            // console.log('userQuery 실행');
-            // 이건 맞음
-            setUserFetchData(prev => {
-                return [...prev, ...data.pageData];
-            });
+    const { isLoading, isError } = useQuery(
+        ['board', lastPageIdx],
+        () => fetchData(lastPageIdx),
+        {
+            refetchOnWindowFocus: false,
+            onSuccess: data => {
+                if (data.pageData.length === 0) {
+                    setFetchMoreData(false);
+                }
+                setTotal(data.counter);
+                // console.log('userQuery 실행');
+                // 이건 맞음
+                setUserFetchData(prev => {
+                    return [...prev, ...data.pageData];
+                });
+            },
+            onError: error => {
+                console.log('실행');
+                dispatch(alertThunk(error.message, 0));
+            },
         },
-        onError: error => {
-            console.log('실행');
-            dispatch(alertThunk(error.message, 0));
-        },
-    });
+    );
 
     useEffect(() => {
         window.scrollTo({
@@ -121,12 +125,15 @@ export default function Board() {
                             </div>
                         </SubTitle>
                         <PageText>
-                            brycpt를 이용하여 암호화 저장하고 있으며 해싱된 비밀번호 이외 어떠한 정보도 수집하지
-                            않습니다.
+                            brycpt를 이용하여 암호화 저장하고 있으며 해싱된
+                            비밀번호 이외 어떠한 정보도 수집하지 않습니다.
                         </PageText>
                     </BoardDashBoard>
 
-                    <BoardCommentForm setTotal={setTotal} setUserFetchData={setUserFetchData} />
+                    <BoardCommentForm
+                        setTotal={setTotal}
+                        setUserFetchData={setUserFetchData}
+                    />
 
                     {/* BoardComment */}
                     {!isLoading && isError && 'error'}

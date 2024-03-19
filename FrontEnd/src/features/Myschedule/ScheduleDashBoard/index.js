@@ -6,20 +6,22 @@ import SchedulePrograss from './SchedulePrograss';
 import ScheduleMainFoucs from './ScheduleMainFoucs';
 import ScheduleGit from './ScheduleGit';
 
-import { FlexRowDiv, FlexColumnBetween } from 'features/CommonStyles';
+import {
+    FlexRowDiv,
+    FlexColumnBetween,
+    FlexWrapDiv,
+} from 'features/CommonStyles';
 import { fetchGit } from 'services/ScheduleService';
 import { useQuery } from 'react-query';
 
 const DashBoardStyle = styled.div`
     /* Rectangle 148 */
-
+    width: 40%;
     display: flex;
-    padding: 3rem 5rem;
-    /* background: #f8fbfd; */
-    background: #fff;
     flex-grow: 1;
+    margin-left: 2rem;
     border-radius: 2rem;
-    margin-right: 1.5rem;
+    align-items: center;
 `;
 
 const SubDescriptionStyle = styled.div`
@@ -32,9 +34,12 @@ const SubDescriptionStyle = styled.div`
 const ConTentsWrapStyle = styled.div`
     display: flex;
     flex-direction: column;
-    margin-left: 4rem;
-    flex-grow: 1;
     justify-content: space-between;
+`;
+
+const CustumFlexWrapDiv = styled(FlexWrapDiv)`
+    margin-left: 2rem;
+    align-items: flex-start;
 `;
 
 const ScheduleDashBoard = () => {
@@ -48,27 +53,18 @@ const ScheduleDashBoard = () => {
     });
     return (
         <DashBoardStyle>
-            <FlexColumnBetween>
-                <SubTitle>
-                    <div className="subText">
-                        <div className="point">MY SCHEDULES</div>
-                    </div>
-                </SubTitle>
-                <SubDescriptionStyle>3. 18일</SubDescriptionStyle>
-                <Button.SubmitButton active={true}>VIEW</Button.SubmitButton>
-            </FlexColumnBetween>
-
             <ConTentsWrapStyle>
-                <div className="margin-bottom-2rem">
+                {/* <div className="margin-bottom-2rem">
                     <ScheduleSelectBox />
-                </div>
+                </div> */}
 
-                <SchedulePrograss />
+                {/* <SchedulePrograss /> */}
 
-                <FlexRowDiv>
+                <CustumFlexWrapDiv>
                     <ScheduleMainFoucs />
+                    <ScheduleMainFoucs show={'hour'} />
                     <ScheduleGit />
-                </FlexRowDiv>
+                </CustumFlexWrapDiv>
             </ConTentsWrapStyle>
         </DashBoardStyle>
     );

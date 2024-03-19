@@ -3,23 +3,17 @@ import DashBoard from '../../component/ui/DashBoard';
 import BannerCommon from 'component/ui/BannerCommon';
 import DashBoardTitle from 'component/ui/DashBoardTitle';
 
-import ScheduleContainer from 'features/Myschedule/ScheduleContainer';
 import alertThunk from 'store/alertTrunk';
-import FadeinComponent from 'FadeinComponent';
 
 import { ReactQuery, ReactRedux, ReactRouteDom } from 'lib/lib';
 import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
 
 import { scheduleFetch } from 'services/ScheduleService';
 import { TodaySeletor } from 'utils/TodaySeletor';
-import ScheduleDashBoard from 'features/Myschedule/ScheduleDashBoard';
-import ScheduleDdayList from 'features/Myschedule/ScheduleDday';
 
 // styled
 import { ScheduleGrid, CalendarStyle, ContentsWrap } from './MyScheduleStyle';
 import { FlexRow } from 'component/CommonStyle';
-import ScheduleTimer from 'features/Myschedule/ScheduleTimer';
 
 // import { dateFormating } from 'utils/DateFormat';
 
@@ -29,11 +23,17 @@ import UserProfile from 'component/profile/UserProfile';
 import { FlexColumnDiv } from 'features/CommonStyles';
 import ScheduleHeader from 'features/Myschedule/Layout/ScheduleHeader';
 import ScheduleRoute from 'Route/ScheduleRoute';
+import styled from 'styled-components';
 
 // lib
 const { useQuery } = ReactQuery;
 const { useDispatch } = ReactRedux;
 const { useSearchParams } = ReactRouteDom;
+
+const CustumlexColumnDiv = styled(FlexColumnDiv)`
+    padding: 2rem 3rem;
+    border-radius: 2.5rem;
+`;
 
 export default function MySchedule() {
     const today = TodaySeletor(); //오늘날짜 계산
@@ -64,7 +64,7 @@ export default function MySchedule() {
             <DashBoard page={'Calendar'}>
                 {/* header */}
                 <BannerCommon.BannerPoint>
-                    <img src="img/calendar.png" alt="calendar" />
+                    <img src="/img/calendar.png" alt="calendar" />
                     MY STUDY
                 </BannerCommon.BannerPoint>
 
@@ -77,13 +77,20 @@ export default function MySchedule() {
                 {/* UserProFile */}
                 <UserProfile />
 
-                <FlexColumnDiv>
+                <CustumlexColumnDiv style={{ backgroundColor: '#fff' }}>
                     {/*  */}
                     <ScheduleHeader />
 
                     {/* 서브 라우터 */}
-                    <ScheduleRoute />
-                </FlexColumnDiv>
+                    <ScheduleRoute
+                        setSelectDay={setSelectDay}
+                        listData={listData}
+                        selectDay={selectDay}
+                        paramYear={getYear}
+                        paramMonth={getMonth}
+                        DdayArr={DdayArr}
+                    />
+                </CustumlexColumnDiv>
             </ScheduleGrid>
         </>
     );

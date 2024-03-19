@@ -10,7 +10,7 @@ const MyScheduleLayOut = () => {
                     {/* body */}
 
                     {/* D-day 영역 */}
-                    <ScheduleDdayList DdayTasks={DdayArr} />
+                    {/* <ScheduleDdayList DdayTasks={DdayArr} /> */}
 
                     <CalendarStyle
                         setSelectDay={setSelectDay}

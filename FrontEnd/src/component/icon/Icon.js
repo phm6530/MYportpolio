@@ -5,6 +5,7 @@ import { TiDelete } from 'react-icons/ti';
 import { HiMiniQuestionMarkCircle } from 'react-icons/hi2';
 import { IoChatbubbleEllipsesOutline } from 'react-icons/io5';
 import { RxQuestionMarkCircled } from 'react-icons/rx';
+import { MdCancel } from 'react-icons/md';
 
 // icon
 import { BsFillMoonFill } from 'react-icons/bs';
@@ -49,4 +50,5 @@ export {
     DeleteIcon,
     QuestionMark,
     SpeechBubble,
+    MdCancel,
 };
