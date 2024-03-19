@@ -13,13 +13,27 @@ import alertThunk from 'store/alertTrunk';
 
 import ScheduleDdaySetter from './ScheduleDdaySetter';
 
-import { fetchEditSchedule, fetchDeleteSchedule, fetchToggleComplete } from 'services/ScheduleService';
-import { FormStyle, CompleteHandler, ImportantStyle, TextArea, IsComplete } from './styles/ListHandlerStyled';
+import {
+    fetchEditSchedule,
+    fetchDeleteSchedule,
+    fetchToggleComplete,
+} from 'services/ScheduleService';
+import {
+    FormStyle,
+    CompleteHandler,
+    ImportantStyle,
+    TextArea,
+    IsComplete,
+} from './styles/ListHandlerStyled';
+import { FlexColumnDiv } from 'features/CommonStyles';
+import Category from '../ui/Category';
 
 const ListHandler = ({ idx, selectWork, setSelectWork, ScheduleItem }) => {
     const { register, handleSubmit, setValue } = useForm();
     const { clientAuthCheck } = useAuthCheck();
-    const [textAreaHeight, setTextArerHeight] = useState(ScheduleItem.work.split(/\r\n|\r|\n/).length);
+    const [textAreaHeight, setTextArerHeight] = useState(
+        ScheduleItem.work.split(/\r\n|\r|\n/).length,
+    );
     const { schedule_key, complete, important } = ScheduleItem;
     const { showPopup, hidePopup, PopupComponent } = usePopup();
     const dispatch = useDispatch();
@@ -93,28 +107,40 @@ const ListHandler = ({ idx, selectWork, setSelectWork, ScheduleItem }) => {
             <PopupComponent id="deleteSchedule" event={removeSchedule} />
 
             <IsComplete $complete={complete}>
-                <CompleteHandler onClick={() => onToggleHandler(schedule_key)}>{idx + 1}.</CompleteHandler>
+                <CompleteHandler onClick={() => onToggleHandler(schedule_key)}>
+                    {idx + 1}.
+                </CompleteHandler>
                 {important === 1 && (
                     <ImportantStyle>
                         <img src="/img/calendar/important.png" alt=""></img>
                     </ImportantStyle>
                 )}
                 <FormStyle onSubmit={handleSubmit(onEditHandler)}>
-                    <TextArea
-                        {...register('work', { required: '빈칸은 입력 불가합니다.' })}
-                        rows={textAreaHeight}
-                        readOnly={ScheduleItem.schedule_key !== selectWork}
-                        onChange={e => {
-                            setTextArerHeight(e.target.value.split(/\r\n|\r|\n/).length);
-                            console.log(e.target.value.length);
-                        }}
-                    />
-
-                    {ScheduleItem.schedule_key === selectWork && <button type="submit">확인</button>}
+                    <FlexColumnDiv>
+                        <TextArea
+                            {...register('work', {
+                                required: '빈칸은 입력 불가합니다.',
+                            })}
+                            rows={textAreaHeight}
+                            readOnly={ScheduleItem.schedule_key !== selectWork}
+                            onChange={e => {
+                                setTextArerHeight(
+                                    e.target.value.split(/\r\n|\r|\n/).length,
+                                );
+                                console.log(e.target.value.length);
+                            }}
+                        />
+                        <Category>{ScheduleItem.category}</Category>
+                    </FlexColumnDiv>
+                    {ScheduleItem.schedule_key === selectWork && (
+                        <button type="submit">확인</button>
+                    )}
                 </FormStyle>
 
                 {/* 수정 */}
-                <button onClick={() => readOnlyHandler(ScheduleItem.schedule_key)}>
+                <button
+                    onClick={() => readOnlyHandler(ScheduleItem.schedule_key)}
+                >
                     <MdModeEdit size={'17'} />
                 </button>
 

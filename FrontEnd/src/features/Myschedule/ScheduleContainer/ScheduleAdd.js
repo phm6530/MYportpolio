@@ -11,7 +11,7 @@ import { Button } from '../../../component/ui/Button';
 import ErrorBubble from 'component/error/ErrorBubble';
 
 // lib
-const { useForm } = ReactHookForm;
+const { useForm, Controller } = ReactHookForm;
 const { useDispatch } = ReactRedux;
 const { useQueryClient, useMutation } = ReactQuery;
 
@@ -30,11 +30,17 @@ const TextAreaWrap = styled.div`
     width: 100%;
 `;
 
+const RadioWrap = styled.div`
+    position: relative;
+    display: flex;
+`;
+
 const ScheduleAdd = ({ selectDay }) => {
     const {
         register,
         handleSubmit,
         reset,
+        control,
         formState: { errors },
     } = useForm({
         defaultValues: {
@@ -55,7 +61,8 @@ const ScheduleAdd = ({ selectDay }) => {
             reset();
         },
         onError: error => {
-            console.log(error);
+            dispatch(alertThunk(error.message, false));
+            // console.log(error);
         },
     });
 
@@ -64,6 +71,7 @@ const ScheduleAdd = ({ selectDay }) => {
             schedule_date: selectDay,
             work: formData.Schedule_title,
             important: formData.Schedule_important,
+            category: formData.TaskCategory,
             schedule_key: uuidv4(),
         };
 
@@ -71,16 +79,59 @@ const ScheduleAdd = ({ selectDay }) => {
         mutation.mutate(rquestData);
     };
 
+    const Radio = ['Coding', '운동', 'Study'];
+    // console.log(errors);
     return (
         <>
             <AddScheduleFormStyle onSubmit={handleSubmit(AddScheduleHandler)}>
                 <label>
-                    <input {...register('Schedule_important')} type="checkbox" />
+                    <input
+                        {...register('Schedule_important')}
+                        type="checkbox"
+                    />
                     중요!
                 </label>
 
+                {/* {errors.Schedule_title && (
+                        <ErrorBubble>
+                            {errors.Schedule_title.message}
+                        </ErrorBubble>
+                )} */}
+
+                <RadioWrap>
+                    {errors.TaskCategory && (
+                        <ErrorBubble>{errors.TaskCategory.message}</ErrorBubble>
+                    )}
+
+                    <Controller
+                        control={control}
+                        name="TaskCategory"
+                        rules={{ required: '필수항목입니다.' }}
+                        render={({ field }) => {
+                            return Radio.map(e => {
+                                return (
+                                    <label key={`key-${e}`}>
+                                        <input
+                                            type="radio"
+                                            {...field}
+                                            onChange={() => {
+                                                field.onChange(e);
+                                            }}
+                                        />
+                                        {e}
+                                    </label>
+                                );
+                            });
+                        }}
+                    />
+                </RadioWrap>
+
                 <TextAreaWrap>
-                    {errors.Schedule_title && <ErrorBubble>{errors.Schedule_title.message}</ErrorBubble>}
+                    {errors.Schedule_title && (
+                        <ErrorBubble>
+                            {errors.Schedule_title.message}
+                        </ErrorBubble>
+                    )}
                     <TextAreaStyle
                         $error={errors.Schedule_title}
                         placeholder="일정을 입력해주세요"
@@ -88,7 +139,8 @@ const ScheduleAdd = ({ selectDay }) => {
                             required: '추가하실 일정을 입력해주세요!',
                             maxLength: {
                                 value: 250,
-                                message: '250자를 초과해서 등록 할 수 없습니다.',
+                                message:
+                                    '250자를 초과해서 등록 할 수 없습니다.',
                             },
                         })}
                     />

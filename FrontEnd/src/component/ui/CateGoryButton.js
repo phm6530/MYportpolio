@@ -19,7 +19,7 @@ export default function CateGoryButton({ CateGory, type }) {
     const [param] = useSearchParams();
 
     const pathName = path => {
-        console.log(path);
+        // console.log(path);
         const arr = pathname.split('/');
         const lastIdx = arr.length - 1;
         if (arr.length <= 2) {

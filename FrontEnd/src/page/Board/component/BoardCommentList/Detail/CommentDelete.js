@@ -21,18 +21,22 @@ const ButtonSTyle = styled.button`
     padding: 2px 5px;
 `;
 
-export default function CommentDelete({ mutate, board_key, setSelectIdx }) {
+export default function CommentDelete({
+    mutateAsync,
+    board_key,
+    setSelectIdx,
+}) {
     const { handleSubmit, reset } = useFormContext();
     const dispatch = useDispatch();
 
-    const onSubmitHandler = data => {
+    const onSubmitHandler = async data => {
         const password = data.password;
         const formData = {
             reply_password: password,
             board_key: board_key,
         };
         try {
-            mutate(formData);
+            await mutateAsync(formData);
         } catch (error) {
             dispatch(alertThunk(error.message, false));
         }
@@ -43,7 +47,9 @@ export default function CommentDelete({ mutate, board_key, setSelectIdx }) {
             <FormStyle onSubmit={handleSubmit(onSubmitHandler)}>
                 <Controller
                     name="password"
-                    render={({ field }) => <input autoComplete="off" type="password" {...field} />}
+                    render={({ field }) => (
+                        <input autoComplete="off" type="password" {...field} />
+                    )}
                 />
                 <ButtonSTyle type="submit">확인</ButtonSTyle>
                 <ButtonSTyle

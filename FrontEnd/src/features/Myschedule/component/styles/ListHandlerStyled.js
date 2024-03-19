@@ -13,13 +13,17 @@ const IsComplete = styled.div`
     textarea {
         transition: color 0.2s ease;
         ${props => {
-            return props.$complete && `color: rgba(0,0,0,0.4);     text-decoration: line-through;`;
+            return (
+                props.$complete &&
+                `color: rgba(0,0,0,0.4);     text-decoration: line-through;`
+            );
         }}
     }
 `;
 
 const TextArea = styled.textarea`
     font-size: 14px;
+    width: 100%;
 `;
 
 const ImportantStyle = styled.span`

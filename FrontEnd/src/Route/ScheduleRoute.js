@@ -4,28 +4,19 @@ import Motion from 'component/animations/Motion';
 import DashBoardPage from 'page/MySchedule/Detail/DashBoardPage';
 import ScheduleReport from 'page/MySchedule/Detail/ScheduleReport';
 import TaskPage from 'page/MySchedule/Detail/TaskPage';
+import styled from 'styled-components';
 
-const ScheduleRoute = ({
-    setSelectDay,
-    listData,
-    selectDay,
-    paramYear,
-    paramMonth,
-    DdayArr,
-}) => {
+const MotionStyle = styled(Motion.FadeInOut)`
+    width: 100%;
+`;
+
+const ScheduleRoute = props => {
     const location = useLocation();
 
     const DashBoardElement = (
-        <Motion.FadeInOut>
-            <DashBoardPage
-                setSelectDay={setSelectDay}
-                listData={listData}
-                selectDay={selectDay}
-                paramYear={paramYear}
-                paramMonth={paramMonth}
-                DdayArr={DdayArr}
-            />
-        </Motion.FadeInOut>
+        <MotionStyle>
+            <DashBoardPage {...props} />
+        </MotionStyle>
     );
 
     return (
@@ -36,16 +27,16 @@ const ScheduleRoute = ({
                 <Route
                     path="task"
                     element={
-                        <Motion.FadeInOut>
-                            <TaskPage />
-                        </Motion.FadeInOut>
+                        <MotionStyle>
+                            <TaskPage {...props} />
+                        </MotionStyle>
                     }
                 />
                 <Route
                     path="report"
                     element={
                         <Motion.FadeInOut>
-                            <ScheduleReport />
+                            <ScheduleReport {...props} />
                         </Motion.FadeInOut>
                     }
                 />

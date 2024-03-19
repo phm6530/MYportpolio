@@ -126,7 +126,9 @@ const CommentItem = forwardRef((props, ref) => {
     } = item;
 
     const schema = Yup.object({
-        password: login ? Yup.string().notRequired() : Yup.string().required('비밀번호를 입력해주세요.'),
+        password: login
+            ? Yup.string().notRequired()
+            : Yup.string().required('비밀번호를 입력해주세요.'),
     });
 
     const {
@@ -143,7 +145,7 @@ const CommentItem = forwardRef((props, ref) => {
         login ? setModal(true) : setSelectIdx(key);
     };
 
-    const { mutate } = useMutation(formData => deleteFetch(formData), {
+    const { mutateAsync } = useMutation(formData => deleteFetch(formData), {
         onSuccess: data => {
             dispatch(alertThunk('삭제되었습니다.', true));
             setUserFetchData(prev => {
@@ -152,18 +154,27 @@ const CommentItem = forwardRef((props, ref) => {
                 });
             });
         },
+        onError: error => {
+            dispatch(alertThunk(error.message, 0));
+        },
     });
 
     return (
         <>
             {modal && (
                 <Popup closePopup={() => setModal(false)}>
-                    <Confirm message={'댓글'} confirm={() => mutate({ board_key })} />
+                    <Confirm
+                        message={'댓글'}
+                        confirm={async () => await mutateAsync({ board_key })}
+                    />
                 </Popup>
             )}
 
             <ReplyWrap key={board_key} ref={ref}>
-                <ReplyPicture $pirture={user_icon} className="replyPicture"></ReplyPicture>
+                <ReplyPicture
+                    $pirture={user_icon}
+                    className="replyPicture"
+                ></ReplyPicture>
 
                 <ReplyBubble $admin={role === 'admin'}>
                     <div className="replyHeader">
@@ -174,9 +185,14 @@ const CommentItem = forwardRef((props, ref) => {
                         {(role === 'admin' && !login) || (
                             <div className="replyDelete">
                                 {!selectIdx && (
-                                    <button onClick={() => deleteHandler(board_key)}>
+                                    <button
+                                        onClick={() => deleteHandler(board_key)}
+                                    >
                                         <HoverStyled>
-                                            <DeleteIcon size="20" color="#cdcdcd" />
+                                            <DeleteIcon
+                                                size="20"
+                                                color="#cdcdcd"
+                                            />
                                         </HoverStyled>
                                     </button>
                                 )}
@@ -187,7 +203,7 @@ const CommentItem = forwardRef((props, ref) => {
                                             setUserFetchData={setUserFetchData}
                                             board_key={board_key}
                                             setSelectIdx={setSelectIdx}
-                                            mutateAsync={mutate}
+                                            mutateAsync={mutateAsync}
                                         />
                                     </FormProvider>
                                 )}

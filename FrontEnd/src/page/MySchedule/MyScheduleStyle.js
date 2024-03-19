@@ -14,7 +14,7 @@ const ContentsWrap = styled.div`
 `;
 
 const CalendarStyle = styled(Calendar)`
-    width: 30%;
+    /* width: 50%; */
 `;
 
 export { ScheduleGrid, CalendarStyle, ContentsWrap };

@@ -42,7 +42,7 @@ const CustumFlexWrapDiv = styled(FlexWrapDiv)`
     align-items: flex-start;
 `;
 
-const ScheduleDashBoard = () => {
+const ScheduleDashBoard = props => {
     useQuery('git', fetchGit, {
         onSuccess: data => {
             console.log(data);
@@ -51,6 +51,7 @@ const ScheduleDashBoard = () => {
             console.log(error);
         },
     });
+
     return (
         <DashBoardStyle>
             <ConTentsWrapStyle>

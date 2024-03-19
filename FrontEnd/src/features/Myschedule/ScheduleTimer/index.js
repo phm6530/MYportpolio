@@ -9,8 +9,11 @@ const StopWatch = styled.div`
     box-shadow: 9px 16px 42.3px rgba(0, 0, 0, 0.06);
     border-radius: 47px;
     width: calc(50% - 2.8rem);
-    border: 3px solid #f0e8ff;
+    /* border: 3px solid #f0e8ff; */
     position: relative;
+    box-shadow: 7px 8px 25.6px rgba(199, 198, 217, 0.45);
+    border-radius: 37px;
+
     .timer-icon {
         position: absolute;
         background: red;
@@ -27,7 +30,7 @@ const StopWatch = styled.div`
         font-weight: 500;
         font-size: 16px;
         line-height: 19px;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
         display: block;
     }
 

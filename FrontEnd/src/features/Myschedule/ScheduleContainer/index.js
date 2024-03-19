@@ -16,10 +16,7 @@ import DdayHandler from 'features/Myschedule/component/DdayHandler';
 import ScheduleList from './ScheduleList';
 import ScheduleDdaySetter from '../component/ScheduleDdaySetter';
 
-const ScheduleWrap = styled.div`
-    width: 50%;
-    overflow: hidden;
-`;
+const ScheduleWrap = styled.div``;
 
 const ButtonNavWrap = styled.div`
     border-radius: 1em;
