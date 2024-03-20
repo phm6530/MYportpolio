@@ -1,9 +1,13 @@
-const SelectBox = ({ option }) => {
+const SelectBox = ({ option, setViewRage }) => {
     return (
         <>
-            <select>
+            <select onChange={e => setViewRage(e.target.value)}>
                 {option.map(e => {
-                    return <option key={e}>{e}</option>;
+                    return (
+                        <option value={e} key={e}>
+                            {e}
+                        </option>
+                    );
                 })}
             </select>
         </>

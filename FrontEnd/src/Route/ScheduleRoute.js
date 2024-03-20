@@ -15,7 +15,7 @@ const ScheduleRoute = props => {
 
     const DashBoardElement = (
         <MotionStyle>
-            <DashBoardPage {...props} />
+            {props.listData && <DashBoardPage {...props} />}
         </MotionStyle>
     );
 

@@ -10,14 +10,13 @@ const FlexColumnDiv = styled.div`
     flex-direction: column;
     flex-grow: 1;
     align-items: flex-start;
-    width: 100%;
 `;
 
 const FlexWrapDiv = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: flex-end;
+    width: 100%;
 `;
 
 const SubTitleTextStyle = styled.div`

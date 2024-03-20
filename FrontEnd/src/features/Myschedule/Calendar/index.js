@@ -114,11 +114,20 @@ const MonthNav = styled.div`
 `;
 
 // cell 뿌리기
-const RenderCell = ({ paramYear, paramMonth, selectDay, listData, onClickSelector }) => {
+const RenderCell = ({
+    paramYear,
+    paramMonth,
+    selectDay,
+    listData,
+    onClickSelector,
+}) => {
     //이번달 Div 구하기
     const getLastDayOfMonth = (year, month) => {
         const ThisMonthDate = new Date(year, month, 0).getDate();
-        const getDayArr = Array.from({ length: ThisMonthDate }, (_, idx) => `${idx + 1}`);
+        const getDayArr = Array.from(
+            { length: ThisMonthDate },
+            (_, idx) => `${idx + 1}`,
+        );
         return getDayArr.sort((a, b) => a - b);
     };
 
@@ -128,7 +137,10 @@ const RenderCell = ({ paramYear, paramMonth, selectDay, listData, onClickSelecto
         const prevLastDate = new Date(year, month - 1, 0);
         const LastDate =
             firstDayOfWeek !== 0
-                ? Array.from({ length: firstDayOfWeek }, (_, idx) => prevLastDate.getDate() - idx)
+                ? Array.from(
+                      { length: firstDayOfWeek },
+                      (_, idx) => prevLastDate.getDate() - idx,
+                  )
                 : null;
         return LastDate;
     };
@@ -158,17 +170,27 @@ const RenderCell = ({ paramYear, paramMonth, selectDay, listData, onClickSelecto
     // 일자 갯수 구하기
     return (
         <RenderCellWrap>
-            {RenderPrevDate && RenderPrevDate.map(day => <RenderPrevStyle key={`prev-${day}`}> {day}</RenderPrevStyle>)}
+            {RenderPrevDate &&
+                RenderPrevDate.map(day => (
+                    <RenderPrevStyle key={`prev-${day}`}>
+                        {' '}
+                        {day}
+                    </RenderPrevStyle>
+                ))}
             {RenderDate.map(day => {
                 const confirmDay = `${paramYear}-${paramMonth}-${day}`;
                 const hasSchedule = confirmDay => {
                     //Some은 element index array로 매개변수로 순회하며 하나라도 있으면 true false 반환
-                    return ListKeys?.some(e => Dateformetting(e) === Dateformetting(confirmDay));
+                    return ListKeys?.some(
+                        e => Dateformetting(e) === Dateformetting(confirmDay),
+                    );
                 };
                 return (
                     <CalendarDay
                         className={`${selectDay === confirmDay && 'active'} ${hasSchedule(confirmDay) && 'hasSchedule'}`}
-                        onClick={() => onClickSelector(`${paramYear}-${paramMonth}-${day}`)}
+                        onClick={() =>
+                            onClickSelector(`${paramYear}-${paramMonth}-${day}`)
+                        }
                         key={`this-${day}`}
                     >
                         <span>{day}</span>
@@ -176,7 +198,13 @@ const RenderCell = ({ paramYear, paramMonth, selectDay, listData, onClickSelecto
                     </CalendarDay>
                 );
             })}
-            {RenderLastDate && RenderLastDate.map(day => <RenderPrevStyle key={`next-${day}`}> {day}</RenderPrevStyle>)}
+            {RenderLastDate &&
+                RenderLastDate.map(day => (
+                    <RenderPrevStyle key={`next-${day}`}>
+                        {' '}
+                        {day}
+                    </RenderPrevStyle>
+                ))}
         </RenderCellWrap>
     );
 };
@@ -205,13 +233,17 @@ const RenderNav = ({ paramMonth, paramYear }) => {
             if (+paramMonth === 12) {
                 navigate(`${pathname}?year=${+paramYear + 1}&month=${1}`);
             } else {
-                navigate(`${pathname}?year=${+paramYear}&month=${+paramMonth + 1}`);
+                navigate(
+                    `${pathname}?year=${+paramYear}&month=${+paramMonth + 1}`,
+                );
             }
         } else {
             if (+paramMonth === 1) {
                 navigate(`${pathname}?year=${+paramYear - 1}&month=${12}`);
             } else {
-                navigate(`${pathname}?year=${+paramYear}&month=${+paramMonth - 1}`);
+                navigate(
+                    `${pathname}?year=${+paramYear}&month=${+paramMonth - 1}`,
+                );
             }
         }
     };
@@ -247,7 +279,14 @@ const RenderNav = ({ paramMonth, paramYear }) => {
     );
 };
 
-export default function Calendar({ className, selectDay, listData, setSelectDay, paramYear, paramMonth }) {
+export default function Calendar({
+    className,
+    selectDay,
+    listData,
+    setSelectDay,
+    paramYear,
+    paramMonth,
+}) {
     const onClickSelector = day => {
         setSelectDay(day);
     };

@@ -1,12 +1,13 @@
+import styled from 'styled-components';
 import ScheduleTimer from 'features/Myschedule/ScheduleTimer';
 import ScheduleDashBoard from 'features/Myschedule/ScheduleDashBoard';
-
-import styled from 'styled-components';
 import ScheduleSummary from 'features/Myschedule/ScheduleSummary';
-import { SubTitleSchedule } from 'features/Myschedule/component/styles/ScheduleCommonStyles';
-import { FlexRow } from 'component/CommonStyle';
+
 import TotalGraph from 'features/Myschedule/component/TotalGraph';
 import SummaryHeader from 'features/Myschedule/ScheduleDashBoard/SummaryHeader';
+
+import { SubTitleSchedule } from 'features/Myschedule/component/styles/ScheduleCommonStyles';
+import { FlexWrapDiv } from 'features/CommonStyles';
 
 const Wrap = styled.div`
     display: flex;
@@ -25,15 +26,15 @@ const DashBoardPage = props => {
             <FirstWrap>
                 {/* 타이머 */}
                 <ScheduleTimer />
+                {/* List */}
                 <ScheduleDashBoard {...props} />
             </FirstWrap>
+
             <Wrap>
                 <SubTitleSchedule>MY Schedule Summary</SubTitleSchedule>
-                <SummaryHeader />
-                <TotalGraph {...props} />
-                <FlexRow>
-                    <ScheduleSummary {...props} />
-                </FlexRow>
+
+                {/* Summary */}
+                <ScheduleSummary {...props} />
             </Wrap>
             <Wrap>asgf</Wrap>
         </>

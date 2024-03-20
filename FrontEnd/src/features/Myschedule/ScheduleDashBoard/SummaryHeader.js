@@ -5,12 +5,12 @@ const SummaryHeaderStyle = styled.div`
     width: 100%;
 `;
 
-const select = ['Today', 'Week'];
+const select = ['today', 'Week'];
 
-const SummaryHeader = () => {
+const SummaryHeader = ({ setViewRage }) => {
     return (
         <SummaryHeaderStyle>
-            <SelectBox option={select} />
+            <SelectBox option={select} setViewRage={setViewRage} />
         </SummaryHeaderStyle>
     );
 };

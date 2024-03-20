@@ -402,7 +402,7 @@ input::placeholder {
     height: 150px;
     border-radius: 100%;
     --p: 0;
-    background: conic-gradient(#6284ff, #d35fd6 var(--p, 0), 0, #fff);
+    background: conic-gradient(#6284ff, #d35fd6 var(--p, 0), 0, #f1f1f1);
     position: relative;
     display: flex;
     flex-direction: column;
@@ -424,7 +424,7 @@ input::placeholder {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: bold;
     z-index: 1;
 }

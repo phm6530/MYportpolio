@@ -6,7 +6,7 @@ import DashBoardTitle from 'component/ui/DashBoardTitle';
 import alertThunk from 'store/alertTrunk';
 
 import { ReactQuery, ReactRedux, ReactRouteDom } from 'lib/lib';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { scheduleFetch } from 'services/ScheduleService';
 import { TodaySeletor } from 'utils/TodaySeletor';

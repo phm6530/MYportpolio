@@ -1,6 +1,9 @@
 import { FlexColumnBetween, SubTitleTextStyle } from 'features/CommonStyles';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { PercentCalculator } from 'utils/Calculator';
+
+import usePrograssbar from 'hooks/usePrograssbar';
 
 const getBackgroundColor = percent => {
     if (percent < 30) return 'red';
@@ -24,11 +27,11 @@ const PrograssbarStyle = styled.div`
         left: 0;
         width: 0;
         z-index: 1;
-        width: ${props => `${props.$percent}%`};
+        /* width: ${props => `${props.$percent}%`}; */
         background: linear-gradient(90deg, #6284ff 0%, #d35fd6 100%);
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 10px;
-        transition: width 2s ease;
+        /* transition: width 2s ease; */
     }
 `;
 
@@ -43,42 +46,54 @@ const CompleteStyle = styled.div`
     margin-right: auto;
     font-size: 10px;
     color: #ffffff;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    ${props => {
+        return props.$active && `opacity: 1`;
+    }};
 `;
 
-const Graph = props => {
-    const [percent, setpercent] = useState(0);
-    useEffect(() => {
-        setpercent(props.percent);
-    }, [props.percent]);
-    return (
-        <PrograssbarStyle $percent={percent}>
-            <div
-                className="bar"
-                aria-valuenow={percent}
-                aria-valuemin="0"
-                aria-valuemax="100"
-            ></div>
-        </PrograssbarStyle>
-    );
-};
-
 export default function PrograssBar({ tasks }) {
-    const completeTask = tasks.filter(e => {
-        return e.complete;
-    });
+    const { result: percent } = PercentCalculator(tasks);
+    const PrograssRef = usePrograssbar(percent);
+    // useEffect(() => {
+    //     // console.log(ref);
+    //     const io = new IntersectionObserver(
+    //         entry => {
+    //             if (entry[0].isIntersecting) {
+    //                 // console.log('발견');
+    //             }
+    //         },
+    //         { threshold: 0.1 },
+    //     );
+    //     if (ref) {
+    //         io.observe(ref.current);
+    //     }
 
-    const totalCount = tasks.length;
-    const completeCount = completeTask.length;
-    const result = Math.floor((completeCount / totalCount) * 100);
+    //     return () => {
+    //         io.disconnect(ref.current);
+    //     };
+    // }, []);
 
     return (
         <FlexColumnBetween>
             <SubTitleTextStyle>
                 <span className="categoryTitle">{tasks[0].category}</span>
-                {result === 100 && <CompleteStyle>complete</CompleteStyle>}
-                <span className="percent">{result}%</span>
+                <CompleteStyle $active={percent === 100}>
+                    complete
+                </CompleteStyle>
+                <span className="percent">{percent}%</span>
             </SubTitleTextStyle>
-            <Graph key={result} percent={result} />
+
+            <PrograssbarStyle $percent={percent}>
+                <div
+                    ref={PrograssRef}
+                    className="bar"
+                    aria-valuenow={percent}
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                ></div>
+            </PrograssbarStyle>
         </FlexColumnBetween>
     );
 }

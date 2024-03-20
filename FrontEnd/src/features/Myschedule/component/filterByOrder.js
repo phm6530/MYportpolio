@@ -1,13 +1,13 @@
-const filterByDate = (arr, selectDay) => {
+const filterByDate = (arr = {}, selectDay) => {
+    const formattedSelectDay = new Date(selectDay).toDateString();
     let filterArr = [];
-    for (const date in arr) {
-        const formattedSelectDay = new Date(selectDay).toDateString();
+
+    for (const [date, events] of Object.entries(arr)) {
         const formattedDate = new Date(date).toDateString();
         if (formattedSelectDay === formattedDate) {
-            filterArr.push(...arr[date]);
+            filterArr = filterArr.concat(events);
         }
     }
-
     return filterArr;
 };
 

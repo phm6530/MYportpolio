@@ -61,7 +61,7 @@ const Component = styled.div`
                     `;
                 default:
                     return css`
-                        animation: ${fadeInUp} 0.5s ease forwards;
+                        animation: ${fadeInUp} 1s ease forwards;
                     `;
             }
         }
@@ -72,7 +72,12 @@ const Component = styled.div`
         `} */
 `;
 
-export default function FadeinComponent({ board, position, children, ...props }) {
+export default function FadeinComponent({
+    board,
+    position,
+    children,
+    ...props
+}) {
     const ref = useRef();
     const [visible, setVisible] = useState(false);
     const slideHandler = entry => {

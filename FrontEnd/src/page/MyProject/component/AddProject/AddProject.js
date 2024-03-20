@@ -18,18 +18,35 @@ import CustumDatePicker from './Detail/CustumDatePicker';
 import alertThunk from '../../../../store/alertTrunk';
 import SubTitle from '../../../../component/ui/Subtitle';
 
-import { addProjectFetch, projectEdit, uploadImage } from 'services/projectService';
+import {
+    addProjectFetch,
+    projectEdit,
+    uploadImage,
+} from 'services/projectService';
 import styled from 'styled-components';
 import { Button } from '../../../../component/ui/Button';
 
-const projectStack = ['Html', 'Css', 'JavaScript', 'Node', 'React', 'PHP', 'jQuery', 'Scss', 'Mysql', 'Next'];
+const projectStack = [
+    'Html',
+    'Css',
+    'JavaScript',
+    'Node',
+    'React',
+    'PHP',
+    'jQuery',
+    'Scss',
+    'Mysql',
+    'Next',
+];
 
 const schema = Yup.object().shape({
     title: Yup.string().required('필수 입력란 입니다.'),
     skill: Yup.array().min(1, '한개 이상의 stack을 등록해주세요'),
     company: Yup.string().required('필수 입력란 입니다.'),
     hashtag: Yup.array().min(1, '한 개 이상의 해시태그를 등록해주세요.'),
-    projectUrl: Yup.string().required('필수 입력란 입니다.').url('Url 형식으로 입력해주세요. 예)https://sitename.com'),
+    projectUrl: Yup.string()
+        .required('필수 입력란 입니다.')
+        .url('Url 형식으로 입력해주세요. 예)https://sitename.com'),
     startDate: Yup.date()
         .max(Yup.ref('endDate'), '시작일은 종료일보다 빨라야 합니다.')
         .required('시작일을 입력해주세요'),
@@ -37,7 +54,9 @@ const schema = Yup.object().shape({
     endDate: Yup.date()
         .min(Yup.ref('startDate'), '종료일은 시작일 이후로 설정해주세요')
         .required('종료일을 입력해주세요'),
-    description: Yup.string().required('필수 입력란 입니다.').min(6, '6글자 이상써주세요..'),
+    description: Yup.string()
+        .required('필수 입력란 입니다.')
+        .min(6, '6글자 이상써주세요..'),
     projectDescription: Yup.string().required('필수 입력란 입니다.'),
 });
 
@@ -153,6 +172,7 @@ export default function AddProject() {
     // console.log(getValues());
 
     useEffect(() => {
+        console.log('랜더링');
         const fetching = async () => {
             SETPROJECT_KEY(ProjectKey); //기존 KEY
             return await projectEdit(ProjectKey);
@@ -206,7 +226,14 @@ export default function AddProject() {
             console.log('setObjsetObjsetObjsetObj :::: ', setObj);
             await addProjectFetch(setObj, Type);
 
-            dispatch(alertThunk(Type !== 'edit' ? '프로젝트가 등록되었습니다.' : '프로젝트가 수정되었습니다.', true));
+            dispatch(
+                alertThunk(
+                    Type !== 'edit'
+                        ? '프로젝트가 등록되었습니다.'
+                        : '프로젝트가 수정되었습니다.',
+                    true,
+                ),
+            );
             navigate('/project');
             reset(); // 서버 요청이 성공적일 때만 reset 호출
         } catch (error) {
@@ -233,7 +260,11 @@ export default function AddProject() {
         try {
             const formData = new FormData();
             formData.append('img', ImgFile);
-            const { fileUrl } = await uploadImage(formData, ProjectKey, 'thumNail');
+            const { fileUrl } = await uploadImage(
+                formData,
+                ProjectKey,
+                'thumNail',
+            );
             setValue('thumbnail', fileUrl, { shouldValidate: true });
         } catch (error) {
             dispatch(alertThunk(error.message, 0));
@@ -258,7 +289,10 @@ export default function AddProject() {
 
         const newValue = ref.current.value;
         if (!newValue) {
-            setError('hashtag', { type: 'custom', message: '해시태그를 입력해주세요.' });
+            setError('hashtag', {
+                type: 'custom',
+                message: '해시태그를 입력해주세요.',
+            });
             return;
         }
 
@@ -280,14 +314,25 @@ export default function AddProject() {
 
                 <InputWrap>
                     <InputLabel>프로젝트 명 </InputLabel>
-                    <CustumInputWrap type="text" placeholder="프로젝트 명을 입력해주세요." {...register('title')} />
-                    {errors.title && <p className="errorMessage">{errors.title.message}</p>}
+                    <CustumInputWrap
+                        type="text"
+                        placeholder="프로젝트 명을 입력해주세요."
+                        {...register('title')}
+                    />
+                    {errors.title && (
+                        <p className="errorMessage">{errors.title.message}</p>
+                    )}
                 </InputWrap>
 
                 <InputWrap>
                     <InputLabel>프로젝트 의뢰기관</InputLabel>
-                    <CustumInputWrap {...register('company')} placeholder="프로젝트 의뢰 기간을 입력해주세요." />
-                    {errors.company && <p className="errorMessage">{errors.company.message}</p>}
+                    <CustumInputWrap
+                        {...register('company')}
+                        placeholder="프로젝트 의뢰 기간을 입력해주세요."
+                    />
+                    {errors.company && (
+                        <p className="errorMessage">{errors.company.message}</p>
+                    )}
                 </InputWrap>
 
                 <InputWrap>
@@ -305,52 +350,94 @@ export default function AddProject() {
                     <InputLabel>프로젝트 기술스택 </InputLabel>
                     <ProjectSkillWrap>
                         {projectStack.map(e => (
-                            <Checkbox key={e} label={e} {...register('skill')} isCheck={isCheck(e)} trigger={trigger} />
+                            <Checkbox
+                                key={e}
+                                label={e}
+                                {...register('skill')}
+                                isCheck={isCheck(e)}
+                                trigger={trigger}
+                            />
                         ))}
                     </ProjectSkillWrap>
-                    {errors.skill && <p className="errorMessage">{errors.skill.message}</p>}
+                    {errors.skill && (
+                        <p className="errorMessage">{errors.skill.message}</p>
+                    )}
                 </InputWrap>
 
                 <InputWrap>
                     <InputLabel>해시태그</InputLabel>
                     <div className="FlexColumn">
                         <InputWrap>
-                            <CustumInputWrap ref={ref} placeholder="해시태그 추가" />
+                            <CustumInputWrap
+                                ref={ref}
+                                placeholder="해시태그 추가"
+                            />
                             <button onClick={addHashtag}>Add</button>
                         </InputWrap>
                         <HashtagWrap>
                             {getValues('hashtag').map((field, index) => (
                                 <div className="hashTag" key={field.id}>
                                     {field}
-                                    <button type="button" onClick={() => remove(index)}>
+                                    <button
+                                        type="button"
+                                        onClick={() => remove(index)}
+                                    >
                                         <MdCancel />
                                     </button>
                                 </div>
                             ))}
                         </HashtagWrap>
                     </div>
-                    {errors.hashtag && <p className="errorMessage">{errors.hashtag.message}</p>}
+                    {errors.hashtag && (
+                        <p className="errorMessage">{errors.hashtag.message}</p>
+                    )}
                 </InputWrap>
 
                 <InputWrap>
                     <InputLabel>thumbnail</InputLabel>
-                    <Button.UploadButton htmlFor="input-file">ThumbNail</Button.UploadButton>
-                    <UPloadFileName>{thumNail ? thumNail : '파일없음'}</UPloadFileName>
-                    <input type="file" style={{ display: 'none' }} id="input-file" onChange={e => fileHandler(e)} />
-                    {errors.thumbnail && <p className="errorMessage">{errors.thumbnail.message}</p>}
+                    <Button.UploadButton htmlFor="input-file">
+                        ThumbNail
+                    </Button.UploadButton>
+                    <UPloadFileName>
+                        {thumNail ? thumNail : '파일없음'}
+                    </UPloadFileName>
+                    <input
+                        type="file"
+                        style={{ display: 'none' }}
+                        id="input-file"
+                        onChange={e => fileHandler(e)}
+                    />
+                    {errors.thumbnail && (
+                        <p className="errorMessage">
+                            {errors.thumbnail.message}
+                        </p>
+                    )}
                 </InputWrap>
 
                 <InputWrap>
                     <InputLabel>Site Url</InputLabel>
-                    <CustumInputWrap placeholder="URL을 입력해주세요" {...register('projectUrl')} />
+                    <CustumInputWrap
+                        placeholder="URL을 입력해주세요"
+                        {...register('projectUrl')}
+                    />
 
-                    {errors.projectUrl && <p className="errorMessage">{errors.projectUrl.message}</p>}
+                    {errors.projectUrl && (
+                        <p className="errorMessage">
+                            {errors.projectUrl.message}
+                        </p>
+                    )}
                 </InputWrap>
 
                 <InputWrap>
                     <InputLabel>Contents</InputLabel>
-                    <CustumTextAreaStyle {...register('description')}></CustumTextAreaStyle>
-                    {errors.description && <p className="errorMessage">{errors.description.message}</p>}
+                    <CustumTextAreaStyle
+                        {...register('description')}
+                    ></CustumTextAreaStyle>
+                    {errors.description && (
+                        <p className="errorMessage">
+                            {errors.description.message}
+                        </p>
+                    )}
                 </InputWrap>
 
                 {/* Quill Editor */}
@@ -359,10 +446,17 @@ export default function AddProject() {
                         <Controller
                             name="projectDescription"
                             control={control}
-                            render={({ field }) => <QuillEditor {...field} PROJECT_KEY={PROJECT_KEY} />}
+                            render={({ field }) => (
+                                <QuillEditor
+                                    {...field}
+                                    PROJECT_KEY={PROJECT_KEY}
+                                />
+                            )}
                         />
                         {errors.projectDescription && (
-                            <p className="errorMessage">{errors.projectDescription.message}</p>
+                            <p className="errorMessage">
+                                {errors.projectDescription.message}
+                            </p>
                         )}
                     </>
                 )}
