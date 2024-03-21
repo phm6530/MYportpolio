@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 
 const usePrograssbar = percent => {
     console.log(percent);
-    const PrograssRef = useRef();
+    const PrograssRef = useRef(null);
     console.log(PrograssRef);
     useEffect(() => {
         // GSAP 애니메이션: 숫자 증가

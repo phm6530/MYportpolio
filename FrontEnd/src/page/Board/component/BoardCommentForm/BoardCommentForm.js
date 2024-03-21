@@ -7,14 +7,16 @@ import { fetchReply } from '../../BoardFetch';
 import styled, { keyframes } from 'styled-components';
 
 import { DarkMode } from '../../../../context/DarkModeContext';
-import CommentInput from './Detail/CommentInput';
 import { findForBadword } from 'utils/filterBadWording';
+import CommentInput from './Detail/CommentInput';
 import alertThunk from '../../../../store/alertTrunk';
 
 import { QuestionMark } from '../../../../component/icon/Icon';
 import { Button } from '../../../../component/ui/Button';
-import { useLocation } from 'react-router-dom';
-import { useMutation } from 'react-query';
+
+import { ReactQuery, ReactRouteDom } from 'lib/lib';
+const { useLocation } = ReactRouteDom;
+const { useMutation } = ReactQuery;
 
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'; // Yup + form hook 연동
@@ -196,12 +198,18 @@ export default function BoardCommentForm({ setTotal, setUserFetchData }) {
         contents: Yup.string()
             .required('필수항목 입니다.')
             .min(4, '최소 4글자 이상 적어주세요..')
-            .test('filterBadWord', '비속어는 입력 불가합니다...', value => findForBadword(value)),
-        password: login ? Yup.string().notRequired() : Yup.string().required('비밀번호를 입력해주세요.'),
+            .test('filterBadWord', '비속어는 입력 불가합니다...', value =>
+                findForBadword(value),
+            ),
+        password: login
+            ? Yup.string().notRequired()
+            : Yup.string().required('비밀번호를 입력해주세요.'),
     });
 
     const personIcon = [...Array(6)].map((_, idx) => `person_${idx + 1}`);
-    const randomUserIcon = login ? 'adminPicture' : personIcon[Math.floor(Math.random() * personIcon.length)];
+    const randomUserIcon = login
+        ? 'adminPicture'
+        : personIcon[Math.floor(Math.random() * personIcon.length)];
 
     // React-hook-form
     const {
@@ -232,11 +240,11 @@ export default function BoardCommentForm({ setTotal, setUserFetchData }) {
     }, [login]);
 
     // Query 뮤테이션
-    const mutation = useMutation(formData => fetchReply(formData), {
-        onSuccess: data => {
+
+    const mutation = useMutation({
+        mutationFn: formData => fetchReply(formData),
+        onSuccess: () => {
             setUserFetchData(prev => [...data.resData, ...prev]);
-            setTotal(data.counter);
-            console.log('userMutation 실행');
             dispatch(alertThunk('댓글 등록되었습니다.', true));
             reset({
                 ...getValues(),
@@ -277,7 +285,9 @@ export default function BoardCommentForm({ setTotal, setUserFetchData }) {
                 <div className="ImgArea">
                     <img src={selectIcon} alt="Pictureasa" />
                 </div>
-                {login || <button onClick={() => setChangeCrector(true)}>You</button>}
+                {login || (
+                    <button onClick={() => setChangeCrector(true)}>You</button>
+                )}
             </UserIconViewer>
 
             <FormStyle method="POST" onSubmit={handleSubmit(onSubmitHandlr)}>
@@ -291,7 +301,10 @@ export default function BoardCommentForm({ setTotal, setUserFetchData }) {
                                 <Label>
                                     Crecter{' '}
                                     <span>
-                                        <QuestionMark color={'#0000005e'} size={'20'} />
+                                        <QuestionMark
+                                            color={'#0000005e'}
+                                            size={'20'}
+                                        />
                                     </span>
                                 </Label>
                                 <RadioWrap>
@@ -301,9 +314,16 @@ export default function BoardCommentForm({ setTotal, setUserFetchData }) {
                                         return (
                                             <RadioStyle
                                                 key={icon}
-                                                className={icon === field.value ? 'checked' : undefined}
+                                                className={
+                                                    icon === field.value
+                                                        ? 'checked'
+                                                        : undefined
+                                                }
                                             >
-                                                <img src={`/img/board/${icon}.png`} alt="" />
+                                                <img
+                                                    src={`/img/board/${icon}.png`}
+                                                    alt=""
+                                                />
                                                 <input
                                                     type="radio"
                                                     value={icon}
@@ -311,7 +331,9 @@ export default function BoardCommentForm({ setTotal, setUserFetchData }) {
                                                         field.onChange(icon);
                                                     }}
                                                     name={field.name}
-                                                    checked={field.value === icon}
+                                                    checked={
+                                                        field.value === icon
+                                                    }
                                                 />
                                             </RadioStyle>
                                         );
@@ -348,7 +370,9 @@ export default function BoardCommentForm({ setTotal, setUserFetchData }) {
                                     {...field}
                                     label="password"
                                     type={'password'}
-                                    placeholder={'4자 이상의 비밀번호를 입력해주세요.'}
+                                    placeholder={
+                                        '4자 이상의 비밀번호를 입력해주세요.'
+                                    }
                                     error={errors[{ ...field }.name]}
                                 />
                             )}
@@ -367,7 +391,9 @@ export default function BoardCommentForm({ setTotal, setUserFetchData }) {
                             />
                         )}
                     />
-                    <Button.Submit style={{ marginLeft: 'auto' }}>Submit</Button.Submit>
+                    <Button.Submit style={{ marginLeft: 'auto' }}>
+                        Submit
+                    </Button.Submit>
                 </div>
             </FormStyle>
         </BoardReplyStyle>

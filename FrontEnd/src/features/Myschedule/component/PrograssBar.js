@@ -4,6 +4,7 @@ import styled, { keyframes } from 'styled-components';
 import { PercentCalculator } from 'utils/Calculator';
 
 import usePrograssbar from 'hooks/usePrograssbar';
+import useTextsnap from 'hooks/useTextsnap';
 
 const getBackgroundColor = percent => {
     if (percent < 30) return 'red';
@@ -27,11 +28,9 @@ const PrograssbarStyle = styled.div`
         left: 0;
         width: 0;
         z-index: 1;
-        /* width: ${props => `${props.$percent}%`}; */
         background: linear-gradient(90deg, #6284ff 0%, #d35fd6 100%);
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 10px;
-        /* transition: width 2s ease; */
     }
 `;
 
@@ -56,6 +55,7 @@ const CompleteStyle = styled.div`
 export default function PrograssBar({ tasks }) {
     const { result: percent } = PercentCalculator(tasks);
     const PrograssRef = usePrograssbar(percent);
+    const textRef = useTextsnap(percent);
     // useEffect(() => {
     //     // console.log(ref);
     //     const io = new IntersectionObserver(
@@ -82,12 +82,14 @@ export default function PrograssBar({ tasks }) {
                 <CompleteStyle $active={percent === 100}>
                     complete
                 </CompleteStyle>
-                <span className="percent">{percent}%</span>
+                <span className="percent">
+                    <span ref={textRef}></span>%
+                </span>
             </SubTitleTextStyle>
 
-            <PrograssbarStyle $percent={percent}>
+            <PrograssbarStyle>
                 <div
-                    ref={PrograssRef}
+                    ref={PrograssRef} //프로그래스바 커스텀훅
                     className="bar"
                     aria-valuenow={percent}
                     aria-valuemin="0"

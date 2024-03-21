@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQuery } from 'lib/lib';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+const { QueryClient, QueryClientProvider } = ReactQuery;
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

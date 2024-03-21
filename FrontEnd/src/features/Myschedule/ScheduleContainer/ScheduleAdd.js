@@ -9,6 +9,7 @@ import { fetchAddSchedule } from 'services/ScheduleService';
 import { TextAreaStyle } from '../../../component/ui/TextArea';
 import { Button } from '../../../component/ui/Button';
 import ErrorBubble from 'component/error/ErrorBubble';
+import { useEffect } from 'react';
 
 // lib
 const { useForm, Controller } = ReactHookForm;
@@ -54,17 +55,26 @@ const ScheduleAdd = ({ selectDay }) => {
 
     const queryclient = useQueryClient();
 
-    const mutation = useMutation(data => fetchAddSchedule(data), {
+    const mutation = useMutation({
+        mutationFn: data => fetchAddSchedule(data),
         onSuccess: () => {
             dispatch(alertThunk('일정이 등록 되었습니다.', 1));
-            queryclient.invalidateQueries('Schedule');
+            queryclient.invalidateQueries({ queryKey: ['Schedule'] });
             reset();
         },
-        onError: error => {
-            dispatch(alertThunk(error.message, false));
-            // console.log(error);
-        },
     });
+
+    // console.log(mutation.data);
+
+    // useEffect(() => {
+    //     if (mutation.isError) {
+    //         dispatch(alertThunk(mutation.error.message, false));
+    //     }
+    //     if (mutation.isSuccess) {
+    //     }
+
+    //     // console.log(error);
+    // }, [mutation.isError, mutation.isSuccess, mutation.data]);
 
     const AddScheduleHandler = async formData => {
         const rquestData = {

@@ -48,16 +48,24 @@ export default function MySchedule() {
     const [DdayArr, setDdayArr] = useState();
     const dispatch = useDispatch();
 
-    useQuery(['Schedule', getMonth], () => scheduleFetch(getYear, getMonth), {
-        refetchOnWindowFocus: false,
-        onSuccess: data => {
+    const { isSuccess, isError, error, data, isLoading } = useQuery({
+        queryKey: ['Schedule', getMonth],
+        queryFn: () => scheduleFetch(getYear, getMonth),
+        refetchOnWindowFocus: true,
+    });
+
+    useEffect(() => {
+        if (isSuccess) {
             setListData(data.restResponseData);
             setDdayArr(data.D_Day);
-        },
-        onError: error => {
+        } else if (isError) {
             dispatch(alertThunk(error.message, 0));
-        },
-    });
+        }
+    }, [isSuccess, isError, data]);
+
+    if (isLoading) {
+        return 'loading.....';
+    }
 
     return (
         <>

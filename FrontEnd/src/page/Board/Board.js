@@ -1,14 +1,9 @@
-import { useQuery } from 'react-query';
-import { fetchData } from './BoardFetch';
+import styled from 'styled-components';
+import { useEffect, useState } from 'react';
+import { ReactQuery, ReactRedux } from 'lib/lib';
 
 import BoardCommentForm from './component/BoardCommentForm/BoardCommentForm';
-
-import styled from 'styled-components';
-
 import BannerCommon from '../../component/ui/BannerCommon';
-
-import { useDispatch } from 'react-redux';
-import { useEffect, useState } from 'react';
 import Grid from '../../component/ui/Grid';
 import alertThunk from '../../store/alertTrunk';
 
@@ -17,7 +12,11 @@ import DashBoardTitle from '../../component/ui/DashBoardTitle';
 import SubTitle from '../../component/ui/Subtitle';
 import UserProfile from 'component/profile/UserProfile';
 import BoardCommentList from './component/BoardCommentList/BoardCommentList';
-import Motion from 'component/animations/Motion';
+
+import { fetchData } from './BoardFetch';
+
+const { useQuery } = ReactQuery;
+const { useDispatch } = ReactRedux;
 
 const PageText = styled.div`
     word-break: keep-all;
@@ -60,7 +59,6 @@ const RightWrap = styled.div`
 `;
 
 export default function Board() {
-    console.log('board:::::::::::::::');
     // 초기데이터 + 페이징 데이터 로드
     const [userFetchData, setUserFetchData] = useState([]);
     const [moreFetchData, setFetchMoreData] = useState(true);
@@ -68,28 +66,30 @@ export default function Board() {
     const [lastPageIdx, setLastPageIdx] = useState(null);
     const dispatch = useDispatch();
 
-    const { isLoading, isError } = useQuery(
-        ['board', lastPageIdx],
-        () => fetchData(lastPageIdx),
-        {
-            refetchOnWindowFocus: false,
-            onSuccess: data => {
-                if (data.pageData.length === 0) {
-                    setFetchMoreData(false);
-                }
-                setTotal(data.counter);
-                // console.log('userQuery 실행');
-                // 이건 맞음
-                setUserFetchData(prev => {
-                    return [...prev, ...data.pageData];
-                });
-            },
-            onError: error => {
-                console.log('실행');
-                dispatch(alertThunk(error.message, 0));
-            },
-        },
-    );
+    console.log('lastPageIdx:::: ', lastPageIdx);
+
+    const { isLoading, isError, data, isSuccess, error } = useQuery({
+        queryKey: ['board', lastPageIdx],
+        queryFn: () => fetchData(lastPageIdx),
+    });
+
+    // console.log(userFetchData);
+
+    useEffect(() => {
+        if (isSuccess) {
+            if (data.pageData.length === 0) {
+                setFetchMoreData(false);
+            }
+            setTotal(data.counter);
+            // console.log('userQuery 실행');
+            // 이건 맞음
+            setUserFetchData(prev => {
+                return [...prev, ...data.pageData];
+            });
+        }
+        // console.log('실행');
+        // dispatch(alertThunk(error.message, 0));
+    }, [data, isSuccess]);
 
     useEffect(() => {
         window.scrollTo({

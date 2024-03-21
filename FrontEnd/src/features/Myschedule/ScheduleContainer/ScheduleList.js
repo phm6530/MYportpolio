@@ -7,7 +7,7 @@ const ScheduleList = ({ selectDay, listData }) => {
     const [selectWork, setSelectWork] = useState(null);
 
     const filterArr = filterByDate(listData, selectDay);
-    console.log(filterArr);
+    // console.log(filterArr);
 
     const test = filterArr.sort((a, b) => {
         return b.important - a.important;

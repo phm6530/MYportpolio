@@ -1,11 +1,8 @@
 import styled, { css } from 'styled-components';
-import SKILL_ICON from '../../../../../component/icon/StackIcon';
 import Fadein from '../../../../../FadeinComponent';
 
 // icon
-import { CiCalendar } from 'react-icons/ci';
 
-import { Button } from '../../../../../component/ui/Button';
 import ProjectItemHeader from 'features/project/component/ProjectItemHeader';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';

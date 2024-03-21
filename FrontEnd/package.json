@@ -5,6 +5,7 @@
     "dependencies": {
         "@hookform/resolvers": "^3.3.4",
         "@reduxjs/toolkit": "^2.0.1",
+        "@tanstack/react-query": "^5.28.6",
         "apexcharts": "^3.46.0",
         "date-fns": "^3.4.0",
         "framer-motion": "^11.0.8",
@@ -19,7 +20,6 @@
         "react-hook-form": "^7.49.3",
         "react-icon": "^1.0.0",
         "react-icons": "^5.0.1",
-        "react-query": "^3.39.3",
         "react-quill": "^2.0.0",
         "react-redux": "^9.0.4",
         "react-router-dom": "^6.21.1",

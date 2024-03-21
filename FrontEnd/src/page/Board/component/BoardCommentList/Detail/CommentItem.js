@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import * as Yup from 'yup';
 
-import { forwardRef, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -15,7 +15,8 @@ import CommentDelete from './CommentDelete';
 import { useDispatch, useSelector } from 'react-redux';
 import Popup from '../../../../../component/popup/Popup';
 import Confirm from '../../../../../component/ui/Confirm';
-import { useMutation } from 'react-query';
+import { ReactQuery } from 'lib/lib';
+const { useMutation } = ReactQuery;
 
 const HoverStyle = ({ className, children }) => {
     return <span className={className}>{children}</span>;
@@ -145,7 +146,8 @@ const CommentItem = forwardRef((props, ref) => {
         login ? setModal(true) : setSelectIdx(key);
     };
 
-    const { mutateAsync } = useMutation(formData => deleteFetch(formData), {
+    const { mutateAsync } = useMutation({
+        mutationFn: formData => deleteFetch(formData),
         onSuccess: data => {
             dispatch(alertThunk('삭제되었습니다.', true));
             setUserFetchData(prev => {

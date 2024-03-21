@@ -11,7 +11,8 @@ import {
     FlexWrapDiv,
 } from 'features/CommonStyles';
 import { fetchGit } from 'services/ScheduleService';
-import { useQuery } from 'react-query';
+import { ReactQuery } from 'lib/lib';
+const { useQuery } = ReactQuery;
 
 const DashBoardStyle = styled.div`
     /* Rectangle 148 */
@@ -42,13 +43,9 @@ const CustumFlexWrapDiv = styled(FlexWrapDiv)`
 `;
 
 const ScheduleDashBoard = props => {
-    useQuery('git', fetchGit, {
-        onSuccess: data => {
-            // console.log(data);
-        },
-        onError: error => {
-            console.log(error);
-        },
+    useQuery({
+        queryKey: ['git'],
+        queryFn: fetchGit,
     });
 
     return (

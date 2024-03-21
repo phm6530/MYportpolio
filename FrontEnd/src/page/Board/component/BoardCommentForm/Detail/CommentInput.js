@@ -1,7 +1,10 @@
 import { forwardRef, useContext } from 'react';
 import styled from 'styled-components';
 import { DarkMode } from '../../../../../context/DarkModeContext';
-import { InputStyle, TextAreaStyle } from '../../../../../component/ui/TextArea';
+import {
+    InputStyle,
+    TextAreaStyle,
+} from '../../../../../component/ui/TextArea';
 import ErrorBubble from 'component/error/ErrorBubble';
 
 const FormInputDiv = styled.div`
@@ -36,8 +39,8 @@ const FormInputDiv = styled.div`
 const CommentInput = forwardRef((fields, ref) => {
     const { darkMode } = useContext(DarkMode);
     const { isAuth, label, error, ...props } = fields;
-    console.count();
-    console.log(label);
+    // console.count();
+    // console.log(label);
     return (
         <>
             <FormInputDiv $darkMode={darkMode}>

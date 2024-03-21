@@ -1,23 +1,20 @@
-import styled from 'styled-components';
 import usePopup from 'hooks/usePopup';
 
 import { useAuthCheck } from 'hooks/useAuthCheck';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQueryClient } from 'react-query';
-import { useDispatch } from 'react-redux';
+
+import { ReactQuery } from 'lib/lib';
 
 import { FaTrashAlt } from 'react-icons/fa';
 import { MdModeEdit } from 'react-icons/md';
-import alertThunk from 'store/alertTrunk';
-
-import ScheduleDdaySetter from './ScheduleDdaySetter';
 
 import {
     fetchEditSchedule,
     fetchDeleteSchedule,
     fetchToggleComplete,
 } from 'services/ScheduleService';
+
 import {
     FormStyle,
     CompleteHandler,
@@ -27,63 +24,47 @@ import {
 } from './styles/ListHandlerStyled';
 import { FlexColumnDiv } from 'features/CommonStyles';
 import Category from '../ui/Category';
+import useExcuteMutation from 'hooks/useExcuteMutation';
 
 const ListHandler = ({ idx, selectWork, setSelectWork, ScheduleItem }) => {
     const { register, handleSubmit, setValue } = useForm();
     const { clientAuthCheck } = useAuthCheck();
+
     const [textAreaHeight, setTextArerHeight] = useState(
         ScheduleItem.work.split(/\r\n|\r|\n/).length,
     );
     const { schedule_key, complete, important } = ScheduleItem;
-    const { showPopup, hidePopup, PopupComponent } = usePopup();
-    const dispatch = useDispatch();
-    const queryClient = useQueryClient();
+    const { showPopup, PopupComponent } = usePopup();
+
+    console.count();
+
+    const { mutate: EditMutate } = useExcuteMutation(
+        fetchEditSchedule,
+        ['Schedule'],
+        '수정',
+    );
+
+    const { mutate: deleteMutate } = useExcuteMutation(
+        fetchDeleteSchedule,
+        ['Schedule'],
+        '삭제',
+    );
+
+    const { mutate: toggleMutate } = useExcuteMutation(fetchToggleComplete, [
+        'Schedule',
+    ]);
 
     // Inline Edit 가능하도록 setValue 설정함
     useEffect(() => {
         setValue('work', ScheduleItem.work);
     }, [ScheduleItem, setValue]);
 
-    // Edit
-    const mutation = useMutation(formData => fetchEditSchedule(formData), {
-        onSuccess: () => {
-            queryClient.invalidateQueries('Schedule');
-            dispatch(alertThunk('수정되었습니다.', 1));
-            setSelectWork(null);
-        },
-        onError: error => {
-            dispatch(alertThunk(error.message, 0));
-        },
-    });
-
-    // Delete
-    const deleteMutation = useMutation(data => fetchDeleteSchedule(data), {
-        onSuccess: () => {
-            queryClient.invalidateQueries('Schedule');
-            dispatch(alertThunk('삭제되었습니다.', 1));
-        },
-        onError: error => {
-            console.log(error);
-            dispatch(alertThunk(error.message, 0));
-        },
-    });
-
-    // ToggleComplete
-    const toggleMutation = useMutation(data => fetchToggleComplete(data), {
-        onSuccess: data => {
-            queryClient.invalidateQueries('Schedule');
-        },
-        onError: error => {
-            dispatch(alertThunk(error.message, 0));
-        },
-    });
-
     const onEditHandler = async data => {
         const requstData = {
             work: data.work,
             schedule_key: ScheduleItem.schedule_key,
         };
-        mutation.mutate(requstData);
+        EditMutate(requstData);
     };
 
     const readOnlyHandler = idx => {
@@ -93,12 +74,12 @@ const ListHandler = ({ idx, selectWork, setSelectWork, ScheduleItem }) => {
 
     const onToggleHandler = key => {
         if (!clientAuthCheck('변경 권한')) return;
-        toggleMutation.mutate(key);
+        toggleMutate(key);
     };
 
     const removeSchedule = () => {
         if (!clientAuthCheck('삭제')) return;
-        deleteMutation.mutate(ScheduleItem.schedule_key);
+        deleteMutate(ScheduleItem.schedule_key);
     };
 
     return (

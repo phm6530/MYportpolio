@@ -1,5 +1,5 @@
-import styled , {keyframes} from 'styled-components'
-import { GoMoveToTop } from "react-icons/go";
+import styled, { keyframes } from 'styled-components';
+import { GoMoveToTop } from 'react-icons/go';
 import { useEffect, useState } from 'react';
 
 const enabledAni = keyframes`
@@ -9,8 +9,7 @@ const enabledAni = keyframes`
     to{
         bottom: 2rem;
     }
-`
-
+`;
 
 const TopButtonStyle = styled.div`
     position: fixed;
@@ -25,27 +24,27 @@ const TopButtonStyle = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    svg{
+    svg {
         font-size: 20px;
         color: #fff;
     }
-    animation: ${enabledAni} .5s ease forwards;
-`
+    animation: ${enabledAni} 0.5s ease forwards;
+`;
 function debounce(func, wait) {
     let timeout;
-    return function() {
-      const context = this, args = arguments;
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(context, args), wait);
+    return function () {
+        const context = this,
+            args = arguments;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), wait);
     };
-  }
-  
-export default function TopButton(){
-    const [ show , setShow ] = useState(false);
-    const TopButtonHadnler = () =>{
-        window.scrollTo({top: 0, behavior: 'smooth'}); // 스크롤을 부드럽게
-    }
-    
+}
+
+export default function TopButton() {
+    const [show, setShow] = useState(false);
+    const TopButtonHadnler = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // 스크롤을 부드럽게
+    };
 
     useEffect(() => {
         const heightFunc = debounce(() => {
@@ -60,20 +59,16 @@ export default function TopButton(){
         window.addEventListener('scroll', heightFunc);
         return () => {
             window.removeEventListener('scroll', heightFunc);
-        }
+        };
     }, []);
-    
-    
-    return(
+
+    return (
         <>
-        {show  && 
-            <TopButtonStyle 
-                $show={show}
-                onClick={()=>TopButtonHadnler()}>
-                <GoMoveToTop/>
-            </TopButtonStyle>
-        }
-            
+            {show && (
+                <TopButtonStyle $show={show} onClick={() => TopButtonHadnler()}>
+                    <GoMoveToTop />
+                </TopButtonStyle>
+            )}
         </>
-    )
+    );
 }

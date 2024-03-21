@@ -3,14 +3,16 @@ import FadeinComponent from '../../../../FadeinComponent';
 import ProjectItem from './Detail/ProjectItem';
 import SubTitle from 'component/ui/Subtitle';
 
-import { useQuery } from 'react-query';
-import { useLocation, useSearchParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { projectFetch } from 'services/projectService';
 import { ProjectWrapStyle } from './Styled/ProjectListStyled';
 import ProjectAddBtn from 'features/project/component/Detail/ProjectAddBtn';
 import CateGoryButton from 'component/ui/CateGoryButton';
 import ProjectSeach from 'features/project/component/Detail/ProjectSeach';
+import { ReactQuery, ReactRouteDom } from 'lib/lib';
+
+const { useLocation, useSearchParams } = ReactRouteDom;
+const { useQuery } = ReactQuery;
 
 const NoSeachingData = styled(FadeinComponent)`
     text-align: center;
@@ -46,15 +48,26 @@ export default function ProjectList() {
     const location = useLocation();
     const isProjectIndex =
         location.pathname === '/project' || location.pathname === '/project/';
-    const { isLoading, isError } = useQuery('project', projectFetch, {
-        enabled: isProjectIndex,
+
+    const { isLoading, isError, isSuccess, data } = useQuery({
+        queryKey: ['project'],
+        queryFn: projectFetch,
         refetchOnWindowFocus: false,
+        enabled: isProjectIndex,
         keepPreviousData: true,
-        onSuccess: data => {
+    });
+
+    useEffect(() => {
+        if (isSuccess) {
             const responseData = data?.resData || [];
             setProject(responseData);
-        },
-    });
+        }
+    }, [isSuccess]);
+
+    // useEffect(() => {
+    //     const responseData = data?.resData || [];
+    //     setProject(responseData);
+    // }, [isSuccess]);
 
     const [param] = useSearchParams();
     const [project, setProject] = useState([]);

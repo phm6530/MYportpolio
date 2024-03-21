@@ -27,6 +27,7 @@ const ScheduleSummary = props => {
                 const test = tempDate.setDate(tempDate.getDate() - idx);
                 return dayCalculate(test);
             });
+
             let weekObj = {};
             weekDayArr.reduce((_, cur) => {
                 if (listData[cur]) {
