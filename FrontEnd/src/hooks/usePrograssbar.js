@@ -2,9 +2,9 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
 const usePrograssbar = percent => {
-    console.log(percent);
+    // console.log(percent);
     const PrograssRef = useRef(null);
-    console.log(PrograssRef);
+    // console.log(PrograssRef);
     useEffect(() => {
         // GSAP 애니메이션: 숫자 증가
         if (PrograssRef.current) {

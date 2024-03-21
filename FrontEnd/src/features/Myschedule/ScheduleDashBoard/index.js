@@ -12,6 +12,7 @@ import {
 } from 'features/CommonStyles';
 import { fetchGit } from 'services/ScheduleService';
 import { ReactQuery } from 'lib/lib';
+import { useEffect, useState } from 'react';
 const { useQuery } = ReactQuery;
 
 const DashBoardStyle = styled.div`
@@ -43,11 +44,6 @@ const CustumFlexWrapDiv = styled(FlexWrapDiv)`
 `;
 
 const ScheduleDashBoard = props => {
-    useQuery({
-        queryKey: ['git'],
-        queryFn: fetchGit,
-    });
-
     return (
         <DashBoardStyle>
             <ConTentsWrapStyle>

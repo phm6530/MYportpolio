@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 
 const useTextsnap = text => {
     const textRef = useRef(null);
-    console.log(textRef.current);
+    // console.log(textRef.current);
     useEffect(() => {
         if (textRef.current) {
             gsap.fromTo(

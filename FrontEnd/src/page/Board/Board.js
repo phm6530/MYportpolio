@@ -81,14 +81,10 @@ export default function Board() {
                 setFetchMoreData(false);
             }
             setTotal(data.counter);
-            // console.log('userQuery 실행');
-            // 이건 맞음
             setUserFetchData(prev => {
                 return [...prev, ...data.pageData];
             });
         }
-        // console.log('실행');
-        // dispatch(alertThunk(error.message, 0));
     }, [data, isSuccess]);
 
     useEffect(() => {
