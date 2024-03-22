@@ -3,6 +3,7 @@ import { HourStyle } from '../component/styles/ScheduleCommonStyles';
 import { FlexColumnDiv } from 'features/CommonStyles';
 import styled from 'styled-components';
 import { format } from 'date-fns';
+import moment from 'moment-timezone';
 
 const CustumHourStyle = styled(HourStyle)`
     margin-bottom: 0;
@@ -15,27 +16,30 @@ const { useQuery } = ReactQuery;
 const ScheduleGit = () => {
     const [commitCount, setCommitCount] = useState([]);
 
-    const { data, isLoading } = useQuery({
+    const { data } = useQuery({
         queryKey: ['git'],
         queryFn: fetchGit,
     });
-    console.log(commitCount);
+
+    const today = new Date();
+    // console.log(today.toISOString());
+
+    // const now = new Date(); // 서버 시간 기준 현재 로컬 시간
+    // const GMTNow = now.getTime() + now.getTimezoneOffset() * 60 * 1000; // GMT 현재 시간
+    // const KoreaTimeDiff = 9 * 60 * 60 * 1000;
+    // const KoreaNow = new Date(GMTNow + KoreaTimeDiff);
+    // console.log(KoreaNow);
 
     useEffect(() => {
         const today = new Date().toISOString().split('T')[0];
-        const offset = new Date().getTimezoneOffset() * 60000; // 현재 로컬 시간대와 UTC의 차이(밀리초 단위)
-        const kstOffset = 9 * 60 * 60 * 1000; // KST는 UTC+9
-        const todays = new Date(Date.now() - offset + kstOffset)
-            .toISOString()
-            .split('T')[0];
-
-        console.log(todays);
-
-        // const ttt = format(today, 'yyyy-MM-dd');
         // console.log(ttt);
         const filterCommit = data => {
             const todayData = data.filter(e => {
-                return e.commit.committer.date.split('T')[0] === today;
+                const UTCtoksTime = moment(e.commit.committer.date)
+                    .tz('Asia/Seoul')
+                    .format('YYYY-MM-DD HH:mm:ss')
+                    .split(' ')[0];
+                return UTCtoksTime === today;
             });
             return todayData.map(e => ({
                 message: e.commit.message,
@@ -54,8 +58,8 @@ const ScheduleGit = () => {
         <FlexColumnDiv>
             <SubTitleTextStyle>Git Commit Today</SubTitleTextStyle>
             <CustumHourStyle>{commitCount.length}</CustumHourStyle>
-            {commitCount.map(e => (
-                <div>{e.message}</div>
+            {commitCount.map((e, idx) => (
+                <div key={idx}>{e.message}</div>
             ))}
         </FlexColumnDiv>
     );
