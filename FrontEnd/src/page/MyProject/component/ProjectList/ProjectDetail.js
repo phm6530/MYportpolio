@@ -12,6 +12,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { MdModeEdit } from 'react-icons/md';
 import { HiMiniLink } from 'react-icons/hi2';
 import { Button } from 'component/ui/Button';
+import { useAuthCheck } from 'hooks/useAuthCheck';
 
 const SKill = styled.span`
     display: inline-block;
@@ -155,14 +156,13 @@ const Hashtage = styled.div`
 `;
 
 function ProjectDetail({ result }) {
+    const { clientAuthCheck } = useAuthCheck();
     const ref = useRef();
     const {
         mutateAsync,
-        updateHandler,
-        deleteHandler, // 삭제
         setModal, //
         modal,
-    } = useProjectActions();
+    } = useProjectActions('project');
     const navigate = useNavigate();
     const {
         project_key,
@@ -193,11 +193,28 @@ function ProjectDetail({ result }) {
         window.open(url, '_blank');
     };
 
+    const updateHandler = key => {
+        if (!clientAuthCheck('수정')) {
+            return;
+        }
+        navigate(`/project/add?type=edit&key=${key}`);
+    };
+
+    const deleteHandler = () => {
+        if (!clientAuthCheck('삭제')) {
+            return;
+        }
+        setModal(true);
+    };
+
     return (
         <>
             {modal && (
                 <Popup closePopup={() => setModal(false)}>
-                    <Confirm message={title} confirm={() => mutateAsync(project_key)} />
+                    <Confirm
+                        message={title}
+                        confirm={() => mutateAsync(project_key)}
+                    />
                 </Popup>
             )}
             <CustumStyle>
@@ -214,14 +231,19 @@ function ProjectDetail({ result }) {
                             <button onClick={() => updateHandler(project_key)}>
                                 <MdModeEdit />
                             </button>
-                            <button onClick={() => deleteHandler(project_key)}>
+                            <button onClick={() => deleteHandler()}>
                                 <FaTrashAlt />
                             </button>
                         </ButtonArea>
                     </div>
                     <HashtagArea>
-                        {HashTagArr.map(e => {
-                            return <div className="hashTag">{`# ${e}`}</div>;
+                        {HashTagArr.map((e, idx) => {
+                            return (
+                                <div
+                                    className="hashTag"
+                                    key={`hash-${idx}`}
+                                >{`# ${e}`}</div>
+                            );
                         })}
                     </HashtagArea>
 
@@ -231,11 +253,15 @@ function ProjectDetail({ result }) {
                     </Linkarea> */}
                 </ProjectSummary>
                 <ProjectThumbNail>
-                    <img src={`http://localhost:8080/${thumbnail}`} alt={title} />
+                    <img
+                        src={`http://localhost:8080/${thumbnail}`}
+                        alt={title}
+                    />
                 </ProjectThumbNail>
                 <ProjectViewFooter>
-                    ※ 본 게시물은 상업적 목적이 아닌 포트폴리오 목적으로만 사용됩니다. <br></br>아직 공개되지 않은
-                    작업물은 포함하지 않으며, 오직 공개된 작업물만을 게시합니다.
+                    ※ 본 게시물은 상업적 목적이 아닌 포트폴리오 목적으로만
+                    사용됩니다. <br></br>아직 공개되지 않은 작업물은 포함하지
+                    않으며, 오직 공개된 작업물만을 게시합니다.
                 </ProjectViewFooter>
                 <ProjectSummary>
                     {/* <SummaryTitle>WORK SUMMARY</SummaryTitle> */}
@@ -288,7 +314,10 @@ function ProjectDetail({ result }) {
                                 Site Url
                             </span>
 
-                            <div className="project_date" onClick={() => projectView(project_url)}>
+                            <div
+                                className="project_date"
+                                onClick={() => projectView(project_url)}
+                            >
                                 <SKill $url={true}>
                                     <HiMiniLink />
                                     {project_url}
@@ -298,8 +327,13 @@ function ProjectDetail({ result }) {
                     </div>
                 </ProjectSummary>
                 {/* quill-editor */}
-                <div ref={ref} dangerouslySetInnerHTML={renderHTML(project_description)}></div>
-                <Button.Type onClick={() => navigate('/project')}>목록으로</Button.Type>
+                <div
+                    ref={ref}
+                    dangerouslySetInnerHTML={renderHTML(project_description)}
+                ></div>
+                <Button.Type onClick={() => navigate('/project')}>
+                    목록으로
+                </Button.Type>
             </CustumStyle>
         </>
     );

@@ -1,7 +1,7 @@
 import usePopup from 'hooks/usePopup';
 
 import { useAuthCheck } from 'hooks/useAuthCheck';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { ReactQuery } from 'lib/lib';
@@ -29,6 +29,12 @@ import useExcuteMutation from 'hooks/useExcuteMutation';
 const ListHandler = ({ idx, selectWork, setSelectWork, ScheduleItem }) => {
     const { register, handleSubmit, setValue } = useForm();
     const { clientAuthCheck } = useAuthCheck();
+    const [prevWork, setPrevWork] = useState(ScheduleItem.work);
+
+    // 이전 댓글과 비교하여 재 패칭 방지
+    useEffect(() => {
+        setPrevWork(ScheduleItem.work);
+    }, [ScheduleItem]);
 
     const [textAreaHeight, setTextArerHeight] = useState(
         ScheduleItem.work.split(/\r\n|\r|\n/).length,
@@ -64,7 +70,11 @@ const ListHandler = ({ idx, selectWork, setSelectWork, ScheduleItem }) => {
             work: data.work,
             schedule_key: ScheduleItem.schedule_key,
         };
-        EditMutate(requstData);
+        if (prevWork === data.work) {
+        } else {
+            EditMutate(requstData);
+        }
+        setSelectWork(null);
     };
 
     const readOnlyHandler = idx => {
@@ -81,6 +91,7 @@ const ListHandler = ({ idx, selectWork, setSelectWork, ScheduleItem }) => {
         if (!clientAuthCheck('삭제')) return;
         deleteMutate(ScheduleItem.schedule_key);
     };
+    console.log(selectWork);
 
     return (
         <>

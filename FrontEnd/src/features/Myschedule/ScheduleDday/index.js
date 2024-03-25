@@ -21,6 +21,10 @@ import useProjectActions from 'hooks/useProjectActions';
 import Popup from 'component/popup/Popup';
 import Confirm from 'component/ui/Confirm';
 import { SubTitleSchedule } from '../component/styles/ScheduleCommonStyles';
+import { useAuthCheck } from 'hooks/useAuthCheck';
+import { fetchDeleteSchedule } from 'services/ScheduleService';
+import useExcuteMutation from 'hooks/useExcuteMutation';
+import usePopup from 'hooks/usePopup';
 
 const SwiperStyle = styled(Swiper)``;
 
@@ -31,7 +35,7 @@ const SummeryStyle = styled.div`
     background: #fff;
 `;
 
-const DdayTaskStyle = styled.div`
+const DdayArrtyle = styled.div`
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
@@ -70,37 +74,51 @@ const DdayHeader = styled.div`
     }
 `;
 
-const ScheduleDdayList = ({ DdayTasks }) => {
+const ScheduleDdayList = ({ DdayArr }) => {
+    const { clientAuthCheck } = useAuthCheck();
+    const { showPopup, setMessage, PopupComponent } = usePopup();
     const DdayTask = ({ task }) => {
-        const { modal, setModal, mutateAsync } = useProjectActions({
-            type: 'schedule',
-        });
+        // const { modal, setModal, mutateAsync } = useProjectActions({
+        //     type: 'Schedule',
+        // });
         const { work, schedule_key, formatted_date } = task;
         const currentDate = new Date();
         const taskDate = new Date(formatted_date);
         const dayDifference = (currentDate - taskDate) / (1000 * 3600 * 24);
         const count = Math.ceil(dayDifference);
 
+        const { mutate: deleteMutate } = useExcuteMutation(
+            fetchDeleteSchedule,
+            ['Schedule'],
+            '삭제',
+        );
+
+        const deleteHandler = () => {
+            if (!clientAuthCheck('삭제')) {
+                return;
+            }
+            deleteMutate(schedule_key);
+        };
+
         return (
             <>
-                {modal && (
-                    <Popup closePopup={() => setModal(false)}>
-                        <Confirm
-                            confirm={() => mutateAsync(schedule_key)}
-                        ></Confirm>
-                    </Popup>
-                )}
+                <PopupComponent id="deleteSchedule" event={deleteHandler} />
 
-                <DdayTaskStyle>
+                <DdayArrtyle>
                     {/* <img src="/img/calendar/talk.png" alt="" /> */}
                     <DdayHeader>
                         <span className="countNum">D {count}</span>
-                        <span onClick={() => setModal(true)}>
+                        <span
+                            onClick={() => {
+                                setMessage(work);
+                                showPopup('deleteSchedule');
+                            }}
+                        >
                             <MdCancel />
                         </span>
                     </DdayHeader>
                     <p>{work}</p>
-                </DdayTaskStyle>
+                </DdayArrtyle>
             </>
         );
     };
@@ -132,14 +150,11 @@ const ScheduleDdayList = ({ DdayTasks }) => {
 
                     // scrollbar={{ draggable: true }}
                 >
-                    {DdayTasks &&
-                        DdayTasks.map((task, idx) => {
+                    {DdayArr &&
+                        DdayArr.map((task, idx) => {
                             return (
-                                <SwiperSlide>
-                                    <DdayTask
-                                        key={`DdayTask-${idx}`}
-                                        task={task}
-                                    />
+                                <SwiperSlide key={`DdayTask-${idx}`}>
+                                    <DdayTask task={task} />
                                 </SwiperSlide>
                             );
                         })}

@@ -23,6 +23,7 @@ const ScheduleList = ({ selectDay, listData }) => {
             )}
 
             {filterArr.map((Schedule, idx) => {
+                console.log(Schedule);
                 return (
                     <FadeinComponent
                         position={'right'}

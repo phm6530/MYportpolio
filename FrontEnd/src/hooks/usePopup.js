@@ -5,6 +5,7 @@ import { useState } from 'react';
 const usePopup = () => {
     const [popView, setPopupView] = useState({});
     const [ID, setID] = useState(null);
+    const [message, setMessage] = useState(null);
     // console.log('PopView ::: ', popView);
     // console.log('id ::', ID);
     const showPopup = id => {
@@ -20,7 +21,7 @@ const usePopup = () => {
             {/* {console.log(id)} */}
             {popView[id] && (
                 <Popup closePopup={() => hidePopup(id)}>
-                    <Confirm confirm={event} />
+                    <Confirm message={message} confirm={event} />
                 </Popup>
             )}
         </>
@@ -28,6 +29,7 @@ const usePopup = () => {
 
     return {
         showPopup,
+        setMessage,
         hidePopup,
         PopupComponent,
     };

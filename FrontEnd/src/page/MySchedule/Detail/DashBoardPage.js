@@ -9,6 +9,8 @@ import SummaryHeader from 'features/Myschedule/ScheduleDashBoard/SummaryHeader';
 import { SubTitleSchedule } from 'features/Myschedule/component/styles/ScheduleCommonStyles';
 import { FlexWrapDiv } from 'features/CommonStyles';
 
+import ScheduleDdayList from 'features/Myschedule/ScheduleDday';
+
 const Wrap = styled.div`
     display: flex;
     margin-bottom: 4rem;
@@ -21,6 +23,7 @@ const FirstWrap = styled(Wrap)`
 `;
 
 const DashBoardPage = props => {
+    const { DdayArr } = props;
     return (
         <>
             <FirstWrap>
@@ -36,7 +39,7 @@ const DashBoardPage = props => {
                 {/* Summary */}
                 <ScheduleSummary {...props} />
             </Wrap>
-            <Wrap>asgf</Wrap>
+            <ScheduleDdayList DdayArr={DdayArr} />
         </>
     );
 };

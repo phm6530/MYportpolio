@@ -6,9 +6,6 @@ import Popup from 'component/popup/Popup';
 // icon
 import { FaLink } from 'react-icons/fa';
 import { HiOutlineDotsVertical } from 'react-icons/hi';
-import { FaTrashAlt } from 'react-icons/fa';
-import { MdModeEdit } from 'react-icons/md';
-import useProjectActions from 'hooks/useProjectActions';
 
 const showAni = keyframes`
     from{
@@ -89,9 +86,13 @@ const EditArea = styled.div`
     z-index: 10;
 `;
 
-export default function ProjectItemHeader({ activeIdx, setActiveIdx, project }) {
+export default function ProjectItemHeader({
+    activeIdx,
+    setActiveIdx,
+    project,
+}) {
     // const [area, setArea] = useState(activeIdx);
-    const { modal, setModal, mutateAsync } = useProjectActions();
+    // const { modal, setModal, mutateAsync } = useProjectActions();
     // const ref = useRef();
 
     // useEffect(() => {
@@ -112,7 +113,7 @@ export default function ProjectItemHeader({ activeIdx, setActiveIdx, project }) 
 
     return (
         <>
-            {modal && (
+            {/* {modal && (
                 <Popup closePopup={() => setModal(false)}>
                     <Confirm
                         message={'프로젝트'}
@@ -121,7 +122,7 @@ export default function ProjectItemHeader({ activeIdx, setActiveIdx, project }) 
                         }}
                     />
                 </Popup>
-            )}
+            )} */}
 
             <ProjectItemHeaderStyle>
                 <ProjectTitle>{project.title}</ProjectTitle>

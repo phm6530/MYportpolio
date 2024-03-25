@@ -111,8 +111,8 @@ function AnimatedRoutes() {
 }
 
 function App() {
-    const fetching = useIsFetching();
-    console.log(fetching);
+    // const fetching = useIsFetching();
+    // console.log(fetching);
     return (
         // darkMode - Context Api
         <Mode>

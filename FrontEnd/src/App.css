@@ -231,7 +231,7 @@ nav ul li {
 }
 
 textarea {
-    resize: none;
+    resize: none !important;
     white-space: pre-line;
 }
 

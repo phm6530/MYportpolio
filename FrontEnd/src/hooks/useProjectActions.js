@@ -8,50 +8,48 @@ import { ReactQuery, ReactRouteDom } from 'lib/lib';
 const { useNavigate } = ReactRouteDom;
 const { useQueryClient, useMutation } = ReactQuery;
 
-const useProjectActions = () => {
+const useProjectActions = type => {
     const queryClient = useQueryClient();
     const [modal, setModal] = useState(false);
-
+    // console.log(type);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    console.log(type);
     const { clientAuthCheck } = useAuthCheck();
 
     //삭제 비동기
 
     const { mutateAsync, isSuccess } = useMutation({
-        mutationKey: ['project'],
+        mutationKey: [type],
         mutationFn: deleteKey => projectDelete(deleteKey),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: 'project' });
+            queryClient.invalidateQueries({ queryKey: type });
         },
     });
     useEffect(() => {
         if (isSuccess) {
             dispatch(alertThunk('삭제되었습니다.', 1));
-            navigate('/project');
+            navigate(`/${type}`);
         }
     }, [isSuccess]);
 
-    const updateHandler = key => {
-        if (!clientAuthCheck('수정')) {
-            return;
-        }
-        navigate(`/project/add?type=edit&key=${key}`);
-    };
+    // const updateHandler = key => {
+    //     if (!clientAuthCheck('수정')) {
+    //         return;
+    //     }
+    //     navigate(`/project/add?type=edit&key=${key}`);
+    // };
 
-    const deleteHandler = async deleteKey => {
-        //권한 확인
-        if (!clientAuthCheck('삭제')) {
-            return;
-        }
-        setModal(true);
-    };
+    // const deleteHandler = async deleteKey => {
+    //     //권한 확인
+    //     if (!clientAuthCheck('삭제')) {
+    //         return;
+    //     }
+    //     setModal(true);
+    // };
 
     return {
         mutateAsync,
-        updateHandler,
-        deleteHandler, // 삭제
         setModal, //
         modal, //
     };
