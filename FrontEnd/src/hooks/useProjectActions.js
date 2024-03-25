@@ -29,7 +29,6 @@ const useProjectActions = () => {
     useEffect(() => {
         if (isSuccess) {
             dispatch(alertThunk('삭제되었습니다.', 1));
-
             navigate('/project');
         }
     }, [isSuccess]);

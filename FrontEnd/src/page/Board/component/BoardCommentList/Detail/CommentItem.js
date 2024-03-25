@@ -146,7 +146,7 @@ const CommentItem = forwardRef((props, ref) => {
         login ? setModal(true) : setSelectIdx(key);
     };
 
-    const { mutateAsync } = useMutation({
+    const { mutate } = useMutation({
         mutationFn: formData => deleteFetch(formData),
         onSuccess: data => {
             dispatch(alertThunk('삭제되었습니다.', true));
@@ -156,9 +156,6 @@ const CommentItem = forwardRef((props, ref) => {
                 });
             });
         },
-        onError: error => {
-            dispatch(alertThunk(error.message, 0));
-        },
     });
 
     return (
@@ -167,7 +164,7 @@ const CommentItem = forwardRef((props, ref) => {
                 <Popup closePopup={() => setModal(false)}>
                     <Confirm
                         message={'댓글'}
-                        confirm={async () => await mutateAsync({ board_key })}
+                        confirm={() => mutate({ board_key })}
                     />
                 </Popup>
             )}
@@ -205,7 +202,7 @@ const CommentItem = forwardRef((props, ref) => {
                                             setUserFetchData={setUserFetchData}
                                             board_key={board_key}
                                             setSelectIdx={setSelectIdx}
-                                            mutateAsync={mutateAsync}
+                                            mutate={mutate}
                                         />
                                     </FormProvider>
                                 )}

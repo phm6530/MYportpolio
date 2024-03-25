@@ -65,7 +65,6 @@ const fetchData = async page => {
 //댓글 삭제로직
 const deleteFetch = async formData => {
     const token = localStorage.getItem('token');
-
     try {
         const response = await fetch(
             'http://localhost:8080/board/reply/delete',
@@ -79,13 +78,14 @@ const deleteFetch = async formData => {
             },
         );
         const result = await response.json();
+
         if (!response.ok) {
+            console.log('에러!');
             throw new Error(
                 result.message ||
                     `요청이 실패하였습니다. errorCode :  ${response.status}`,
             );
         }
-
         return result;
     } catch (error) {
         throw error;

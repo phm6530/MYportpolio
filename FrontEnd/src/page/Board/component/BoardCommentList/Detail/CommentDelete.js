@@ -21,11 +21,7 @@ const ButtonSTyle = styled.button`
     padding: 2px 5px;
 `;
 
-export default function CommentDelete({
-    mutateAsync,
-    board_key,
-    setSelectIdx,
-}) {
+export default function CommentDelete({ mutate, board_key, setSelectIdx }) {
     const { handleSubmit, reset } = useFormContext();
     const dispatch = useDispatch();
 
@@ -35,11 +31,8 @@ export default function CommentDelete({
             reply_password: password,
             board_key: board_key,
         };
-        try {
-            await mutateAsync(formData);
-        } catch (error) {
-            dispatch(alertThunk(error.message, false));
-        }
+
+        mutate(formData);
     };
 
     return (
