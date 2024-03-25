@@ -14,6 +14,7 @@ import UserProfile from 'component/profile/UserProfile';
 import BoardCommentList from './component/BoardCommentList/BoardCommentList';
 
 import { fetchData } from './BoardFetch';
+import { InfinityLoading } from 'component/ui/loading/InfinityLoading';
 
 const { useQuery } = ReactQuery;
 const { useDispatch } = ReactRedux;
@@ -133,15 +134,18 @@ export default function Board() {
 
                     {/* BoardComment */}
                     {!isLoading && isError && 'error'}
+
                     {userFetchData && (
                         <BoardCommentList
                             userFetchData={userFetchData}
                             moreFetchData={moreFetchData}
                             total={total}
+                            isLoading={isLoading}
                             setUserFetchData={setUserFetchData}
                             setLastPageIdx={setLastPageIdx}
                         />
                     )}
+                    {isLoading && <InfinityLoading />}
                 </RightWrap>
             </BoardGrid>
         </>

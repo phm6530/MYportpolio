@@ -75,6 +75,8 @@ export default function PrograssBar({ tasks }) {
     //     };
     // }, []);
 
+    console.log(tasks);
+
     return (
         <FlexColumnBetween>
             <SubTitleTextStyle>

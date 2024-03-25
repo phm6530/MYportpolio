@@ -20,6 +20,7 @@ const CustumFlexColumnDiv = styled(FlexColumnDiv)`
 const CategoryGraph = props => {
     const { categorys, arrState } = props;
 
+    console.log(arrState);
     return (
         <>
             <CustumFlexColumnDiv>

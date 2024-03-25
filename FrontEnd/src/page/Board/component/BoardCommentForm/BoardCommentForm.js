@@ -203,7 +203,9 @@ export default function BoardCommentForm({ setTotal, setUserFetchData }) {
             ),
         password: login
             ? Yup.string().notRequired()
-            : Yup.string().required('비밀번호를 입력해주세요.'),
+            : Yup.string()
+                  .required('비밀번호를 입력해주세요.')
+                  .min(4, '최소 4글자 이상 적어주세요..'),
     });
 
     const personIcon = [...Array(6)].map((_, idx) => `person_${idx + 1}`);
@@ -243,7 +245,7 @@ export default function BoardCommentForm({ setTotal, setUserFetchData }) {
 
     const mutation = useMutation({
         mutationFn: formData => fetchReply(formData),
-        onSuccess: () => {
+        onSuccess: data => {
             setUserFetchData(prev => [...data.resData, ...prev]);
             dispatch(alertThunk('댓글 등록되었습니다.', true));
             reset({

@@ -4,6 +4,8 @@ import {
     useMutation,
     useQueryClient,
     useQuery,
+    useIsFetching,
+    QueryCache,
     QueryClient,
     QueryClientProvider,
 } from '@tanstack/react-query';
@@ -22,6 +24,8 @@ export const ReactQuery = {
     useMutation,
     useQueryClient,
     useQuery,
+    useIsFetching,
+    QueryCache,
     QueryClient,
     QueryClientProvider,
 };

@@ -14,6 +14,10 @@ import RootNav from 'component/layout/RootNav';
 import Footer from 'component/layout/Footer';
 import AppRoute from 'Route/AppRoute';
 
+import { ReactQuery } from 'lib/lib';
+
+const { useIsFetching } = ReactQuery;
+
 // const router = createBrowserRouter([
 //     {
 //         path: '/',
@@ -107,6 +111,8 @@ function AnimatedRoutes() {
 }
 
 function App() {
+    const fetching = useIsFetching();
+    console.log(fetching);
     return (
         // darkMode - Context Api
         <Mode>

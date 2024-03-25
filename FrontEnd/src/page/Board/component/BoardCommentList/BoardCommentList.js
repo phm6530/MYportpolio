@@ -46,6 +46,7 @@ const BoardReplyWrap = styled.div`
 export default function BoardCommentList({
     userFetchData,
     moreFetchData,
+    isLoading,
     total,
     setUserFetchData,
     setLastPageIdx,
@@ -79,11 +80,13 @@ export default function BoardCommentList({
         };
     }, [userFetchData, setLastPageIdx, moreFetchData]);
 
+    console.log(isLoading);
     return (
         <BoardReplyWrap>
             {userFetchData.length === 0 && <p> 등록된 게시물이 없습니다. </p>}
 
             <CommentState total={total} />
+
             {userFetchData &&
                 (() => {
                     const arr = [];
@@ -119,6 +122,7 @@ export default function BoardCommentList({
                                         role={item.role}
                                         selectIdx={selectIdx === item.board_key}
                                         setSelectIdx={setSelectIdx}
+                                        isLoading={isLoading}
                                         setUserFetchData={setUserFetchData}
                                     />
                                 </Fadeup>

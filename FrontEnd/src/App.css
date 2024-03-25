@@ -3,264 +3,278 @@
 @import url(https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap);
 @import url(//fonts.googleapis.com/earlyaccess/nanumgothiccoding.css);
 @font-face {
-  font-family: "IBMPlexSansKR-Regular";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'IBMPlexSansKR-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff')
+        format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 @font-face {
-  font-family: "SUIT-Regular";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'SUIT-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+        format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 @font-face {
-  font-family: "SBAggroB";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'SBAggroB';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff')
+        format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 @font-face {
-  font-family: "Pretendard-Regular";
-  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+        format('woff');
+    font-weight: 400;
+    font-style: normal;
 }
 @font-face {
-  font-family: "S-CoreDream-3Light";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'S-CoreDream-3Light';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff')
+        format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 @font-face {
-  font-family: "GmarketSansMedium";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+        format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 .poppins-thin {
-  font-family: "Poppins", sans-serif;
-  font-weight: 100;
-  font-style: normal;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 100;
+    font-style: normal;
 }
 
 .poppins-extralight {
-  font-family: "Poppins", sans-serif;
-  font-weight: 200;
-  font-style: normal;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 200;
+    font-style: normal;
 }
 
 .poppins-light {
-  font-family: "Poppins", sans-serif;
-  font-weight: 300;
-  font-style: normal;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-style: normal;
 }
 
 .poppins-regular {
-  font-family: "Poppins", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .poppins-medium {
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  font-style: normal;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-style: normal;
 }
 
 .poppins-semibold {
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  font-style: normal;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-style: normal;
 }
 
 .poppins-bold {
-  font-family: "Poppins", sans-serif;
-  font-weight: 700;
-  font-style: normal;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-style: normal;
 }
 
 .poppins-extrabold {
-  font-family: "Poppins", sans-serif;
-  font-weight: 800;
-  font-style: normal;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-style: normal;
 }
 
 .poppins-black {
-  font-family: "Poppins", sans-serif;
-  font-weight: 900;
-  font-style: normal;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+    font-style: normal;
 }
 
 @font-face {
-  font-family: "NanumSquareNeo-Variable";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2')
+        format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 @font-face {
-  font-family: "BMJUA";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'BMJUA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff')
+        format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 @font-face {
-  font-family: "NEXON Lv1 Gothic OTF";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'NEXON Lv1 Gothic OTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff')
+        format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 @font-face {
-  font-family: "NanumSquareRound";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff')
+        format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 @font-face {
-  font-family: "Pretendard-Regular";
-  src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
+        format('woff');
+    font-weight: 400;
+    font-style: normal;
 }
 @font-face {
-  font-family: "D2Coding";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/D2Coding.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'D2Coding';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/D2Coding.woff')
+        format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 .nanumgothiccoding * {
-  font-family: "Nanum Gothic Coding", monospace;
+    font-family: 'Nanum Gothic Coding', monospace;
 }
 
 @font-face {
-  font-family: "NEXON Lv2 Gothic";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'NEXON Lv2 Gothic';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv2 Gothic.woff')
+        format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 body {
-  font-family: "SUIT-Regular", sans-serif;
+    font-family: 'SUIT-Regular', sans-serif;
 }
 
 .wrap {
-  width: 1200px;
-  margin: 0 auto;
+    width: 1200px;
+    margin: 0 auto;
 }
 
 /* DarkMode */
 .darkMode {
-  background-color: #000;
-  color: #fff;
+    background-color: #000;
+    color: #fff;
 }
 .darkMode li {
-  color: #fff;
+    color: #fff;
 }
 .darkMode li a {
-  color: #fff;
+    color: #fff;
 }
 
 .errorMessage {
-  color: rgb(233, 97, 97);
+    color: rgb(233, 97, 97);
 }
 
 label {
-  display: block;
+    display: block;
 }
 
 input:focus {
-  outline: none;
+    outline: none;
 }
 
 button {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 input:disabled {
-  background: #f0f0f0;
-  opacity: 0.5;
+    background: #f0f0f0;
+    opacity: 0.5;
 }
 
 nav {
-  display: flex;
-  justify-content: space-between;
-  cursor: pointer;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    align-items: center;
 }
 nav ul {
-  display: flex;
+    display: flex;
 }
 nav ul li {
-  margin-left: 30px;
-  padding: 25px 0px;
-  font-size: 14px;
+    margin-left: 30px;
+    padding: 25px 0px;
+    font-size: 14px;
 }
 
 .BoardReplyForm {
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 2em;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 2em;
 }
 .BoardReplyForm .formInputDiv {
-  width: 100%;
-  border: 1px solid #c6c6c6;
-  border-radius: 10px;
-  padding: 10px 20px;
-  font-size: 14px;
-  margin-bottom: 15px;
-  position: relative;
+    width: 100%;
+    border: 1px solid #c6c6c6;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    position: relative;
 }
 .BoardReplyForm .formInputDiv span {
-  position: absolute;
-  left: 10px;
-  top: -10px;
-  padding: 0px 10px;
-  display: block;
+    position: absolute;
+    left: 10px;
+    top: -10px;
+    padding: 0px 10px;
+    display: block;
 }
 
 textarea {
-  resize: none;
-  white-space: pre-line;
+    resize: none;
+    white-space: pre-line;
 }
 
 textarea:focus {
-  outline: none;
+    outline: none;
 }
 
-textarea::-moz-placeholder, input::-moz-placeholder {
-  font-size: 12px;
+textarea::-moz-placeholder,
+input::-moz-placeholder {
+    font-size: 12px;
 }
 
 textarea::placeholder,
 input::placeholder {
-  font-size: 12px;
+    font-size: 12px;
 }
 
 #quill_Editor h1 {
-  font-size: 1.4rem;
+    font-size: 1.4rem;
 }
 #quill_Editor img {
-  border-radius: 1rem;
+    border-radius: 1rem;
 }
 
 .ql-editor {
-  height: auto !important;
+    height: auto !important;
 }
 .ql-editor .ql-size-huge {
-  background: linear-gradient(to top, #000000, #4b5787, #000000);
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-  font-weight: bold;
-  font-size: 1.5rem !important;
-  margin-bottom: 1rem;
-  margin-top: 3rem;
-  display: inline-block;
+    background: linear-gradient(to top, #000000, #4b5787, #000000);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    font-weight: bold;
+    font-size: 1.5rem !important;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
+    display: inline-block;
 }
 .ql-editor blockquote {
-  border-left: 4px solid #ccc;
-  margin-bottom: 5px;
-  margin-top: 5px;
-  padding-left: 16px !important;
+    border-left: 4px solid #ccc;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding-left: 16px !important;
 }
 
 .ql-editor p,
@@ -274,120 +288,120 @@ input::placeholder {
 .ql-editor h4,
 .ql-editor h5,
 .ql-editor h6 {
-  line-height: 1.7rem !important;
+    line-height: 1.7rem !important;
 }
 
 .skill_Item {
-  display: inline-block;
-  color: #555969;
-  border-radius: 4px;
-  padding: 0.3rem 0.5rem;
-  font-size: 0.7rem;
-  font-weight: bold;
-  margin-right: 0.6rem;
-  color: rgb(120, 141, 170);
-  border: 1px solid rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    color: #555969;
+    border-radius: 4px;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-right: 0.6rem;
+    color: rgb(120, 141, 170);
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }
 .skill_Item input {
-  margin-right: 0.3rem;
+    margin-right: 0.3rem;
 }
 .hashTag {
-  align-items: center;
-  display: inline-flex;
-  font-weight: 500;
-  font-size: 11px;
-  padding: 2px 7px;
-  border-radius: 11px;
-  color: rgb(139, 122, 202);
-  background-color: rgba(226, 226, 226, 0.32);
-  margin-right: 0.6rem;
-  align-items: center;
-  font-weight: bold;
-  margin-bottom: 0.3rem;
+    align-items: center;
+    display: inline-flex;
+    font-weight: 500;
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 11px;
+    color: rgb(139, 122, 202);
+    background-color: rgba(226, 226, 226, 0.32);
+    margin-right: 0.6rem;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
 }
 .hashTag svg {
-  margin-left: 0.4rem;
+    margin-left: 0.4rem;
 }
 
 .FlexColumn {
-  display: flex;
-  flex-direction: column;
-  /* width: 100%; */
-  flex-grow: 1;
-  align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    /* width: 100%; */
+    flex-grow: 1;
+    align-items: flex-start;
 }
 
 .titleTextStyle {
-  background: linear-gradient(to left, #7264ef, #7264ef, #dd8efc);
-  color: transparent;
-  -webkit-background-clip: text;
-          background-clip: text;
+    background: linear-gradient(to left, #7264ef, #7264ef, #dd8efc);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 
 .swiper-pagination {
-  bottom: 10px; /* 위치 조정 */
-  left: 0;
-  position: initial !important;
-  text-align: center;
+    bottom: 10px; /* 위치 조정 */
+    left: 0;
+    position: initial !important;
+    text-align: center;
 }
 
 .margin-bottom-30 {
-  margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 .margin-bottom-20 {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .margin-bottom-10 {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .margin-bottom-1rem {
-  margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 .margin-bottom-2rem {
-  margin-bottom: 2rem;
+    margin-bottom: 2rem;
 }
 
 .categoryTitle {
-  /* 운동 */
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 17px;
-  color: #3d3d3d;
-  margin-bottom: 0.2rem;
+    /* 운동 */
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    color: #3d3d3d;
+    margin-bottom: 0.2rem;
 }
 
 .circular-pbar {
-  width: 150px;
-  height: 150px;
-  border-radius: 100%;
-  --p: 0;
-  background: conic-gradient(#6284ff, #d35fd6 var(--p, 0), 0, #f7f7f7);
-  position: relative;
-  display: flex;
-  flex-direction: column;
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    --p: 0;
+    background: conic-gradient(#6284ff, #d35fd6 var(--p, 0), 0, #f7f7f7);
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 .circular-pbar:after {
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 70%;
-  height: 70%;
-  background: #fff;
-  position: absolute;
-  content: "";
-  border-radius: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 70%;
+    background: #fff;
+    position: absolute;
+    content: '';
+    border-radius: 100%;
 }
 
 .circular-pbar-counter {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.6rem;
-  font-weight: bold;
-  z-index: 1;
-}/*# sourceMappingURL=app.css.map */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.6rem;
+    font-weight: bold;
+    z-index: 1;
+} /*# sourceMappingURL=app.css.map */
