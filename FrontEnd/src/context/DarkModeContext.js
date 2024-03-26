@@ -45,7 +45,9 @@ const Mode = props => {
         <>
             {/* 전역스타일 GlobalStyle */}
             <GlobalStyle darkMode={modeState} transition={transition} />
-            <DarkMode.Provider value={darkModeValue}>{props.children}</DarkMode.Provider>
+            <DarkMode.Provider value={darkModeValue}>
+                {props.children}
+            </DarkMode.Provider>
         </>
     );
 };

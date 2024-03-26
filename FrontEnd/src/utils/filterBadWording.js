@@ -1,23 +1,23 @@
-const filterWord = ["돼지", "뚱땡이"];
+const filterWord = ['돼지', '뚱땡이'];
 
 // 필터링 *** 로 변경하기
-const filterWording = (word) => {
-  const filteredWording = filterWord.reduce((filtering, badword) => {
-    const regExp = new RegExp(badword, "g");
-    return filtering.replace(regExp, "*".repeat(badword.length));
-  }, word);
-  return filteredWording;
+const filterWording = word => {
+    const filteredWording = filterWord.reduce((filtering, badword) => {
+        const regExp = new RegExp(badword, 'g');
+        return filtering.replace(regExp, '*'.repeat(badword.length));
+    }, word);
+    return filteredWording;
 };
 
 // 욕설 있는지 찾기
-const findForBadword = (word) => {
-  const filter = filterWord.filter((badword) => {
-    return word.includes(badword);
-  });
+const findForBadword = word => {
+    const filter = filterWord.filter(badword => {
+        return word.includes(badword);
+    });
 
-  if (filter.length > 0) {
-    return false;
-  }
-  return true;
+    if (filter.length > 0) {
+        return false;
+    }
+    return true;
 };
 export { filterWording, findForBadword };

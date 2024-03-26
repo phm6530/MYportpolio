@@ -1,11 +1,10 @@
-import styled from 'styled-components'
-import { FaLink } from "react-icons/fa";
+import styled from 'styled-components';
+import { FaLink } from 'react-icons/fa';
 
 const ButtonWrap = styled.div`
     display: flex;
     flex-direction: column;
-`
-
+`;
 
 const ContactButton = styled.div`
     display: flex;
@@ -17,25 +16,27 @@ const ContactButton = styled.div`
     padding-right: 28px;
     border-radius: 4rem;
     margin-right: 10px;
-    
+
     cursor: pointer;
-    svg{
+    svg {
         color: #222;
         margin-left: auto;
         font-size: 12px;
-        opacity: .6;
+        opacity: 0.6;
     }
-    &:hover{
+    &:hover {
         transform: translateY(-5px);
-    }    
-    
+    }
+
     transform: translateY(0);
-    transition: transform .5s ease;
-    span{
+    transition: transform 0.5s ease;
+    span {
         font-weight: bold;
         color: #222;
         font-size: 12px;
-        ${props => props.onClick && `
+        ${props =>
+            props.onClick &&
+            `
             color: #3963a7;
             text-decoration: underline;
         `}
@@ -43,40 +44,45 @@ const ContactButton = styled.div`
     img {
         width: 25px;
         margin-right: 15px;
-    } 
-`
+    }
+`;
 
-export default function ContactButtons(){
-
-    return(
+export default function ContactButtons() {
+    return (
         <>
             <ButtonWrap>
-            <ContactButton 
-                onClick={()=>window.open('https://open.kakao.com/o/sq4skkTf')}>
-                <img src="img/contact/kakao.png" alt="kakao" /> 
-                <span>OPEN KAKAO TALK</span>
-                {/* <IoIosArrowForward size={'15'}/> */}
-                <FaLink/>
-            </ContactButton>
-            <ContactButton  onClick={()=>window.open('https://github.com/phm6530/')}>
-                <img src="img/contact/git.png" alt="git" /> 
-                <span>Git / @phm6530</span>
-                <FaLink/>
-            </ContactButton>
+                <ContactButton
+                    onClick={() =>
+                        window.open('https://open.kakao.com/o/sq4skkTf')
+                    }
+                >
+                    <img src="img/contact/kakao.png" alt="kakao" />
+                    <span>OPEN KAKAO TALK</span>
+                    {/* <IoIosArrowForward size={'15'}/> */}
+                    <FaLink />
+                </ContactButton>
+                <ContactButton
+                    onClick={() => window.open('https://github.com/phm6530/')}
+                >
+                    <img src="img/contact/git.png" alt="git" />
+                    <span>Git / @phm6530</span>
+                    <FaLink />
+                </ContactButton>
 
-            <ContactButton >
-                <img src="img/contact/call.png" alt="call" />
-                <a href="call:01050278530"><span>010-5027-8530</span></a>
-                
-                {/* <IoIosArrowForward size={'15'}/> */}
-            </ContactButton>
+                <ContactButton>
+                    <img src="img/contact/call.png" alt="call" />
+                    <a href="call:01050278530">
+                        <span>010-5027-8530</span>
+                    </a>
 
-            <ContactButton >
-                <img src="img/contact/mail1.png" alt="mail" /> 
-                <span>squirrel309@naver.com</span>
-            </ContactButton>
+                    {/* <IoIosArrowForward size={'15'}/> */}
+                </ContactButton>
 
-        </ButtonWrap>
+                <ContactButton>
+                    <img src="img/contact/mail1.png" alt="mail" />
+                    <span>squirrel309@naver.com</span>
+                </ContactButton>
+            </ButtonWrap>
         </>
-    )
+    );
 }

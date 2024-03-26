@@ -1,16 +1,6 @@
 import React, { forwardRef, useEffect, useState } from 'react';
-import SKILL_ICON from '../../../../../component/icon/StackIcon';
 
 import styled from 'styled-components';
-import { useFormContext } from 'react-hook-form';
-
-const SkillWrap = styled.div`
-    display: flex;
-    span {
-        color: #222;
-        font-weight: bold;
-    }
-`;
 
 const LabelStyle = styled.label`
     display: flex;
@@ -20,7 +10,7 @@ const LabelStyle = styled.label`
 `;
 
 const Checkbox = forwardRef((props, ref) => {
-    const { label, isCheck, trigger, ...rest } = props;
+    const { label, isCheck, ...rest } = props;
     const [check, setCheck] = useState(isCheck);
 
     useEffect(() => {
@@ -36,7 +26,13 @@ const Checkbox = forwardRef((props, ref) => {
 
     return (
         <LabelStyle className={`skill_Item ${check && 'checked'}`}>
-            <input type="checkbox" ref={ref} value={label} {...rest} onChange={checkboxHandler} />
+            <input
+                type="checkbox"
+                ref={ref}
+                value={label}
+                {...rest}
+                onChange={checkboxHandler}
+            />
             {label}
         </LabelStyle>
     );

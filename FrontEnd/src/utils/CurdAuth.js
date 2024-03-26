@@ -1,5 +1,4 @@
 import { ReactRouteDom } from 'lib/lib';
-import { clientAuthCheck } from 
 
 const updateHandler = key => {
     if (!clientAuthCheck('수정')) {
@@ -16,8 +15,4 @@ const deleteHandler = async deleteKey => {
     setModal(true);
 };
 
-
-export {
-    updateHandler,
-    deleteHandler
-}
+export { updateHandler, deleteHandler };

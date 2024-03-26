@@ -62,7 +62,7 @@ export default function ProjectList() {
             const responseData = data?.resData || [];
             setProject(responseData);
         }
-    }, [isSuccess]);
+    }, [isSuccess, data]);
 
     // useEffect(() => {
     //     const responseData = data?.resData || [];
@@ -101,7 +101,7 @@ export default function ProjectList() {
                 {isLoading && <NoSeachingData>Loading...</NoSeachingData>}
                 {SeachValue && SeachArr.length === 0 && (
                     <NoSeachingData>
-                        "{SeachValue}" 키워드와 일치하는 항목이 없음
+                        &quot;{SeachValue}&quot; 키워드와 일치하는 항목이 없음
                     </NoSeachingData>
                 )}
                 {!isLoading && isError && 'error'}

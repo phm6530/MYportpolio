@@ -1,16 +1,8 @@
 import ScheduleContainer from 'features/Myschedule/ScheduleContainer';
 import { CalendarStyle } from '../MyScheduleStyle';
-import { FlexRow } from 'component/CommonStyle';
 
 const TaskPage = props => {
-    const {
-        setSelectDay,
-        listData,
-        selectDay,
-        paramYear,
-        paramMonth,
-        DdayArr,
-    } = props;
+    const { setSelectDay, listData, selectDay, paramYear, paramMonth } = props;
 
     return (
         <>

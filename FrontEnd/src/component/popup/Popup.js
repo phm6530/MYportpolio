@@ -35,7 +35,10 @@ export default function Popup({ closePopup, type, children }) {
 
     return (
         <>
-            {ReactDOM.createPortal(<Backdrop />, document.getElementById('backdrop-root'))}
+            {ReactDOM.createPortal(
+                <Backdrop />,
+                document.getElementById('backdrop-root'),
+            )}
 
             {ReactDOM.createPortal(
                 <PopupStyle>

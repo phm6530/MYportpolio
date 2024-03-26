@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import { ReactQuery, ReactRedux } from 'lib/lib';
+import { ReactQuery } from 'lib/lib';
 
 import BoardCommentForm from './component/BoardCommentForm/BoardCommentForm';
 import BannerCommon from '../../component/ui/BannerCommon';
 import Grid from '../../component/ui/Grid';
-import alertThunk from '../../store/alertTrunk';
 
 import DashBoard from '../../component/ui/DashBoard';
 import DashBoardTitle from '../../component/ui/DashBoardTitle';
@@ -17,7 +16,6 @@ import { fetchData } from './BoardFetch';
 import { InfinityLoading } from 'component/ui/loading/InfinityLoading';
 
 const { useQuery } = ReactQuery;
-const { useDispatch } = ReactRedux;
 
 const PageText = styled.div`
     word-break: keep-all;
@@ -65,11 +63,8 @@ export default function Board() {
     const [moreFetchData, setFetchMoreData] = useState(true);
     const [total, setTotal] = useState(0);
     const [lastPageIdx, setLastPageIdx] = useState(null);
-    const dispatch = useDispatch();
 
-    console.log('lastPageIdx:::: ', lastPageIdx);
-
-    const { isLoading, isError, data, isSuccess, error } = useQuery({
+    const { isLoading, isError, data, isSuccess } = useQuery({
         queryKey: ['board', lastPageIdx],
         queryFn: () => fetchData(lastPageIdx),
     });

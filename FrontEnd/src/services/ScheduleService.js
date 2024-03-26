@@ -62,64 +62,48 @@ const fetchEditSchedule = async formData => {
 
 // 스케줄 삭제
 const fetchDeleteSchedule = async formData => {
-    try {
-        const response = await fetch('http://localhost:8080/schedule/delete', {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ schedule_key: formData }),
-        });
-        if (!response.ok) {
-            const errorResponse = await response.json();
-            throw new Error(errorResponse.message);
-        }
-        const result = await response.json();
-        console.log(result);
-        return result;
-    } catch (error) {
-        throw error;
+    const response = await fetch('http://localhost:8080/schedule/delete', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ schedule_key: formData }),
+    });
+    if (!response.ok) {
+        const errorResponse = await response.json();
+        throw new Error(errorResponse.message);
     }
+    const result = await response.json();
+    console.log(result);
+    return result;
 };
 
 // Complete Toggle
 const fetchToggleComplete = async formData => {
-    try {
-        const response = await fetch(
-            'http://localhost:8080/schedule/complete',
-            {
-                method: 'post',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ schedule_key: formData }),
-            },
-        );
-        if (!response.ok) {
-            const errorResponse = await response.json();
-            throw new Error(errorResponse.message);
-        }
-        const result = await response.json();
-        console.log(result);
-        return result;
-    } catch (error) {
-        throw error;
+    const response = await fetch('http://localhost:8080/schedule/complete', {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ schedule_key: formData }),
+    });
+    if (!response.ok) {
+        const errorResponse = await response.json();
+        throw new Error(errorResponse.message);
     }
+    const result = await response.json();
+    return result;
 };
 
 const fetchGit = async () => {
-    try {
-        const response = await fetch(
-            'https://api.github.com/repos/phm6530/MYportpolio/commits',
-        );
-        if (!response.ok) {
-            throw new Error('Git에 문제가 있는것 같습니다.');
-        }
-        const result = await response.json();
-        return result;
-    } catch (error) {
-        throw error;
+    const response = await fetch(
+        'https://api.github.com/repos/phm6530/MYportpolio/commits',
+    );
+    if (!response.ok) {
+        throw new Error('Git에 문제가 있는것 같습니다.');
     }
+    const result = await response.json();
+    return result;
 };
 
 export {

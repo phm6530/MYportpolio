@@ -12,13 +12,12 @@ import { scheduleFetch } from 'services/ScheduleService';
 import { TodaySeletor } from 'utils/TodaySeletor';
 
 // styled
-import { ScheduleGrid, CalendarStyle, ContentsWrap } from './MyScheduleStyle';
-import { FlexRow } from 'component/CommonStyle';
+import { ScheduleGrid } from './MyScheduleStyle';
 
 // import { dateFormating } from 'utils/DateFormat';
 
 //그래프
-import ReactChat from 'react-apexcharts';
+// import ReactChat from 'react-apexcharts';
 import UserProfile from 'component/profile/UserProfile';
 import { FlexColumnDiv } from 'features/CommonStyles';
 import ScheduleHeader from 'features/Myschedule/Layout/ScheduleHeader';
@@ -61,7 +60,7 @@ export default function MySchedule() {
         } else if (isError) {
             dispatch(alertThunk(error.message, 0));
         }
-    }, [isSuccess, isError, data]);
+    }, [isSuccess, isError, data, error, dispatch]);
 
     if (isLoading) {
         return 'loading.....';

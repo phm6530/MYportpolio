@@ -3,6 +3,7 @@ import CommentItem from './Detail/CommentItem';
 import Fadeup from '../../../../FadeinComponent';
 import styled from 'styled-components';
 import CommentState from './Detail/CommentState';
+// import { useIsFetching } from '@tanstack/react-query';
 
 const FirstDayStyle = styled.div`
     font-size: 1rem;
@@ -83,8 +84,6 @@ export default function BoardCommentList({
     console.log(isLoading);
     return (
         <BoardReplyWrap>
-            {userFetchData.length === 0 && <p> 등록된 게시물이 없습니다. </p>}
-
             <CommentState total={total} />
 
             {userFetchData &&
@@ -114,7 +113,9 @@ export default function BoardCommentList({
                                         </FirstDayStyle>
                                     </Fadeup>
                                 )}
-
+                                {userFetchData.length === 0 && (
+                                    <p> 등록된 게시물이 없습니다. </p>
+                                )}
                                 <Fadeup key={item.board_key}>
                                     <CommentItem
                                         ref={dom => (refs.current[idx] = dom)}

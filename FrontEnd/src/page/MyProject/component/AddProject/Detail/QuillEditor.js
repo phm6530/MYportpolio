@@ -48,7 +48,10 @@ const QuillEditor = forwardRef(({ PROJECT_KEY, ...props }, _) => {
             formData.append('img', file); // 'img' 필드에 파일 추가
             formData.append('type', 'editor');
             try {
-                const { fileUrl: imgUrl } = await uploadImage(formData, PROJECT_KEY);
+                const { fileUrl: imgUrl } = await uploadImage(
+                    formData,
+                    PROJECT_KEY,
+                );
                 const editor = quillRef.current.getEditor();
 
                 // 현재 커서의 위치를 가져옴
@@ -56,7 +59,11 @@ const QuillEditor = forwardRef(({ PROJECT_KEY, ...props }, _) => {
 
                 // 커서가 있는 위치에 이미지 삽입
                 if (range) {
-                    editor.insertEmbed(range.index, 'image', `http://localhost:8080/${imgUrl}`);
+                    editor.insertEmbed(
+                        range.index,
+                        'image',
+                        `http://localhost:8080/${imgUrl}`,
+                    );
                     // 이미지 삽입 후 커서를 이동하는 로직은 경우에 따라 다를 수 있으므로,
                     // 정확한 커서 위치 조정이 필요하면 추가 로직을 구현해야 합니다.
 

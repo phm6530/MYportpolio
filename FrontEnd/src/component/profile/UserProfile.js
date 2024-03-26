@@ -44,7 +44,8 @@ const ProfilePicture = styled.div`
 
         border-radius: 5em;
 
-        background: ${props => (props.$isOnline ? 'rgb(51 156 73)' : 'rgb(127 127 127)')};
+        background: ${props =>
+            props.$isOnline ? 'rgb(51 156 73)' : 'rgb(127 127 127)'};
     }
 `;
 const ProfileInfo = styled.div``;

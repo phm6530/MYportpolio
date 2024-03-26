@@ -54,7 +54,7 @@ const modalSlice = createSlice({
         view: false,
     },
     reducers: {
-        modalOpen(state, action) {
+        modalOpen(state) {
             state.view = true;
         },
         modalClose(state) {

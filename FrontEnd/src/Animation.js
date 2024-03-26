@@ -18,7 +18,7 @@ const Animation = () => {
                 data.pageData &&
                 data.pageData.map((e, idx) => {
                     return (
-                        <Fadeup key={idx} position={'right'}>
+                        <Fadeup position={'right'} key={`key-${idx}`}>
                             {JSON.stringify(e)}{' '}
                         </Fadeup>
                     );

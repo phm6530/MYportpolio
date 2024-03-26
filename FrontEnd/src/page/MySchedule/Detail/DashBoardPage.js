@@ -3,11 +3,7 @@ import ScheduleTimer from 'features/Myschedule/ScheduleTimer';
 import ScheduleDashBoard from 'features/Myschedule/ScheduleDashBoard';
 import ScheduleSummary from 'features/Myschedule/ScheduleSummary';
 
-import TotalGraph from 'features/Myschedule/component/TotalGraph';
-import SummaryHeader from 'features/Myschedule/ScheduleDashBoard/SummaryHeader';
-
 import { SubTitleSchedule } from 'features/Myschedule/component/styles/ScheduleCommonStyles';
-import { FlexWrapDiv } from 'features/CommonStyles';
 
 import ScheduleDdayList from 'features/Myschedule/ScheduleDday';
 

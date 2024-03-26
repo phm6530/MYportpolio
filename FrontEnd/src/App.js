@@ -14,9 +14,9 @@ import RootNav from 'component/layout/RootNav';
 import Footer from 'component/layout/Footer';
 import AppRoute from 'Route/AppRoute';
 
-import { ReactQuery } from 'lib/lib';
+// import { ReactQuery } from 'lib/lib';
 
-const { useIsFetching } = ReactQuery;
+// const { useIsFetching } = ReactQuery;
 
 // const router = createBrowserRouter([
 //     {

@@ -8,8 +8,21 @@ export default function Alert() {
     const classNameAlert = type ? 'success' : 'falid';
 
     const AlertMessage = () => {
-        return <div className={`${classes.alert} ${classes['alert_' + classNameAlert]}`}>{message}</div>;
+        return (
+            <div
+                className={`${classes.alert} ${classes['alert_' + classNameAlert]}`}
+            >
+                {message}
+            </div>
+        );
     };
 
-    return <>{ReactDom.createPortal(<AlertMessage />, document.getElementById('alert-root'))}</>;
+    return (
+        <>
+            {ReactDom.createPortal(
+                <AlertMessage />,
+                document.getElementById('alert-root'),
+            )}
+        </>
+    );
 }

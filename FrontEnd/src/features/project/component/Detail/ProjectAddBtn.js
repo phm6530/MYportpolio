@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import alertThunk from 'store/alertTrunk';
@@ -18,13 +17,6 @@ const SeachArea = styled.div`
         margin-right: auto;
         font-size: 12px;
     }
-`;
-
-const PreViewButtonStyle = styled.button`
-    /* border: 1px solid rgba(0,0,0,0.2); */
-    padding: 3px 15px;
-    font-size: 12px;
-    border-left: 1px solid rgba(0, 0, 0, 0.05);
 `;
 
 export default function ProjectAddBtn() {
@@ -70,7 +62,10 @@ export default function ProjectAddBtn() {
                     참여율 100%
                 </PreViewButton> */}
 
-            <button onClick={() => nav(`/add?key=${uuidv4()}`)} className="addProjectBtn">
+            <button
+                onClick={() => nav(`/add?key=${uuidv4()}`)}
+                className="addProjectBtn"
+            >
                 + Add Project
             </button>
         </SeachArea>
