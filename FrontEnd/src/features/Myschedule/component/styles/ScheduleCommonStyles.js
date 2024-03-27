@@ -35,13 +35,16 @@ const FoucesStyle = styled.span`
 const SubTitleSchedule = styled.div`
     /* D - Day */
     font-weight: 600;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 19px;
     letter-spacing: -0.04em;
-    color: #51617b;
+    color: #1a202c;
     margin-bottom: 1rem;
     width: 100%;
+    border-bottom: 1px solid #ededed;
+    padding-bottom: 0.5rem;
     margin-left: 0.2rem;
+    display: flex;
 `;
 
 export { HourStyle, FoucesStyle, SubTitleSchedule };

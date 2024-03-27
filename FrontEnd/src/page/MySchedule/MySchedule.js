@@ -30,7 +30,7 @@ const { useDispatch } = ReactRedux;
 const { useSearchParams } = ReactRouteDom;
 
 const CustumlexColumnDiv = styled(FlexColumnDiv)`
-    padding: 2rem 3rem;
+    padding: 2rem 2.5rem;
     border-radius: 2.5rem;
 `;
 
@@ -42,15 +42,17 @@ export default function MySchedule() {
     const getYear = param.get('year') || today().split('-')[0];
     const getMonth = param.get('month') || today().split('-')[1];
 
+    console.log(getYear, getMonth);
+
     //FetchData
     const [listData, setListData] = useState();
     const [DdayArr, setDdayArr] = useState();
     const dispatch = useDispatch();
 
-    const { isSuccess, isError, error, data, isLoading } = useQuery({
+    const { isSuccess, isError, error, data } = useQuery({
         queryKey: ['Schedule', getMonth],
         queryFn: () => scheduleFetch(getYear, getMonth),
-        refetchOnWindowFocus: true,
+        refetchOnWindowFocus: false,
     });
 
     useEffect(() => {
@@ -61,10 +63,6 @@ export default function MySchedule() {
             dispatch(alertThunk(error.message, 0));
         }
     }, [isSuccess, isError, data, error, dispatch]);
-
-    if (isLoading) {
-        return 'loading.....';
-    }
 
     return (
         <>

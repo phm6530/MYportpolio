@@ -2,17 +2,15 @@ import styled, { css } from 'styled-components';
 import Fadein from '../../../../../FadeinComponent';
 
 // icon
-
 import ProjectItemHeader from 'features/project/component/ProjectItemHeader';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 
-const ProjectDuration = styled.div`
-    display: flex;
-    align-items: center;
-    font-size: 13px;
-`;
+// const ProjectDuration = styled.div`
+//     display: flex;
+//     align-items: center;
+//     font-size: 13px;
+// `;
 
 const ProjectFadeinStyle = styled(Fadein)`
     margin-bottom: 1.5rem;
@@ -140,15 +138,7 @@ const ViewIconAnimation = styled.div`
 const ProjectButtonWrap = styled.div``;
 
 export default function ProjectItem({ activeIdx, setActiveIdx, project }) {
-    const {
-        thumbnail,
-        skill,
-        company,
-        hashtag,
-        title,
-        description,
-        project_key,
-    } = project;
+    const { thumbnail, company, hashtag, description, project_key } = project;
     const navigate = useNavigate();
 
     return (

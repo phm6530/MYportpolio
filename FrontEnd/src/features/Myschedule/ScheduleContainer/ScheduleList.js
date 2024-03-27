@@ -9,10 +9,6 @@ const ScheduleList = ({ selectDay, listData }) => {
     const filterArr = filterByDate(listData, selectDay);
     // console.log(filterArr);
 
-    const test = filterArr.sort((a, b) => {
-        return b.important - a.important;
-    });
-
     return (
         <>
             {filterArr.length === 0 && (
@@ -23,7 +19,7 @@ const ScheduleList = ({ selectDay, listData }) => {
             )}
 
             {filterArr.map((Schedule, idx) => {
-                console.log(Schedule);
+                // console.log(Schedule);
                 return (
                     <FadeinComponent
                         position={'right'}

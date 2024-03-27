@@ -5,7 +5,7 @@ import SubTitle from 'component/ui/Subtitle';
 
 import { useEffect, useState } from 'react';
 import { projectFetch } from 'services/projectService';
-import { ProjectWrapStyle } from './Styled/ProjectListStyled';
+// import { ProjectWrapStyle } from './Styled/ProjectListStyled';
 import ProjectAddBtn from 'features/project/component/Detail/ProjectAddBtn';
 import CateGoryButton from 'component/ui/CateGoryButton';
 import ProjectSeach from 'features/project/component/Detail/ProjectSeach';

@@ -11,6 +11,7 @@ const ProjectWrap = styled.div`
 const SubAnimatedOutlet = () => {
     const o = useOutlet();
     const [outlet] = useState(o);
+
     return <>{outlet}</>;
 };
 

@@ -31,7 +31,7 @@ const SwiperStyle = styled(Swiper)``;
 const SummeryStyle = styled.div`
     overflow: hidden;
     border-radius: 1em;
-    width: 772px;
+    /* width: 772px; */
     background: #fff;
 `;
 
@@ -44,7 +44,7 @@ const DdayArrtyle = styled.div`
     border: 1px solid rgba(0, 0, 0, 0.07);
     border-radius: 14px;
 
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     p {
         font-size: 14px;
         margin-top: 0.4rem;
@@ -125,7 +125,7 @@ const ScheduleDdayList = ({ DdayArr }) => {
 
     return (
         <>
-            <SubTitleSchedule>D - Day</SubTitleSchedule>
+            {/* <SubTitleSchedule>D - Day</SubTitleSchedule> */}
             <SummeryStyle>
                 <SwiperStyle
                     modules={[
@@ -135,8 +135,8 @@ const ScheduleDdayList = ({ DdayArr }) => {
                         Autoplay,
                         EffectCreative,
                     ]}
-                    spaceBetween={10}
-                    slidesPerView={3}
+                    // spaceBetween={10}
+                    slidesPerView={1}
                     // centeredSlides={true}
                     // slidesOffsetBefore={50} // 첫 슬라이드 앞의 여백
                     // slidesOffsetAfter={50} // 마지막 슬라이드 뒤의 여백

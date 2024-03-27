@@ -15,6 +15,22 @@ const scheduleFetch = async (Year, Month) => {
     }
 };
 
+const scheduleWeekorDay = async (Year, Month) => {
+    // console.log('실행해라 !!!!!!!!!!!!!!!!!!!!!!!');
+    try {
+        const response = await fetch(
+            `http://localhost:8080/schedule?Year=${Year}&month=${Month}`,
+        );
+        if (!response.ok) {
+            const errorResponse = await response.json();
+            throw new Error(errorResponse.message);
+        }
+        return await response.json();
+    } catch (error) {
+        throw new Error('서버오류 입니다.');
+    }
+};
+
 // 스케줄 추가
 const fetchAddSchedule = async formData => {
     console.log('formData-- Dday ', formData);
@@ -113,4 +129,5 @@ export {
     fetchDeleteSchedule,
     fetchToggleComplete,
     fetchGit,
+    scheduleWeekorDay,
 };

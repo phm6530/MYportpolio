@@ -6,7 +6,8 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const CustumFlexColumnDiv = styled(FlexColumnDiv)`
-    max-width: 300px;
+    /* max-width: 300px; */
+    margin-left: 2rem;
     .CategoryWrapTitle {
         font-size: 14px;
         line-height: 17px;

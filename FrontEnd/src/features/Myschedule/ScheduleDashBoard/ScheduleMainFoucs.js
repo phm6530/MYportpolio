@@ -5,6 +5,7 @@ import {
 } from '../component/styles/ScheduleCommonStyles';
 
 import styled from 'styled-components';
+import { Heading } from '@chakra-ui/react';
 
 const FlexWrapDivCustum = styled(FlexWrapDiv)`
     width: 50%;
@@ -19,9 +20,13 @@ const ScheduleMainFoucs = ({ show }) => {
             <FlexWrapDivCustum>
                 <SubTitleTextStyle>Main Fouce Today</SubTitleTextStyle>
                 {show === 'hour' ? (
-                    <HourStyle>{Hour}h</HourStyle>
+                    <Heading>
+                        <HourStyle>{Hour}h</HourStyle>
+                    </Heading>
                 ) : (
-                    <HourStyle>{foucs}</HourStyle>
+                    <Heading>
+                        <HourStyle>{foucs}</HourStyle>
+                    </Heading>
                 )}
             </FlexWrapDivCustum>
         </>

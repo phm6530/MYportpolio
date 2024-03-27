@@ -4,6 +4,8 @@ import { useAuthCheck } from 'hooks/useAuthCheck';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { Checkbox } from '@chakra-ui/react';
+
 import { ReactQuery } from 'lib/lib';
 
 import { FaTrashAlt } from 'react-icons/fa';
@@ -42,7 +44,7 @@ const ListHandler = ({ idx, selectWork, setSelectWork, ScheduleItem }) => {
     const { schedule_key, complete, important } = ScheduleItem;
     const { showPopup, PopupComponent } = usePopup();
 
-    console.count();
+    // console.count();
 
     const { mutate: EditMutate } = useExcuteMutation(
         fetchEditSchedule,
@@ -71,6 +73,7 @@ const ListHandler = ({ idx, selectWork, setSelectWork, ScheduleItem }) => {
             schedule_key: ScheduleItem.schedule_key,
         };
         if (prevWork === data.work) {
+            return 1;
         } else {
             EditMutate(requstData);
         }
@@ -91,7 +94,7 @@ const ListHandler = ({ idx, selectWork, setSelectWork, ScheduleItem }) => {
         if (!clientAuthCheck('삭제')) return;
         deleteMutate(ScheduleItem.schedule_key);
     };
-    console.log(selectWork);
+    // console.log(selectWork);
 
     return (
         <>
@@ -100,7 +103,12 @@ const ListHandler = ({ idx, selectWork, setSelectWork, ScheduleItem }) => {
 
             <IsComplete $complete={complete}>
                 <CompleteHandler onClick={() => onToggleHandler(schedule_key)}>
-                    {idx + 1}.
+                    {/* {idx + 1}. */}
+                    <Checkbox
+                        isChecked={complete}
+                        colorScheme="red"
+                        style={{ pointerEvents: 'none' }}
+                    />
                 </CompleteHandler>
                 {important === 1 && (
                     <ImportantStyle>

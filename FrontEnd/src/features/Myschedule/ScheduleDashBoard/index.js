@@ -1,19 +1,11 @@
-import SubTitle from 'component/ui/Subtitle';
 import styled from 'styled-components';
-import { Button } from 'component/ui/Button';
-import ScheduleSelectBox from './SchduleSelectBox';
-import ScheduleMainFoucs from './ScheduleMainFoucs';
-import ScheduleGit from './ScheduleGit';
 
-import {
-    FlexRowDiv,
-    FlexColumnBetween,
-    FlexWrapDiv,
-} from 'features/CommonStyles';
-import { fetchGit } from 'services/ScheduleService';
-import { ReactQuery } from 'lib/lib';
-import { useEffect, useState } from 'react';
-const { useQuery } = ReactQuery;
+import ScheduleMainFoucs from './ScheduleMainFoucs';
+
+import { FlexWrapDiv } from 'features/CommonStyles';
+
+// import { ReactQuery } from 'lib/lib';
+// const { useQuery } = ReactQuery;
 
 const DashBoardStyle = styled.div`
     /* Rectangle 148 */
@@ -25,13 +17,13 @@ const DashBoardStyle = styled.div`
     align-items: center;
 `;
 
-const SubDescriptionStyle = styled.div`
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 1.5rem;
-    color: #7e96a6;
-    margin-bottom: 2.5rem;
-`;
+// const SubDescriptionStyle = styled.div`
+//     font-weight: 500;
+//     font-size: 14px;
+//     line-height: 1.5rem;
+//     color: #7e96a6;
+//     margin-bottom: 2.5rem;
+// `;
 const ConTentsWrapStyle = styled.div`
     display: flex;
     flex-direction: column;
@@ -43,7 +35,7 @@ const CustumFlexWrapDiv = styled(FlexWrapDiv)`
     align-items: flex-start;
 `;
 
-const ScheduleDashBoard = props => {
+const ScheduleDashBoard = () => {
     return (
         <DashBoardStyle>
             <ConTentsWrapStyle>
@@ -56,7 +48,6 @@ const ScheduleDashBoard = props => {
                 <CustumFlexWrapDiv>
                     <ScheduleMainFoucs />
                     <ScheduleMainFoucs show={'hour'} />
-                    <ScheduleGit />
                 </CustumFlexWrapDiv>
             </ConTentsWrapStyle>
         </DashBoardStyle>

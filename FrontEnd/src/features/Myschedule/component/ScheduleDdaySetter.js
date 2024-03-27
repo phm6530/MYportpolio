@@ -30,7 +30,6 @@ const ScheduleDdaySetter = () => {
         formState: { errors },
         reset,
         register,
-        watch,
         ...formMethods
     } = useForm({
         defaultValues: {
@@ -56,8 +55,9 @@ const ScheduleDdaySetter = () => {
     const queryClient = useQueryClient();
     // console.log(queryClient);
 
-    const { mutate } = useMutation(data => fetchAddSchedule(data), {
-        onSuccess: data => {
+    const { mutate } = useMutation({
+        mutationFn: data => fetchAddSchedule(data),
+        onSuccess: () => {
             // console.log(data);
             queryClient.invalidateQueries('Schedule');
             dispatch(alertThunk('D-Day 등록하였습니다.', 1));
@@ -79,9 +79,15 @@ const ScheduleDdaySetter = () => {
                         $error={errors.work}
                         placeholder="일정을 기재해주세요"
                         type="text"
-                        {...register('work', { required: 'D-day를 기재해주세요' })}
+                        {...register('work', {
+                            required: 'D-day를 기재해주세요',
+                        })}
                     />
-                    <Button.Submit onClick={formMethods.handleSubmit(submitHandler)}>D-day 등록하기</Button.Submit>
+                    <Button.Submit
+                        onClick={formMethods.handleSubmit(submitHandler)}
+                    >
+                        D-day 등록하기
+                    </Button.Submit>
                 </FormProvider>
                 {errorArr && errorArr[0]}
             </DdaySetterStyle>

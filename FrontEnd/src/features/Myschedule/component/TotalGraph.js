@@ -8,10 +8,29 @@ import { PercentCalculator } from 'utils/Calculator';
 const Wrap = styled.div`
     display: flex;
     flex-direction: column;
+    text-align: center;
+`;
+
+const Day = styled.span`
+    font-size: 0.8rem;
+    font-weight: bold;
+`;
+
+const TotalorComplete = styled.div`
+    font-size: 14px;
+    margin-top: 1rem;
+    span:nth-of-type(2) {
+        margin-right: 1rem;
+    }
+    .num {
+        margin-left: 0.2rem;
+        color: rgb(65 49 203);
+        font-weight: bold;
+    }
 `;
 
 const TotalGraph = props => {
-    const { arrState } = props;
+    const { selectDays, arrState } = props;
     const counterRef = useRef(null);
 
     const values = Object.values(arrState);
@@ -55,12 +74,24 @@ const TotalGraph = props => {
 
     return (
         <Wrap>
+            <div>
+                {selectDays.map((e, idx) => {
+                    if (idx === 1) {
+                        return <Day key={idx}>~ {e}</Day>;
+                    } else {
+                        return <Day key={idx}>{e}</Day>;
+                    }
+                })}
+            </div>
             <div className="circular-pbar">
                 <div className="circular-pbar-counter">
                     <span ref={counterRef}></span>%
                 </div>
             </div>
-            전체 {test()} 완료 {completeCount}
+            <TotalorComplete>
+                <span>전체</span> <span className="num">{test()}</span>
+                <span>완료</span> <span className="num">{completeCount}</span>
+            </TotalorComplete>
         </Wrap>
     );
 };

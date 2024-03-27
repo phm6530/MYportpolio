@@ -4,7 +4,7 @@ import { FlexColumnDiv } from 'features/CommonStyles';
 import styled from 'styled-components';
 import { format } from 'date-fns';
 import moment from 'moment-timezone';
-
+import { FaGithub } from 'react-icons/fa';
 const CustumHourStyle = styled(HourStyle)`
     margin-bottom: 0;
 `;
@@ -13,8 +13,48 @@ import { useEffect, useState } from 'react';
 import { fetchGit } from 'services/ScheduleService';
 const { useQuery } = ReactQuery;
 
+const CustumFlexColumnDiv = styled(FlexColumnDiv)`
+    flex-grow: initial;
+    /* margin-left: 3rem; */
+    width: 100%;
+    font-size: 14px;
+    .git_contents {
+        font-size: 14px;
+        margin-bottom: 0.8rem;
+        background: #f7fbff;
+        flex-grow: 1;
+        width: 100%;
+        padding: 0.5rem 1rem;
+        border-radius: 0.7rem;
+        .gitDate {
+            font-weight: bold;
+        }
+    }
+    .gitLink {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        /* border: 1px solid #ebebeb; */
+        /* padding: 0.5rem 1rem; */
+        border-radius: 9.5rem;
+        margin-bottom: 1rem;
+        cursor: pointer;
+        .gitCount {
+            font-size: 1.1rem;
+            color: rgba(114, 100, 239, 1);
+            margin-left: 1rem;
+        }
+        svg {
+            margin-right: 0.4rem;
+            font-size: 1.5rem;
+        }
+    }
+`;
+
 const ScheduleGit = () => {
     const [commitCount, setCommitCount] = useState([]);
+
+    // console.log(commitCount);
 
     const { data } = useQuery({
         queryKey: ['git'],
@@ -47,6 +87,7 @@ const ScheduleGit = () => {
             }));
         };
         if (data) {
+            // console.log(data);
             const commitList = filterCommit(data);
             setCommitCount(commitList);
         }
@@ -55,13 +96,19 @@ const ScheduleGit = () => {
         return <>Loading......</>;
     }
     return (
-        <FlexColumnDiv>
-            <SubTitleTextStyle>Git Commit Today</SubTitleTextStyle>
-            <CustumHourStyle>{commitCount.length}</CustumHourStyle>
+        <CustumFlexColumnDiv>
+            <div className="gitLink">
+                <FaGithub /> Today Commit
+                <span className="gitCount">{commitCount.length}</span>
+            </div>
+
             {commitCount.map((e, idx) => (
-                <div key={idx}>{e.message}</div>
+                <div className="git_contents" key={idx}>
+                    <div className="gitDate">{format(e.date, 'MM. dd')}</div>
+                    {e.message.slice(8)}
+                </div>
             ))}
-        </FlexColumnDiv>
+        </CustumFlexColumnDiv>
     );
 };
 
