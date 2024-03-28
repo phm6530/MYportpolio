@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import ScheduleAdd from './ScheduleAdd';
-import { useForm, FormProvider } from 'react-hook-form';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import 'react-day-picker/dist/style.css';
@@ -12,9 +11,11 @@ import { Button } from '../../../component/ui/Button';
 import { TodaySeletor } from 'utils/TodaySeletor';
 
 // icon
-import DdayHandler from 'features/Myschedule/component/DdayHandler';
 import ScheduleList from './ScheduleList';
 import ScheduleDdaySetter from '../component/ScheduleDdaySetter';
+
+import { AnimatePresence } from 'framer-motion';
+import Motion from 'component/animations/Motion';
 
 const ScheduleWrap = styled.div``;
 
@@ -76,11 +77,14 @@ export default function ScheduleContainer({
                 </ButtonNavWrap>
 
                 <DayStyle>{selectDay.replaceAll('-', '. ')}</DayStyle>
-
-                <ScheduleList
-                    listData={listData}
-                    selectDay={selectDay} //업로드해야할 날짜
-                />
+                <AnimatePresence mode="wait">
+                    <Motion.FadeInOut key={selectDay}>
+                        <ScheduleList
+                            listData={listData}
+                            selectDay={selectDay} //업로드해야할 날짜
+                        />
+                    </Motion.FadeInOut>
+                </AnimatePresence>
                 <ScheduleAdd
                     selectDay={selectDay} //업로드해야할 날짜
                 />

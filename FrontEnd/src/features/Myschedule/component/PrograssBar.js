@@ -19,7 +19,6 @@ const PrograssbarStyle = styled.div`
     height: 10px;
     border-radius: 1rem;
     position: relative;
-    margin-bottom: 1.5rem;
     background: #eeeeee;
     border-radius: 5px;
 
@@ -92,7 +91,7 @@ const CategoryIconStyle = styled.div`
         switch (props.$catecory) {
             case 'Study':
                 return 'background : rgb(233 238 245); color: #748295;';
-            case '운동':
+            case 'Fitness':
                 return 'background : rgb(238 237 251); color: #748295;';
             case 'Coding':
                 return 'background : rgb(254 234 241); color: #748295;';
@@ -132,7 +131,7 @@ export default function PrograssBar({ tasks }) {
             switch (catecory) {
                 case 'Study':
                     return <HiOutlinePencilSquare />;
-                case '운동':
+                case 'Fitness':
                     return <IoFitnessOutline />;
                 case 'Coding':
                     return <TbDeviceImacSearch />;

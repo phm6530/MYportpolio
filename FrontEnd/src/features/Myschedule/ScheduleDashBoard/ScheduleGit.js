@@ -34,19 +34,23 @@ const CustumFlexColumnDiv = styled(FlexColumnDiv)`
         display: flex;
         align-items: center;
         font-weight: bold;
-        /* border: 1px solid #ebebeb; */
-        /* padding: 0.5rem 1rem; */
         border-radius: 9.5rem;
         margin-bottom: 1rem;
+        font-size: 10px;
+        /* border: 1px solid #cdcdcd; */
+        padding: 0 0.5rem;
+        background: #f9f9f9;
+        border: 1px solid #dfdfdf;
+        cursor: pointer;
         cursor: pointer;
         .gitCount {
             font-size: 1.1rem;
             color: rgba(114, 100, 239, 1);
-            margin-left: 1rem;
+            margin: 0 1rem;
         }
         svg {
             margin-right: 0.4rem;
-            font-size: 1.5rem;
+            font-size: 1rem;
         }
     }
 `;
@@ -98,7 +102,7 @@ const ScheduleGit = () => {
     return (
         <CustumFlexColumnDiv>
             <div className="gitLink">
-                <FaGithub /> Today Commit
+                <FaGithub /> Commit Count
                 <span className="gitCount">{commitCount.length}</span>
             </div>
 

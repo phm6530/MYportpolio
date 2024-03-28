@@ -2,10 +2,14 @@ import { format } from 'date-fns';
 import { forwardRef, useState, useImperativeHandle } from 'react';
 import { DayPicker } from 'react-day-picker';
 import { Controller, useFormContext } from 'react-hook-form';
+import HookformRadio from './HookformRadio';
+import { SCHEDULE_CATEGORY } from 'utils/constans';
 
 const DdayHandler = forwardRef((props, ref) => {
     const [selected, setSelected] = useState();
-    const { control } = useFormContext();
+    const { control, errors } = useFormContext();
+
+    console.log('errors ::: ', errors);
 
     let footer;
     if (selected) {
@@ -39,6 +43,12 @@ const DdayHandler = forwardRef((props, ref) => {
                         footer={footer}
                     />
                 )}
+            />
+            <HookformRadio
+                Radio={SCHEDULE_CATEGORY}
+                control={control}
+                errors={errors}
+                keyName={'category'}
             />
         </>
     );

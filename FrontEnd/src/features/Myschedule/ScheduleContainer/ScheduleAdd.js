@@ -9,7 +9,9 @@ import { fetchAddSchedule } from 'services/ScheduleService';
 import { TextAreaStyle } from '../../../component/ui/TextArea';
 import { Button } from '../../../component/ui/Button';
 import ErrorBubble from 'component/error/ErrorBubble';
-import { useEffect } from 'react';
+import HookformRadio from '../component/HookformRadio';
+
+import { SCHEDULE_CATEGORY } from 'utils/constans';
 
 // lib
 const { useForm, Controller } = ReactHookForm;
@@ -29,11 +31,6 @@ const AddScheduleFormStyle = styled.form`
 `;
 const TextAreaWrap = styled.div`
     width: 100%;
-`;
-
-const RadioWrap = styled.div`
-    position: relative;
-    display: flex;
 `;
 
 const ScheduleAdd = ({ selectDay }) => {
@@ -89,7 +86,6 @@ const ScheduleAdd = ({ selectDay }) => {
         mutation.mutate(rquestData);
     };
 
-    const Radio = ['Coding', '운동', 'Study'];
     // console.log(errors);
     return (
         <>
@@ -107,34 +103,12 @@ const ScheduleAdd = ({ selectDay }) => {
                             {errors.Schedule_title.message}
                         </ErrorBubble>
                 )} */}
-
-                <RadioWrap>
-                    {errors.TaskCategory && (
-                        <ErrorBubble>{errors.TaskCategory.message}</ErrorBubble>
-                    )}
-
-                    <Controller
-                        control={control}
-                        name="TaskCategory"
-                        rules={{ required: '필수항목입니다.' }}
-                        render={({ field }) => {
-                            return Radio.map(e => {
-                                return (
-                                    <label key={`key-${e}`}>
-                                        <input
-                                            type="radio"
-                                            {...field}
-                                            onChange={() => {
-                                                field.onChange(e);
-                                            }}
-                                        />
-                                        {e}
-                                    </label>
-                                );
-                            });
-                        }}
-                    />
-                </RadioWrap>
+                <HookformRadio
+                    Radio={SCHEDULE_CATEGORY}
+                    control={control}
+                    errors={errors}
+                    keyName={'TaskCategory'}
+                />
 
                 <TextAreaWrap>
                     {errors.Schedule_title && (

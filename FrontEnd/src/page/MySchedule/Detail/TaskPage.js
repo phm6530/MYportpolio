@@ -3,7 +3,7 @@ import { CalendarStyle } from '../MyScheduleStyle';
 
 const TaskPage = props => {
     const { setSelectDay, listData, selectDay, paramYear, paramMonth } = props;
-
+    // console.log(listData);
     return (
         <>
             <CalendarStyle

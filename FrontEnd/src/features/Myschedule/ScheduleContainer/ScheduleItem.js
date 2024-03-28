@@ -31,7 +31,10 @@ export default function ScheduleItem({ props, ScheduleCheckHandler }) {
     };
 
     return (
-        <form onSubmit={handleSubmit(EditHandelr)} onClick={() => ScheduleCheckHandler(key)}>
+        <form
+            onSubmit={handleSubmit(EditHandelr)}
+            onClick={() => ScheduleCheckHandler(key)}
+        >
             <input {...register('title')} />
             <button>삭제</button>
             <button type="submit">수정</button>

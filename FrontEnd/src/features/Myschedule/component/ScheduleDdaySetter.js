@@ -10,7 +10,7 @@ import { fetchAddSchedule } from 'services/ScheduleService';
 import alertThunk from 'store/alertTrunk';
 import { useDispatch } from 'react-redux';
 import { useAuthCheck } from 'hooks/useAuthCheck';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 const { useForm, FormProvider } = ReactHookForm;
 const { useMutation, useQueryClient } = ReactQuery;
@@ -30,6 +30,7 @@ const ScheduleDdaySetter = () => {
         formState: { errors },
         reset,
         register,
+        watch,
         ...formMethods
     } = useForm({
         defaultValues: {
@@ -37,8 +38,11 @@ const ScheduleDdaySetter = () => {
             schedule_key: '',
             work: '',
             important: 2,
+            category: '',
         },
     });
+    const view = watch();
+    console.log(view);
 
     const submitHandler = async data => {
         const formData = {
@@ -46,6 +50,7 @@ const ScheduleDdaySetter = () => {
             schedule_key: uuidv4(),
             work: data.work,
             important: 2,
+            category: data.category,
         };
         if (!clientAuthCheck('D-day 설정')) return;
         // console.log(formData);
@@ -73,7 +78,7 @@ const ScheduleDdaySetter = () => {
     return (
         <>
             <DdaySetterStyle>
-                <FormProvider {...formMethods}>
+                <FormProvider {...formMethods} errors={errors}>
                     <DdayHandler ref={childRef} />
                     <InputStyle
                         $error={errors.work}

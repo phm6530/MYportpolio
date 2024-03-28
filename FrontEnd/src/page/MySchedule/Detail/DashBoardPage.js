@@ -12,6 +12,7 @@ import ScheduleGit from 'features/Myschedule/ScheduleDashBoard/ScheduleGit';
 import ScheduleContainer from 'features/Myschedule/ScheduleContainer';
 import ScheduleList from 'features/Myschedule/ScheduleContainer/ScheduleList';
 import { Heading } from '@chakra-ui/react';
+import { TodaySeletor } from 'utils/TodaySeletor';
 const { useNavigate } = ReactRouteDom;
 const Wrap = styled.div`
     margin-bottom: 5rem;
@@ -32,12 +33,12 @@ const More = styled.div`
 `;
 
 const GraphWrap = styled(Wrap)`
-    width: 65%;
-    margin-right: 5rem;
+    width: 60%;
+    /* margin-right: 5rem; */
 `;
 
 const GitWrap = styled(Wrap)`
-    width: 35%;
+    width: 30%;
 `;
 
 const FirstWrap = styled(Wrap)`
@@ -60,7 +61,7 @@ const Link = styled.div`
 const DashBoardPage = props => {
     const { DdayArr } = props;
     const navigate = useNavigate();
-
+    const today = TodaySeletor();
     return (
         <>
             <FirstWrap>
@@ -119,7 +120,7 @@ const DashBoardPage = props => {
             <FlexRow>
                 <GraphWrap>
                     <SubTitleSchedule>
-                        <Heading fontSize={'14px'}> MY Task</Heading>
+                        <Heading fontSize={'14px'}>Today Task</Heading>
                         <MarginLeft>
                             <Link onClick={() => navigate('/myschedule/Task')}>
                                 Task
@@ -133,12 +134,10 @@ const DashBoardPage = props => {
                     {/* Summary */}
                     {/* <ScheduleSummary {...props} /> */}
 
-                    {props.listData && (
-                        <ScheduleList
-                            selectDay={props.selectDay}
-                            listData={props.listData} //업로드해야할 날짜
-                        />
-                    )}
+                    <ScheduleList
+                        selectDay={today()}
+                        listData={props.listData} //업로드해야할 날짜
+                    />
                 </GraphWrap>
 
                 <GitWrap>

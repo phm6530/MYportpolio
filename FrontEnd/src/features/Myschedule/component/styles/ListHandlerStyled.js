@@ -1,25 +1,39 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const IsComplete = styled.div`
-    display: flex;
-    /* justify-content: space-between; */
-    align-items: flex-start;
-
-    padding: 0.3rem 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    svg {
-        opacity: 0.8;
-    }
-    textarea {
-        transition: color 0.2s ease;
-        ${props => {
-            return (
-                props.$complete &&
-                `color: rgba(0,0,0,0.4);     text-decoration: line-through;`
-            );
-        }}
+const getTextAreaStyles = props => {
+    console.log('props:::', props.$complete);
+    return `
+    transition: color 0.2s ease;
+    ${
+        props.$complete &&
+        css`
+            color: rgba(0, 0, 0, 0.4);
+            text-decoration: line-through;
+        `
     }
 `;
+};
+
+const getDdayAreaStyles = props => `
+    ${
+        props.$Dday &&
+        css`
+            display: flex;
+            align-items: flex-start;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border: 1px solid #cdcdcd;
+            border-radius: 1rem;
+            box-shadow:
+                26px 32px 15px 5px rgb(16 16 16 / 14%),
+                inset 0 -2px 0 0 rgb(243 231 249 / 36%);
+            padding: 1rem;
+            margin-bottom: 4rem;
+        `
+    }
+`;
+
+const DdayImportantStyle = styled.span``;
 
 const TextArea = styled.textarea`
     font-size: 14px;
@@ -41,6 +55,8 @@ const CompleteHandler = styled.button`
     border-radius: 5em;
     font-size: 14px;
     font-weight: bold;
+    margin-top: 0.1rem;
+    margin-right: 10px;
 `;
 
 const FormStyle = styled.form`
@@ -52,4 +68,26 @@ const FormStyle = styled.form`
     }
 `;
 
-export { FormStyle, CompleteHandler, ImportantStyle, TextArea, IsComplete };
+const IsComplete = styled.div`
+    display: flex;
+    align-items: flex-start;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    svg {
+        opacity: 0.8;
+    }
+    textarea {
+        ${props => getTextAreaStyles(props)}
+    }
+    ${props => getDdayAreaStyles(props)}
+`;
+
+export {
+    FormStyle,
+    CompleteHandler,
+    ImportantStyle,
+    IsComplete,
+    TextArea,
+    DdayImportantStyle,
+};

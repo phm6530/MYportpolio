@@ -34,18 +34,8 @@ to {
 }
 `;
 
-const FadeOut = keyframes`
-    from{
-        opacity: 1;
-    }
-    to{
-        opacity: 0;
-    }
-
-`;
-
 const Component = styled.div`
-    opacity: 0;
+    /* opacity: 0; */
     ${props => {
         if (props.$visible) {
             switch (props.$position) {
@@ -65,11 +55,7 @@ const Component = styled.div`
                     `;
             }
         }
-    }}/* ${props =>
-        props.$pageTouched &&
-        css`
-            animation: ${FadeOut} 0.3s ease;
-        `} */
+    }}
 `;
 
 export default function FadeinComponent({

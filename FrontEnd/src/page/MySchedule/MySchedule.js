@@ -42,7 +42,7 @@ export default function MySchedule() {
     const getYear = param.get('year') || today().split('-')[0];
     const getMonth = param.get('month') || today().split('-')[1];
 
-    console.log(getYear, getMonth);
+    // console.log(getYear, getMonth);
 
     //FetchData
     const [listData, setListData] = useState();
