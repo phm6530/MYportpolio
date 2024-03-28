@@ -9,23 +9,21 @@ const ConfirmStyle = styled.div`
         font-weight: bold;
         font-size: 1rem;
         padding: 20px 0;
+        span {
+            color: rgba(114, 100, 239, 1);
+        }
     }
-`;
-
-const ConfirmBtn = styled(Button.ConfirmButton)`
-    width: 100%;
 `;
 
 export default function Confirm({ message, confirm }) {
     return (
         <ConfirmStyle>
-            <p>{message}을/를 삭제하시겠습니까?</p>
-            <ConfirmBtn type={'Confirm'} onClick={confirm}>
+            <p>
+                [<span>{message}</span>]을/를 삭제하시겠습니까?
+            </p>
+            <Button.ConfirmButton type={'Confirm'} onClick={confirm}>
                 YES
-            </ConfirmBtn>
-            {/* <Button.ConfirmButton onClick={()=>ClosePopup()}>
-                NO
-            </Button.ConfirmButton> */}
+            </Button.ConfirmButton>
         </ConfirmStyle>
     );
 }

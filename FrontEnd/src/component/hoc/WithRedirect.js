@@ -30,7 +30,7 @@ export default function WithRedirect({ Component, redirectPath }) {
             dispatch(alertThunk(error.message, 0));
             navigate(redirectPath);
         }
-    }, [isError, isSuccess]);
+    }, [isError, isSuccess, dispatch, redirectPath, error, navigate]);
 
     if (error) {
         console.log('Error outside: ', error);

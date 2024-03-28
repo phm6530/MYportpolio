@@ -1,9 +1,10 @@
 import ScheduleContainer from 'features/Myschedule/ScheduleContainer';
 import { CalendarStyle } from '../MyScheduleStyle';
+import styled from 'styled-components';
 
 const TaskPage = props => {
     const { setSelectDay, listData, selectDay, paramYear, paramMonth } = props;
-    // console.log(listData);
+
     return (
         <>
             <CalendarStyle

@@ -33,13 +33,14 @@ const TopButtonStyle = styled.div`
 function debounce(func, wait) {
     let timeout;
     return function () {
-        const context = this,
-            args = arguments;
+        // "this"와 "arguments"에 대한 명시적 참조를 제거합니다.
         clearTimeout(timeout);
-        timeout = setTimeout(() => func.apply(context, args), wait);
+        // 화살표 함수는 상위 스코프의 "this"를 사용합니다.
+        timeout = setTimeout(() => {
+            func.apply(this, arguments);
+        }, wait);
     };
 }
-
 export default function TopButton() {
     const [show, setShow] = useState(false);
     const TopButtonHadnler = () => {

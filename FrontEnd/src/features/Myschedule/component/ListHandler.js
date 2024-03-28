@@ -42,7 +42,7 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
     );
     const { schedule_key, complete, important } = ScheduleItem;
     // console.log(important);
-    const { showPopup, PopupComponent } = usePopup();
+    const { showPopup, hidePopup, PopupComponent } = usePopup();
 
     const { mutate: EditMutate } = useExcuteMutation(
         fetchEditSchedule,
@@ -91,13 +91,14 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
     const removeSchedule = () => {
         if (!clientAuthCheck('삭제')) return;
         deleteMutate(ScheduleItem.schedule_key);
+        hidePopup();
     };
     // console.log(selectWork);
 
     return (
         <>
             {/* 삭제팝업 */}
-            <PopupComponent id="deleteSchedule" event={removeSchedule} />
+            <PopupComponent event={removeSchedule} />
 
             <IsComplete $Dday={important === 2} $complete={complete}>
                 <CompleteHandler onClick={() => onToggleHandler(schedule_key)}>
@@ -148,7 +149,7 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
                 </button>
 
                 {/* 삭제 */}
-                <button onClick={() => showPopup('deleteSchedule')}>
+                <button onClick={() => showPopup('일정')}>
                     <FaTrashAlt size={'13'} />
                 </button>
             </IsComplete>

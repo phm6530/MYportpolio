@@ -1,8 +1,5 @@
-import { dayFormetting } from 'utils/TodaySeletor';
-import { filterByDate } from '../component/filterByOrder';
 import PrograssBar from '../component/PrograssBar';
 import { FlexColumnDiv } from 'features/CommonStyles';
-import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const CustumFlexColumnDiv = styled(FlexColumnDiv)`
@@ -19,18 +16,21 @@ const CustumFlexColumnDiv = styled(FlexColumnDiv)`
 `;
 
 const CategoryGraph = props => {
-    const { categorys, arrState } = props;
-
+    const { categorys = [], arrState } = props;
+    console.log(categorys);
     // console.log(arrState);
     return (
         <>
             <CustumFlexColumnDiv>
                 <span className="CategoryWrapTitle">카테고리 별 완료도</span>
-                {categorys &&
-                    categorys.map((v, idx) => {
-                        const tasks = arrState[v];
-                        return <PrograssBar tasks={tasks} key={`key-${idx}`} />;
-                    })}
+                {categorys.length !== 0
+                    ? categorys.map((v, idx) => {
+                          const tasks = arrState[v];
+                          return (
+                              <PrograssBar tasks={tasks} key={`key-${idx}`} />
+                          );
+                      })
+                    : '일정이 없네요 오늘은..'}
             </CustumFlexColumnDiv>
         </>
     );

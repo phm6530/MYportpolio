@@ -1,0 +1,68 @@
+body {
+  font-family: "SUIT-Regular", sans-serif;
+}
+
+label {
+  display: block;
+}
+
+input:focus {
+  outline: none;
+}
+
+input:disabled {
+  background: #f0f0f0;
+  opacity: 0.5;
+}
+
+button {
+  cursor: pointer;
+}
+
+textarea {
+  white-space: pre-line;
+  resize: none;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+textarea::-moz-placeholder, input::-moz-placeholder {
+  font-size: 12px;
+}
+
+textarea::placeholder,
+input::placeholder {
+  font-size: 12px;
+}
+
+.errorMessage {
+  color: rgb(233, 97, 97);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  align-items: center;
+}
+nav ul {
+  display: flex;
+}
+nav ul li {
+  margin-left: 30px;
+  padding: 25px 0px;
+  font-size: 14px;
+}
+
+.darkMode {
+  background-color: #000;
+  color: #fff;
+}
+.darkMode li {
+  color: #fff;
+}
+.darkMode li a {
+  color: #fff;
+}/*# sourceMappingURL=variable.css.map */

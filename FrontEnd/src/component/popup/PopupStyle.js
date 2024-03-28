@@ -63,7 +63,8 @@ const PopupWrap = styled.div`
     ${props =>
         props.$close &&
         css`
-            animation: ${offPopup} 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            animation: ${offPopup} 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)
+                forwards;
         `};
     box-shadow: 15px 55px 55px rgba(0, 0, 0, 0.9);
 `;

@@ -83,9 +83,7 @@ export default function MySchedule() {
                 <UserProfile />
 
                 <CustumlexColumnDiv style={{ backgroundColor: '#fff' }}>
-                    {/*  */}
                     <ScheduleHeader />
-
                     {/* 서브 라우터 */}
                     <ScheduleRoute
                         setSelectDay={setSelectDay}

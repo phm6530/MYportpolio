@@ -76,7 +76,7 @@ const DdayHeader = styled.div`
 
 const ScheduleDdayList = ({ DdayArr }) => {
     const { clientAuthCheck } = useAuthCheck();
-    const { showPopup, setMessage, PopupComponent } = usePopup();
+    const { showPopup, PopupComponent } = usePopup();
     const DdayTask = ({ task }) => {
         // const { modal, setModal, mutateAsync } = useProjectActions({
         //     type: 'Schedule',
@@ -87,6 +87,7 @@ const ScheduleDdayList = ({ DdayArr }) => {
         const dayDifference = (currentDate - taskDate) / (1000 * 3600 * 24);
         const count = Math.ceil(dayDifference);
 
+        console.log(work);
         const { mutate: deleteMutate } = useExcuteMutation(
             fetchDeleteSchedule,
             ['Schedule'],
@@ -110,8 +111,7 @@ const ScheduleDdayList = ({ DdayArr }) => {
                         <span className="countNum">D {count}</span>
                         <span
                             onClick={() => {
-                                setMessage(work);
-                                showPopup('deleteSchedule');
+                                showPopup(work);
                             }}
                         >
                             <MdCancel />

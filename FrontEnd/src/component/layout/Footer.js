@@ -80,7 +80,11 @@ export default function Footer() {
                         <FaGit size={'15'} />
                     </FooterIcon>
 
-                    <FooterIcon onClick={() => Link('https://squirrel-story.tistory.com/')}>
+                    <FooterIcon
+                        onClick={() =>
+                            Link('https://squirrel-story.tistory.com/')
+                        }
+                    >
                         <img src="/img/footer/footerTstory.png" alt="" />
                     </FooterIcon>
                 </FooterIconAlign>
@@ -91,7 +95,9 @@ export default function Footer() {
                     <TbPhoneCall size={'14'} /> <span> 010-0000-0000</span>
                 </FooterList>
 
-                <span style={{ marginTop: '20px', opacity: '.5' }}>CopyRight ⓒ p. Hyun</span>
+                <span style={{ marginTop: '20px', opacity: '.5' }}>
+                    CopyRight ⓒ p. Hyun
+                </span>
             </CustumGrid>
         </FooterStyle>
     );

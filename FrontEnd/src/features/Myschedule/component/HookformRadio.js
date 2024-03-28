@@ -8,7 +8,6 @@ const RadioWrap = styled.div`
 `;
 
 const HookformRadio = ({ Radio, control, errors, keyName }) => {
-    console.log(keyName);
     return (
         <RadioWrap>
             {errors[keyName] && (

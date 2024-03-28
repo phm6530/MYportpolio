@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useEffect , useState} from 'react';
+import { useEffect, useState } from 'react';
 
 const TimerStyle = styled.div`
     position: absolute;
@@ -8,22 +8,26 @@ const TimerStyle = styled.div`
     color: #fff;
     top: 100px;
     right: 0;
-`
+`;
 
-export default function Timer(){
-
-    const [ time , setTime ] = useState(new Date());
-    useEffect(()=>{
-        const timer = setTimeout(()=>{
+export default function Timer() {
+    const [time, setTime] = useState(new Date());
+    useEffect(() => {
+        const timer = setTimeout(() => {
             setTime(new Date());
-        },1000);    
+        }, 1000);
 
-        return()=> clearTimeout(timer);
-    },[time]);   
+        return () => clearTimeout(timer);
+    }, [time]);
 
-    return(
+    return (
         <>
-            <TimerStyle>{time.toLocaleTimeString().replace('오전', 'AM').replace('오후', 'PM')}</TimerStyle>
+            <TimerStyle>
+                {time
+                    .toLocaleTimeString()
+                    .replace('오전', 'AM')
+                    .replace('오후', 'PM')}
+            </TimerStyle>
         </>
-    )
+    );
 }

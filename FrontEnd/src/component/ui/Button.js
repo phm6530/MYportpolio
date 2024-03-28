@@ -1,125 +1,30 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { IoMdArrowForward } from 'react-icons/io';
-
 import { MdUpload } from 'react-icons/md';
 
-const ButtonType = styled.button`
-    position: relative;
-    border-radius: 3rem;
-    border: 2px solid transparent;
-    font-size: 14px;
-    color: #3912c5;
-    border: 1px solid #b8a8f299;
-    padding: 0.4rem 0.6rem;
-    margin-top: 1.3rem;
-    svg {
-        margin-left: 0.5rem;
-    }
-    &:hover {
-        font-weight: bold;
-    }
-`;
-
-const ForsquareBtnStyle = styled.button`
-    border-radius: 2rem;
-    font-size: 14px;
-    letter-spacing: -0.5px;
-    padding: 2px 15px;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    margin-right: 5px;
-    border-radius: 3rem;
-    &:hover {
-        border: 2px solid rgba(255, 255, 255, 0.7);
-        box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.1);
-    }
-    &:active {
-        box-shadow: 0px 15px 15px rgba(0, 0, 0, 0);
-    }
-`;
-
-const PopupOpenButton = styled.div`
-    box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.1);
-    padding: 10px 20px;
-    border-radius: 5em;
-    font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    img {
-        width: 30px;
-    }
-`;
 const Type = ({ children, ...props }) => {
     return (
-        <ButtonType {...props}>
+        <button className="btn-borderStyle" {...props}>
             {children}
-            {/* <IoMdArrowForward /> */}
-        </ButtonType>
+        </button>
     );
 };
 
-const CommonStyle = css`
-    display: flex;
-
-    border-radius: 5rem;
-    cursor: pointer;
-    align-items: center;
-    font-size: 0.8rem;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5rem 0.5rem 0.5rem 1.3rem;
-
-    .submit_Icon {
-        border-radius: 100%;
-        margin: 0.3rem;
-        margin-left: 1rem;
-        svg {
-            font-size: 1.4rem;
-            color: #fff;
-        }
-    }
-`;
-
-const ButtonTypeSubmit = styled.button`
-    ${CommonStyle}
-    background: #000;
-    color: #fff;
-
-    box-shadow:
-        0 5px 15px 5px rgb(16 16 16 / 14%),
-        inset 0 -2px 0 0 rgb(16 16 16 / 36%);
-    &:active {
-        box-shadow:
-            0 5px 15px 5px rgb(16 16 16 / 24%),
-            inset 0 -2px 5px 0 rgb(16 16 16 / 56%);
-    }
-    &:disabled {
-        opacity: 0.5;
-    }
-`;
-const ButtonTypeCancle = styled.button`
-    ${CommonStyle}
-`;
-
 const Submit = ({ children, disabled, ...props }) => {
     return (
-        <ButtonTypeSubmit
-            // $page={page}
-            disabled={disabled}
-            {...props}
-        >
+        <button className="btn-mainSubmit" disabled={disabled} {...props}>
             {children}
             <div className="submit_Icon">
                 <IoMdArrowForward />
             </div>
-        </ButtonTypeSubmit>
+        </button>
     );
 };
 
 const Cancle = ({ children, ...props }) => {
     return (
-        <ButtonTypeCancle
+        <button
+            className="cancelButton"
             // $page={page}
             {...props}
         >
@@ -127,78 +32,45 @@ const Cancle = ({ children, ...props }) => {
             <div className="submit_Icon">
                 <IoMdArrowForward />
             </div>
-        </ButtonTypeCancle>
+        </button>
     );
 };
 
 const ForsquareBtn = ({ children, ...props }) => {
-    return <ForsquareBtnStyle {...props}>{children}</ForsquareBtnStyle>;
+    return (
+        <button className="btn-scheduleControl" {...props}>
+            {children}
+        </button>
+    );
 };
 
 const Popup = () => {
     return (
-        <PopupOpenButton>
+        <button className="btn-popupTrigger">
             Guest Book Wirte
             <img src="/img/board/arrow2.png" alt="arrow_2" />
-        </PopupOpenButton>
+        </button>
     );
 };
 
-const ConfirmButtonStyle = styled.button`
-    background: #000;
-    color: #fff;
-    padding: 0.5rem 1rem;
-    border-radius: 3em;
-    margin: 0.2rem;
-    &:hover {
-        background: #282828;
-    }
-    /* ${props => {
-        if (props.$btnType === 'Confirm') {
-            return `background: red`;
-        }
-    }} */
-`;
-
-const ConfirmButton = ({ children, type, ...props }) => {
+const ConfirmButton = ({ children, ...props }) => {
     return (
-        <ConfirmButtonStyle $btnType={type} {...props}>
+        <button className="btn-confirm" {...props}>
             {children}
-        </ConfirmButtonStyle>
+        </button>
     );
 };
-
-const UploadButtonStyle = styled.label`
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    padding: 0.3rem 0.4rem;
-    border-radius: 2px;
-    cursor: pointer;
-    &:active {
-        background: rgba(0, 0, 0, 0.05);
-    }
-    svg {
-        margin-left: 0.5rem;
-    }
-`;
 
 const UploadButton = ({ children, ...props }) => {
     return (
-        <UploadButtonStyle {...props}>
+        <label className="btn-upload" {...props}>
             {children}
             <MdUpload />
-        </UploadButtonStyle>
+        </label>
     );
 };
 
-const SubmitButtonStyle = styled.button`
-    padding: 0.4rem 1.4rem;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    margin-right: 0.5rem;
-    font-size: 12px;
-    border-radius: 2rem;
+const BtnSubmitStyle = styled.button`
     ${props =>
         props.$active &&
         `            
@@ -209,9 +81,9 @@ const SubmitButtonStyle = styled.button`
 
 const SubmitButton = ({ children, active, ...props }) => {
     return (
-        <SubmitButtonStyle $active={active} {...props}>
+        <BtnSubmitStyle className="btn-submit" $active={active} {...props}>
             {children}
-        </SubmitButtonStyle>
+        </BtnSubmitStyle>
     );
 };
 

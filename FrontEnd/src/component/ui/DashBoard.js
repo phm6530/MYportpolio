@@ -34,9 +34,6 @@ const DashBoardStyle = styled.div`
                     return css`
                         background: linear-gradient(to right, #775ec2, #6672c4);
                     `;
-                    return css`
-                        background: linear-gradient(to right, #775ec2, #6672c4);
-                    `;
                 }
             case 'board':
                 if (props.$DarkMode) {

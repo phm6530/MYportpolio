@@ -78,6 +78,7 @@ const IsComplete = styled.div`
         opacity: 0.8;
     }
     textarea {
+        resize: none;
         ${props => getTextAreaStyles(props)}
     }
     ${props => getDdayAreaStyles(props)}

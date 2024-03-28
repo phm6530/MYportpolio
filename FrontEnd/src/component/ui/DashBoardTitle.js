@@ -48,7 +48,8 @@ const DashBoardShadow = styled.div`
     background-clip: text;
     opacity: 0;
     transition: all 0.5s cubic-bezier(0.1, 0.45, 0, 1.09);
-    animation: ${animationShadow} 1s 0.7s cubic-bezier(0.1, 0.45, 0, 1.09) forwards;
+    animation: ${animationShadow} 1s 0.7s cubic-bezier(0.1, 0.45, 0, 1.09)
+        forwards;
 `;
 
 // ... 기존의 styled-components 정의 ...
@@ -72,7 +73,9 @@ export default function DashBoardTitle({ className, children }) {
                 {children}
             </DashBoardShadow>
 
-            <DashBoardTitleStyle className={className}>{children}</DashBoardTitleStyle>
+            <DashBoardTitleStyle className={className}>
+                {children}
+            </DashBoardTitleStyle>
         </>
     );
 }

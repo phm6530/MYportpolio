@@ -35,7 +35,7 @@ to {
 `;
 
 const Component = styled.div`
-    /* opacity: 0; */
+    opacity: 0;
     ${props => {
         if (props.$visible) {
             switch (props.$position) {

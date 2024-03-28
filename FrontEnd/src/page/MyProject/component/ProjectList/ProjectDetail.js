@@ -217,6 +217,7 @@ function ProjectDetail({ result }) {
                     />
                 </Popup>
             )}
+
             <CustumStyle>
                 {/* <EditArea param={param.key} /> */}
                 {/* project 정보 */}

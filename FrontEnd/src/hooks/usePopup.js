@@ -3,24 +3,23 @@ import Confirm from 'component/ui/Confirm';
 import { useState } from 'react';
 
 const usePopup = () => {
-    const [popView, setPopupView] = useState({});
-    const [ID, setID] = useState(null);
+    const [popView, setPopupView] = useState(false);
     const [message, setMessage] = useState(null);
-    // console.log('PopView ::: ', popView);
-    // console.log('id ::', ID);
-    const showPopup = id => {
-        setID(id);
-        setPopupView(prev => ({ ...prev, [id]: true }));
+
+    const showPopup = message => {
+        setPopupView(true);
+        setMessage(message);
     };
-    const hidePopup = id => {
-        setPopupView(prev => ({ ...prev, [id]: false }));
+    const hidePopup = () => {
+        setPopupView(false);
+        setMessage('');
     };
 
-    const PopupComponent = ({ id, event }) => (
+    const PopupComponent = ({ event }) => (
         <>
             {/* {console.log(id)} */}
-            {popView[id] && (
-                <Popup closePopup={() => hidePopup(id)}>
+            {popView && (
+                <Popup closePopup={() => hidePopup()}>
                     <Confirm message={message} confirm={event} />
                 </Popup>
             )}

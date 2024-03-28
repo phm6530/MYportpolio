@@ -1,9 +1,7 @@
 import ListHandler from '../component/ListHandler';
-import FadeinComponent from 'FadeinComponent';
 import { useState } from 'react';
 import { filterByDate } from '../component/filterByOrder';
-import Motion from 'component/animations/Motion';
-import { AnimatePresence } from 'framer-motion';
+
 const ScheduleList = ({ selectDay, listData }) => {
     const [selectWork, setSelectWork] = useState(null);
 
@@ -25,14 +23,13 @@ const ScheduleList = ({ selectDay, listData }) => {
             {filterArr.map((Schedule, idx) => {
                 // console.log(Schedule);
                 return (
-                    <>
-                        <ListHandler
-                            idx={idx}
-                            ScheduleItem={Schedule}
-                            setSelectWork={setSelectWork}
-                            selectWork={selectWork}
-                        />
-                    </>
+                    <ListHandler
+                        idx={idx}
+                        key={Schedule.id}
+                        ScheduleItem={Schedule}
+                        setSelectWork={setSelectWork}
+                        selectWork={selectWork}
+                    />
                 );
             })}
         </>

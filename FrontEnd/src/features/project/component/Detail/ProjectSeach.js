@@ -39,8 +39,7 @@ export default function ProjectSeach() {
 
     const searchProject = e => {
         e.preventDefault();
-        if (input.trim() === '') {
-        } else {
+        if (input.trim() !== '') {
             navigate(`${location.pathname}?seach=${input}`);
         }
 
