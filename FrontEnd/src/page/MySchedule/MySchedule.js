@@ -23,6 +23,7 @@ import { FlexColumnDiv } from 'features/CommonStyles';
 import ScheduleHeader from 'features/Myschedule/Layout/ScheduleHeader';
 import ScheduleRoute from 'Route/ScheduleRoute';
 import styled from 'styled-components';
+import { keepPreviousData, useQueryClient } from '@tanstack/react-query';
 
 // lib
 const { useQuery } = ReactQuery;
@@ -42,6 +43,10 @@ export default function MySchedule() {
     const getYear = param.get('year') || today().split('-')[0];
     const getMonth = param.get('month') || today().split('-')[1];
 
+    console.log('selectDay', selectDay);
+
+    console.log('getMonth', getMonth);
+
     // console.log(getYear, getMonth);
 
     //FetchData
@@ -49,11 +54,34 @@ export default function MySchedule() {
     const [DdayArr, setDdayArr] = useState();
     const dispatch = useDispatch();
 
-    const { isSuccess, isError, error, data } = useQuery({
-        queryKey: ['Schedule', getMonth],
-        queryFn: () => scheduleFetch(getYear, getMonth),
+    const queryClient = useQueryClient();
+
+    const { isSuccess, isError, error, data, dataUpdatedAt } = useQuery({
+        queryKey: ['Schedule', +getMonth],
+        queryFn: () => scheduleFetch(+getYear, +getMonth),
+        staleTime: 10000,
         refetchOnWindowFocus: false,
+        placeholderData: keepPreviousData,
     });
+
+    useEffect(() => {
+        const ttt = queryClient.getQueryData(['Schedule', +getMonth]);
+    }, [isSuccess, getMonth]);
+
+    useEffect(() => {
+        queryClient
+            .prefetchQuery({
+                queryKey: ['Schedule', +getMonth + 1],
+                queryFn: () => scheduleFetch(getYear, +getMonth + 1),
+            })
+            .then(() => {
+                const test = queryClient.getQueryData([
+                    'Schedule',
+                    +getMonth + 1,
+                ]);
+                // console.log('test ::: ', test);
+            });
+    }, [getYear, getMonth, queryClient]);
 
     useEffect(() => {
         if (isSuccess) {

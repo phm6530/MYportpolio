@@ -172,10 +172,7 @@ const RenderCell = ({
         <RenderCellWrap>
             {RenderPrevDate &&
                 RenderPrevDate.map(day => (
-                    <RenderPrevStyle key={`prev-${day}`}>
-                        {' '}
-                        {day}
-                    </RenderPrevStyle>
+                    <RenderPrevStyle key={`prev-${day}`}>{day}</RenderPrevStyle>
                 ))}
             {RenderDate.map(day => {
                 const confirmDay = `${paramYear}-${paramMonth}-${day}`;

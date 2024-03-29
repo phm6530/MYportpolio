@@ -10,7 +10,7 @@ const CustumFlexWrapDiv = styled(FlexWrapDiv)``;
 
 const ScheduleSummary = props => {
     const { listData } = props;
-    console.log(props);
+    // console.log(props);
 
     const {
         cateGorys,

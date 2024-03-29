@@ -1,5 +1,5 @@
 import { FlexColumnDiv, SubTitleTextStyle } from 'features/CommonStyles';
-import styled, { keyframes, css } from 'styled-components';
+import styled from 'styled-components';
 import { PercentCalculator } from 'utils/Calculator';
 
 import usePrograssbar from 'hooks/usePrograssbar';
@@ -32,26 +32,6 @@ const PrograssbarStyle = styled.div`
         background: red;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
         background: linear-gradient(90deg, #a9bcff 0%, #ce94e5 100%);
-        /* ${props => {
-            console.log(props.$catecory);
-            switch (props.$catecory) {
-                case 'Study':
-                    return css`
-                        background: linear-gradient(
-                            90deg,
-                            #6284ff 0%,
-                            #d35fd6 100%
-                        );
-                        color: #748295;
-                    `;
-                case '운동':
-                    return 'background : rgb(238 237 251); color: #748295;';
-                case 'Coding':
-                    return 'background : rgb(254 234 241); color: #748295;';
-                default:
-                    return 'red';
-            }
-        }}; */
         border-radius: 10px;
     }
 `;
@@ -101,6 +81,10 @@ const CategoryIconStyle = styled.div`
     }};
 `;
 
+const CustumFlexRow = styled(FlexRow)`
+    margin-bottom: 1rem;
+`;
+
 export default function PrograssBar({ tasks }) {
     const { result: percent } = PercentCalculator(tasks);
 
@@ -144,7 +128,7 @@ export default function PrograssBar({ tasks }) {
         );
     };
     return (
-        <FlexRow>
+        <CustumFlexRow>
             <CategoryIcon catecory={tasks[0].category} />
 
             <FlexColumnDiv>
@@ -168,6 +152,6 @@ export default function PrograssBar({ tasks }) {
                     ></div>
                 </PrograssbarStyle>
             </FlexColumnDiv>
-        </FlexRow>
+        </CustumFlexRow>
     );
 }

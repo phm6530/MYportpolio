@@ -14,7 +14,7 @@ const useCategoryFilter = ({ listData, selectDay: day = null }) => {
         return day ? new Date(day) : null;
     }, [day]);
 
-    console.log(Day);
+    // console.log(Day);
 
     const targetDay = Day || today;
 
