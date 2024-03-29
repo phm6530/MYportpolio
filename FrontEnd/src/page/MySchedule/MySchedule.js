@@ -80,7 +80,7 @@ export default function MySchedule() {
 
             <ScheduleGrid>
                 {/* UserProFile */}
-                <UserProfile />
+                {/* <UserProfile /> */}
 
                 <CustumlexColumnDiv style={{ backgroundColor: '#fff' }}>
                     <ScheduleHeader />

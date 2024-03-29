@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Gird from '../../component/ui/Grid';
-import Calendar from 'features/Myschedule/Calendar';
 
 const ScheduleGrid = styled(Gird)`
     padding-top: 25rem;
@@ -13,8 +12,4 @@ const ContentsWrap = styled.div`
     margin-top: 1.5rem;
 `;
 
-const CalendarStyle = styled(Calendar)`
-    /* width: 50%; */
-`;
-
-export { ScheduleGrid, CalendarStyle, ContentsWrap };
+export { ScheduleGrid, ContentsWrap };

@@ -280,7 +280,6 @@ const RenderNav = ({ paramMonth, paramYear }) => {
 };
 
 export default function Calendar({
-    className,
     selectDay,
     listData,
     setSelectDay,
@@ -292,7 +291,7 @@ export default function Calendar({
     };
 
     return (
-        <CalendarWrap className={className}>
+        <CalendarWrap className="calendar">
             {/* Clanedar Nav */}
             <RenderNav paramMonth={paramMonth} paramYear={paramYear} />
 

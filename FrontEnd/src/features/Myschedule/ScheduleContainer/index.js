@@ -17,7 +17,9 @@ import ScheduleDdaySetter from '../component/ScheduleDdaySetter';
 import { AnimatePresence } from 'framer-motion';
 import Motion from 'component/animations/Motion';
 
-const ScheduleWrap = styled.div``;
+const ScheduleWrap = styled.div`
+    flex-grow: 1;
+`;
 
 const ButtonNavWrap = styled.div`
     border-radius: 1em;

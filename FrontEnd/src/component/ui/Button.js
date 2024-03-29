@@ -74,7 +74,7 @@ const BtnSubmitStyle = styled.button`
     ${props =>
         props.$active &&
         `            
-            background-color: rgba(114, 100, 239, 1);
+            background-color: #8B6EF2;
             color: rgba(255, 255, 255, 1);
         `};
 `;

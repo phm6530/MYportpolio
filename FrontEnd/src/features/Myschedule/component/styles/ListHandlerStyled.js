@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 const getTextAreaStyles = props => {
-    console.log('props:::', props.$complete);
+    // console.log('props:::', props.$complete);
     return `
     transition: color 0.2s ease;
     ${

@@ -17,16 +17,15 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-import useProjectActions from 'hooks/useProjectActions';
-import Popup from 'component/popup/Popup';
-import Confirm from 'component/ui/Confirm';
-import { SubTitleSchedule } from '../component/styles/ScheduleCommonStyles';
+
 import { useAuthCheck } from 'hooks/useAuthCheck';
 import { fetchDeleteSchedule } from 'services/ScheduleService';
 import useExcuteMutation from 'hooks/useExcuteMutation';
 import usePopup from 'hooks/usePopup';
 
-const SwiperStyle = styled(Swiper)``;
+const SwiperStyle = styled(Swiper)`
+    /* width: 200px; */
+`;
 
 const SummeryStyle = styled.div`
     overflow: hidden;
