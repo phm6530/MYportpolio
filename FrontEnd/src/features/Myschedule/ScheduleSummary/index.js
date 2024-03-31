@@ -9,7 +9,7 @@ import useCategoryFilter from 'hooks/useCategoryFilter';
 const CustumFlexWrapDiv = styled(FlexWrapDiv)``;
 
 const ScheduleSummary = props => {
-    const { listData } = props;
+    const { listData, selectDay } = props;
     // console.log(props);
 
     const {
@@ -36,6 +36,7 @@ const ScheduleSummary = props => {
                 )}
                 {/* CategoryGraph */}
                 <CategoryGraph
+                    selectDay={selectDay}
                     viewRage={viewRage}
                     categorys={cateGorys}
                     arrState={arrState}

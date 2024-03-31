@@ -20,16 +20,22 @@ const CategoryGraph = props => {
     // console.log(arrState);
     // console.log(categorys);
     // console.log(arrState);
-    // console.log(props);
+    console.log(props);
     return (
         <CustumFlexColumnDiv>
             <span className="CategoryWrapTitle">카테고리 별 완료도</span>
-            {categorys.length !== 0
-                ? categorys.map((v, idx) => {
-                      const tasks = arrState[v];
-                      return <PrograssBar tasks={tasks} key={`key-${idx}`} />;
-                  })
-                : `일정이 없네요 ${props.selectDay.slice(5).replace('-', '. ')}은..`}
+            {categorys.length !== 0 ? (
+                categorys.map((v, idx) => {
+                    const tasks = arrState[v];
+                    return <PrograssBar tasks={tasks} key={`key-${idx}`} />;
+                })
+            ) : (
+                <div>
+                    일정이 없네요
+                    <span>{props.selectDay?.slice(5).replace('-', '. ')}</span>
+                    은 ...
+                </div>
+            )}
         </CustumFlexColumnDiv>
     );
 };

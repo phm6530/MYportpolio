@@ -70,7 +70,7 @@ const TaskPage = props => {
                     modifiers={{ booked: bookedDayss }}
                     modifiersStyles={modifiersStyles}
                     onMonthChange={e => handleMonthChange(e)}
-                    month={monthCaculator()}
+                    month={getMonth ? monthCaculator() : selectDay}
                     // footer={footer}
                 />
                 <ScheduleDdayList DdayArr={DdayArr} />
