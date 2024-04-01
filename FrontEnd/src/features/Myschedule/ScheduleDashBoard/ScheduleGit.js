@@ -1,13 +1,8 @@
-import { SubTitleTextStyle } from 'features/CommonStyles';
-import { HourStyle } from '../component/styles/ScheduleCommonStyles';
 import { FlexColumnDiv } from 'features/CommonStyles';
 import styled from 'styled-components';
-import { format } from 'date-fns';
-import moment from 'moment-timezone';
+import { format, subHours } from 'date-fns';
 import { FaGithub } from 'react-icons/fa';
-const CustumHourStyle = styled(HourStyle)`
-    margin-bottom: 0;
-`;
+
 import { ReactQuery } from 'lib/lib';
 import { useEffect, useState } from 'react';
 import { fetchGit } from 'services/ScheduleService';
@@ -58,44 +53,47 @@ const CustumFlexColumnDiv = styled(FlexColumnDiv)`
 const ScheduleGit = () => {
     const [commitCount, setCommitCount] = useState([]);
 
-    // console.log(commitCount);
+    console.log('commitCount :: ', commitCount);
 
     const { data } = useQuery({
         queryKey: ['git'],
         queryFn: fetchGit,
     });
 
-    const today = new Date();
-    // console.log(today.toISOString());
-
-    // const now = new Date(); // 서버 시간 기준 현재 로컬 시간
-    // const GMTNow = now.getTime() + now.getTimezoneOffset() * 60 * 1000; // GMT 현재 시간
-    // const KoreaTimeDiff = 9 * 60 * 60 * 1000;
-    // const KoreaNow = new Date(GMTNow + KoreaTimeDiff);
-    // console.log(KoreaNow);
+    const getUtcKrDate = () => {
+        const krDate = new Date('2024-04-01T00:00:00');
+        const utcDate = format(krDate, 'yyyy-MM-dd HH:mm:ss');
+        return utcDate;
+    };
 
     useEffect(() => {
-        const today = new Date().toISOString().split('T')[0];
-        // console.log(ttt);
-        const filterCommit = data => {
-            const todayData = data.filter(e => {
-                const UTCtoksTime = moment(e.commit.committer.date)
-                    .tz('Asia/Seoul')
-                    .format('YYYY-MM-DD HH:mm:ss')
-                    .split(' ')[0];
-                return UTCtoksTime === today;
-            });
-            return todayData.map(e => ({
-                message: e.commit.message,
-                date: e.commit.committer.date.split('T')[0],
-            }));
+        const utcKrDate = getUtcKrDate();
+
+        const todayGitFilter = data => {
+            const todayGit = data
+                .filter(e => {
+                    // console.log(e.commit.committer.date, e.commit.message);
+                    const commitTime = format(
+                        e.commit.committer.date,
+                        'yyyy-MM-dd HH:mm:ss',
+                    );
+                    return commitTime > utcKrDate;
+                })
+                .map(e => {
+                    return {
+                        message: e.commit.message,
+                        date: e.commit.committer.date,
+                    };
+                });
+            return todayGit;
         };
+
         if (data) {
-            // console.log(data);
-            const commitList = filterCommit(data);
-            setCommitCount(commitList);
+            const todayGitData = todayGitFilter(data);
+            setCommitCount(todayGitData);
         }
     }, [data]);
+
     if (!data) {
         return <>Loading......</>;
     }
