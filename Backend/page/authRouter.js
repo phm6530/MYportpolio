@@ -28,17 +28,15 @@ router.post('/login', async (req, res) => {
         try {
             // ID와 비밀번호가 모두 제공된 경우
             // JWT 토큰 생성 및 응답 로직
-            const admin = await isValidAdmin(user_id, user_password); // id가 할당된 User 객체를 가져오면 됨
-            console.log(admin);
+            const { id, role, admin_name } = await isValidAdmin(user_id, user_password); // id가 할당된 User 객체를 가져오면 됨
 
             // 외부 검증로직
             // if(!admin){
             //     return res.status(401).json({message : 'not found this guy'});
             // }
 
-            const isState = await loginState(user_id);
-            console.log(isState);
-            const token = createToken(user_id);
+            // const isState = await loginState(user_id);
+            const token = createToken(id, role, admin_name);
             return res.json({
                 message: 'Token is Created',
                 token: token,

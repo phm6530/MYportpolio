@@ -110,4 +110,41 @@ router.post('/complete', async (req, res, next) => {
     }
 });
 
+// 타이머
+router.get('/timer', async (_, res, next) => {
+    try {
+        const sql = `select * from tasktimer where playing = 1;`;
+        const [rows] = await db.query(sql);
+
+        const getKRTime = new Date(rows.date.getTime() + 9 * 60 * 60 * 1000);
+        let newObj = { ...rows, date: getKRTime.toISOString().split('T')[0] };
+
+        res.json({ message: 'success', timerData: newObj });
+    } catch (error) {
+        const err = new NotFoundError(error.message);
+        next(err);
+    }
+});
+
+router.post('/timeraction', async (req, res, next) => {
+    try {
+        const { startTime, category, id, name } = req.body;
+        const playing = 1;
+        const sql = `
+        insert into tasktimer(
+            category , start_time,  user_id , date , playing
+            ) value(?,?, ? , now(), ?);
+        `;
+
+        const response = await db.query(sql, [category, startTime, id, playing]);
+        if (response.affectedRows === 0) {
+            throw new Error('변경되지 않았습니다 재시도 해주세요.');
+        }
+        res.json({ message: 'success', databaseInsert: response.affectedRows });
+    } catch (error) {
+        const err = new NotFoundError(error.message);
+        next(err);
+    }
+});
+
 module.exports = router;
