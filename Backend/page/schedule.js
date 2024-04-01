@@ -17,6 +17,7 @@ router.get('/', async (req, res, next) => {
             id, 
             work, 
             complete, 
+            category,
             schedule_key, 
             DATE_FORMAT(schedule_date, '%Y-%m-%d') AS formatted_date, 
             important  
@@ -49,12 +50,13 @@ router.get('/', async (req, res, next) => {
 
 // insert
 router.post('/add', async (req, res, next) => {
-    const { schedule_date, work, schedule_key, important } = req.body;
-    console.log(req.body);
     try {
-        const sql = `insert into schedules(schedule_date , work , schedule_key , important) 
-        value(?,?,?,?)`;
-        const response = await db.query(sql, [schedule_date, work, schedule_key, important]);
+        const { schedule_date, work, category, schedule_key, important } = req.body;
+        const sql = `insert into schedules(schedule_date , work , category,  schedule_key , important) 
+        value(?,?,?,?,?)`;
+
+        const response = await db.query(sql, [schedule_date, work, category, schedule_key, important]);
+        console.log('response ::::::: ', response);
         res.json({ message: 'success', databaseInsert: response.affectedRows });
     } catch (error) {
         const err = new NotFoundError('에러입니다.');
