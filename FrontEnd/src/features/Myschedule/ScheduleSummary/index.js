@@ -14,7 +14,7 @@ const ScheduleSummary = props => {
 
     const {
         cateGorys,
-        selectDays,
+        selectDateRange,
         categoryFilter: arrState,
         setViewRage,
         viewRage,
@@ -28,7 +28,7 @@ const ScheduleSummary = props => {
                 <SummaryHeader viewRage={viewRage} setViewRage={setViewRage} />
                 {arrState && (
                     <TotalGraph
-                        selectDays={selectDays}
+                        selectDateRange={selectDateRange}
                         viewRage={viewRage}
                         arrState={arrState}
                         {...props}

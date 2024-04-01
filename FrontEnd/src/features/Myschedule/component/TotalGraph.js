@@ -30,7 +30,7 @@ const TotalorComplete = styled.div`
 `;
 
 const TotalGraph = props => {
-    const { selectDays, arrState } = props;
+    const { selectDateRange, arrState } = props;
     const counterRef = useRef(null);
 
     const values = Object.values(arrState);
@@ -75,7 +75,7 @@ const TotalGraph = props => {
     return (
         <Wrap>
             <div>
-                {selectDays.map((e, idx) => {
+                {selectDateRange.map((e, idx) => {
                     if (idx === 1) {
                         return <Day key={idx}>~ {e}</Day>;
                     } else {

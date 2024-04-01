@@ -20,7 +20,7 @@ const CategoryGraph = props => {
     // console.log(arrState);
     // console.log(categorys);
     // console.log(arrState);
-    console.log(props);
+    // console.log('props :: ', props);
     return (
         <CustumFlexColumnDiv>
             <span className="CategoryWrapTitle">카테고리 별 완료도</span>

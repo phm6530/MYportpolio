@@ -1,7 +1,5 @@
 import { useState, useMemo } from 'react';
-import { filterByDate } from 'features/Myschedule/component/filterByOrder';
-import { format } from 'date-fns';
-import { dayFormetting } from 'utils/TodaySeletor';
+import { format, subDays } from 'date-fns';
 
 const useCategoryFilter = ({ listData, selectDay: day = null }) => {
     const [viewRage, setViewRage] = useState('today');
@@ -10,29 +8,40 @@ const useCategoryFilter = ({ listData, selectDay: day = null }) => {
         return new Date();
     }, []);
 
+    console.log(day);
+
     const Day = useMemo(() => {
         return day ? new Date(day) : null;
     }, [day]);
 
-    // console.log(Day);
+    const targetDay = format(Day || today, 'yyyy-MM-dd');
 
-    const targetDay = Day || today;
+    //선택날짜 ~
+    let selectDateRange = [];
 
-    let selectDay = [];
+    //선택 날짜 task
     let selectedDates = [];
-    const arrLength = targetDay.getDate();
+
+    const dateFilter = (arr, targetDay) => {
+        return arr[targetDay] || [];
+    };
+
+    // const cateFilter = arr => {
+    //     console.log(listData[targetDay]);
+    // };
 
     if (viewRage === 'today') {
-        const todayArr = filterByDate(listData, targetDay);
-        selectDay.push(targetDay);
-        selectedDates = todayArr;
+        selectedDates = dateFilter(listData, targetDay);
+        selectDateRange.push(targetDay);
     } else {
-        const dayCalculate = dayFormetting();
+        // 주간 일정 arr길이
+        const arrLength = today.getDate();
         const weekDayArr = [...Array(arrLength)].map((_, idx) => {
-            const tempDate = new Date(today);
-            const date = tempDate.setDate(tempDate.getDate() - idx);
-            return dayCalculate(date);
+            const dayCalculator = subDays(today, idx);
+            return format(dayCalculator, 'yyyy-MM-dd');
         });
+
+        console.log(weekDayArr);
 
         let weekObj = weekDayArr.reduce((acc, cur) => {
             if (listData[cur]) {
@@ -42,11 +51,14 @@ const useCategoryFilter = ({ listData, selectDay: day = null }) => {
         }, {});
 
         const values = Object.values(weekObj);
-        const keys = Object.keys(weekObj);
-        selectDay.push(keys[keys.length - 1], keys[0]);
-        values.forEach(e => selectedDates.push(...e));
+
+        selectDateRange.push(weekDayArr[weekDayArr.length - 1], weekDayArr[0]);
+        values.forEach(e => {
+            selectedDates.push(...e);
+        });
     }
 
+    //카테고리 필터링
     const newCategoryFilter = selectedDates.reduce((acc, item) => {
         acc[item.category] = acc[item.category] || [];
         acc[item.category].push(item);
@@ -54,16 +66,12 @@ const useCategoryFilter = ({ listData, selectDay: day = null }) => {
     }, {});
 
     const newCateGorys = Object.keys(newCategoryFilter);
-    const newSelectDays = selectDay.map(e => format(e, 'MM. dd'));
-
-    const selectDays = newSelectDays;
     const categoryFilter = newCategoryFilter;
     const cateGorys = newCateGorys;
-    // 의존성 배열에 listData, today, viewRage를 추가
 
     return {
         cateGorys,
-        selectDays,
+        selectDateRange,
         categoryFilter,
         setViewRage,
         viewRage,
