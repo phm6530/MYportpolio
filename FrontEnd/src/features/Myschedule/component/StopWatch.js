@@ -8,8 +8,8 @@ const StopWatch = ({ date, startTime, endDate, running }) => {
         new Date(),
         new Date(`${date} ${startTime}`),
     );
-    console.log('startTimestartTimestartTime::: ', startTime);
-    console.log('new Date()::::::::::', new Date());
+    // console.log('startTimestartTimestartTime::: ', startTime);
+    // console.log('new Date()::::::::::`', new Date());
 
     const initalHour = Math.floor(diffInSeconed / 3600);
     const initalMinites = Math.floor((diffInSeconed % 3600) / 60);
@@ -26,7 +26,7 @@ const StopWatch = ({ date, startTime, endDate, running }) => {
         second: initalSeconeds || 0,
     });
 
-    console.log(timer);
+    // console.log(timer);
 
     const TimerFormetting = target => {
         return String(target).padStart(2, 0);

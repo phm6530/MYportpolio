@@ -14,6 +14,10 @@ import {
     fetchTimerEnd,
 } from 'services/tastTimerService';
 import StopWatch from '../component/StopWatch';
+import useWebSocket from 'services/useWebSocket';
+import HookformRadio from '../component/HookformRadio';
+import { useForm } from 'react-hook-form';
+import { SCHEDULE_CATEGORY } from 'utils/constans';
 
 const StopWatchStyle = styled.div`
     padding: 2rem 2.8rem 1.8rem;
@@ -108,6 +112,12 @@ const ScheduleTimer = () => {
     const [timerData, setTimerData] = useState(null);
     const { user } = useSelector(state => state.authSlice);
     const { clientAuthCheck } = useAuthCheck();
+    const {
+        data: websoketData,
+        status,
+        sendMessage,
+    } = useWebSocket('ws://localhost:8080');
+    console.log(websoketData);
 
     const [running, setRunning] = useState(false);
 
@@ -122,6 +132,17 @@ const ScheduleTimer = () => {
         refetchOnWindowFocus: false,
     });
 
+    const {
+        control,
+        getValues,
+        formState: { errors },
+        reset,
+    } = useForm({
+        defaultValues: {
+            category: null,
+        },
+    });
+
     const { mutate: startMutate } = useMutation({
         mutationFn: data => fetchTimerStart(data),
         onSuccess: () => {
@@ -129,6 +150,7 @@ const ScheduleTimer = () => {
             queryClient.invalidateQueries({
                 queryKey: ['ScheduleTimer'],
             });
+            reset();
         },
     });
 
@@ -151,8 +173,11 @@ const ScheduleTimer = () => {
 
     // Start Timer
     const startTimer = () => {
+        const category = getValues('category');
+        console.log(category);
+        if (!category) return;
+
         if (!clientAuthCheck('타이머')) return;
-        let category = 'Coding';
         const nowTime = nowTIme();
         const fetchData = {
             startTime: nowTime[1],
@@ -182,8 +207,16 @@ const ScheduleTimer = () => {
                     <TfiTimer />
                 </div>
                 <div className="stateMessage">
-                    지금 저는{timerData?.category} 중 입니다..
+                    {data?.timerData && (
+                        <span>지금 저는{timerData?.category} 중 입니다..</span>
+                    )}
                 </div>
+                <HookformRadio
+                    Radio={SCHEDULE_CATEGORY}
+                    control={control}
+                    errors={errors}
+                    keyName={'category'}
+                />
 
                 {data?.timerData ? (
                     <StopWatch
@@ -193,7 +226,7 @@ const ScheduleTimer = () => {
                         endDate={data.timerData.end_time}
                     />
                 ) : (
-                    '지금은 진행중 인 State가 없어요'
+                    '지금은 진행중 인 Task가 없어요'
                 )}
 
                 <FlexRow>
@@ -203,7 +236,7 @@ const ScheduleTimer = () => {
                         disabled={running}
                         onClick={() => startTimer()}
                     >
-                        START 16:00
+                        START
                     </Button>
                     <Button $on={running} onClick={() => endTimer()}>
                         STOP

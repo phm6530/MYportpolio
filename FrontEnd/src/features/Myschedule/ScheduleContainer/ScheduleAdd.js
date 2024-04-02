@@ -39,11 +39,13 @@ const ScheduleAdd = ({ selectDay }) => {
         handleSubmit,
         reset,
         control,
+        watch,
         formState: { errors },
     } = useForm({
         defaultValues: {
             Schedule_title: '',
             Schedule_important: false,
+            TaskCategory: null,
         },
     });
     // console.log('errors : ',errors);
@@ -60,6 +62,9 @@ const ScheduleAdd = ({ selectDay }) => {
             reset();
         },
     });
+
+    const data = watch();
+    console.log('data', data);
 
     // console.log(mutation.data);
 
