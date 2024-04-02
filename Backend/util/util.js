@@ -2,16 +2,17 @@ const { compare } = require('bcrypt');
 const { NotFoundError } = require('./error');
 
 //DB 연동
-const util = require('util');
 const db = require('../util/config');
 const jwt = require('jsonwebtoken');
-db.query = util.promisify(db.query); //프로미스 생성
+
 require('dotenv').config();
 
 const isValidAdmin = async (id, userPassword) => {
     try {
+        const conn = await db.getConnection();
+
         const sql = `select * from admin_user where id = ?`;
-        const response = await db.query(sql, [id]);
+        const [response] = await conn.query(sql, [id]);
 
         if (response.length === 0) {
             throw new NotFoundError('등록된 관리자가 아닙니다.');
@@ -22,7 +23,7 @@ const isValidAdmin = async (id, userPassword) => {
         if (!isMatch) {
             throw new NotFoundError('비밀번호가 맞지않습니다.');
         }
-
+        conn.release();
         let result = {};
         for (const item in response[0]) {
             if (item !== 'password') {

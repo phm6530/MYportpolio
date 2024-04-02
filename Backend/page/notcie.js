@@ -11,7 +11,6 @@ const util = require('util');
 
 const db = require('../util/config');
 const { NotFoundError } = require('../util/error');
-db.query = util.promisify(db.query); //프로미스 생성
 
 // 전체 숫자 세기
 const getTotalCount = async () => {
@@ -99,6 +98,7 @@ router.post('/reply/delete', async (req, res, next) => {
 // 초기로드 or 게시판 페이징
 router.get('/:idx', async (req, res, next) => {
     try {
+        const connection = await db.getConnection();
         const idx = +req.params.idx;
         console.log(idx);
         const limit = 10;
@@ -111,10 +111,12 @@ router.get('/:idx', async (req, res, next) => {
             date ,
             role
             from board order by idx desc limit ? offset ?`;
-        const response_database = await db.query(sql, [limit, idx]);
+        const [response_database] = await connection.query(sql, [limit, idx]);
 
         const count_sql = `select count(*) as cnt from board`;
-        const counter = await db.query(count_sql);
+        const [counter] = await connection.query(count_sql);
+
+        connection.release();
 
         res.status(201).json({
             path: 'paging',

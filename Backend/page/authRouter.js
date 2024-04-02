@@ -1,13 +1,10 @@
 const express = require('express');
 const router = express.Router();
-
 const { verify, createToken } = require('../util/auth'); // 검증
 const { isValidAdmin } = require('../util/util');
 
-const util = require('util');
 const db = require('../util/config');
 const { compare } = require('bcrypt');
-db.query = util.promisify(db.query);
 
 const loginState = async (id) => {
     const sql = `update admin_user set state = 1 where id = ?`;
@@ -37,6 +34,7 @@ router.post('/login', async (req, res) => {
 
             // const isState = await loginState(user_id);
             const token = createToken(id, role, admin_name);
+
             return res.json({
                 message: 'Token is Created',
                 token: token,
@@ -50,8 +48,12 @@ router.post('/login', async (req, res) => {
 });
 
 const logoutState = async (id) => {
+    const conn = await db.getConnection();
     const sql = `update admin_user set state = 0 where id = ?`;
-    return await db.query(sql, [id]);
+    const [result] = await conn.query(sql, [id]);
+    conn.release();
+
+    return result;
 };
 
 router.post('/logout', verify, async (req, res) => {

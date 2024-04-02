@@ -23,7 +23,7 @@ const transformtoArr = (targetArr, keys) => {
                 newObj[key] = [];
             }
         });
-        console.log(newObj);
+        // console.log(newObj);
         return newObj;
     });
     return ChangeResponse;
@@ -31,12 +31,21 @@ const transformtoArr = (targetArr, keys) => {
 
 // 초기 로더 데이터
 router.get('/', async (req, res, next) => {
-    // const limit = 10;
+    console.log('초기로더');
     try {
-        const sql = `select * from project order by id desc`;
-        const response = await db.query(sql);
-        const responseSkillArr = transformtoArr(response, ['skill', 'hashtag']);
-        // console.log(responseSkillArr);
+        // DB 연결 확립
+        const connection = await db.getConnection();
+
+        // 쿼리 실행
+        const [rows] = await connection.query('SELECT * FROM project ORDER BY id DESC');
+
+        // 연결 해제
+        connection.release();
+
+        // 데이터 변환
+        const responseSkillArr = transformtoArr(rows, ['skill', 'hashtag']);
+
+        // 응답 전송
         res.status(200).json({
             resData: responseSkillArr,
         });
@@ -49,7 +58,7 @@ router.get('/', async (req, res, next) => {
 // Project Insert
 const insertQuery = async ({ project_description, ...project }) => {
     console.log('target!!');
-    console.log(Object.values(project));
+    // console.log(Object.values(project));
     try {
         let sql = `INSERT INTO project (
             project_key,
@@ -129,7 +138,7 @@ const ProjectHandler = async (req, res, endPoint) => {
         thumbnail,
     } = req.body;
 
-    console.log(req.body);
+    // console.log(req.body);
     const typeString_skill = skill.join();
     const typeString_hashtag = hashtag.join();
     const formatingStartDate = startDate.split('T')[0];
@@ -195,7 +204,7 @@ router.post('/edit', async (req, res, next) => {
 });
 
 router.delete('/delete/:key', async (req, res, next) => {
-    // console.log(req.body);
+    console.log(req.body);
     try {
         const param = req.params.key;
         // console.log(param);
@@ -269,17 +278,21 @@ router.post('/thunbnail/:key', upload.single('img'), async (req, res, next) => {
 
 router.get('/:key', async (req, res, next) => {
     const param = req.params.key;
-    // console.log(param);
+    console.log(param);
     try {
+        const connection = await db.getConnection();
         const sql = `
             select * from project as a inner join project_description as b on a.project_key = b.project_key where a.project_key = ?;
         `;
-        const result = await db.query(sql, [param]);
-        if (!result || result.length === 0) {
+        const [rows] = await connection.query(sql, [param]);
+        console.log(rows[0]);
+
+        if (!rows || rows.length === 0) {
             const err = new NotFoundError('이미 삭제된 게시물이거나 잘못된 접근입니다.');
             next(err);
         }
-        res.status(200).json({ message: 'success', result: result[0] });
+        connection.release();
+        res.status(200).json({ message: 'success', result: rows[0] });
     } catch (error) {
         const err = new NotFoundError(error.message);
         next(err);
