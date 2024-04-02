@@ -8,7 +8,7 @@ const filterByDate = (arr = {}, selectDay) => {
             filterArr = filterArr.concat(events);
         }
     }
-    console.log(filterArr);
+    // console.log(filterArr);
     return filterArr;
 };
 

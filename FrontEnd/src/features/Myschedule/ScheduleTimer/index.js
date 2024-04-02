@@ -3,8 +3,19 @@ import { FlexRow } from 'component/CommonStyle';
 
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { format } from 'date-fns';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useDispatch, useSelector } from 'react-redux';
+import alertThunk from 'store/alertTrunk';
+import { useAuthCheck } from 'hooks/useAuthCheck';
+import {
+    fetchTimerSetting,
+    fetchTimerStart,
+    fetchTimerEnd,
+} from 'services/tastTimerService';
+import StopWatch from '../component/StopWatch';
 
-const StopWatch = styled.div`
+const StopWatchStyle = styled.div`
     padding: 2rem 2.8rem 1.8rem;
     box-shadow: 9px 16px 42.3px rgba(0, 0, 0, 0.06);
     border-radius: 47px;
@@ -36,14 +47,6 @@ const StopWatch = styled.div`
 
     .time {
         letter-spacing: -0.05em;
-        /* font-size: 50px;
-        background: linear-gradient(90deg, #8b80e6 0%, #443a8f 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-         */
-        /* 05:20:01 */
-
         font-weight: bold;
         font-size: 32px;
         line-height: 36px;
@@ -101,86 +104,103 @@ const Button = styled.button`
 `;
 
 const ScheduleTimer = () => {
-    const [timer, setTimer] = useState({
-        Hour: 0,
-        minit: 0,
-        second: 0,
-    });
-    const [id, setId] = useState();
+    const dispatch = useDispatch();
+    const [timerData, setTimerData] = useState(null);
+    const { user } = useSelector(state => state.authSlice);
+    const { clientAuthCheck } = useAuthCheck();
+
     const [running, setRunning] = useState(false);
-    // console.log(timer);
 
-    //Timer Func
-    const TimerFunc = () => {
-        const timer = setInterval(() => {
-            setTimer(prev => {
-                let NextSeond = prev.second + 1;
-                let NextMinit = prev.minit;
-                let NextHour = prev.Hour;
-
-                if (NextSeond === 60) {
-                    NextMinit++;
-                    NextSeond = 0;
-                }
-
-                if (NextMinit === 60) {
-                    NextHour++;
-                    NextMinit = 0;
-                }
-
-                return {
-                    ...prev,
-                    Hour: NextHour,
-                    minit: NextMinit,
-                    second: NextSeond,
-                };
-            });
-        }, 1000);
-        setId(timer);
-        return timer;
+    const nowTIme = () => {
+        return format(new Date(), 'yyyy-MM-dd HH:mm:ss').split(' ');
     };
 
-    //setting Timer
+    const queryClient = useQueryClient();
+    const { data } = useQuery({
+        queryKey: ['ScheduleTimer'],
+        queryFn: fetchTimerSetting,
+        refetchOnWindowFocus: false,
+    });
+
+    const { mutate: startMutate } = useMutation({
+        mutationFn: data => fetchTimerStart(data),
+        onSuccess: () => {
+            dispatch(alertThunk('타이머 시작', 1));
+            queryClient.invalidateQueries({
+                queryKey: ['ScheduleTimer'],
+            });
+        },
+    });
+
+    const { mutate: endMutate } = useMutation({
+        mutationFn: data => fetchTimerEnd(data),
+        onSuccess: () => {
+            dispatch(alertThunk('타이머 중지', 1));
+            queryClient.invalidateQueries({
+                queryKey: ['ScheduleTimer'],
+            });
+        },
+    });
+
     useEffect(() => {
-        // const timer = TimerFunc();
-        return () => clearInterval(timer);
-    }, []);
+        if (data?.timerData) {
+            setTimerData(data.timerData);
+            setRunning(true);
+        }
+    }, [data]);
 
     // Start Timer
     const startTimer = () => {
-        const timer = TimerFunc();
-        setId(timer);
-        setRunning(true);
+        if (!clientAuthCheck('타이머')) return;
+        let category = 'Coding';
+        const nowTime = nowTIme();
+        const fetchData = {
+            startTime: nowTime[1],
+            date: nowTime[0],
+            category,
+            ...user,
+        };
+        startMutate(fetchData);
     };
 
     // End Timer
     const endTimer = () => {
-        clearInterval(id);
+        if (!clientAuthCheck('타이머')) return;
         setRunning(false);
-    };
-
-    const TimerFormetting = target => {
-        return String(target).padStart(2, 0);
+        const nowTime = nowTIme();
+        const fetchData = {
+            endTime: nowTime[1],
+            ...user,
+        };
+        endMutate(fetchData);
     };
 
     return (
         <>
-            <StopWatch>
+            <StopWatchStyle>
                 <div className="timer-icon">
                     <TfiTimer />
                 </div>
                 <div className="stateMessage">
-                    지금 저는 ‘Coding’ 중입니다..
+                    지금 저는{timerData?.category} 중 입니다..
                 </div>
-                <div className="time">
-                    {TimerFormetting(timer.Hour)} :
-                    {TimerFormetting(timer.minit)} :
-                    {TimerFormetting(timer.second)}
-                </div>
+
+                {data?.timerData ? (
+                    <StopWatch
+                        running={running}
+                        date={data.timerData.date}
+                        startTime={data.timerData.start_time}
+                        endDate={data.timerData.end_time}
+                    />
+                ) : (
+                    '지금은 진행중 인 State가 없어요'
+                )}
+
                 <FlexRow>
                     <Button
                         $type="start"
                         $on={running}
+                        disabled={running}
                         onClick={() => startTimer()}
                     >
                         START 16:00
@@ -189,7 +209,7 @@ const ScheduleTimer = () => {
                         STOP
                     </Button>
                 </FlexRow>
-            </StopWatch>
+            </StopWatchStyle>
         </>
     );
 };

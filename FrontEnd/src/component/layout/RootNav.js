@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { DarkMode } from '../../context/DarkModeContext';
 import useLogout from 'hooks/useLogout';
 
@@ -15,6 +15,7 @@ import DarkModeBtn from '../ui/DarkModeBtn';
 import { useLocation, useNavigate } from 'react-router-dom';
 import LoginForm from '../popup/login/LoginForm';
 import TopButton from 'component/ui/TopButton';
+import useUserDecoded from 'hooks/useUserDecoded';
 
 // Nav 선택
 const Link = ({ children, className, to, ...prop }) => {
@@ -48,9 +49,9 @@ export default function RootNav({ ChangePageHandler }) {
     const [active, setActive] = useState(pathname);
     const logout = useLogout();
 
-    const navigate = useNavigate();
+    useUserDecoded(); //사용자정보
 
-    const location = useLocation();
+    const navigate = useNavigate();
 
     //Dark Mode
     const ctx = useContext(DarkMode);

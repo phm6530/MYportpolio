@@ -1,11 +1,18 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 
+const initalUserData = { id: null, name: null, access: null };
+
 // 로그인 상태 Slice 생성
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
         login: Boolean(localStorage.getItem('token')),
         loading: null,
+        user: {
+            id: null,
+            name: null,
+            access: null,
+        },
     },
     reducers: {
         login(state) {
@@ -13,12 +20,18 @@ const authSlice = createSlice({
         },
         logOut(state) {
             state.login = false;
+            state.user = initalUserData;
         },
         loading(state) {
             state.loading = true;
         },
         complete(state) {
             state.loading = false;
+        },
+        userData(state, action) {
+            state.user.id = action.payload.id;
+            state.user.access = action.payload.role;
+            state.user.name = action.payload.name;
         },
     },
 });

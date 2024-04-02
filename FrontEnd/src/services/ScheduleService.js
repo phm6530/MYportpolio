@@ -33,25 +33,20 @@ const scheduleWeekorDay = async (Year, Month) => {
 
 // 스케줄 추가
 const fetchAddSchedule = async formData => {
-    console.log('formData-- Dday ', formData);
-    try {
-        const response = await fetch('http://localhost:8080/schedule/add', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        });
-        if (!response.ok) {
-            const errorResponse = await response.json();
-            throw new Error(errorResponse.message);
-        }
-        const result = await response.json();
-        console.log(result);
-        return result;
-    } catch (error) {
-        console.log(error);
+    const response = await fetch('http://localhost:8080/schedule/add', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+    });
+    if (!response.ok) {
+        const errorResponse = await response.json();
+        throw new Error(errorResponse.message);
     }
+    const result = await response.json();
+    console.log(result);
+    return result;
 };
 
 // 스케줄 수정

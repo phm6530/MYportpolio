@@ -131,7 +131,7 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
                                 setTextArerHeight(
                                     e.target.value.split(/\r\n|\r|\n/).length,
                                 );
-                                console.log(e.target.value.length);
+                                // console.log(e.target.value.length);
                             }}
                         />
                         <Category>{ScheduleItem.category}</Category>

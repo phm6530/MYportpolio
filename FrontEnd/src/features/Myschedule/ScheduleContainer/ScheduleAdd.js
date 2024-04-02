@@ -74,7 +74,7 @@ const ScheduleAdd = ({ selectDay }) => {
     // }, [mutation.isError, mutation.isSuccess, mutation.data]);
 
     const AddScheduleHandler = async formData => {
-        const rquestData = {
+        const requestData = {
             schedule_date: selectDay,
             work: formData.Schedule_title,
             important: formData.Schedule_important,
@@ -82,8 +82,10 @@ const ScheduleAdd = ({ selectDay }) => {
             schedule_key: uuidv4(),
         };
 
+        console.log(requestData);
+
         if (!clientAuthCheck('입력')) return;
-        mutation.mutate(rquestData);
+        mutation.mutate(requestData);
     };
 
     // console.log(errors);

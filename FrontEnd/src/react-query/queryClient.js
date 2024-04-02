@@ -22,10 +22,11 @@ const showErrorToast = error => {
 export const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            refetchOnWindowFocus: false,
             onError: error => {
                 console.log(error);
+                showErrorToast(error.message);
             },
+            refetchOnWindowFocus: false,
         },
         mutations: {
             onError: error => {

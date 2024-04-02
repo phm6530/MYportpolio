@@ -1,6 +1,27 @@
 import { json } from 'react-router-dom';
 import store, { authAction } from '../store/appSlice';
 
+// 로그인
+const fetchLogin = async formData => {
+    const response = await fetch('http://localhost:8080/login', {
+        method: 'POST',
+        headers: {
+            'ConTent-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+    });
+    const resultData = await response.json();
+
+    if (!response.ok) {
+        throw new Error(resultData.message);
+    }
+
+    if (!resultData.Auth || resultData.token === undefined) {
+        throw new Error(resultData.message || '서버 오류');
+    }
+    return resultData;
+};
+
 //로그아웃
 const fetchLogout = async token => {
     try {
@@ -48,4 +69,4 @@ const tokenCheck = async () => {
     }
 };
 
-export { tokenCheck, fetchLogout };
+export { tokenCheck, fetchLogout, fetchLogin };

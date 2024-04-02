@@ -8,8 +8,6 @@ const useCategoryFilter = ({ listData, selectDay: day = null }) => {
         return new Date();
     }, []);
 
-    console.log(day);
-
     const Day = useMemo(() => {
         return day ? new Date(day) : null;
     }, [day]);
@@ -40,8 +38,6 @@ const useCategoryFilter = ({ listData, selectDay: day = null }) => {
             const dayCalculator = subDays(today, idx);
             return format(dayCalculator, 'yyyy-MM-dd');
         });
-
-        console.log(weekDayArr);
 
         let weekObj = weekDayArr.reduce((acc, cur) => {
             if (listData[cur]) {

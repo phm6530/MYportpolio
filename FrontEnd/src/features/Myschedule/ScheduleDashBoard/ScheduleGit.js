@@ -53,31 +53,29 @@ const CustumFlexColumnDiv = styled(FlexColumnDiv)`
 const ScheduleGit = () => {
     const [commitCount, setCommitCount] = useState([]);
 
-    console.log('commitCount :: ', commitCount);
-
     const { data } = useQuery({
         queryKey: ['git'],
         queryFn: fetchGit,
     });
 
     const getUtcKrDate = () => {
-        const krDate = new Date('2024-04-01T00:00:00');
-        const utcDate = format(krDate, 'yyyy-MM-dd HH:mm:ss');
+        const month = String(new Date().getMonth() + 1).padStart(2, '0');
+        const year = new Date().getFullYear();
+        const day = String(new Date().getDate()).padStart(2, '0');
+
+        const krDate = new Date(`${year}-${month}-${day}T00:00:00+09:00`);
+        const utcDate = krDate.toISOString();
+
         return utcDate;
     };
 
     useEffect(() => {
         const utcKrDate = getUtcKrDate();
-
         const todayGitFilter = data => {
             const todayGit = data
                 .filter(e => {
                     // console.log(e.commit.committer.date, e.commit.message);
-                    const commitTime = format(
-                        e.commit.committer.date,
-                        'yyyy-MM-dd HH:mm:ss',
-                    );
-                    return commitTime > utcKrDate;
+                    return e.commit.committer.date > utcKrDate;
                 })
                 .map(e => {
                     return {
@@ -90,6 +88,7 @@ const ScheduleGit = () => {
 
         if (data) {
             const todayGitData = todayGitFilter(data);
+            // console.log(todayGitData);
             setCommitCount(todayGitData);
         }
     }, [data]);
@@ -107,7 +106,7 @@ const ScheduleGit = () => {
             {commitCount.map((e, idx) => (
                 <div className="git_contents" key={idx}>
                     <div className="gitDate">{format(e.date, 'MM. dd')}</div>
-                    {e.message.slice(8)}
+                    {e.message}
                 </div>
             ))}
         </CustumFlexColumnDiv>
