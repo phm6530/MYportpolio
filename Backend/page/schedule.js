@@ -59,8 +59,8 @@ const ScheduleRouter = (wss) => {
         value(?,?,?,?,?)`;
 
             const [response] = await conn.query(sql, [schedule_date, work, category, schedule_key, important]);
-            console.log(response);
-            console.log('response ::::::: ', response);
+            // console.log(response);
+            // console.log('response ::::::: ', response);
             conn.release();
             res.json({ message: 'success', databaseInsert: response.affectedRows });
         } catch (error) {
@@ -129,6 +129,7 @@ const ScheduleRouter = (wss) => {
             const conn = await db.getConnection();
             const sql = `select * from tasktimer where playing = 1;`;
             const [rows] = await conn.query(sql);
+            // console.log(rows);
             conn.release();
             let newObj = null;
             if (!!rows[0]) {
@@ -192,35 +193,32 @@ const ScheduleRouter = (wss) => {
     //
     const timerRestart = async (ws) => {
         // 데이터베이스 연결 가져오기 (트랜잭션 시작 전)
-        const connection = await db.getConnection();
+        const conn = await db.getConnection();
 
         try {
-            await connection.beginTransaction(); // 트랜잭션 시작
+            await conn.beginTransaction(); // 트랜잭션 시작
 
             const selectSql = `SELECT * FROM tasktimer WHERE playing = 1`;
-            const [playTimer] = await connection.query(selectSql);
+            const [playTimer] = await conn.query(selectSql);
 
-            if (!!playTimer) {
-                const { id, category, user_id } = playTimer;
-
+            if (!!playTimer[0]) {
+                const { id, category, user_id } = playTimer[0];
+                console.log(id);
+                // console.log('연결');
                 const updateSql = `UPDATE tasktimer SET playing = 0, end_time = '23:59:59' WHERE id = ?`;
-                const [updateResponse] = await connection.query(updateSql, [id]);
-
+                const [updateResponse] = await conn.query(updateSql, [id]);
                 if (updateResponse.affectedRows === 1) {
-                    console.log('업데이트 하였습니다.');
-
                     const insertSql = `
                         INSERT INTO tasktimer(category, start_time, user_id, date, playing)
                         VALUES (?, '00:00:00', ?, CURDATE(), 1);
                     `;
-                    const insertResponse = await connection.query(insertSql, [category, user_id]);
+                    const insertResponse = await conn.query(insertSql, [category, user_id]);
 
                     if (insertResponse.affectedRows === 0) {
                         throw new Error('업데이트가 처리되지 않았습니다.');
                     }
                 }
-
-                await connection.commit(); // 트랜잭션 커밋
+                await conn.commit(); // 트랜잭션 커밋
                 wss.clients.forEach((client) => {
                     client.send('타이머 갱신 완료');
                 });
@@ -228,15 +226,15 @@ const ScheduleRouter = (wss) => {
                 ws.send(JSON.stringify({ status: 'success', message: '갱신할 타이머가 없습니다.' }));
             }
         } catch (error) {
-            await connection.rollback(); // 에러 발생 시 롤백
+            await conn.rollback(); // 에러 발생 시 롤백
             ws.send(JSON.stringify({ status: 'error', message: error.message }));
         } finally {
-            connection.release(); // 연결 해제
+            conn.release(); // 연결 해제
         }
     };
-    // WebSocket 서버에서 각 연결에 대해
-    wss.on('connection', function connection(ws) {
-        schedule.scheduleJob('*/10 * * * * *', () => {
+
+    wss.on('connection', (ws) => {
+        schedule.scheduleJob('0 0 * * *', () => {
             timerRestart(ws); // 여기서 ws를 전달
         });
     });
