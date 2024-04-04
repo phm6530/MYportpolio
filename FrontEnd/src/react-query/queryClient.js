@@ -37,8 +37,8 @@ export const queryClient = new QueryClient({
     },
     queryCache: new QueryCache({
         onError: error => {
-            console.log('에러가떠야함');
-            console.log(error.message);
+            console.log(error);
+            showErrorToast(error.message);
         },
     }),
 });

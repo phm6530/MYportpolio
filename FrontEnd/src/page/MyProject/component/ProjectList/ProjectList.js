@@ -10,6 +10,7 @@ import ProjectAddBtn from 'features/project/component/Detail/ProjectAddBtn';
 import CateGoryButton from 'component/ui/CateGoryButton';
 import ProjectSeach from 'features/project/component/Detail/ProjectSeach';
 import { ReactQuery, ReactRouteDom } from 'lib/lib';
+import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
 
 const { useLocation, useSearchParams } = ReactRouteDom;
 const { useQuery } = ReactQuery;
@@ -98,7 +99,7 @@ export default function ProjectList() {
                     <CateGoryButton CateGory={CateGory} type={'queryString'} />
                     <ProjectSeach />
                 </FlexRow>
-                {isLoading && <NoSeachingData>Loading...</NoSeachingData>}
+                {isLoading && <SpinnerLoading />}
                 {SeachValue && SeachArr.length === 0 && (
                     <NoSeachingData>
                         &quot;{SeachValue}&quot; 키워드와 일치하는 항목이 없음

@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 
-export function Page({ children }) {
+export function Page({ className, children }) {
     return (
         <motion.div
+            className={className}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, filter: 'blur(10px)' }}

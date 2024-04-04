@@ -4,8 +4,15 @@ import { format } from 'date-fns';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import ScheduleDdayList from 'features/Myschedule/ScheduleDday';
 import TaskNav from 'features/Myschedule/TaskNav';
+import Motion from 'component/animations/Motion';
+import { AnimatePresence } from 'framer-motion';
+import styled from 'styled-components';
 
 // import Calendar from 'features/Myschedule/Calendar';
+
+const MotionPageCustum = styled(Motion.Page)`
+    flex-grow: 1;
+`;
 
 const TaskPage = props => {
     const {
@@ -82,20 +89,23 @@ const TaskPage = props => {
                 paramMonth={paramMonth}
             /> */}
             </div>
+            <AnimatePresence mode="wait">
+                <MotionPageCustum key={selectDay}>
+                    <div className="flex-column-wrap flex-grow">
+                        <TaskNav
+                            selectDay={selectDay}
+                            listData={listData}
+                            setSelectDay={setSelectDay}
+                        />
 
-            <div className="flex-column-wrap flex-grow">
-                <TaskNav
-                    selectDay={selectDay}
-                    listData={listData}
-                    setSelectDay={setSelectDay}
-                />
-
-                <ScheduleContainer
-                    selectDay={selectDay}
-                    listData={listData}
-                    setSelectDay={setSelectDay}
-                />
-            </div>
+                        <ScheduleContainer
+                            selectDay={selectDay}
+                            listData={listData}
+                            setSelectDay={setSelectDay}
+                        />
+                    </div>
+                </MotionPageCustum>
+            </AnimatePresence>
         </div>
     );
 };

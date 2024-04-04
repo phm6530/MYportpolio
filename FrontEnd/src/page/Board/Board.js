@@ -13,7 +13,7 @@ import UserProfile from 'component/profile/UserProfile';
 import BoardCommentList from './component/BoardCommentList/BoardCommentList';
 
 import { fetchData } from './BoardFetch';
-import { InfinityLoading } from 'component/ui/loading/InfinityLoading';
+import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
 
 const { useQuery } = ReactQuery;
 
@@ -140,7 +140,7 @@ export default function Board() {
                             setLastPageIdx={setLastPageIdx}
                         />
                     )}
-                    {isLoading && <InfinityLoading />}
+                    {isLoading && <SpinnerLoading />}
                 </RightWrap>
             </BoardGrid>
         </>

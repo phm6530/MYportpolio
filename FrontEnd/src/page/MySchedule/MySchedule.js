@@ -3,8 +3,6 @@ import DashBoard from '../../component/ui/DashBoard';
 import BannerCommon from 'component/ui/BannerCommon';
 import DashBoardTitle from 'component/ui/DashBoardTitle';
 
-import alertThunk from 'store/alertTrunk';
-
 import { ReactQuery, ReactRedux, ReactRouteDom } from 'lib/lib';
 import { useEffect, useState } from 'react';
 
@@ -18,12 +16,13 @@ import { ScheduleGrid } from './MyScheduleStyle';
 
 //그래프
 // import ReactChat from 'react-apexcharts';
-import UserProfile from 'component/profile/UserProfile';
+// import UserProfile from 'component/profile/UserProfile';
 import { FlexColumnDiv } from 'features/CommonStyles';
 import ScheduleHeader from 'features/Myschedule/Layout/ScheduleHeader';
 import ScheduleRoute from 'Route/ScheduleRoute';
 import styled from 'styled-components';
 import { keepPreviousData, useQueryClient } from '@tanstack/react-query';
+import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
 
 // lib
 const { useQuery } = ReactQuery;
@@ -56,7 +55,7 @@ export default function MySchedule() {
 
     const queryClient = useQueryClient();
 
-    const { isSuccess, isError, error, data, dataUpdatedAt } = useQuery({
+    const { isSuccess, isError, error, data, isLoading } = useQuery({
         queryKey: ['Schedule', +getMonth],
         queryFn: () => scheduleFetch(+getYear, +getMonth),
         staleTime: 10000,
@@ -65,8 +64,8 @@ export default function MySchedule() {
     });
 
     useEffect(() => {
-        const ttt = queryClient.getQueryData(['Schedule', +getMonth]);
-    }, [isSuccess, getMonth]);
+        queryClient.getQueryData(['Schedule', +getMonth]);
+    }, [isSuccess, getMonth, queryClient]);
 
     useEffect(() => {
         queryClient
@@ -75,10 +74,7 @@ export default function MySchedule() {
                 queryFn: () => scheduleFetch(getYear, +getMonth + 1),
             })
             .then(() => {
-                const test = queryClient.getQueryData([
-                    'Schedule',
-                    +getMonth + 1,
-                ]);
+                queryClient.getQueryData(['Schedule', +getMonth + 1]);
                 // console.log('test ::: ', test);
             });
     }, [getYear, getMonth, queryClient]);
@@ -87,8 +83,6 @@ export default function MySchedule() {
         if (isSuccess) {
             setListData(data.restResponseData);
             setDdayArr(data.D_Day);
-        } else if (isError) {
-            dispatch(alertThunk(error.message, 0));
         }
     }, [isSuccess, isError, data, error, dispatch]);
 
@@ -121,6 +115,7 @@ export default function MySchedule() {
                         paramMonth={getMonth}
                         DdayArr={DdayArr}
                     />
+                    {isLoading && <SpinnerLoading />}
                 </CustumlexColumnDiv>
             </ScheduleGrid>
         </>

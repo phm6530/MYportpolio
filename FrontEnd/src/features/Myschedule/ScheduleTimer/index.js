@@ -112,12 +112,13 @@ const ScheduleTimer = () => {
     const [timerData, setTimerData] = useState(null);
     const { user } = useSelector(state => state.authSlice);
     const { clientAuthCheck } = useAuthCheck();
+    const [touched, setTouched] = useState();
     const {
         data: websoketData,
         status,
         sendMessage,
     } = useWebSocket('ws://localhost:8080');
-    console.log(websoketData);
+    // console.log(websoketData);
 
     const [running, setRunning] = useState(false);
 
@@ -126,7 +127,7 @@ const ScheduleTimer = () => {
     };
 
     const queryClient = useQueryClient();
-    const { data } = useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: ['ScheduleTimer'],
         queryFn: fetchTimerSetting,
         refetchOnWindowFocus: false,
@@ -137,6 +138,8 @@ const ScheduleTimer = () => {
         getValues,
         formState: { errors },
         reset,
+        trigger,
+        watch,
     } = useForm({
         defaultValues: {
             category: null,
@@ -150,6 +153,7 @@ const ScheduleTimer = () => {
             queryClient.invalidateQueries({
                 queryKey: ['ScheduleTimer'],
             });
+            setTouched(false);
             reset();
         },
     });
@@ -164,6 +168,14 @@ const ScheduleTimer = () => {
         },
     });
 
+    const watchd = watch('category');
+
+    useEffect(() => {
+        if (touched) {
+            trigger('category');
+        }
+    }, [watchd, touched, trigger]);
+
     useEffect(() => {
         if (data?.timerData) {
             setTimerData(data.timerData);
@@ -173,6 +185,8 @@ const ScheduleTimer = () => {
 
     // Start Timer
     const startTimer = () => {
+        setTouched(true);
+        trigger('category');
         const category = getValues('category');
         console.log(category);
         if (!category) return;
@@ -191,6 +205,7 @@ const ScheduleTimer = () => {
     // End Timer
     const endTimer = () => {
         if (!clientAuthCheck('타이머')) return;
+
         setRunning(false);
         const nowTime = nowTIme();
         const fetchData = {
@@ -200,6 +215,10 @@ const ScheduleTimer = () => {
         endMutate(fetchData);
     };
 
+    if (isLoading) {
+        return <>loading....</>;
+    }
+
     return (
         <>
             <StopWatchStyle>
@@ -207,16 +226,17 @@ const ScheduleTimer = () => {
                     <TfiTimer />
                 </div>
                 <div className="stateMessage">
-                    {data?.timerData && (
+                    {data?.timerData ? (
                         <span>지금 저는{timerData?.category} 중 입니다..</span>
+                    ) : (
+                        <HookformRadio
+                            Radio={SCHEDULE_CATEGORY}
+                            control={control}
+                            errors={errors}
+                            keyName={'category'}
+                        />
                     )}
                 </div>
-                <HookformRadio
-                    Radio={SCHEDULE_CATEGORY}
-                    control={control}
-                    errors={errors}
-                    keyName={'category'}
-                />
 
                 {data?.timerData ? (
                     <StopWatch

@@ -1,9 +1,10 @@
 import { Spinner, Text } from '@chakra-ui/react';
 import styled from 'styled-components';
 
-const InfinityStyle = styled.div`
+const SpinnerStyle = styled.div`
     display: flex;
     align-items: center;
+    width: 100%;
     justify-content: center;
     p {
         margin-left: 1rem;
@@ -12,9 +13,9 @@ const InfinityStyle = styled.div`
     }
 `;
 
-const InfinityLoading = () => {
+const SpinnerLoading = () => {
     return (
-        <InfinityStyle>
+        <SpinnerStyle>
             <Spinner
                 thickness="4px"
                 speed="0.65s"
@@ -25,8 +26,8 @@ const InfinityLoading = () => {
                 display={true}
             ></Spinner>
             <Text display={true}>Loading...</Text>
-        </InfinityStyle>
+        </SpinnerStyle>
     );
 };
 
-export { InfinityLoading };
+export { SpinnerLoading };

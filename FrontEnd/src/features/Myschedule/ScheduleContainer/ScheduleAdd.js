@@ -39,7 +39,6 @@ const ScheduleAdd = ({ selectDay }) => {
         handleSubmit,
         reset,
         control,
-        watch,
         formState: { errors },
     } = useForm({
         defaultValues: {
@@ -62,9 +61,6 @@ const ScheduleAdd = ({ selectDay }) => {
             reset();
         },
     });
-
-    const data = watch();
-    console.log('data', data);
 
     // console.log(mutation.data);
 

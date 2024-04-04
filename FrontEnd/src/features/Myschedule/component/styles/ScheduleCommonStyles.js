@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-const HourStyle = styled.p`
+const HourStyle = styled.span`
     font-size: 20px;
     font-weight: bold;
     letter-spacing: -0.01em;
     color: #404d58;
-    margin-bottom: 1.8rem;
+    /* margin-bottom: 1.8rem; */
     position: relative;
     /* margin-left: 0.7rem; */
     &::after {

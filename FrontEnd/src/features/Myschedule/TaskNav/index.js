@@ -64,6 +64,7 @@ const TaskNav = ({ listData = {}, selectDay, setSelectDay }) => {
                 </div>
 
                 {/* 카테고리 */}
+
                 <CategoryGraph
                     selectDay={selectDay}
                     viewRage={viewRage}
