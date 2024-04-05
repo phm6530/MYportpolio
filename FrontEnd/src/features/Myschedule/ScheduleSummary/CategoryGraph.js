@@ -3,8 +3,9 @@ import { FlexColumnDiv } from 'features/CommonStyles';
 import styled from 'styled-components';
 
 const CustumFlexColumnDiv = styled(FlexColumnDiv)`
-    margin-left: 2rem;
+    margin-left: 4rem;
 
+    /* flex-grow: initial; */
     .CategoryWrapTitle {
         font-size: 14px;
         line-height: 17px;

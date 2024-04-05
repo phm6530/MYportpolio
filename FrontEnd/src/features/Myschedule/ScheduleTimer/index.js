@@ -28,6 +28,7 @@ const StopWatchStyle = styled.div`
     box-shadow: 7px 8px 25.6px rgba(199, 198, 217, 0.45);
 
     max-width: 330px;
+    min-height: 400px;
     width: 100%;
 
     box-sizing: border-box;

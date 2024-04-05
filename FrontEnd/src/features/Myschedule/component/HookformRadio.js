@@ -5,13 +5,22 @@ import { Controller } from 'react-hook-form';
 const RadioWrap = styled.div`
     position: relative;
     display: flex;
+    margin-right: auto;
 
     label {
         font-size: 14px;
-        margin-right: 0.8rem;
+        margin-right: 1.4rem;
         display: flex;
+        cursor: pointer;
+        &:hover {
+            text-shadow: 0 0 0;
+        }
         input {
             margin-right: 5px;
+
+            &:checked {
+                color: red;
+            }
         }
     }
 `;

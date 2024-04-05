@@ -8,6 +8,7 @@ import { FlexRow } from 'component/CommonStyle';
 import { TbDeviceImacSearch } from 'react-icons/tb';
 import { IoFitnessOutline } from 'react-icons/io5';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
+import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
 // const getBackgroundColor = percent => {
 //     if (percent < 30) return 'red';
 //     else if (percent >= 30 && percent < 60) return 'orange';
@@ -31,14 +32,14 @@ const PrograssbarStyle = styled.div`
         z-index: 1;
         background: red;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-        background: linear-gradient(90deg, #a9bcff 0%, #ce94e5 100%);
+        background: linear-gradient(90deg, #b7a9ff 0%, #e594c7 100%);
         border-radius: 10px;
     }
 `;
 
 const Percent = styled.div`
     position: absolute;
-    right: -15px;
+    right: -20px;
     bottom: calc(100% + 10px);
     /* Rectangle 459 */
 
@@ -71,16 +72,14 @@ const Percent = styled.div`
 `;
 
 const CompleteStyle = styled.div`
-    background: #f67b7b;
-    border-radius: 8px;
+    color: #4dacd2;
+    font-size: 20px;
     display: inline-block;
     padding: 0 0.4rem;
     margin: 0;
     border-radius: 1rem;
-    margin-left: 16px;
     margin-right: auto;
-    font-size: 10px;
-    color: #ffffff;
+
     opacity: 0;
     transition: opacity 0.5s ease;
     ${props => {
@@ -91,9 +90,9 @@ const CompleteStyle = styled.div`
 const CategoryIconStyle = styled.div`
     width: 50px;
     height: 50px;
-
+    border-radius: 100%;
+    border: 5px solid rgba(0, 0, 0, 0.05);
     margin-right: 1rem;
-    border-radius: 10px;
 
     display: flex;
     align-items: center;
@@ -169,7 +168,7 @@ export default function PrograssBar({ tasks }) {
                 <SubTitleTextStyle>
                     <span className="categoryTitle">{tasks[0].category}</span>
                     <CompleteStyle $active={percent === 100}>
-                        complete
+                        <IoIosCheckmarkCircleOutline />
                     </CompleteStyle>
                 </SubTitleTextStyle>
 

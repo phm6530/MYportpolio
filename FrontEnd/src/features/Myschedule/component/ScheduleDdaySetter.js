@@ -11,6 +11,7 @@ import alertThunk from 'store/alertTrunk';
 import { useDispatch } from 'react-redux';
 import { useAuthCheck } from 'hooks/useAuthCheck';
 import { useEffect, useRef } from 'react';
+import SubTitle from 'component/ui/Subtitle';
 
 const { useForm, FormProvider } = ReactHookForm;
 const { useMutation, useQueryClient } = ReactQuery;
@@ -19,6 +20,13 @@ const DdaySetterStyle = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 300px;
+    margin: 0 auto;
+`;
+
+const DdayInputStyle = styled(InputStyle)`
+    width: 100%;
+    margin-bottom: 1rem;
 `;
 
 const ScheduleDdaySetter = () => {
@@ -80,7 +88,8 @@ const ScheduleDdaySetter = () => {
             <DdaySetterStyle>
                 <FormProvider {...formMethods} errors={errors}>
                     <DdayHandler ref={childRef} />
-                    <InputStyle
+
+                    <DdayInputStyle
                         $error={errors.work}
                         placeholder="일정을 기재해주세요"
                         type="text"

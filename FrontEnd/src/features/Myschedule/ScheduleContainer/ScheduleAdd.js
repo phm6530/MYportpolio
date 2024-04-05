@@ -31,11 +31,12 @@ const AddScheduleFormStyle = styled.form`
 `;
 const TextAreaWrap = styled.div`
     width: 100%;
+    position: relative;
 `;
 
 const RadioCheckboxWrapper = styled.div`
     display: flex;
-    width: 100%;
+    margin-right: auto;
     align-items: center;
     margin-top: 1rem;
     margin-bottom: 0.5rem;

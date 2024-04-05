@@ -27,7 +27,7 @@ const DayStyle = styled.span`
 const SubTitle = styled.div`
     font-size: 1.2rem;
     font-weight: bold;
-    margin-top: 2rem;
+    margin-top: 4rem;
     margin-bottom: 1rem;
 `;
 

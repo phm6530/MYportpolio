@@ -28,7 +28,7 @@ const SubTitleTextStyle = styled.span`
     letter-spacing: -0.05em;
     font-weight: 500;
     display: flex;
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.5rem;
     align-items: center;
     color: #8d93ac;
     width: 100%;
@@ -48,11 +48,29 @@ const FlexColumnBetween = styled.div`
     width: 100%;
 `;
 
+const SubDescription = styled.div`
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+`;
+
+const SubTitle = styled.div`
+    font-size: 31px;
+    line-height: 38px;
+    letter-spacing: -1px;
+    /* margin-bottom: 1rem; */
+    font-family: 'Poppins';
+    color: #3c485f;
+    font-weight: bold;
+`;
+
 export {
     FlexColumnBetween,
     SubTitleTextStyle,
+    SubTitle,
     FlexRowDiv,
     FlexColumnDiv,
     FlexWrapDiv,
     MarginBottom1rem,
+    SubDescription,
 };

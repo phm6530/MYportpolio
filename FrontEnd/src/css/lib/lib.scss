@@ -4,7 +4,7 @@
     height: 150px;
     border-radius: 100%;
     --p: 0;
-    background: conic-gradient(#6284ff, #d35fd6 var(--p, 0), 0, #f1f1f1);
+    background: conic-gradient(#ae8aed, #c57e90 var(--p, 0), 0, #f7f7f7);
     position: relative;
     display: flex;
     flex-direction: column;
@@ -12,12 +12,13 @@
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        width: 70%;
-        height: 70%;
+        width: 80%;
+        height: 80%;
         background: #fff;
         position: absolute;
         content: '';
         border-radius: 100%;
+        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
     }
 }
 
@@ -151,46 +152,4 @@
 
 .margin-bottom-2rem {
     margin-bottom: 2rem;
-}
-
-// DayPicker
-.bookedDay {
-    position: relative;
-    &::after {
-        position: absolute;
-        content: '';
-        background: #ffa5ca;
-        width: 3px;
-        border-radius: 100%;
-        height: 3px;
-        bottom: 3px;
-    }
-}
-.rdp-cell {
-    padding-bottom: 0.5rem !important;
-}
-
-.rdp-caption {
-    margin-bottom: 1.5rem !important;
-}
-
-.rdp-caption_label,
-.rdp-weeknumber,
-.rdp-day {
-    color: #b1b7c4 !important;
-}
-.rdp-head_cell {
-    color: #ffffffe6 !important;
-    font-weight: normal !important;
-}
-
-.rdp-day_selected {
-    color: #fff !important;
-}
-.rdp-nav_button {
-    background: rgba(255, 255, 255, 0.05) !important;
-    margin: 0 4px !important;
-    .rdp-nav_icon {
-        color: #fff !important;
-    }
 }

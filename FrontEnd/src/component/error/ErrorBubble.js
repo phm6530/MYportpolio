@@ -16,13 +16,14 @@ const ErrorStyle = styled.div`
     border-radius: 10px;
     position: absolute;
     display: inline-block;
-    top: -7px;
-    right: 0;
+    bottom: 100%;
+    right: -50px;
     font-size: 12px;
     font-weight: bold;
     box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.2);
     opacity: 0;
     border: 1px solid #ff1818;
+    animation: cEtoHV 0.2s ease forwards;
     animation: ${errorAnimation} 0.2s ease forwards;
     &:after {
         content: '';

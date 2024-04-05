@@ -9,6 +9,7 @@ import Popup from 'component/popup/Popup';
 import ScheduleDdaySetter from '../component/ScheduleDdaySetter';
 import { format } from 'date-fns';
 import TotalGraph from '../component/TotalGraph';
+import { SubDescription, SubTitle } from 'features/CommonStyles';
 
 const ButtonNavWrap = styled.div`
     border-radius: 1em;
@@ -30,23 +31,6 @@ const CategoryGraphStyle = styled(CategoryGraph)`
 
 const SelelctDayDescript = styled.div`
     /* width: 40%; */
-    border-bottom: 1px solid #7d879c4a;
-`;
-
-const Day = styled.div`
-    font-size: 31px;
-    line-height: 38px;
-    letter-spacing: -1px;
-    /* margin-bottom: 1rem; */
-    font-family: 'Poppins';
-    color: #3c485f;
-    span {
-        letter-spacing: -1px;
-        display: inline-block;
-        font-size: 1.1rem;
-        opacity: 0.5;
-        font-weight: normal;
-    }
 `;
 
 const FontWrapper = styled.div`
@@ -59,17 +43,14 @@ const FontWrapper = styled.div`
 
 const Wrapper = styled.div`
     display: flex;
-    /* border: 1px solid #7cb7e130; */
     background: #fff;
-
-    padding: 2rem;
-    border-bottom: 1px solid #7d879c4a;
-`;
-
-const SubDescription = styled.div`
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-    opacity: 0.7;
+    padding: 2rem 3rem;
+    border: 1px solid #7d879c4a;
+    min-height: 250px;
+    border-radius: 1rem;
+    align-items: center;
+    justify-content: center;
+    justify-content: flex-start;
 `;
 
 const TaskNav = ({ listData = {}, selectDay, setSelectDay }) => {
@@ -77,6 +58,9 @@ const TaskNav = ({ listData = {}, selectDay, setSelectDay }) => {
         listData,
         selectDay,
     });
+
+    console.log(cateGorys);
+
     const [dDayForm, setDdayForm] = useState(false);
     const [, setSeachParam] = useSearchParams();
 
@@ -112,7 +96,7 @@ const TaskNav = ({ listData = {}, selectDay, setSelectDay }) => {
 
             <SelelctDayDescript>
                 <FontWrapper>
-                    <Day>MY TASK</Day>
+                    <SubTitle>MY TASK</SubTitle>
 
                     <ButtonNavWrap>
                         <Button.ForsquareBtn onClick={() => todayButton()}>
@@ -129,19 +113,26 @@ const TaskNav = ({ listData = {}, selectDay, setSelectDay }) => {
             </SelelctDayDescript>
 
             {/* 카테고리 */}
-            <Wrapper>
-                <TotalGraph
-                    selectDateRange={[selectDay]}
-                    viewRage={viewRage}
-                    arrState={categoryFilter}
-                />
 
-                <CategoryGraphStyle
-                    selectDay={selectDay}
-                    viewRage={viewRage}
-                    categorys={cateGorys}
-                    arrState={categoryFilter}
-                />
+            <Wrapper>
+                {cateGorys.length !== 0 ? (
+                    <>
+                        <TotalGraph
+                            selectDateRange={[selectDay]}
+                            viewRage={viewRage}
+                            arrState={categoryFilter}
+                        />
+
+                        <CategoryGraphStyle
+                            selectDay={selectDay}
+                            viewRage={viewRage}
+                            categorys={cateGorys}
+                            arrState={categoryFilter}
+                        />
+                    </>
+                ) : (
+                    '일정이 없습니다..'
+                )}
             </Wrapper>
         </>
     );

@@ -19,14 +19,14 @@ const LeftWrap = styled.div`
 `;
 
 const RightWrap = styled.div`
-    width: 65%;
+    width: 60%;
 
     border-radius: 37px;
 `;
 const SubTitle = styled.div`
     font-size: 1.2rem;
     font-weight: bold;
-    margin-top: 3rem;
+    margin-top: 4rem;
     margin-bottom: 1rem;
 `;
 
@@ -102,7 +102,7 @@ const TaskPage = props => {
             {/* <ScheduleDdayList DdayArr={DdayArr} /> */}
             <LeftWrap>
                 <DayPickerStyle
-                    className="vv"
+                    className="custumDaypicker"
                     mode="single"
                     selected={new Date(selectDay)}
                     onSelect={e => test(e)}

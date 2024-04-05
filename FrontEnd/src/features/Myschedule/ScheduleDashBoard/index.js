@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import ScheduleMainFoucs from './ScheduleMainFoucs';
 
-import { FlexWrapDiv } from 'features/CommonStyles';
+import { FlexWrapDiv, SubDescription } from 'features/CommonStyles';
 import ScheduleTimer from '../ScheduleTimer';
 import { useQuery } from '@tanstack/react-query';
 import { fetchTimerSetting } from 'services/tastTimerService';
@@ -10,6 +10,7 @@ import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
 import { useState } from 'react';
 import { format } from 'date-fns';
 import { FlexRow } from 'component/CommonStyle';
+import { SubTitle } from 'features/CommonStyles';
 
 const DashBoardStyle = styled.div`
     display: flex;
@@ -22,18 +23,14 @@ const DashBoardStyle = styled.div`
     align-items: flex-start;
 `;
 
-const TimerTitle = styled.div`
-    font-weight: 600;
-    font-size: 30px;
-    line-height: 36px;
-    color: #6251c7;
-    letter-spacing: -0.3px;
-    margin-bottom: 2rem;
-`;
-
 const SelectBox = styled.select`
     border: 1px solid rgba(187, 187, 187, 0.13);
     border-radius: 23px;
+    margin-bottom: 1rem;
+`;
+
+const ButtonWrapper = styled.div`
+    display: flex;
     margin-bottom: 1rem;
 `;
 
@@ -72,14 +69,19 @@ const ScheduleDashBoard = () => {
             {/* <button onClick={() => setFilter(prev => !prev)}>!!!!!!</button> */}
 
             <DashBoardStyle>
-                <span>저의 시간을 기록합니다.</span>
-                <TimerTitle>
-                    My State <span>Timer</span>
-                </TimerTitle>
-                <SelectBox>
+                <SubTitle>
+                    MY STATE <span>TIMER</span>
+                </SubTitle>
+                <SubDescription>저의 시간을 기록합니다.</SubDescription>
+
+                <ButtonWrapper>
+                    <button className="btn-scheduleControl">ToDay</button>
+                    <button className="btn-scheduleControl">ToDay</button>
+                </ButtonWrapper>
+                {/* <SelectBox>
                     <option value="asdf">Today</option>
                     <option value="asdf">asdf</option>
-                </SelectBox>
+                </SelectBox> */}
                 <ScheduleMainFoucs
                     timerData={data?.timerData}
                     categoryDailyTotals={data?.categoryDailyTotals}

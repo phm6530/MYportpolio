@@ -9,7 +9,7 @@ const TimerStyle = styled.span`
     line-height: 40px;
     color: #ffffff;
     text-shadow: 3px 6px 9.4px rgba(0, 0, 0, 0.25);
-    margin-top: 0.5rem;
+    margin-top: 4.5rem;
     font-size: 45px;
     line-height: 52px;
     color: #ffffff;
