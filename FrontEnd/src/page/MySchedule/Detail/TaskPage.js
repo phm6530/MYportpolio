@@ -14,6 +14,39 @@ const MotionPageCustum = styled(Motion.Page)`
     flex-grow: 1;
 `;
 
+const LeftWrap = styled.div`
+    /* width: 30%; */
+`;
+
+const RightWrap = styled.div`
+    width: 65%;
+
+    border-radius: 37px;
+`;
+const SubTitle = styled.div`
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+`;
+
+const DayPickerStyle = styled(DayPicker)`
+    padding: 1rem;
+    margin-bottom: 2rem !important;
+    box-shadow: 7px 8px 42.7px rgba(199, 198, 217, 0.19);
+    border-radius: 2rem;
+    box-sizing: border-box;
+    background: url(/img/board/board.jpg);
+    background-size: cover;
+    border: 10px solid #0000007a;
+    box-shadow: 13px 28px 35.9px rgb(0 0 0 / 55%);
+`;
+
+const FlexRowWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+
 const TaskPage = props => {
     const {
         setSelectDay,
@@ -31,18 +64,17 @@ const TaskPage = props => {
 
     const bookedDayss = listData && Object.keys(listData).map(e => new Date(e));
     // console.log(bookedDayss);
-
-    const bookedDays = [new Date(2024, 3 - 1, 10), new Date(2024, 3 - 1, 19)];
+    // const bookedDays = [new Date(2024, 3 - 1, 10), new Date(2024, 3 - 1, 19)];
     // console.log(bookedDays);
 
     const [param] = useSearchParams();
     const getYear = param.get('year');
     const getMonth = param.get('month');
 
-    const bookedStyle = { border: '2px solid red' };
+    // const bookedStyle = { border: '2px solid red' };
     const modifiersStyles = {
-        selected: { backgroundColor: '#00f', color: '#fff' }, // 예시: 파란 배경에 흰 글씨
-        booked: bookedStyle, // bookedStyle은 사전에 정의된 스타일 객체이어야 함
+        selected: { backgroundColor: 'rgb(201 115 201)', color: '#fff' }, // 예시: 파란 배경에 흰 글씨
+        // booked: bookedStyle, // bookedStyle은 사전에 정의된 스타일 객체이어야 함
     };
 
     const test = date => {
@@ -66,21 +98,26 @@ const TaskPage = props => {
     };
 
     return (
-        <div className="flex-row-wrap">
+        <FlexRowWrapper>
             {/* <ScheduleDdayList DdayArr={DdayArr} /> */}
-            <div className="flex-column-wrap" style={{ width: '35%' }}>
-                <DayPicker
+            <LeftWrap>
+                <DayPickerStyle
                     className="vv"
                     mode="single"
                     selected={new Date(selectDay)}
                     onSelect={e => test(e)}
                     modifiers={{ booked: bookedDayss }}
                     modifiersStyles={modifiersStyles}
+                    modifiersClassNames={{ booked: 'bookedDay' }}
                     onMonthChange={e => handleMonthChange(e)}
                     month={getMonth ? monthCaculator() : selectDay}
                     // footer={footer}
                 />
-                <ScheduleDdayList DdayArr={DdayArr} />
+
+                <div className="wrapper">
+                    <SubTitle>D - Day</SubTitle>
+                    <ScheduleDdayList DdayArr={DdayArr} />
+                </div>
                 {/* <Calendar
                 setSelectDay={setSelectDay}
                 listData={listData}
@@ -88,25 +125,27 @@ const TaskPage = props => {
                 paramYear={paramYear}
                 paramMonth={paramMonth}
             /> */}
-            </div>
-            <AnimatePresence mode="wait">
-                <MotionPageCustum key={selectDay}>
-                    <div className="flex-column-wrap flex-grow">
-                        <TaskNav
-                            selectDay={selectDay}
-                            listData={listData}
-                            setSelectDay={setSelectDay}
-                        />
+            </LeftWrap>
+            <RightWrap>
+                <AnimatePresence mode="wait">
+                    <MotionPageCustum key={selectDay}>
+                        <div className="flex-column-wrap flex-grow">
+                            <TaskNav
+                                selectDay={selectDay}
+                                listData={listData}
+                                setSelectDay={setSelectDay}
+                            />
 
-                        <ScheduleContainer
-                            selectDay={selectDay}
-                            listData={listData}
-                            setSelectDay={setSelectDay}
-                        />
-                    </div>
-                </MotionPageCustum>
-            </AnimatePresence>
-        </div>
+                            <ScheduleContainer
+                                selectDay={selectDay}
+                                listData={listData}
+                                setSelectDay={setSelectDay}
+                            />
+                        </div>
+                    </MotionPageCustum>
+                </AnimatePresence>
+            </RightWrap>
+        </FlexRowWrapper>
     );
 };
 

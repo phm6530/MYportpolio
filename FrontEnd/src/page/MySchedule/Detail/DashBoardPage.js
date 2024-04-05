@@ -9,12 +9,15 @@ import ScheduleList from 'features/Myschedule/ScheduleContainer/ScheduleList';
 import CardSubtitle from 'features/Myschedule/component/CardSubtitle';
 
 const Wrap = styled.div`
-    margin-bottom: 5rem;
+    margin-bottom: 4rem;
 `;
 
 const LeftWrap = styled(Wrap)`
-    width: 60%;
-    /* margin-right: 5rem; */
+    width: 65%;
+    /* border: 1px solid #e9e9e9;
+    box-shadow: 7px 7px 12.9px rgba(0, 0, 0, 0.03);
+    border-radius: 37px;
+    padding: 2rem; */
 `;
 
 const RightWrap = styled(Wrap)`
@@ -76,7 +79,7 @@ const DashBoardPage = props => {
                     <CardSubtitle
                         title={'D - Day Schedule'}
                         redirectTo={'/myschedule/Task'}
-                        buttonText={'Task'}
+                        // buttonText={'Task'}
                     />
 
                     {/* Summary */}

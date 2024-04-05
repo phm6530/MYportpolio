@@ -67,7 +67,7 @@ const ProjectSummary = styled.div`
         font-size: 0.8rem;
         opacity: 0.6;
         color: rgba(107 114 128);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+        /* border-bottom: 1px solid rgba(0, 0, 0, 0.07); */
         padding-bottom: 2rem;
         margin-bottom: 2rem;
     }

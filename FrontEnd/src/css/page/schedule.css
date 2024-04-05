@@ -9,8 +9,6 @@
 .vv {
   box-sizing: border-box;
   background: #ffffff;
-  border: 1px solid rgba(224, 158, 225, 0.16);
-  box-shadow: 7px 8px 42.7px rgba(199, 198, 217, 0.19);
-  border-radius: 37px;
+  border-radius: 10px;
   margin: 0 !important;
 }/*# sourceMappingURL=schedule.css.map */

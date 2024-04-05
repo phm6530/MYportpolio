@@ -33,6 +33,29 @@ const TextAreaWrap = styled.div`
     width: 100%;
 `;
 
+const RadioCheckboxWrapper = styled.div`
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    label {
+        cursor: pointer;
+    }
+    .important {
+        color: #ad1c1c;
+        font-size: 0.8rem;
+        margin-right: 1rem;
+        border-right: 1px solid #00000026;
+        padding-right: 1rem;
+        display: flex;
+        align-items: center;
+        input {
+            margin-right: 0.2rem;
+        }
+    }
+`;
+
 const ScheduleAdd = ({ selectDay }) => {
     const {
         register,
@@ -93,26 +116,27 @@ const ScheduleAdd = ({ selectDay }) => {
     return (
         <>
             <AddScheduleFormStyle onSubmit={handleSubmit(AddScheduleHandler)}>
-                <label>
-                    <input
-                        {...register('Schedule_important')}
-                        type="checkbox"
-                    />
-                    중요!
-                </label>
+                <RadioCheckboxWrapper>
+                    <label className="important">
+                        <input
+                            {...register('Schedule_important')}
+                            type="checkbox"
+                        />
+                        중요!
+                    </label>
 
-                {/* {errors.Schedule_title && (
+                    {/* {errors.Schedule_title && (
                         <ErrorBubble>
                             {errors.Schedule_title.message}
                         </ErrorBubble>
                 )} */}
-                <HookformRadio
-                    Radio={SCHEDULE_CATEGORY}
-                    control={control}
-                    errors={errors}
-                    keyName={'TaskCategory'}
-                />
-
+                    <HookformRadio
+                        Radio={SCHEDULE_CATEGORY}
+                        control={control}
+                        errors={errors}
+                        keyName={'TaskCategory'}
+                    />
+                </RadioCheckboxWrapper>
                 <TextAreaWrap>
                     {errors.Schedule_title && (
                         <ErrorBubble>

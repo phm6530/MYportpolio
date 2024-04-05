@@ -1,20 +1,21 @@
 import styled from 'styled-components';
 
 const HourStyle = styled.span`
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 18px;
     letter-spacing: -0.01em;
-    color: #404d58;
-    /* margin-bottom: 1.8rem; */
     position: relative;
-    /* margin-left: 0.7rem; */
+    margin-left: 1rem;
+    margin-left: auto;
+    margin-right: 1rem;
+    font-weight: bold;
     &::after {
         position: absolute;
         bottom: 0;
         display: block;
-        width: calc(100% + 10px);
+        width: calc(100% + 20px);
         height: 14px;
         left: -5px;
+        margin-right: 20px;
         z-index: 0;
         opacity: 0.1;
         border-radius: 1em;

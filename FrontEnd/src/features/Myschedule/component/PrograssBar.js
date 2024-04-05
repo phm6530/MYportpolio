@@ -36,6 +36,40 @@ const PrograssbarStyle = styled.div`
     }
 `;
 
+const Percent = styled.div`
+    position: absolute;
+    right: -15px;
+    bottom: calc(100% + 10px);
+    /* Rectangle 459 */
+
+    box-sizing: border-box;
+    ${props => props.$percentZero && 'display: none'};
+
+    color: #fff;
+    background: #3e3866;
+    box-shadow: 4px 4px 12.4px rgba(228, 233, 237, 0.75);
+    border-radius: 14px;
+    width: 45px;
+    text-align: center;
+    font-size: 12px;
+    span {
+        color: #fff;
+        display: inline-block;
+    }
+    .shape {
+        width: 0;
+        height: 0;
+        position: absolute;
+        left: 50%;
+        top: calc(100% + 7px);
+        transform: translate(-50%, -50%);
+        border-top: 10px solid #3e3866; /* 왼쪽 테두리 */
+        border-left: 5px solid transparent; /* 왼쪽 테두리 */
+        border-right: 5px solid transparent; /* 오른쪽 테두리 */
+        border-bottom: 10px solid transparent; /* 아래쪽 테두리 */
+    }
+`;
+
 const CompleteStyle = styled.div`
     background: #f67b7b;
     border-radius: 8px;
@@ -137,9 +171,6 @@ export default function PrograssBar({ tasks }) {
                     <CompleteStyle $active={percent === 100}>
                         complete
                     </CompleteStyle>
-                    <span className="percent">
-                        <span ref={textRef}></span>%
-                    </span>
                 </SubTitleTextStyle>
 
                 <PrograssbarStyle $catecory={tasks[0].category}>
@@ -149,7 +180,12 @@ export default function PrograssBar({ tasks }) {
                         aria-valuenow={percent}
                         aria-valuemin="0"
                         aria-valuemax="100"
-                    ></div>
+                    >
+                        <Percent $percentZero={percent === 0}>
+                            <span ref={textRef}></span>%
+                            <span className="shape"></span>
+                        </Percent>
+                    </div>
                 </PrograssbarStyle>
             </FlexColumnDiv>
         </CustumFlexRow>

@@ -1,4 +1,3 @@
-import SubTitle from 'component/ui/Subtitle';
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { MdCancel } from 'component/icon/Icon';
@@ -22,28 +21,37 @@ import { useAuthCheck } from 'hooks/useAuthCheck';
 import { fetchDeleteSchedule } from 'services/ScheduleService';
 import useExcuteMutation from 'hooks/useExcuteMutation';
 import usePopup from 'hooks/usePopup';
+import { format } from 'date-fns';
 
 const SwiperStyle = styled(Swiper)`
-    /* width: 200px; */
+    background: #ffffff;
+    box-shadow: 7px 8px 42.7px rgba(199, 198, 217, 0.19);
+    border-radius: 19px;
 `;
 
 const SummeryStyle = styled.div`
-    overflow: hidden;
     border-radius: 1em;
-    /* width: 772px; */
-    background: #fff;
 `;
 
 const DdayArrtyle = styled.div`
     display: flex;
-    flex-direction: column;
     margin-bottom: 1rem;
     border-radius: 0.5em;
     background: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.07);
     border-radius: 14px;
+    padding: 1rem 1.5rem;
+    align-items: flex-start;
+    align-items: center;
+    .imgWrap {
+        display: none;
+        margin-right: 1rem;
+        img {
+            width: 30px;
+        }
+    }
 
-    padding: 0.5rem 1rem;
+    padding: 1rem 1.5rem;
     p {
         font-size: 14px;
         margin-top: 0.4rem;
@@ -58,6 +66,7 @@ const DdayHeader = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     .countNum {
         font-size: 18px;
         letter-spacing: -0.07em;
@@ -71,43 +80,62 @@ const DdayHeader = styled.div`
             color: #384867;
         }
     }
+    .date {
+        margin-right: auto;
+        font-size: 0.7rem;
+        margin-left: 1rem;
+        opacity: 0.4;
+    }
+`;
+const DdayItem = styled.div`
+    /* Rectangle 410 */
+    box-sizing: border-box;
+    background: #ffffff;
+    box-shadow: 7px 8px 42.7px rgba(199, 198, 217, 0.19);
+    border-radius: 19px;
 `;
 
-const ScheduleDdayList = ({ DdayArr }) => {
+const DdayTask = ({ task }) => {
     const { clientAuthCheck } = useAuthCheck();
     const { showPopup, PopupComponent } = usePopup();
-    const DdayTask = ({ task }) => {
-        // const { modal, setModal, mutateAsync } = useProjectActions({
-        //     type: 'Schedule',
-        // });
-        const { work, schedule_key, formatted_date } = task;
-        const currentDate = new Date();
-        const taskDate = new Date(formatted_date);
-        const dayDifference = (currentDate - taskDate) / (1000 * 3600 * 24);
-        const count = Math.ceil(dayDifference);
 
-        // console.log(work);
-        const { mutate: deleteMutate } = useExcuteMutation(
-            fetchDeleteSchedule,
-            ['Schedule'],
-            '삭제',
-        );
+    const { work, schedule_key, formatted_date } = task;
+    const currentDate = new Date();
+    const taskDate = new Date(formatted_date);
+    const dayDifference = (currentDate - taskDate) / (1000 * 3600 * 24);
+    const count = Math.ceil(dayDifference);
 
-        const deleteHandler = () => {
-            if (!clientAuthCheck('삭제')) {
-                return;
-            }
-            deleteMutate(schedule_key);
-        };
+    console.log('work', work);
 
-        return (
-            <>
-                <PopupComponent id="deleteSchedule" event={deleteHandler} />
+    // console.log(work);
+    const { mutate: deleteMutate } = useExcuteMutation(
+        fetchDeleteSchedule,
+        ['Schedule'],
+        '삭제',
+    );
 
-                <DdayArrtyle>
-                    {/* <img src="/img/calendar/talk.png" alt="" /> */}
+    const deleteHandler = () => {
+        if (!clientAuthCheck('삭제')) {
+            return;
+        }
+        deleteMutate(schedule_key);
+    };
+
+    return (
+        <>
+            <PopupComponent event={deleteHandler} />
+
+            <DdayArrtyle>
+                <div className="imgWrap">
+                    <img src="/img/calendar/talk.png" alt="" />
+                </div>
+
+                <div style={{ flexGrow: 1 }}>
                     <DdayHeader>
                         <span className="countNum">D {count}</span>
+                        <span className="date">
+                            {format(formatted_date, 'yyyy. MM. dd')}
+                        </span>
                         <span
                             onClick={() => {
                                 showPopup(work);
@@ -117,47 +145,24 @@ const ScheduleDdayList = ({ DdayArr }) => {
                         </span>
                     </DdayHeader>
                     <p>{work}</p>
-                </DdayArrtyle>
-            </>
-        );
-    };
+                </div>
+            </DdayArrtyle>
+        </>
+    );
+};
 
+const ScheduleDdayList = ({ DdayArr }) => {
     return (
         <>
-            {/* <SubTitleSchedule>D - Day</SubTitleSchedule> */}
             <SummeryStyle>
-                <SwiperStyle
-                    modules={[
-                        Navigation,
-                        Pagination,
-                        FreeMode,
-                        Autoplay,
-                        EffectCreative,
-                    ]}
-                    // spaceBetween={10}
-                    slidesPerView={1}
-                    // centeredSlides={true}
-                    // slidesOffsetBefore={50} // 첫 슬라이드 앞의 여백
-                    // slidesOffsetAfter={50} // 마지막 슬라이드 뒤의 여백
-                    // onSlideChange={() => console.log('slide change')}
-                    // onSwiper={swiper => console.log(swiper)}
-                    // navigation
-                    // loop={true}
-                    // freeMode={true}
-                    // autoplay={true}
-                    pagination={{ clickable: true }}
-
-                    // scrollbar={{ draggable: true }}
-                >
-                    {DdayArr &&
-                        DdayArr.map((task, idx) => {
-                            return (
-                                <SwiperSlide key={`DdayTask-${idx}`}>
-                                    <DdayTask task={task} />
-                                </SwiperSlide>
-                            );
-                        })}
-                </SwiperStyle>
+                {DdayArr &&
+                    DdayArr.map((task, idx) => {
+                        return (
+                            <DdayItem key={`DdayTask-${idx}`}>
+                                <DdayTask task={task} />
+                            </DdayItem>
+                        );
+                    })}
             </SummeryStyle>
         </>
     );

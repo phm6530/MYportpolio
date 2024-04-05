@@ -1,5 +1,19 @@
+import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { differenceInSeconds } from 'date-fns';
+
+const TimerStyle = styled.span`
+    font-weight: 500;
+    font-size: 35px;
+    font-family: 'DNFBitBitv2';
+    line-height: 40px;
+    color: #ffffff;
+    text-shadow: 3px 6px 9.4px rgba(0, 0, 0, 0.25);
+    margin-top: 0.5rem;
+    font-size: 45px;
+    line-height: 52px;
+    color: #ffffff;
+`;
 
 const StopWatch = ({ date, startTime, endDate, running }) => {
     // console.log('startTime::: ', startTime);
@@ -77,10 +91,10 @@ const StopWatch = ({ date, startTime, endDate, running }) => {
     }, [running, date, startTime]);
 
     return (
-        <div className="time">
-            {TimerFormetting(timer.Hour)} :{TimerFormetting(timer.minit)} :
+        <TimerStyle>
+            {TimerFormetting(timer.Hour)}:{TimerFormetting(timer.minit)}:
             {TimerFormetting(timer.second)}
-        </div>
+        </TimerStyle>
     );
 };
 

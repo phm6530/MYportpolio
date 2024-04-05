@@ -20,7 +20,7 @@ const CategoryGraph = props => {
 
     return (
         <CustumFlexColumnDiv>
-            <span className="CategoryWrapTitle">카테고리 별 완료도</span>
+            {/* <span className="CategoryWrapTitle">카테고리 별 완료도</span> */}
             {categorys.length !== 0 ? (
                 categorys.map((v, idx) => {
                     const tasks = arrState[v];

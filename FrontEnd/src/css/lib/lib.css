@@ -145,4 +145,48 @@
 
 .margin-bottom-2rem {
   margin-bottom: 2rem;
+}
+
+.bookedDay {
+  position: relative;
+}
+.bookedDay::after {
+  position: absolute;
+  content: "";
+  background: #ffa5ca;
+  width: 3px;
+  border-radius: 100%;
+  height: 3px;
+  bottom: 3px;
+}
+
+.rdp-cell {
+  padding-bottom: 0.5rem !important;
+}
+
+.rdp-caption {
+  margin-bottom: 1.5rem !important;
+}
+
+.rdp-caption_label,
+.rdp-weeknumber,
+.rdp-day {
+  color: #b1b7c4 !important;
+}
+
+.rdp-head_cell {
+  color: rgba(255, 255, 255, 0.9019607843) !important;
+  font-weight: normal !important;
+}
+
+.rdp-day_selected {
+  color: #fff !important;
+}
+
+.rdp-nav_button {
+  background: rgba(255, 255, 255, 0.05) !important;
+  margin: 0 4px !important;
+}
+.rdp-nav_button .rdp-nav_icon {
+  color: #fff !important;
 }/*# sourceMappingURL=lib.css.map */

@@ -5,6 +5,15 @@ import { Controller } from 'react-hook-form';
 const RadioWrap = styled.div`
     position: relative;
     display: flex;
+
+    label {
+        font-size: 14px;
+        margin-right: 0.8rem;
+        display: flex;
+        input {
+            margin-right: 5px;
+        }
+    }
 `;
 
 const HookformRadio = ({ Radio, control, errors, keyName }) => {

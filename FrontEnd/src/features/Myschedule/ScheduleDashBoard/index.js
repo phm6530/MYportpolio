@@ -9,33 +9,32 @@ import { fetchTimerSetting } from 'services/tastTimerService';
 import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
 import { useState } from 'react';
 import { format } from 'date-fns';
+import { FlexRow } from 'component/CommonStyle';
 
 const DashBoardStyle = styled.div`
-    /* Rectangle 148 */
-    width: 40%;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     margin-left: 2rem;
     border-radius: 2rem;
-`;
-
-// const SubDescriptionStyle = styled.div`
-//     font-weight: 500;
-//     font-size: 14px;
-//     line-height: 1.5rem;
-//     color: #7e96a6;
-//     margin-bottom: 2.5rem;
-// `;
-const ConTentsWrapStyle = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-`;
-
-const CustumFlexWrapDiv = styled(FlexWrapDiv)`
-    margin-left: 2rem;
+    justify-content: center;
+    margin-left: 5rem;
     align-items: flex-start;
+`;
+
+const TimerTitle = styled.div`
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 36px;
+    color: #6251c7;
+    letter-spacing: -0.3px;
+    margin-bottom: 2rem;
+`;
+
+const SelectBox = styled.select`
+    border: 1px solid rgba(187, 187, 187, 0.13);
+    border-radius: 23px;
+    margin-bottom: 1rem;
 `;
 
 const ScheduleDashBoard = () => {
@@ -69,8 +68,18 @@ const ScheduleDashBoard = () => {
     return (
         <>
             <ScheduleTimer timerData={data?.timerData} />
+
             {/* <button onClick={() => setFilter(prev => !prev)}>!!!!!!</button> */}
+
             <DashBoardStyle>
+                <span>저의 시간을 기록합니다.</span>
+                <TimerTitle>
+                    My State <span>Timer</span>
+                </TimerTitle>
+                <SelectBox>
+                    <option value="asdf">Today</option>
+                    <option value="asdf">asdf</option>
+                </SelectBox>
                 <ScheduleMainFoucs
                     timerData={data?.timerData}
                     categoryDailyTotals={data?.categoryDailyTotals}

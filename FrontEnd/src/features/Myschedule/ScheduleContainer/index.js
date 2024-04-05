@@ -24,6 +24,13 @@ const DayStyle = styled.span`
     color: #fff;
 `;
 
+const SubTitle = styled.div`
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+`;
+
 export default function ScheduleContainer({ selectDay, listData }) {
     //dDay Popup
     // const formMethods = useForm({
@@ -31,11 +38,13 @@ export default function ScheduleContainer({ selectDay, listData }) {
     //         dDay: '',
     //     },
     // });
+    /* Subtract */
 
     return (
         <>
             <ScheduleWrap>
-                <DayStyle>{selectDay.replaceAll('-', '. ')}</DayStyle>
+                <SubTitle>Task List</SubTitle>
+                {/* <DayStyle>{selectDay.replaceAll('-', '. ')}</DayStyle> */}
                 <AnimatePresence mode="wait">
                     <Motion.FadeInOut key={selectDay}>
                         <ScheduleList

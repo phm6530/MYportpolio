@@ -20,7 +20,7 @@ const getDdayAreaStyles = props => `
         css`
             display: flex;
             align-items: flex-start;
-            padding: 0.3rem 0;
+            padding: 0.5rem 0;
             border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             border: 1px solid #cdcdcd;
             border-radius: 1rem;
@@ -71,7 +71,7 @@ const FormStyle = styled.form`
 const IsComplete = styled.div`
     display: flex;
     align-items: flex-start;
-    padding: 0.3rem 0;
+    padding: 0.5rem 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
     svg {

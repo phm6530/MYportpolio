@@ -1,20 +1,42 @@
-import { SubTitleTextStyle, FlexWrapDiv } from 'features/CommonStyles';
-import {
-    HourStyle,
-    FoucesStyle,
-} from '../component/styles/ScheduleCommonStyles';
-
+import { SubTitleTextStyle } from 'features/CommonStyles';
+import { HourStyle } from '../component/styles/ScheduleCommonStyles';
+import { FaCrown } from 'react-icons/fa';
 import styled from 'styled-components';
-import { Heading } from '@chakra-ui/react';
 import { format } from 'date-fns';
 
-const FlexWrapDivCustum = styled(FlexWrapDiv)`
-    width: 30%;
-    align-items: start;
+const ItemWrap = styled.div`
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: -0.05em;
+    padding: 0.8rem;
+    width: 50%;
+    box-shadow: 7px 8px 42.7px rgba(199, 198, 217, 0.19);
+    border-radius: 23px;
+`;
+const Ranking = styled.span`
+    /* 1st */
+    font-size: 14px;
+    line-height: 17px;
+    color: #7e96a6;
+    margin-right: 1rem;
+    width: 30px;
+    svg {
+        color: #f3923b;
+    }
 `;
 
-const ItemWrap = styled.div`
-    margin-bottom: 1.8rem;
+const Wrapper = styled.div`
+    width: 100%;
+`;
+
+const Category = styled.span`
+    font-weight: bold;
 `;
 
 const ScheduleMainFoucs = ({ timerData, categoryDailyTotals }) => {
@@ -44,13 +66,15 @@ const ScheduleMainFoucs = ({ timerData, categoryDailyTotals }) => {
     // const Hour = 10;
     // const foucs = 'Coding';
     return (
-        <>
+        <Wrapper>
             {filterDate.map((item, idx) => {
+                const arr = ['1st', '2nd', '3nd'];
+
                 return (
                     <ItemWrap key={idx}>
-                        <SubTitleTextStyle>Main Fouce Today</SubTitleTextStyle>
+                        <Ranking>{idx === 0 ? <FaCrown /> : arr[idx]}</Ranking>
+                        <Category>{item.category}</Category>
                         <HourStyle>{item.totalTime}</HourStyle>
-                        {item.category}
                     </ItemWrap>
                 );
             })}
@@ -63,7 +87,7 @@ const ScheduleMainFoucs = ({ timerData, categoryDailyTotals }) => {
                     <HourStyle>{foucs}</HourStyle>
                 </Heading>
             )} */}
-        </>
+        </Wrapper>
     );
 };
 

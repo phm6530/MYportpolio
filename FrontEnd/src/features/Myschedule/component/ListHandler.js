@@ -3,6 +3,7 @@ import usePopup from 'hooks/usePopup';
 import { useAuthCheck } from 'hooks/useAuthCheck';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { MdCancel } from 'component/icon/Icon';
 
 import { Checkbox } from '@chakra-ui/react';
 
@@ -26,6 +27,18 @@ import {
 import { FlexColumnDiv } from 'features/CommonStyles';
 import Category from '../ui/Category';
 import useExcuteMutation from 'hooks/useExcuteMutation';
+import styled from 'styled-components';
+
+const Button = styled.button`
+    svg {
+        cursor: pointer;
+        opacity: 0.4;
+        color: #8f9db8;
+        &:hover {
+            color: #384867;
+        }
+    }
+`;
 
 const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
     const { register, handleSubmit, setValue } = useForm();
@@ -142,16 +155,16 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
                 </FormStyle>
 
                 {/* 수정 */}
-                <button
+                <Button
                     onClick={() => readOnlyHandler(ScheduleItem.schedule_key)}
                 >
                     <MdModeEdit size={'17'} />
-                </button>
+                </Button>
 
                 {/* 삭제 */}
-                <button onClick={() => showPopup('일정')}>
-                    <FaTrashAlt size={'13'} />
-                </button>
+                <Button onClick={() => showPopup('일정')}>
+                    <MdCancel />
+                </Button>
             </IsComplete>
         </>
     );

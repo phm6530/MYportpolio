@@ -19,24 +19,21 @@ const FlexWrapDiv = styled.div`
     width: 100%;
 `;
 
-const SubTitleTextStyle = styled.div`
+const SubTitleTextStyle = styled.span`
     font-size: 14px;
     line-height: 17px;
-    width: 100%;
     color: #4f5067;
-    /* font-weight: bold; */
-    display: flex;
-    width: 100%;
     justify-content: space-between;
     font-size: 14px;
     letter-spacing: -0.05em;
     font-weight: 500;
-    color: #8d93ac;
+    display: flex;
+    margin-bottom: 0.7rem;
     align-items: center;
-    margin-bottom: 0.5rem;
-    .percent {
-        opacity: 0.5;
-    }
+    color: #8d93ac;
+    width: 100%;
+    align-items: center;
+    position: relative;
 `;
 
 const MarginBottom1rem = styled.div`
