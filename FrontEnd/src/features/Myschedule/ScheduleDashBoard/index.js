@@ -31,7 +31,7 @@ const SelectBox = styled.select`
 
 const ButtonWrapper = styled.div`
     display: flex;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 `;
 
 const ScheduleDashBoard = () => {
@@ -56,8 +56,6 @@ const ScheduleDashBoard = () => {
         // select: data => test(data),
     });
 
-    console.log(data);
-
     if (isLoading) {
         return <SpinnerLoading />;
     }
@@ -74,18 +72,19 @@ const ScheduleDashBoard = () => {
                 </SubTitle>
                 <SubDescription>저의 시간을 기록합니다.</SubDescription>
 
-                <ButtonWrapper>
+                {/* <ButtonWrapper>
                     <button className="btn-scheduleControl">ToDay</button>
                     <button className="btn-scheduleControl">ToDay</button>
-                </ButtonWrapper>
-                {/* <SelectBox>
-                    <option value="asdf">Today</option>
-                    <option value="asdf">asdf</option>
-                </SelectBox> */}
+                </ButtonWrapper> */}
+
                 <ScheduleMainFoucs
                     timerData={data?.timerData}
                     categoryDailyTotals={data?.categoryDailyTotals}
                 />
+                <ButtonWrapper>
+                    <button className="btn-scheduleControl">ToDay</button>
+                    <button className="btn-scheduleControl">ToDay</button>
+                </ButtonWrapper>
             </DashBoardStyle>
         </>
     );

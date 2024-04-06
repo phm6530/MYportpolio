@@ -28,16 +28,14 @@ const StopWatchStyle = styled.div`
     box-shadow: 7px 8px 25.6px rgba(199, 198, 217, 0.45);
 
     max-width: 330px;
-    min-height: 400px;
+    min-height: 430px;
     width: 100%;
-
     box-sizing: border-box;
-
     background: url(/img/board/board.jpg);
     background-size: cover;
-    border: 10px solid #0000007a;
-    box-shadow: 13px 28px 35.9px rgb(0 0 0 / 55%);
-    border-radius: 51px;
+    /* border: 10px solid #0000007a; */
+    /* box-shadow: 13px 28px 35.9px rgb(0 0 0 / 55%); */
+    border-radius: 30px;
     flex-direction: column;
     justify-content: space-between;
     width: 367px;

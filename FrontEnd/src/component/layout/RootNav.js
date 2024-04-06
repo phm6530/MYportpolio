@@ -60,7 +60,6 @@ export default function RootNav({ ChangePageHandler }) {
         { path: '/project', pathName: 'PROJECT', AuthPage: false },
         { path: '/myschedule', pathName: 'MY Calendar', AuthPage: false },
         { path: '/Board', pathName: 'Board', AuthPage: false },
-        { path: '/admin', pathName: 'Admin', AuthPage: true },
         { path: '/contact', pathName: 'contact', AuthPage: false },
     ];
     // useEffect(() => {

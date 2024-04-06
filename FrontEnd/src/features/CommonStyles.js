@@ -60,8 +60,14 @@ const SubTitle = styled.div`
     letter-spacing: -1px;
     /* margin-bottom: 1rem; */
     font-family: 'Poppins';
-    color: #3c485f;
+    color: #34323f;
     font-weight: bold;
+`;
+
+const SubDepsTitle = styled.div`
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
 `;
 
 export {
@@ -73,4 +79,5 @@ export {
     FlexWrapDiv,
     MarginBottom1rem,
     SubDescription,
+    SubDepsTitle,
 };

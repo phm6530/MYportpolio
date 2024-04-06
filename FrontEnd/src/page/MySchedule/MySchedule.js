@@ -16,7 +16,7 @@ import { ScheduleGrid } from './MyScheduleStyle';
 
 //그래프
 // import ReactChat from 'react-apexcharts';
-// import UserProfile from 'component/profile/UserProfile';
+import UserProfile from 'component/profile/UserProfile';
 import { FlexColumnDiv } from 'features/CommonStyles';
 import ScheduleHeader from 'features/Myschedule/Layout/ScheduleHeader';
 import ScheduleRoute from 'Route/ScheduleRoute';
@@ -30,7 +30,7 @@ const { useDispatch } = ReactRedux;
 const { useSearchParams } = ReactRouteDom;
 
 const CustumlexColumnDiv = styled(FlexColumnDiv)`
-    padding: 2rem 2.5rem;
+    padding: 3rem 3.5rem;
     border-radius: 2.5rem;
 `;
 
@@ -103,7 +103,6 @@ export default function MySchedule() {
             <ScheduleGrid>
                 {/* UserProFile */}
                 {/* <UserProfile /> */}
-
                 <CustumlexColumnDiv style={{ backgroundColor: '#fff' }}>
                     <ScheduleHeader />
                     {/* 서브 라우터 */}

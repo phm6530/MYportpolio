@@ -1,7 +1,7 @@
-import { Heading } from '@chakra-ui/react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa6';
+import { SubDepsTitle } from 'features/CommonStyles';
 
 const MarginLeft = styled.div`
     margin-left: auto;
@@ -53,7 +53,7 @@ const CardSubtitle = ({
     const navigate = useNavigate();
     return (
         <CardSubTitleWrap>
-            <Heading fontSize={'14px'}>{title}</Heading>
+            <SubDepsTitle>{title}</SubDepsTitle>
 
             <MarginLeft>
                 <Link

@@ -7,6 +7,7 @@ import TaskNav from 'features/Myschedule/TaskNav';
 import Motion from 'component/animations/Motion';
 import { AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
+import { SubDepsTitle } from 'features/CommonStyles';
 
 // import Calendar from 'features/Myschedule/Calendar';
 
@@ -23,11 +24,9 @@ const RightWrap = styled.div`
 
     border-radius: 37px;
 `;
-const SubTitle = styled.div`
-    font-size: 1.2rem;
-    font-weight: bold;
+
+const SubDepsTitleCustum = styled(SubDepsTitle)`
     margin-top: 4rem;
-    margin-bottom: 1rem;
 `;
 
 const DayPickerStyle = styled(DayPicker)`
@@ -115,7 +114,7 @@ const TaskPage = props => {
                 />
 
                 <div className="wrapper">
-                    <SubTitle>D - Day</SubTitle>
+                    <SubDepsTitleCustum>D-day</SubDepsTitleCustum>
                     <ScheduleDdayList DdayArr={DdayArr} />
                 </div>
                 {/* <Calendar

@@ -1,15 +1,9 @@
 import styled from 'styled-components';
 import ScheduleAdd from './ScheduleAdd';
-import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import 'react-day-picker/dist/style.css';
 
-// 커스텀훅 or 팝업창 or redux-Trunk
-import Popup from '../../../component/popup/Popup';
-
-// icon
 import ScheduleList from './ScheduleList';
-import ScheduleDdaySetter from '../component/ScheduleDdaySetter';
+import { SubDepsTitle } from 'features/CommonStyles';
 
 import { AnimatePresence } from 'framer-motion';
 import Motion from 'component/animations/Motion';
@@ -18,17 +12,8 @@ const ScheduleWrap = styled.div`
     flex-grow: 1;
 `;
 
-const DayStyle = styled.span`
-    font-weight: bold;
-    font-size: 30px;
-    color: #fff;
-`;
-
-const SubTitle = styled.div`
-    font-size: 1.2rem;
-    font-weight: bold;
+const SubDepsTitleCustum = styled(SubDepsTitle)`
     margin-top: 4rem;
-    margin-bottom: 1rem;
 `;
 
 export default function ScheduleContainer({ selectDay, listData }) {
@@ -43,7 +28,7 @@ export default function ScheduleContainer({ selectDay, listData }) {
     return (
         <>
             <ScheduleWrap>
-                <SubTitle>Task List</SubTitle>
+                <SubDepsTitleCustum>Task List</SubDepsTitleCustum>
                 {/* <DayStyle>{selectDay.replaceAll('-', '. ')}</DayStyle> */}
                 <AnimatePresence mode="wait">
                     <Motion.FadeInOut key={selectDay}>

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const HourStyle = styled.span`
-    font-size: 18px;
+    font-size: 16px;
     letter-spacing: -0.01em;
     position: relative;
     margin-left: 1rem;

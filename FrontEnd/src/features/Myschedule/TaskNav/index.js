@@ -44,7 +44,7 @@ const FontWrapper = styled.div`
 const Wrapper = styled.div`
     display: flex;
     background: #fff;
-    padding: 2rem 3rem;
+    padding: 2rem 2.5rem;
     border: 1px solid #7d879c4a;
     min-height: 250px;
     border-radius: 1rem;
