@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router(); //라우터 연결
 const { verify } = require('../util/auth');
-
 const { passwordHashing } = require('../util/password');
 const { validation_Reply } = require('../util/validate');
 const { isDeleteReply } = require('../util/util');
@@ -13,15 +12,15 @@ const db = require('../util/config');
 const { NotFoundError } = require('../util/error');
 
 // 전체 숫자 세기
-const getTotalCount = async () => {
+const getTotalCount = async (conn) => {
     const count_sql = `SELECT COUNT(*) AS cnt FROM board`;
-    const [counter] = await db.query(count_sql);
+    const [counter] = await conn.query(count_sql);
     return counter.cnt;
 };
 
 const replyHandler = async (reqData, res, requestRoleType) => {
     const { userIcon, userName, contents, idx, password = null } = reqData;
-    console.log('page :', requestRoleType);
+    const conn = await db.getConnection();
     try {
         const limit = 1;
         let hashedPassword = undefined;
@@ -33,25 +32,26 @@ const replyHandler = async (reqData, res, requestRoleType) => {
         } else {
             role = 'admin';
         }
-
         let req_sql = `
             INSERT INTO 
             board (user_icon, user_name, user_password, contents, role , board_key, date) 
             VALUES (?, ?, ?, ?, ? , ?, NOW())`;
 
-        await db.query(req_sql, [userIcon, userName, hashedPassword, contents, role, idx]);
+        await conn.query(req_sql, [userIcon, userName, hashedPassword, contents, role, idx]);
+
         let res_sql = `
             SELECT idx, user_icon, user_name, contents, board_key, date , role
             FROM board ORDER BY idx DESC LIMIT ?`;
 
-        const response = await db.query(res_sql, [limit]);
+        const [rows] = await conn.query(res_sql, [limit]);
+        console.log('rows:: ', rows[0]);
 
-        const count = await getTotalCount();
-
+        const count = await getTotalCount(conn);
+        conn.release();
         return res.status(201).json({
             path: 'board/reply',
             counter: count,
-            resData: response,
+            resData: rows[0],
         });
     } catch (error) {
         // 적절한 에러 처리
@@ -89,7 +89,6 @@ router.post('/reply/delete', async (req, res, next) => {
         const { isDeleted, isDeleted_key, counter } = await isDeleteReply(body, token);
         res.json({ message: '성공', isDeleted, isDeleted_key, counter });
     } catch (error) {
-        console.log(error);
         console.log(error.message);
         res.status(error.status || 500).json({ message: error.message });
     }

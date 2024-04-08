@@ -125,20 +125,40 @@ const ScheduleRouter = (wss) => {
 
     // 타이머
     router.get('/timer', async (_, res, next) => {
+        const conn = await db.getConnection();
         try {
-            const conn = await db.getConnection();
+            await conn.beginTransaction(); //트랜잭션 생성
             const sql = `select * from tasktimer where playing = 1;`;
             const [rows] = await conn.query(sql);
-            // console.log(rows);
+
+            const curMonthInCategoryTime = `
+                    SELECT category, date, SEC_TO_TIME(SUM(TIME_TO_SEC(TIMEDIFF(end_time, start_time)))) as totalTime
+                    FROM tasktimer
+                    WHERE playing = 0 
+                    GROUP BY category, date order by date;
+                    `;
+            const [curData] = await conn.query(curMonthInCategoryTime);
+
+            // 한국 일자
+            const getKrTime = (date) => {
+                return new Date(date.getTime() + 9 * 60 * 60 * 1000);
+            };
+
+            const categoryDailyTotals = curData.map((e) => ({
+                ...e,
+                date: getKrTime(e.date).toISOString().split('T')[0],
+            }));
+
             conn.release();
             let newObj = null;
+
             if (!!rows[0]) {
-                const getKRTime = new Date(rows[0].date.getTime() + 9 * 60 * 60 * 1000);
-                newObj = { ...rows[0], date: getKRTime.toISOString().split('T')[0] };
+                newObj = { ...rows[0], date: getKrTime(rows[0].date).toISOString().split('T')[0] };
             }
 
-            res.json({ message: 'success', timerData: newObj });
+            res.json({ message: 'success', timerData: newObj, categoryDailyTotals });
         } catch (error) {
+            await conn.rollback();
             const err = new NotFoundError(error.message);
             next(err);
         }

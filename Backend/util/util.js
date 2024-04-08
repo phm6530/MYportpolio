@@ -39,7 +39,11 @@ const isValidAdmin = async (id, userPassword) => {
 
 const isDeleteReply = async ({ reply_password, board_key, auth }, token) => {
     let sql_ReplyFind = `select * from board where board_key = ? `;
-    const boardRecord = await db.query(sql_ReplyFind, [board_key]);
+    // console.log(token);
+    // console.log(reply_password);
+
+    const conn = await db.getConnection();
+    const [boardRecord] = await conn.query(sql_ReplyFind, [board_key]);
 
     if (!boardRecord || boardRecord.length === 0) {
         throw new NotFoundError('이미 삭제되었거나 서버에 문제가 있습니다.');
@@ -62,11 +66,14 @@ const isDeleteReply = async ({ reply_password, board_key, auth }, token) => {
 
     try {
         let sql_delete = `delete from board where board_key = ? `;
-        const deleteResult = await db.query(sql_delete, [board_key]);
+
+        const deleteResult = await conn.query(sql_delete, [board_key]);
         const isDeleted = deleteResult.affectedRows > 0;
 
         let sql_cnt = `select count(*) as cnt from board`;
-        const counter = await db.query(sql_cnt);
+        const counter = await conn.query(sql_cnt);
+
+        conn.release();
 
         return {
             isDeleted,
