@@ -21,6 +21,7 @@ const { useMutation } = ReactQuery;
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'; // Yup + form hook 연동
 import { useForm } from 'react-hook-form';
+import { useQueryClient } from '@tanstack/react-query';
 
 const checkAnimtaion = keyframes`
     from{
@@ -242,11 +243,10 @@ export default function BoardCommentForm({ setTotal, setUserFetchData }) {
     }, [login]);
 
     // Query 뮤테이션
-
     const mutation = useMutation({
         mutationFn: formData => fetchReply(formData),
         onSuccess: data => {
-            setUserFetchData(prev => [...data.resData, ...prev]);
+            setUserFetchData(prev => [{ ...data.resData }, ...prev]);
             dispatch(alertThunk('댓글 등록되었습니다.', true));
             reset({
                 ...getValues(),

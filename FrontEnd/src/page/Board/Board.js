@@ -64,12 +64,14 @@ export default function Board() {
     const [total, setTotal] = useState(0);
     const [lastPageIdx, setLastPageIdx] = useState(null);
 
+    console.log(lastPageIdx);
+
     const { isLoading, isError, data, isSuccess } = useQuery({
         queryKey: ['board', lastPageIdx],
         queryFn: () => fetchData(lastPageIdx),
     });
 
-    // console.log(userFetchData);
+    console.log('data::', data);
 
     useEffect(() => {
         if (isSuccess) {

@@ -2,14 +2,12 @@ import styled from 'styled-components';
 
 import ScheduleMainFoucs from './ScheduleMainFoucs';
 
-import { FlexWrapDiv, SubDescription } from 'features/CommonStyles';
+import { SubDescription } from 'features/CommonStyles';
 import ScheduleTimer from '../ScheduleTimer';
 import { useQuery } from '@tanstack/react-query';
 import { fetchTimerSetting } from 'services/tastTimerService';
 import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
 import { useState } from 'react';
-import { format } from 'date-fns';
-import { FlexRow } from 'component/CommonStyle';
 import { SubTitle } from 'features/CommonStyles';
 
 const DashBoardStyle = styled.div`
@@ -23,12 +21,6 @@ const DashBoardStyle = styled.div`
     align-items: flex-start;
 `;
 
-const SelectBox = styled.select`
-    border: 1px solid rgba(187, 187, 187, 0.13);
-    border-radius: 23px;
-    margin-bottom: 1rem;
-`;
-
 const ButtonWrapper = styled.div`
     display: flex;
     margin-bottom: 1.5rem;
@@ -40,7 +32,6 @@ const ScheduleDashBoard = () => {
     // utc 정시구하기
     const todayMidnight = new Date();
     todayMidnight.setHours(0, 0, 0, 0);
-    console.log(todayMidnight.toISOString());
 
     // const test = data => {
     //     if (!filter) return data;

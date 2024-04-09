@@ -6,8 +6,6 @@ const usePopup = () => {
     const [popView, setPopupView] = useState(false);
     const [message, setMessage] = useState(null);
 
-    console.log(popView);
-
     const showPopup = message => {
         setPopupView(true);
         setMessage(message);

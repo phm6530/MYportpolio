@@ -41,7 +41,6 @@ const Category = styled.span`
 
 const ScheduleMainFoucs = ({ timerData, categoryDailyTotals }) => {
     const today = format(new Date(), 'yyyy-MM-dd');
-    console.log(today);
 
     const filterDate = categoryDailyTotals.filter(e => {
         return e.date === today;
@@ -60,8 +59,6 @@ const ScheduleMainFoucs = ({ timerData, categoryDailyTotals }) => {
     filterDate.sort(
         (a, b) => parseTotalTime(b.totalTime) - parseTotalTime(a.totalTime),
     );
-
-    console.log(filterDate);
 
     // const Hour = 10;
     // const foucs = 'Coding';

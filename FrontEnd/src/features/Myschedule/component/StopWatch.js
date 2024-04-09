@@ -4,19 +4,18 @@ import { differenceInSeconds } from 'date-fns';
 
 const TimerStyle = styled.span`
     font-weight: 500;
-    font-size: 35px;
     font-family: 'DNFBitBitv2';
     line-height: 40px;
     color: #ffffff;
     text-shadow: 3px 6px 9.4px rgba(0, 0, 0, 0.25);
     margin-top: 2.5rem;
-    font-size: 45px;
+    font-size: 40px;
+    text-align: center;
     line-height: 52px;
-    color: #ffffff;
 `;
 
 const StopWatch = ({ date, startTime, endDate, running }) => {
-    // console.log('startTime::: ', startTime);
+    console.log('startTime::: ', startTime);
     // console.log('date:::', date);
     const diffInSeconed = differenceInSeconds(
         new Date(),

@@ -23,18 +23,14 @@ const StopWatchStyle = styled.div`
     padding: 2rem 2rem 1.8rem;
     box-shadow: 9px 16px 42.3px rgba(0, 0, 0, 0.06);
     border-radius: 47px;
-
     position: relative;
     box-shadow: 7px 8px 25.6px rgba(199, 198, 217, 0.45);
-
     max-width: 330px;
-    min-height: 430px;
+    min-height: 380px;
     width: 100%;
     box-sizing: border-box;
     background: url(/img/board/board.jpg);
     background-size: cover;
-    /* border: 10px solid #0000007a; */
-    /* box-shadow: 13px 28px 35.9px rgb(0 0 0 / 55%); */
     border-radius: 30px;
     flex-direction: column;
     justify-content: space-between;
@@ -49,13 +45,17 @@ const StopWatchStyle = styled.div`
         margin-top: 1rem;
         align-items: center;
         font-size: 14px;
+        text-align: center;
         display: flex;
+        justify-content: center;
         img {
             width: 20px;
             margin-right: 0.5rem;
+            filter: grayscale(1);
         }
         span {
-            color: rgba(247, 213, 255, 0.85);
+            text-align: center;
+            color: #fff;
         }
     }
 
@@ -114,16 +114,9 @@ const ScheduleTimer = () => {
     const { user } = useSelector(state => state.authSlice);
     const { clientAuthCheck } = useAuthCheck();
     const [touched, setTouched] = useState();
-    const {
-        data: websoketData,
-        status,
-        sendMessage,
-    } = useWebSocket('ws://localhost:8080');
-    // console.log(websoketData);
+    const { data: websoketData, setData } = useWebSocket('ws://localhost:8080');
 
     const [running, setRunning] = useState(false);
-
-    console.log('runningrunningrunningrunning::: ', running);
 
     const nowTIme = () => {
         return format(new Date(), 'yyyy-MM-dd HH:mm:ss').split(' ');
@@ -135,6 +128,14 @@ const ScheduleTimer = () => {
         queryFn: fetchTimerSetting,
         refetchOnWindowFocus: false,
     });
+
+    useEffect(() => {
+        console.log('websoketData', websoketData);
+        if (websoketData) {
+            queryClient.invalidateQueries({ queryKey: ['ScheduleTimer'] });
+            setData(false);
+        }
+    }, [websoketData]);
 
     const {
         control,

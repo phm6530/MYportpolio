@@ -4,12 +4,12 @@ import './css/index.css';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 import { ReactQuery } from 'lib/lib';
-const { QueryClientProvider } = ReactQuery;
 import { queryClient } from 'react-query/queryClient';
 import { ChakraProvider } from '@chakra-ui/react';
 import { theme } from 'lib/theme';
 // 전역 쿼리 설정
 
+const { QueryClientProvider } = ReactQuery;
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(

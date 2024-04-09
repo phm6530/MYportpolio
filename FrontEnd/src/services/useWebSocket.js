@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 
 function useWebSocket(url) {
-    const [data, setData] = useState(null);
+    const [data, setData] = useState(false);
     const [status, setStatus] = useState('disconnected');
     const ws = useRef(null); // useRef를 사용하여 ws 객체를 저장
 
@@ -9,28 +9,18 @@ function useWebSocket(url) {
         ws.current = new WebSocket(url);
 
         const onOpen = () => {
-            console.log('Connected to the server');
             setStatus('connected');
         };
 
         const onMessage = event => {
-            // 서버로부터 받은 데이터가 Blob 형태인 경우
-            if (event.data instanceof Blob) {
-                // Blob을 텍스트로 변환
-                const reader = new FileReader();
-                reader.onload = () => {
-                    console.log('Message from server:', reader.result);
-                    setData(reader.result);
-                };
-                reader.readAsText(event.data);
-            } else {
-                // 데이터가 텍스트 형태인 경우
-                console.log('Message from server:', event.data);
-                setData(event.data);
+            try {
+                const test = JSON.parse(event.data);
+                setData(test.timerSet);
+            } catch (error) {
+                console.log(error);
             }
         };
         const onClose = () => {
-            console.log('Disconnected from the server');
             setStatus('disconnected');
         };
 
@@ -54,7 +44,7 @@ function useWebSocket(url) {
         }
     }
 
-    return { data, status, sendMessage };
+    return { data, status, setData, sendMessage };
 }
 
 export default useWebSocket;
