@@ -1,37 +1,19 @@
 import styled from 'styled-components';
-
 import ScheduleMainFoucs from './ScheduleMainFoucs';
-
-import { SubDescription } from 'features/CommonStyles';
-import ScheduleTimer from '../ScheduleTimer';
+import { BoxStyle } from 'features/CommonStyles';
 import { useQuery } from '@tanstack/react-query';
 import { fetchTimerSetting } from 'services/tastTimerService';
 import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
-import { useState } from 'react';
-import { SubTitle } from 'features/CommonStyles';
-
-const DashBoardStyle = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    margin-left: 2rem;
-    border-radius: 2rem;
-    justify-content: center;
-    margin-left: 5rem;
-    align-items: flex-start;
-`;
-
-const ButtonWrapper = styled.div`
-    display: flex;
-    margin-bottom: 1.5rem;
-`;
+import CardSubtitle from '../component/CardSubtitle';
+import useTimer from 'hooks/useTimer';
 
 const ScheduleDashBoard = () => {
-    const [filter, setFilter] = useState(false);
-
     // utc 정시구하기
     const todayMidnight = new Date();
     todayMidnight.setHours(0, 0, 0, 0);
+
+    const { timerData } = useTimer();
+    console.log('timerData :::: ', timerData);
 
     // const test = data => {
     //     if (!filter) return data;
@@ -40,11 +22,11 @@ const ScheduleDashBoard = () => {
 
     // const krDate = new Date(`${year}-${month}-${day}T00:00:00+09:00`);
     // const utcDate = krDate.toISOString();
+
     const { data, isLoading } = useQuery({
         queryKey: ['ScheduleTimer'],
         queryFn: fetchTimerSetting,
         refetchOnWindowFocus: false,
-        // select: data => test(data),
     });
 
     if (isLoading) {
@@ -53,30 +35,19 @@ const ScheduleDashBoard = () => {
 
     return (
         <>
-            <ScheduleTimer timerData={data?.timerData} />
-
-            {/* <button onClick={() => setFilter(prev => !prev)}>!!!!!!</button> */}
-
-            <DashBoardStyle>
-                <SubTitle>
-                    MY STATE <span>TIMER</span>
-                </SubTitle>
-                <SubDescription>저의 시간을 기록합니다.</SubDescription>
-
-                {/* <ButtonWrapper>
-                    <button className="btn-scheduleControl">ToDay</button>
-                    <button className="btn-scheduleControl">ToDay</button>
-                </ButtonWrapper> */}
-
+            {/* myStatus */}
+            <BoxStyle>
+                <CardSubtitle
+                    title={'활동 기록'}
+                    isRedirect={true}
+                    redirectTo={'/myschedule/report'}
+                    buttonText={'Report'}
+                />
                 <ScheduleMainFoucs
                     timerData={data?.timerData}
                     categoryDailyTotals={data?.categoryDailyTotals}
                 />
-                <ButtonWrapper>
-                    <button className="btn-scheduleControl">ToDay</button>
-                    <button className="btn-scheduleControl">ToDay</button>
-                </ButtonWrapper>
-            </DashBoardStyle>
+            </BoxStyle>
         </>
     );
 };

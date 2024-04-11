@@ -7,68 +7,21 @@ import { TodaySeletor } from 'utils/TodaySeletor';
 import ScheduleGit from 'features/Myschedule/ScheduleDashBoard/ScheduleGit';
 import ScheduleList from 'features/Myschedule/ScheduleContainer/ScheduleList';
 import CardSubtitle from 'features/Myschedule/component/CardSubtitle';
-
-const Wrap = styled.div`
-    margin-bottom: 2rem;
-`;
-
-const LeftWrap = styled(Wrap)`
-    width: 65%;
-    /* position: absolute; */
-    /* width: 631px; */
-    /* height: 305px; */
-    /* left: 412px; */
-    /* top: 489px; */
-    box-shadow: 5px -2px 37.5px rgba(0, 0, 0, 0.06);
-    border-radius: 36px;
-    padding: 1.5rem 3rem;
-`;
-
-const RightWrap = styled(Wrap)`
-    width: 30%;
-    box-shadow: 5px -2px 37.5px rgba(0, 0, 0, 0.06);
-    border-radius: 36px;
-    padding: 1.5rem 3rem;
-`;
-
-const FirstWrap = styled(Wrap)`
-    margin-top: 1rem;
-    display: flex;
-`;
+import ScheduleTimer from 'features/Myschedule/ScheduleTimer';
+import { FlexColumnDiv, SubDescription } from 'features/CommonStyles';
+import SubTitle from 'component/ui/Subtitle';
 
 const DashBoardPage = props => {
     const { DdayArr } = props;
+
     const today = TodaySeletor();
+
     return (
         <>
-            <FirstWrap>
-                <ScheduleDashBoard />
-            </FirstWrap>
-
             <FlexRow>
-                <RightWrap>
-                    <CardSubtitle
-                        title={'Today Commit'}
-                        redirectTo={'https://github.com/phm6530/'}
-                        buttonText={'git'}
-                    />
-                    {/* Summary */}
-                    <ScheduleGit />
-                </RightWrap>
-                <LeftWrap>
-                    <CardSubtitle
-                        title={'MY Schedule Summary'}
-                        isRedirect={true}
-                        redirectTo={'/myschedule/report'}
-                        buttonText={'Report'}
-                    />
-                    {/* Summary */}
-                    <ScheduleSummary {...props} />
-                </LeftWrap>
-            </FlexRow>
+                <FlexColumnDiv>
+                    <ScheduleTimer />
 
-            <FlexRow>
-                <RightWrap>
                     <CardSubtitle
                         title={'D - Day Schedule'}
                         redirectTo={'/myschedule/Task'}
@@ -77,8 +30,26 @@ const DashBoardPage = props => {
 
                     {/* Summary */}
                     <ScheduleDdayList DdayArr={DdayArr} />
-                </RightWrap>
-                <LeftWrap>
+                </FlexColumnDiv>
+
+                <FlexColumnDiv>
+                    {/* Summary */}
+
+                    <SubTitle>MY STATUS</SubTitle>
+                    <SubDescription>
+                        저의 시간과 일정을 기록합니다.
+                    </SubDescription>
+
+                    <ScheduleGit />
+                    <ScheduleDashBoard />
+                    <CardSubtitle
+                        title={'MY Schedule Summary'}
+                        isRedirect={true}
+                        redirectTo={'/myschedule/report'}
+                        buttonText={'Report'}
+                    />
+                    {/* Summary */}
+                    <ScheduleSummary {...props} />
                     <CardSubtitle
                         title={'Today Task'}
                         isRedirect={true}
@@ -89,7 +60,7 @@ const DashBoardPage = props => {
                         selectDay={today()}
                         listData={props.listData} //업로드해야할 날짜
                     />
-                </LeftWrap>
+                </FlexColumnDiv>
             </FlexRow>
         </>
     );

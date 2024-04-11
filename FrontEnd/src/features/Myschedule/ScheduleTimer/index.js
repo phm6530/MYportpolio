@@ -18,6 +18,7 @@ import useWebSocket from 'services/useWebSocket';
 import HookformRadio from '../component/HookformRadio';
 import { useForm } from 'react-hook-form';
 import { SCHEDULE_CATEGORY } from 'utils/constans';
+import useTimer from 'hooks/useTimer';
 
 const StopWatchStyle = styled.div`
     padding: 2rem 2rem 1.8rem;
@@ -34,7 +35,16 @@ const StopWatchStyle = styled.div`
     border-radius: 30px;
     flex-direction: column;
     justify-content: space-between;
-    width: 367px;
+    width: 318px;
+
+    background: linear-gradient(
+        180deg,
+        #7b69e7 0%,
+        #7498de 100%,
+        #c981cb 100.01%
+    );
+    box-shadow: 8px 8px 23.4px rgba(0, 0, 0, 0.25);
+    border-radius: 43px;
 
     .stateMessage {
         font-weight: 500;
@@ -47,15 +57,38 @@ const StopWatchStyle = styled.div`
         font-size: 14px;
         text-align: center;
         display: flex;
-        justify-content: center;
+        box-sizing: border-box;
+        border-radius: 36px;
+        background: rgba(255, 255, 255, 0.05);
+        box-shadow: 3px 4px 18px rgba(0, 0, 0, 0.08);
+        padding: 0.8rem;
+        padding-left: 1rem;
+
         img {
             width: 20px;
             margin-right: 0.5rem;
             filter: grayscale(1);
         }
-        span {
+        .on {
             text-align: center;
             color: #fff;
+            position: relative;
+            padding-left: 20px;
+            &::after {
+                position: absolute;
+                display: block;
+                content: '';
+                width: 5px;
+                height: 5px;
+                background: red;
+                left: 0;
+                top: 50%;
+
+                background: linear-gradient(0deg, #51f1d4, #51f1d4);
+                box-shadow: 0px 0px 2.2px #40d5b9;
+                border-radius: 9px;
+                transform: translateY(-50%);
+            }
         }
     }
 
@@ -71,7 +104,8 @@ const ButtonToggle = styled.div`
     transition: all 0.5s ease;
     height: 52px;
     position: relative;
-    border: 1px solid #ffffff45;
+
+    background: rgba(0, 0, 0, 0.06);
 `;
 
 const Button = styled.button`
@@ -88,6 +122,11 @@ const Button = styled.button`
     letter-spacing: -0.1em;
     background: #fff;
     color: #000;
+
+    background: #ffffff;
+    box-shadow: 0px 4px 10.2px rgba(0, 0, 0, 0.25);
+    border-radius: 36px;
+
     ${props => (props.$running ? 'left:calc(50% - 5px)' : 'left: 5px')}
 `;
 
@@ -95,16 +134,10 @@ const Today = styled.div`
     color: #fff;
     opacity: 0.5;
     margin-bottom: 0.3rem;
-    /* 2024.04.05 */
-
-    font-family: 'Inter';
-    font-style: normal;
     font-weight: 500;
     font-size: 14px;
     line-height: 17px;
-    /* identical to box height */
     letter-spacing: -0.05em;
-
     color: #ffffff;
 `;
 
@@ -114,8 +147,9 @@ const ScheduleTimer = () => {
     const { user } = useSelector(state => state.authSlice);
     const { clientAuthCheck } = useAuthCheck();
     const [touched, setTouched] = useState();
-    const { data: websoketData, setData } = useWebSocket('ws://localhost:8080');
+    const { data, isLoading } = useTimer();
 
+    const { data: websoketData, setData } = useWebSocket('ws://localhost:8080');
     const [running, setRunning] = useState(false);
 
     const nowTIme = () => {
@@ -123,11 +157,6 @@ const ScheduleTimer = () => {
     };
 
     const queryClient = useQueryClient();
-    const { data, isLoading } = useQuery({
-        queryKey: ['ScheduleTimer'],
-        queryFn: fetchTimerSetting,
-        refetchOnWindowFocus: false,
-    });
 
     useEffect(() => {
         console.log('websoketData', websoketData);
@@ -135,7 +164,7 @@ const ScheduleTimer = () => {
             queryClient.invalidateQueries({ queryKey: ['ScheduleTimer'] });
             setData(false);
         }
-    }, [websoketData]);
+    }, [websoketData, queryClient, setData]);
 
     const {
         control,
@@ -247,10 +276,11 @@ const ScheduleTimer = () => {
                 <div className="stateMessage">
                     {data?.timerData ? (
                         <>
-                            <img src="/img/contact/talk2.png" alt="kakao" />
-                            <span>
-                                지금 저는{timerData?.category} 중 입니다..
-                            </span>
+                            {/* <img src="/img/contact/talk2.png" alt="kakao" /> */}
+                            <div className="on">
+                                지금 저는 &#39; {timerData?.category} &#39; 중
+                                입니다..
+                            </div>
                         </>
                     ) : (
                         <HookformRadio

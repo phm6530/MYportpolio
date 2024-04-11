@@ -58,16 +58,27 @@ const SubTitle = styled.div`
     font-size: 31px;
     line-height: 38px;
     letter-spacing: -1px;
-    /* margin-bottom: 1rem; */
     font-family: 'Poppins';
     color: #34323f;
     font-weight: bold;
 `;
 
 const SubDepsTitle = styled.div`
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    /* identical to box height */
+    letter-spacing: -0.09em;
+
+    color: #516285;
+`;
+
+/* Rectangle 812 */
+const BoxStyle = styled.div`
+    box-shadow: 0px 4px 20.9px rgba(0, 122, 149, 0.07);
+    border-radius: 31px;
+    width: 100%;
+    padding: 1.3rem 2rem;
 `;
 
 export {
@@ -80,4 +91,5 @@ export {
     MarginBottom1rem,
     SubDescription,
     SubDepsTitle,
+    BoxStyle,
 };

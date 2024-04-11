@@ -4,13 +4,11 @@ import { differenceInSeconds } from 'date-fns';
 
 const TimerStyle = styled.span`
     font-weight: 500;
-    font-family: 'DNFBitBitv2';
     line-height: 40px;
     color: #ffffff;
     text-shadow: 3px 6px 9.4px rgba(0, 0, 0, 0.25);
     margin-top: 2.5rem;
     font-size: 40px;
-    text-align: center;
     line-height: 52px;
 `;
 
