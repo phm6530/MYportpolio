@@ -81,6 +81,7 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
     }, [ScheduleItem, setValue]);
 
     const onEditHandler = async data => {
+        console.log('data::::', data);
         const requstData = {
             work: data.work,
             schedule_key: ScheduleItem.schedule_key,
@@ -138,12 +139,7 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
                     </ImportantStyle>
                 )}
 
-                <FormGroup
-                    sx={{
-                        flexGrow: 1,
-                    }}
-                    onSubmit={handleSubmit(onEditHandler)}
-                >
+                <FormStyle onSubmit={handleSubmit(onEditHandler)}>
                     <FullFlexColumnDiv>
                         <TextArea
                             {...register('work', {
@@ -163,7 +159,7 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
                     {ScheduleItem.schedule_key === selectWork && (
                         <button type="submit">확인</button>
                     )}
-                </FormGroup>
+                </FormStyle>
 
                 {/* 수정 */}
                 <Button

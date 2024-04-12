@@ -15,6 +15,7 @@ import { fetchLogin } from 'services/authService';
 
 import { jwtDecode } from 'jwt-decode';
 import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const LoginHeaderStyle = styled.div`
     padding-bottom: 30px;
@@ -142,9 +143,10 @@ export default function LoginForm() {
             // 토큰 저장
             localStorage.setItem('token', data.token);
 
+            toast.success('로그인 되었습니다.');
             // 로그인 상태 업데이트
             dispatch(authAction.login());
-            dispatch(alertThunk('로그인 되었습니다.', 1));
+            // dispatch(alertThunk('로그인 되었습니다.', 1));
         },
     });
 

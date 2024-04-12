@@ -16,10 +16,7 @@ export const queryClient = new QueryClient({
             refetchOnWindowFocus: false,
         },
         mutations: {
-            onError: error => {
-                console.log(error);
-                // showErrorToast(error.message);
-            },
+            onError: queryErrorHandler,
         },
     },
     queryCache: new QueryCache({

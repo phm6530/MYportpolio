@@ -16,6 +16,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import Popup from '../../../../../component/popup/Popup';
 import Confirm from '../../../../../component/ui/Confirm';
 import { ReactQuery } from 'lib/lib';
+import { toast } from 'react-toastify';
+import { queryClient } from 'react-query/queryClient';
+import { queryKey } from 'services/queryKey';
+import { useQueryClient } from '@tanstack/react-query';
+
 const { useMutation } = ReactQuery;
 
 const HoverStyle = ({ className, children }) => {
@@ -146,10 +151,14 @@ const CommentItem = forwardRef((props, ref) => {
         login ? setModal(true) : setSelectIdx(key);
     };
 
+    const queryclient = useQueryClient();
+
     const { mutate } = useMutation({
         mutationFn: formData => deleteFetch(formData),
         onSuccess: data => {
-            dispatch(alertThunk('삭제되었습니다.', true));
+            toast.success('댓글이 삭제되었습니다.');
+            // dispatch(alertThunk('삭제되었습니다.', true));
+            queryclient.invalidateQueries({ queryKey: 'board' });
             setUserFetchData(prev => {
                 return prev.filter(e => {
                     return e.board_key !== data.isDeleted_key;
