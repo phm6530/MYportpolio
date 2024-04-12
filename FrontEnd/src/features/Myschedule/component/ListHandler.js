@@ -5,9 +5,8 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdCancel } from 'component/icon/Icon';
 
-import { Checkbox } from '@chakra-ui/react';
+import { Checkbox, FormGroup, useTheme } from '@mui/material';
 
-import { FaTrashAlt } from 'react-icons/fa';
 import { MdModeEdit } from 'react-icons/md';
 
 import {
@@ -18,11 +17,9 @@ import {
 
 import {
     FormStyle,
-    CompleteHandler,
     ImportantStyle,
     TextArea,
     IsComplete,
-    DdayImportantStyle,
 } from './styles/ListHandlerStyled';
 import { FlexColumnDiv } from 'features/CommonStyles';
 import Category from '../ui/Category';
@@ -40,10 +37,15 @@ const Button = styled.button`
     }
 `;
 
+const FullFlexColumnDiv = styled(FlexColumnDiv)`
+    flex-grow: 1;
+`;
+
 const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
     const { register, handleSubmit, setValue } = useForm();
     const { clientAuthCheck } = useAuthCheck();
     const [prevWork, setPrevWork] = useState(ScheduleItem.work);
+    const theme = useTheme();
 
     // 이전 댓글과 비교하여 재 패칭 방지
     useEffect(() => {
@@ -108,20 +110,23 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
     };
     // console.log(selectWork);
 
+    console.log('complete', complete);
     return (
         <>
             {/* 삭제팝업 */}
             <PopupComponent event={removeSchedule} />
 
             <IsComplete $Dday={important === 2} $complete={complete}>
-                <CompleteHandler onClick={() => onToggleHandler(schedule_key)}>
-                    {/* {idx + 1}. */}
-                    <Checkbox
-                        isChecked={complete}
-                        colorScheme="red"
-                        style={{ pointerEvents: 'none' }}
-                    />
-                </CompleteHandler>
+                <Checkbox
+                    sx={{
+                        padding: 0,
+                        mr: 1,
+                        color: theme.palette.primary.main,
+                    }}
+                    onChange={() => onToggleHandler(schedule_key)}
+                    checked={complete === 1}
+                />
+
                 {important === 2 && (
                     <ImportantStyle>
                         <img src="/img/calendar/dday.png" alt=""></img>
@@ -132,8 +137,14 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
                         <img src="/img/calendar/important.png" alt=""></img>
                     </ImportantStyle>
                 )}
-                <FormStyle onSubmit={handleSubmit(onEditHandler)}>
-                    <FlexColumnDiv>
+
+                <FormGroup
+                    sx={{
+                        flexGrow: 1,
+                    }}
+                    onSubmit={handleSubmit(onEditHandler)}
+                >
+                    <FullFlexColumnDiv>
                         <TextArea
                             {...register('work', {
                                 required: '빈칸은 입력 불가합니다.',
@@ -148,11 +159,11 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
                             }}
                         />
                         <Category>{ScheduleItem.category}</Category>
-                    </FlexColumnDiv>
+                    </FullFlexColumnDiv>
                     {ScheduleItem.schedule_key === selectWork && (
                         <button type="submit">확인</button>
                     )}
-                </FormStyle>
+                </FormGroup>
 
                 {/* 수정 */}
                 <Button

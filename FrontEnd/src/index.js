@@ -5,19 +5,23 @@ import reportWebVitals from './reportWebVitals';
 import App from './App';
 import { ReactQuery } from 'lib/lib';
 import { queryClient } from 'react-query/queryClient';
-import { ChakraProvider } from '@chakra-ui/react';
-import { theme } from 'lib/theme';
-// 전역 쿼리 설정
+import { ThemeProvider } from '@mui/material';
+import { ToastContainer } from 'react-toastify';
+import theme from 'utils/theme';
+import { toastConfig } from 'utils/toast';
 
+// 전역 쿼리 설정
 const { QueryClientProvider } = ReactQuery;
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-    <ChakraProvider resetCSS theme={theme}>
-        <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
             <App />
-        </QueryClientProvider>
-    </ChakraProvider>,
+            <ToastContainer {...toastConfig} />
+            {/* 에러메세지 */}
+        </ThemeProvider>
+    </QueryClientProvider>,
 );
 
 // If you want to start measuring performance in your app, pass a function

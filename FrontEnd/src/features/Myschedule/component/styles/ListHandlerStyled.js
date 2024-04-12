@@ -50,15 +50,6 @@ const ImportantStyle = styled.span`
     }
 `;
 
-const CompleteHandler = styled.button`
-    width: 25px;
-    border-radius: 5em;
-    font-size: 14px;
-    font-weight: bold;
-    margin-top: 0.1rem;
-    margin-right: 10px;
-`;
-
 const FormStyle = styled.form`
     display: flex;
     flex-grow: 1;
@@ -84,11 +75,4 @@ const IsComplete = styled.div`
     ${props => getDdayAreaStyles(props)}
 `;
 
-export {
-    FormStyle,
-    CompleteHandler,
-    ImportantStyle,
-    IsComplete,
-    TextArea,
-    DdayImportantStyle,
-};
+export { FormStyle, ImportantStyle, IsComplete, TextArea, DdayImportantStyle };

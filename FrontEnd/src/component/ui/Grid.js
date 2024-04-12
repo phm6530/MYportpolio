@@ -13,6 +13,10 @@ const BannerCenteredGrid = styled.div`
     position: relative;
 `;
 
+const MainSpacer = styled.div`
+    margin: 0 20px;
+`;
+
 const LayoutSpacer = styled.div`
     margin: 0 20px;
     flex-grow: 1;
@@ -36,7 +40,7 @@ const PageCenteredGrid = styled(CenteredGrid)`
 const Grid = ({ children }) => {
     return (
         <CenteredGrid>
-            <LayoutSpacer>{children}</LayoutSpacer>
+            <MainSpacer>{children}</MainSpacer>
         </CenteredGrid>
     );
 };

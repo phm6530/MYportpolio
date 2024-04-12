@@ -7,7 +7,13 @@ import styled from 'styled-components';
 import useCategoryFilter from 'hooks/useCategoryFilter';
 import CardSubtitle from '../component/CardSubtitle';
 
-const CustumFlexWrapDiv = styled(FlexWrapDiv)``;
+const CustumFlexWrapDiv = styled(FlexWrapDiv)`
+    flex-grow: 1;
+`;
+
+const FlexGrow = styled(BoxStyle)`
+    flex-grow: 1;
+`;
 
 const ScheduleSummary = props => {
     const { listData, selectDay } = props;
@@ -24,7 +30,7 @@ const ScheduleSummary = props => {
     });
 
     return (
-        <BoxStyle>
+        <FlexGrow>
             <CardSubtitle
                 title={'MY Schedule Summary'}
                 isRedirect={true}
@@ -50,7 +56,7 @@ const ScheduleSummary = props => {
                     arrState={arrState}
                 />
             </CustumFlexWrapDiv>
-        </BoxStyle>
+        </FlexGrow>
     );
 };
 

@@ -116,6 +116,12 @@ const CategoryIconStyle = styled.div`
 
 const CustumFlexRow = styled(FlexRow)`
     margin-bottom: 1rem;
+    width: 100%;
+    flex-grow: 1;
+`;
+
+const FlexGrowColumnDiv = styled(FlexColumnDiv)`
+    flex-grow: 1;
 `;
 
 export default function PrograssBar({ tasks }) {
@@ -164,7 +170,7 @@ export default function PrograssBar({ tasks }) {
         <CustumFlexRow>
             <CategoryIcon catecory={tasks[0].category} />
 
-            <FlexColumnDiv>
+            <FlexGrowColumnDiv>
                 <SubTitleTextStyle>
                     <span className="categoryTitle">{tasks[0].category}</span>
                     <CompleteStyle $active={percent === 100}>
@@ -186,7 +192,7 @@ export default function PrograssBar({ tasks }) {
                         </Percent>
                     </div>
                 </PrograssbarStyle>
-            </FlexColumnDiv>
+            </FlexGrowColumnDiv>
         </CustumFlexRow>
     );
 }

@@ -1,4 +1,3 @@
-import { Spinner, Text } from '@chakra-ui/react';
 import styled from 'styled-components';
 
 const SpinnerStyle = styled.div`
@@ -16,7 +15,7 @@ const SpinnerStyle = styled.div`
 const SpinnerLoading = () => {
     return (
         <SpinnerStyle>
-            <Spinner
+            {/* <Spinner
                 thickness="4px"
                 speed="0.65s"
                 emptyColor="olive.200"
@@ -25,7 +24,7 @@ const SpinnerLoading = () => {
                 zIndex="9999"
                 display={true}
             ></Spinner>
-            <Text display={true}>Loading...</Text>
+            <Text display={true}>Loading...</Text> */}
         </SpinnerStyle>
     );
 };

@@ -1,19 +1,11 @@
 import styled from 'styled-components';
-import { Outlet, useLocation, useOutlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import UserProfile from 'component/profile/UserProfile';
-import Motion from 'component/animations/Motion';
-import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect } from 'react';
 
 const ProjectWrap = styled.div`
     display: flex;
 `;
-const SubAnimatedOutlet = () => {
-    const o = useOutlet();
-    const [outlet] = useState(o);
-
-    return <>{outlet}</>;
-};
 
 export default function Project() {
     const { pathname } = useLocation();

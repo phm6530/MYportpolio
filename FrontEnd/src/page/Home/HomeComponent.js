@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Grid } from 'component/ui/Grid';
 
 export default function HomeComponent() {
     const [isActive, setIsActive] = useState(false);
@@ -8,7 +9,7 @@ export default function HomeComponent() {
         : `bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800`;
 
     return (
-        <>
+        <Grid>
             <h1>My name</h1>
 
             {/* <button type="button" className="">Purple to Blue</button> */}
@@ -49,6 +50,6 @@ export default function HomeComponent() {
             >
                 Red to Yellow
             </button>
-        </>
+        </Grid>
     );
 }

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 const CustumFlexColumnDiv = styled(FlexColumnDiv)`
     margin-left: 4rem;
+    flex-grow: 1;
 
     /* flex-grow: initial; */
     .CategoryWrapTitle {

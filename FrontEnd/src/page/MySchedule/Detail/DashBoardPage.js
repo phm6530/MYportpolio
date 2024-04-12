@@ -50,6 +50,7 @@ const DashBoardPage = props => {
 
                     {/* Summary */}
                     <ScheduleSummary {...props} />
+
                     <CardSubtitle
                         title={'Today Task'}
                         isRedirect={true}

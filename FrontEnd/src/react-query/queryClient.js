@@ -1,44 +1,29 @@
 import { ReactQuery } from 'lib/lib';
 const { QueryClient, QueryCache } = ReactQuery;
-import { createStandaloneToast } from '@chakra-ui/react';
+import { toast } from 'react-toastify';
 
-const { toast } = createStandaloneToast();
-
-const showErrorToast = error => {
-    const toastId = 'network-error'; // 모든 네트워크 에러에 대해 고정된 ID 사용
-
-    if (!toast.isActive(toastId)) {
-        toast({
-            id: toastId,
-            title: '네트워크 오류',
-            description: error || '네트워크 연결을 확인해주세요.',
-            status: 'error',
-            duration: 3000,
-            isClosable: true,
-        });
-    }
+// 에러메세지 커스텀했음
+const queryErrorHandler = error => {
+    toast.error(error.message);
 };
 
+// 인스턴스로 전역에러 관리
 export const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            onError: error => {
-                console.log(error);
-                showErrorToast(error.message);
-            },
+            retry: 0,
+            onError: queryErrorHandler,
             refetchOnWindowFocus: false,
         },
         mutations: {
             onError: error => {
                 console.log(error);
-                showErrorToast(error.message);
+                // showErrorToast(error.message);
             },
         },
     },
     queryCache: new QueryCache({
-        onError: error => {
-            console.log(error);
-            showErrorToast(error.message);
-        },
+        retry: 0,
+        onError: queryErrorHandler,
     }),
 });
