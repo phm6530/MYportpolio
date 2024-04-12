@@ -1,19 +1,10 @@
 import DashBoard from '../../component/ui/DashBoard';
-import Gird from '../../component/ui/Grid';
+import { PageGrid } from '../../component/ui/Grid';
 import BannerCommon from '../../component/ui/BannerCommon';
 import styled from 'styled-components';
 import DashBoardTitle from '../../component/ui/DashBoardTitle';
 import MailComponent from './component/MailComponent';
 import CommonNav from '../common/CommonNav';
-
-const ContactGrid = styled(Gird)`
-    position: relative;
-    flex-direction: column;
-    display: flex;
-    padding-top: 25rem;
-    width: 100%;
-    align-items: flex-start;
-`;
 
 const ContentsWrap = styled.div`
     display: flex;
@@ -34,12 +25,12 @@ export default function Contact() {
                 </DashBoardTitle>
             </DashBoard>
 
-            <ContactGrid>
+            <PageGrid>
                 <ContentsWrap>
                     <CommonNav />
                     <MailComponent />
                 </ContentsWrap>
-            </ContactGrid>
+            </PageGrid>
         </>
     );
 }

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import Gird from '../../component/ui/Grid';
+import { Grid } from '../../component/ui/Grid';
 
-const ScheduleGrid = styled(Gird)`
+const ScheduleGrid = styled(Grid)`
     padding-top: 25rem;
     display: flex;
 `;

@@ -8,7 +8,6 @@ const FlexRowDiv = styled.div`
 const FlexColumnDiv = styled.div`
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
     align-items: flex-start;
 `;
 
@@ -55,12 +54,12 @@ const SubDescription = styled.div`
 `;
 
 const SubTitle = styled.div`
-    font-size: 31px;
+    font-size: 30px;
     line-height: 38px;
     letter-spacing: -1px;
-    font-family: 'Poppins';
+    /* font-family: 'Poppins'; */
     color: #34323f;
-    font-weight: bold;
+    /* font-weight: bold; */
 `;
 
 const SubDepsTitle = styled.div`
@@ -81,6 +80,15 @@ const BoxStyle = styled.div`
     padding: 1.3rem 2rem;
 `;
 
+const LeftWrap = styled.div`
+    /* width: 30%; */
+`;
+
+const RightWrap = styled.div`
+    width: 65%;
+    border-radius: 37px;
+`;
+
 export {
     FlexColumnBetween,
     SubTitleTextStyle,
@@ -92,4 +100,6 @@ export {
     SubDescription,
     SubDepsTitle,
     BoxStyle,
+    LeftWrap,
+    RightWrap,
 };

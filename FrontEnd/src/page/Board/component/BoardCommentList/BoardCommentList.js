@@ -27,7 +27,7 @@ const FirstDayStyle = styled.div`
 const BoardReplyWrap = styled.div`
     height: 100%;
     /* background: #9bbbd4; */
-    padding: 20px;
+    padding: 20px 0;
     &::-webkit-scrollbar {
         width: 4px; /* 스크롤바의 너비 */
     }

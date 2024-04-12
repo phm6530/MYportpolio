@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import styled, { css } from 'styled-components';
-
 import VideoCanvas from '../common/VideoCanvas';
-import { HeaderGird } from './Grid';
+
+import { PageBannerGrid } from './Grid';
 import { useLocation } from 'react-router-dom';
 import { IoMdHome } from 'react-icons/io';
 
-const DashBoardStyle = styled.div`
+const PageBanner = styled.div`
     width: 100%;
+    min-width: 1280px;
     height: 29rem;
     overflow: hidden;
     position: absolute;
@@ -93,29 +94,34 @@ export default function DashBoard({ className, page, children }) {
 
     useEffect(() => {
         const target = document.getElementById('parallaxEvent');
+
         const ParallaxHandler = () => {
             const Scroll = window.scrollY;
             target.style.backgroundPosition = `0 -${Scroll / 15}px`;
         };
+
         document.addEventListener('scroll', ParallaxHandler);
     }, []);
+
     const path = pathname.slice(1);
+
     return (
-        <DashBoardStyle
+        <PageBanner
             id="parallaxEvent"
             $page={page}
             className={className}
             // $DarkMode={ctx.darkMode}
         >
-            <HeaderGird>
+            <PageBannerGrid>
                 {children}
                 {/* <p>*전 회사의 공개 가능한 프로젝트 / 개인 작업물만 공유합니다.</p> */}
                 <PathStyle>
                     <IoMdHome /> HOME / {path}
                 </PathStyle>
-            </HeaderGird>
+            </PageBannerGrid>
+
             {/* Video */}
             <VideoCanvas />
-        </DashBoardStyle>
+        </PageBanner>
     );
 }

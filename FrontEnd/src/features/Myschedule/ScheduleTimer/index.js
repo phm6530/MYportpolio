@@ -147,7 +147,7 @@ const ScheduleTimer = () => {
     const { user } = useSelector(state => state.authSlice);
     const { clientAuthCheck } = useAuthCheck();
     const [touched, setTouched] = useState();
-    const { data, isLoading } = useTimer();
+    const { data, isLoading, getWebsoketTimer } = useTimer();
 
     const { data: websoketData, setData } = useWebSocket('ws://localhost:8080');
     const [running, setRunning] = useState(false);
@@ -161,10 +161,10 @@ const ScheduleTimer = () => {
     useEffect(() => {
         console.log('websoketData', websoketData);
         if (websoketData) {
-            queryClient.invalidateQueries({ queryKey: ['ScheduleTimer'] });
+            getWebsoketTimer();
             setData(false);
         }
-    }, [websoketData, queryClient, setData]);
+    }, [websoketData, setData, getWebsoketTimer]);
 
     const {
         control,

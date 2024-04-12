@@ -1,25 +1,75 @@
 import styled from 'styled-components';
 
-const GridStyle = styled.div`
-    max-width: 1200px;
-    width: 100%;
+const CenteredGrid = styled.div`
+    width: 1280px;
     margin: 0 auto;
     position: relative;
 `;
-const HeaderGridStyle = styled.div`
-    max-width: 1200px;
-    width: 100%;
+
+const BannerCenteredGrid = styled.div`
+    width: 1280px;
     margin: 0 auto;
     padding-top: 8.5rem;
     position: relative;
 `;
 
-export default function Gird({ children, ...props }) {
-    return <GridStyle {...props}> {children} </GridStyle>;
-}
+const LayoutSpacer = styled.div`
+    margin: 0 20px;
+    flex-grow: 1;
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+`;
 
-function HeaderGird({ children, ...props }) {
-    return <HeaderGridStyle {...props}> {children} </HeaderGridStyle>;
-}
+const BannerSpacer = styled.div`
+    margin: 0 20px;
+    flex-grow: 1;
+    width: 100%;
+`;
 
-export { HeaderGird };
+const PageCenteredGrid = styled(CenteredGrid)`
+    padding-top: 25rem;
+    display: flex;
+    justify-content: space-between;
+`;
+
+const Grid = ({ children }) => {
+    return (
+        <CenteredGrid>
+            <LayoutSpacer>{children}</LayoutSpacer>
+        </CenteredGrid>
+    );
+};
+
+const PageGrid = ({ children }) => {
+    return (
+        <PageCenteredGrid>
+            <LayoutSpacer>{children}</LayoutSpacer>
+        </PageCenteredGrid>
+    );
+};
+
+const PageBannerGrid = ({ children }) => {
+    return (
+        <BannerCenteredGrid>
+            <BannerSpacer>{children}</BannerSpacer>
+        </BannerCenteredGrid>
+    );
+};
+
+const FooterGrid = ({ children }) => {
+    return (
+        <CenteredGrid>
+            <BannerSpacer>{children}</BannerSpacer>
+        </CenteredGrid>
+    );
+};
+
+export {
+    Grid,
+    FooterGrid,
+    BannerCenteredGrid,
+    LayoutSpacer,
+    PageGrid,
+    PageBannerGrid,
+};

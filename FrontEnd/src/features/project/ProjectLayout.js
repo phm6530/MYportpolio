@@ -1,20 +1,11 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import DashBoard from 'component/ui/DashBoard';
 import BannerCommon from 'component/ui/BannerCommon';
 import DashBoardTitle from 'component/ui/DashBoardTitle';
-import Gird from 'component/ui/Grid';
+import { PageGrid } from 'component/ui/Grid';
 import styled from 'styled-components';
-import Project from 'page/Project';
 import ProjectList from 'page/MyProject/component/ProjectList/ProjectList';
-import SubTitle from 'component/ui/Subtitle';
-const ProjectGird = styled(Gird)`
-    padding-top: 25rem;
-    display: flex;
-`;
 
-const ProjectWrap = styled.div`
-    display: flex;
-`;
 import { AnimatePresence } from 'framer-motion';
 import { Route, Routes } from 'react-router-dom';
 import UserProfile from 'component/profile/UserProfile';
@@ -42,7 +33,7 @@ export default function ProjectLayout() {
                 </DashBoardTitle>
             </DashBoard>
 
-            <ProjectGird>
+            <PageGrid>
                 <UserProfile />
                 {/* 하위컴포넌트들  */}
                 <AnimatePresence mode="wait">
@@ -81,7 +72,7 @@ export default function ProjectLayout() {
                         {/* 추가적으로 필요한 라우트를 여기에 정의할 수 있습니다. */}
                     </Routes>
                 </AnimatePresence>
-            </ProjectGird>
+            </PageGrid>
         </>
     );
 }

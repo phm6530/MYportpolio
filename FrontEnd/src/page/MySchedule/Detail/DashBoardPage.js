@@ -8,8 +8,13 @@ import ScheduleGit from 'features/Myschedule/ScheduleDashBoard/ScheduleGit';
 import ScheduleList from 'features/Myschedule/ScheduleContainer/ScheduleList';
 import CardSubtitle from 'features/Myschedule/component/CardSubtitle';
 import ScheduleTimer from 'features/Myschedule/ScheduleTimer';
-import { FlexColumnDiv, SubDescription } from 'features/CommonStyles';
-import SubTitle from 'component/ui/Subtitle';
+import {
+    FlexColumnDiv,
+    SubDescription,
+    SubTitle,
+    LeftWrap,
+    RightWrap,
+} from 'features/CommonStyles';
 
 const DashBoardPage = props => {
     const { DdayArr } = props;
@@ -19,7 +24,7 @@ const DashBoardPage = props => {
     return (
         <>
             <FlexRow>
-                <FlexColumnDiv>
+                <LeftWrap>
                     <ScheduleTimer />
 
                     <CardSubtitle
@@ -30,24 +35,19 @@ const DashBoardPage = props => {
 
                     {/* Summary */}
                     <ScheduleDdayList DdayArr={DdayArr} />
-                </FlexColumnDiv>
+                </LeftWrap>
 
-                <FlexColumnDiv>
+                <RightWrap>
                     {/* Summary */}
-
                     <SubTitle>MY STATUS</SubTitle>
                     <SubDescription>
                         저의 시간과 일정을 기록합니다.
                     </SubDescription>
 
                     <ScheduleGit />
+
                     <ScheduleDashBoard />
-                    <CardSubtitle
-                        title={'MY Schedule Summary'}
-                        isRedirect={true}
-                        redirectTo={'/myschedule/report'}
-                        buttonText={'Report'}
-                    />
+
                     {/* Summary */}
                     <ScheduleSummary {...props} />
                     <CardSubtitle
@@ -60,7 +60,7 @@ const DashBoardPage = props => {
                         selectDay={today()}
                         listData={props.listData} //업로드해야할 날짜
                     />
-                </FlexColumnDiv>
+                </RightWrap>
             </FlexRow>
         </>
     );

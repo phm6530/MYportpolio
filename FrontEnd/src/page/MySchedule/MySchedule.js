@@ -10,13 +10,10 @@ import { scheduleFetch } from 'services/ScheduleService';
 import { TodaySeletor } from 'utils/TodaySeletor';
 
 // styled
-import { ScheduleGrid } from './MyScheduleStyle';
-
-// import { dateFormating } from 'utils/DateFormat';
+import { PageGrid } from 'component/ui/Grid';
 
 //그래프
 // import ReactChat from 'react-apexcharts';
-import UserProfile from 'component/profile/UserProfile';
 import { FlexColumnDiv } from 'features/CommonStyles';
 import ScheduleHeader from 'features/Myschedule/Layout/ScheduleHeader';
 import ScheduleRoute from 'Route/ScheduleRoute';
@@ -32,6 +29,7 @@ const { useSearchParams } = ReactRouteDom;
 const CustumlexColumnDiv = styled(FlexColumnDiv)`
     padding: 3rem 3.5rem;
     border-radius: 2.5rem;
+    flex-grow: 1;
 `;
 
 export default function MySchedule() {
@@ -100,7 +98,7 @@ export default function MySchedule() {
                 </DashBoardTitle>
             </DashBoard>
 
-            <ScheduleGrid>
+            <PageGrid>
                 {/* UserProFile */}
                 {/* <UserProfile /> */}
                 <CustumlexColumnDiv style={{ backgroundColor: '#fff' }}>
@@ -116,7 +114,7 @@ export default function MySchedule() {
                     />
                     {isLoading && <SpinnerLoading />}
                 </CustumlexColumnDiv>
-            </ScheduleGrid>
+            </PageGrid>
         </>
     );
 }

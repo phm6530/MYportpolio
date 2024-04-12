@@ -4,7 +4,7 @@ import { ReactQuery } from 'lib/lib';
 
 import BoardCommentForm from './component/BoardCommentForm/BoardCommentForm';
 import BannerCommon from '../../component/ui/BannerCommon';
-import Grid from '../../component/ui/Grid';
+import { PageGrid, LayoutSpacer } from '../../component/ui/Grid';
 
 import DashBoard from '../../component/ui/DashBoard';
 import DashBoardTitle from '../../component/ui/DashBoardTitle';
@@ -37,12 +37,6 @@ const BoardDashBoard = styled.div`
         margin-right: 3rem;
         box-shadow: 3px 21px 17px rgb(0 0 0 / 25%);
     }
-`;
-
-const BoardGrid = styled(Grid)`
-    padding-top: 25rem;
-    display: flex;
-    justify-content: space-between;
 `;
 
 const RightWrap = styled.div`
@@ -106,14 +100,13 @@ export default function Board() {
             </DashBoard>
 
             {/* Body */}
-            <BoardGrid>
+            <PageGrid>
                 {/* Prifile */}
                 <UserProfile />
 
-                <RightWrap id="parallex_form">
+                <RightWrap>
                     <BoardDashBoard>
                         <SubTitle>
-                            {/* <img src="/img/board/talk.png" alt="" /> */}
                             <div className="subText">
                                 <span className="point">GUEST BOARD</span>
                             </div>
@@ -144,7 +137,7 @@ export default function Board() {
                     )}
                     {isLoading && <SpinnerLoading />}
                 </RightWrap>
-            </BoardGrid>
+            </PageGrid>
         </>
     );
 }

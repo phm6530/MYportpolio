@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Grid from '../ui/Grid';
+import { FooterGrid } from '../ui/Grid';
 import { FaGit } from 'react-icons/fa6';
 import { TfiEmail } from 'react-icons/tfi';
 import { TbPhoneCall } from 'react-icons/tb';
@@ -19,12 +19,6 @@ const FooterIconAlign = styled.div`
     margin-bottom: 20px;
 `;
 
-const CustumGrid = styled(Grid)`
-    display: flex;
-    align-items: left;
-    flex-direction: column;
-    justify-content: center;
-`;
 const FooterIcon = styled.div`
     cursor: pointer;
     width: 40px;
@@ -74,7 +68,7 @@ const Link = url => {
 export default function Footer() {
     return (
         <FooterStyle>
-            <CustumGrid>
+            <FooterGrid>
                 <FooterIconAlign>
                     <FooterIcon onClick={() => Link('https:/naver.com')}>
                         <FaGit size={'15'} />
@@ -98,7 +92,7 @@ export default function Footer() {
                 <span style={{ marginTop: '20px', opacity: '.5' }}>
                     CopyRight ⓒ p. Hyun
                 </span>
-            </CustumGrid>
+            </FooterGrid>
         </FooterStyle>
     );
 }

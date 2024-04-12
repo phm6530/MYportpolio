@@ -7,22 +7,12 @@ import TaskNav from 'features/Myschedule/TaskNav';
 import Motion from 'component/animations/Motion';
 import { AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
-import { SubDepsTitle } from 'features/CommonStyles';
+import { SubDepsTitle, LeftWrap, RightWrap } from 'features/CommonStyles';
 
 // import Calendar from 'features/Myschedule/Calendar';
 
 const MotionPageCustum = styled(Motion.Page)`
     flex-grow: 1;
-`;
-
-const LeftWrap = styled.div`
-    /* width: 30%; */
-`;
-
-const RightWrap = styled.div`
-    width: 60%;
-
-    border-radius: 37px;
 `;
 
 const SubDepsTitleCustum = styled(SubDepsTitle)`
