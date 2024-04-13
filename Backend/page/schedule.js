@@ -239,11 +239,12 @@ const ScheduleRouter = (wss) => {
                     }
                 }
                 await conn.commit(); // 트랜잭션 커밋
-                wss.clients.forEach((client) => {
-                    client.send('타이머 갱신 완료');
-                });
+                console.log('실행');
+                // 웹소켓에서는 JSON, XML를 가정하지않기때문에 JSOn.stringfly해서 보내야댐
+                ws.send(JSON.stringify({ status: 'success', message: '타이머가 갱신 되었습니다..', timerSet: true }));
             } else {
-                ws.send(JSON.stringify({ status: 'success', message: '갱신할 타이머가 없습니다.' }));
+                console.log('실행');
+                ws.send(JSON.stringify({ status: 'success', message: '갱신할 타이머가 없습니다.', timerSet: false }));
             }
         } catch (error) {
             await conn.rollback(); // 에러 발생 시 롤백
@@ -253,11 +254,16 @@ const ScheduleRouter = (wss) => {
         }
     };
 
-    wss.on('connection', (ws) => {
-        schedule.scheduleJob('0 0 * * *', () => {
-            timerRestart(ws); // 여기서 ws를 전달
+    schedule.scheduleJob('0 0 * * *', () => {
+        wss.clients.forEach((client) => {
+            timerRestart(client);
         });
     });
+
+    wss.on('connection', () => {
+        console.log('웹소켓 연결');
+    });
+
     return router;
 };
 

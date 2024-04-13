@@ -189,18 +189,43 @@ router.post('/editProject', async (req, res, next) => {
     }
 });
 
-router.post('/edit', async (req, res, next) => {
+const runTransaction = async (callback) => {
+    let conn;
     try {
-        const { key } = req.body;
-        const sql = `select * from project as a inner join 
+        conn = await db.getConnection();
+        await conn.beginTransaction();
+
+        // 콜백 함수 실행
+        const result = await callback(conn);
+
+        await conn.commit(); // 트랜잭션 커밋
+        return result;
+    } catch (error) {
+        if (conn) {
+            await conn.rollback(); // 트랜잭션 롤백
+        }
+        throw error;
+    } finally {
+        if (conn) {
+            conn.release(); // 커넥션 반환
+        }
+    }
+};
+
+router.post('/edit', async (req, res, next) => {
+    return runTransaction(async (conn) => {
+        try {
+            const { key } = req.body;
+            const sql = `select * from project as a inner join 
         project_description as b on a.project_key = b.project_key where a.project_key =?
         `;
-        const response = await db.query(sql, [key]);
-        res.status(200).json(response[0]);
-    } catch (error) {
-        const err = new NotFoundError(error.message);
-        next(err);
-    }
+            const [response] = await conn.query(sql, [key]);
+            res.status(200).json(response[0]);
+        } catch (error) {
+            const err = new NotFoundError(error.message);
+            next(err);
+        }
+    });
 });
 
 router.delete('/delete/:key', async (req, res, next) => {

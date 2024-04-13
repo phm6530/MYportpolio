@@ -97,9 +97,11 @@ router.post('/reply/delete', async (req, res, next) => {
 // 초기로드 or 게시판 페이징
 router.get('/:idx', async (req, res, next) => {
     try {
-        const connection = await db.getConnection();
+        const conn = await db.getConnection();
+        await conn.beginTransaction();
+
         const idx = +req.params.idx;
-        console.log(idx);
+
         const limit = 10;
 
         const sql = `select idx , 
@@ -110,17 +112,20 @@ router.get('/:idx', async (req, res, next) => {
             date ,
             role
             from board order by idx desc limit ? offset ?`;
-        const [response_database] = await connection.query(sql, [limit, idx]);
+        const [response_database] = await conn.query(sql, [limit, idx * limit]);
 
         const count_sql = `select count(*) as cnt from board`;
-        const [counter] = await connection.query(count_sql);
+        const [counter] = await conn.query(count_sql);
 
-        connection.release();
+        const nextPage = response_database.length === limit ? idx + 1 : undefined;
+        console.log(nextPage);
+        conn.release();
 
         res.status(201).json({
             path: 'paging',
             counter: counter[0].cnt,
             pageData: response_database,
+            nextPage: nextPage,
         });
     } catch (error) {
         const err = new NotFoundError();
