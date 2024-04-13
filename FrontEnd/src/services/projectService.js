@@ -59,8 +59,6 @@ const addProjectFetch = async (formData, Type) => {
 
 // 초기 edit 매핑
 const projectEdit = async key => {
-    console.log(key);
-
     const response = await fetch('http://localhost:8080/project/edit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -68,6 +66,7 @@ const projectEdit = async key => {
     });
 
     const result = await response.json();
+
     if (!response.ok) {
         throw new Error(result.message || '에러');
     }

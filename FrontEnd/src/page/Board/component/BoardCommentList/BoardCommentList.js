@@ -49,16 +49,18 @@ export default function BoardCommentList({
     moreFetchData,
     isLoading,
     total,
+    lastPageIdx,
     setUserFetchData,
     setLastPageIdx,
 }) {
     const [selectIdx, setSelectIdx] = useState(null);
     const refs = useRef([]);
+
     useEffect(() => {
         if (!moreFetchData) return;
 
         const selectRefs = refs.current.slice(0, refs.current.length);
-        // console.log(selectRefs.length);
+
         const lastRef = selectRefs[userFetchData.length - 1];
 
         //디버깅용 색칠하기
@@ -81,7 +83,7 @@ export default function BoardCommentList({
         };
     }, [userFetchData, setLastPageIdx, moreFetchData]);
 
-    console.log(isLoading);
+    // console.log(isLoading);
     return (
         <BoardReplyWrap>
             <CommentState total={total} />
@@ -119,6 +121,7 @@ export default function BoardCommentList({
                                 <Fadeup key={item.board_key}>
                                     <CommentItem
                                         ref={dom => (refs.current[idx] = dom)}
+                                        lastPageIdx={lastPageIdx}
                                         item={item}
                                         role={item.role}
                                         selectIdx={selectIdx === item.board_key}

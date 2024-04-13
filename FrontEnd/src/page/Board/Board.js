@@ -14,6 +14,7 @@ import BoardCommentList from './component/BoardCommentList/BoardCommentList';
 
 import { fetchData } from './BoardFetch';
 import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 const { useQuery } = ReactQuery;
 
@@ -58,14 +59,34 @@ export default function Board() {
     const [total, setTotal] = useState(0);
     const [lastPageIdx, setLastPageIdx] = useState(null);
 
-    console.log(lastPageIdx);
+    const fetchingTest = pageParam => {
+        const last = 4;
+        const nextpage = last > pageParam ? pageParam + 1 : undefined;
+        // 데이터 구조와 `nextpage` 정보를 반환
+        return {
+            items: Array.from(
+                { length: 10 },
+                (_, i) => `Item ${pageParam * 10 + i + 1}`,
+            ),
+            nextpage,
+        };
+    };
+
+    const { data: infinityData } = useInfiniteQuery({
+        queryKey: ['board'],
+        queryFn: ({ pageParam = 0 }) => fetchingTest(pageParam),
+        getNextPageParam: lastPage => {
+            // `nextpage` 정보를 올바르게 참조
+            return lastPage.nextpage;
+        },
+    });
+
+    console.log('infinityData: ', infinityData);
 
     const { isLoading, isError, data, isSuccess } = useQuery({
         queryKey: ['board', lastPageIdx],
         queryFn: () => fetchData(lastPageIdx),
     });
-
-    console.log('data::', data);
 
     useEffect(() => {
         if (isSuccess) {

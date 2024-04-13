@@ -172,7 +172,6 @@ export default function AddProject() {
     // console.log(getValues());
 
     useEffect(() => {
-        console.log('랜더링');
         const fetching = async () => {
             SETPROJECT_KEY(ProjectKey); //기존 KEY
             return await projectEdit(ProjectKey);
@@ -355,7 +354,7 @@ export default function AddProject() {
                                 label={e}
                                 {...register('skill')}
                                 isCheck={isCheck(e)}
-                                trigger={trigger}
+                                // trigger={trigger}
                             />
                         ))}
                     </ProjectSkillWrap>

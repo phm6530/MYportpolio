@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdCancel } from 'component/icon/Icon';
 
-import { Checkbox, FormGroup, useTheme } from '@mui/material';
+import { Checkbox, Button as Btn, useTheme } from '@mui/material';
 
 import { MdModeEdit } from 'react-icons/md';
 
@@ -157,7 +157,7 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
                         <Category>{ScheduleItem.category}</Category>
                     </FullFlexColumnDiv>
                     {ScheduleItem.schedule_key === selectWork && (
-                        <button type="submit">확인</button>
+                        <Btn type="submit">확인</Btn>
                     )}
                 </FormStyle>
 

@@ -6,7 +6,7 @@ import MySchedule from 'page/MySchedule/MySchedule';
 import Board from 'page/Board/Board';
 import Contact from 'page/contact/Contact';
 import { useLocation, Route, Routes } from 'react-router-dom';
-
+import InfiniteScrollTest from 'test.bak';
 const AppRoute = () => {
     const location = useLocation();
     const pageKey = location.pathname.split('/')[1] || 'home';
@@ -53,6 +53,14 @@ const AppRoute = () => {
                         element={
                             <Motion.Page>
                                 <Contact />
+                            </Motion.Page>
+                        }
+                    />
+                    <Route
+                        path="/test"
+                        element={
+                            <Motion.Page>
+                                <InfiniteScrollTest />
                             </Motion.Page>
                         }
                     />

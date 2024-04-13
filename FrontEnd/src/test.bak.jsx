@@ -1,10 +1,12 @@
 import styled, { keyframes } from 'styled-components';
-import { fetchData } from './page/Board/BoardFetch';
 
 import { useEffect, useRef, useState } from 'react';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { fetchData } from 'page/Board/BoardFetch';
 
 const Wrap = styled.div`
-    padding-top: 50px;
+    padding-top: 150px;
     width: 1200px;
     margin: 0 auto;
     div {
@@ -15,42 +17,68 @@ const Wrap = styled.div`
     }
 `;
 
+const Div = styled.div`
+    width: 100%;
+    height: 100px;
+    background: red;
+`;
+
 export default function InfiniteScrollTest() {
-    const arr = [...Array(10)].map((_, idx) => idx);
-    const [infinityScroll, setInfinityScroll] = useState(arr);
-    const refs = useRef([]);
+    const ref = useRef();
+
+    const { data, isLoading, fetchNextPage, isFetchingNextPage } =
+        useInfiniteQuery({
+            queryKey: ['test'],
+            queryFn: ({ pageParam = 0 }) => fetchData(pageParam),
+            getNextPageParam: nextPage => {
+                return nextPage.nextPage || undefined;
+            },
+        });
+    console.log(data);
 
     useEffect(() => {
-        const lastSelector = refs.current[refs.current.length - 1];
-        const io = new IntersectionObserver(
-            entry => {
-                entry[0].isIntersecting &&
-                    setInfinityScroll(prev => [...prev, arr.length + 1]);
-            },
-            { threshold: 0.5 },
-        );
+        const lastRef = ref?.current;
+        console.log(lastRef);
 
-        if (lastSelector) {
-            io.observe(lastSelector);
-            lastSelector.style.backgroundColor = 'red';
-        }
-        return () => {
-            io.disconnect(lastSelector);
+        const callback = entry => {
+            if (entry[0].isIntersecting) {
+                fetchNextPage();
+            }
         };
-    }, [infinityScroll]);
+
+        const io = new IntersectionObserver(callback, { threshold: 0.5 });
+        if (lastRef) {
+            io.observe(lastRef);
+        }
+
+        return () => {
+            if (lastRef) {
+                io.unobserve(lastRef);
+            }
+        };
+    }, [isLoading, data, fetchNextPage]);
+
+    if (isLoading) {
+        return <>loading...</>;
+    }
 
     return (
-        <Wrap>
-            {infinityScroll.map((e, idx) => {
-                return (
-                    <div
-                        key={idx}
-                        ref={element => (refs.current[idx] = element)}
-                    >
-                        {e}
-                    </div>
-                );
-            })}
-        </Wrap>
+        <>
+            <Wrap>
+                {data.pages.map((page, pageIdx) => {
+                    const lastPage = pageIdx === data.pages.length - 1;
+                    return page.pageData.map((item, idx) => {
+                        const lastItem =
+                            lastPage && idx === page.pageData.length - 1;
+
+                        return (
+                            <Div ref={lastItem ? ref : null} key={idx}>
+                                {item.idx}
+                            </Div>
+                        );
+                    });
+                })}
+            </Wrap>
+        </>
     );
 }

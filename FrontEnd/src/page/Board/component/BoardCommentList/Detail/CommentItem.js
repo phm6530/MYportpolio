@@ -120,8 +120,14 @@ const ReplyBubble = styled.div`
 const CommentItem = forwardRef((props, ref) => {
     const { login } = useSelector(state => state.authSlice);
     const [modal, setModal] = useState(false);
-    const dispatch = useDispatch();
-    const { item, selectIdx, setSelectIdx, setUserFetchData, role } = props;
+    const {
+        item,
+        selectIdx,
+        setSelectIdx,
+        lastPageIdx,
+        setUserFetchData,
+        role,
+    } = props;
 
     const {
         user_icon,
@@ -158,7 +164,7 @@ const CommentItem = forwardRef((props, ref) => {
         onSuccess: data => {
             toast.success('댓글이 삭제되었습니다.');
             // dispatch(alertThunk('삭제되었습니다.', true));
-            queryclient.invalidateQueries({ queryKey: 'board' });
+            queryclient.invalidateQueries({ queryKey: ['board', lastPageIdx] });
             setUserFetchData(prev => {
                 return prev.filter(e => {
                     return e.board_key !== data.isDeleted_key;
