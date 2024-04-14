@@ -2,7 +2,7 @@ import { ReactQuery } from 'lib/lib';
 const { QueryClient, QueryCache } = ReactQuery;
 import { toast } from 'react-toastify';
 
-// 에러메세지 커스텀했음
+// 에러메세지 커스텀
 const queryErrorHandler = error => {
     toast.error(error.message);
 };

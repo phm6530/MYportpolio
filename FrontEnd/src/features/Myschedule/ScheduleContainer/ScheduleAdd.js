@@ -2,8 +2,7 @@ import styled from 'styled-components';
 
 import { v4 as uuidv4 } from 'uuid';
 import { useAuthCheck } from 'hooks/useAuthCheck';
-import { ReactHookForm, ReactRedux, ReactQuery } from 'lib/lib';
-import alertThunk from 'store/alertTrunk';
+import { ReactHookForm, ReactQuery } from 'lib/lib';
 
 import { fetchAddSchedule } from 'services/ScheduleService';
 import { TextAreaStyle } from '../../../component/ui/TextArea';
@@ -12,10 +11,10 @@ import ErrorBubble from 'component/error/ErrorBubble';
 import HookformRadio from '../component/HookformRadio';
 
 import { SCHEDULE_CATEGORY } from 'utils/constans';
+import { toast } from 'react-toastify';
 
 // lib
-const { useForm, Controller } = ReactHookForm;
-const { useDispatch } = ReactRedux;
+const { useForm } = ReactHookForm;
 const { useQueryClient, useMutation } = ReactQuery;
 
 const AddScheduleFormStyle = styled.form`
@@ -73,14 +72,14 @@ const ScheduleAdd = ({ selectDay }) => {
     });
     // console.log('errors : ',errors);
     const { clientAuthCheck } = useAuthCheck();
-    const dispatch = useDispatch();
 
     const queryclient = useQueryClient();
 
     const mutation = useMutation({
         mutationFn: data => fetchAddSchedule(data),
         onSuccess: () => {
-            dispatch(alertThunk('일정이 등록 되었습니다.', 1));
+            toast.success('일정이 등록 되었습니다.');
+            // dispatch(alertThunk('일정이 등록 되었습니다.', 1));
             queryclient.invalidateQueries({ queryKey: ['Schedule'] });
             reset();
         },

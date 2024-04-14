@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import { fetchData } from 'page/Board/BoardFetch';
+import { fetchData } from 'services/boardService';
 
 const Wrap = styled.div`
     padding-top: 150px;

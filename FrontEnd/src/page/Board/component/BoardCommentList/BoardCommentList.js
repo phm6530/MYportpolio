@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import CommentItem from './Detail/CommentItem';
 import Fadeup from '../../../../FadeinComponent';
 import styled from 'styled-components';
 import CommentState from './Detail/CommentState';
+import Motion from 'component/animations/Motion';
 // import { useIsFetching } from '@tanstack/react-query';
 
 const FirstDayStyle = styled.div`
@@ -45,95 +46,73 @@ const BoardReplyWrap = styled.div`
 `;
 
 export default function BoardCommentList({
-    userFetchData,
-    moreFetchData,
-    isLoading,
+    fetchNextPage,
+    infinityData,
     total,
-    lastPageIdx,
-    setUserFetchData,
-    setLastPageIdx,
 }) {
-    const [selectIdx, setSelectIdx] = useState(null);
-    const refs = useRef([]);
+    const [selectIdx, setSelectIdx] = useState();
+    const ref = useRef();
+    const dateSet = new Set();
+
+    const isFirstDate = date => {
+        if (!dateSet.has(date)) {
+            dateSet.add(date);
+            return true;
+        }
+        return false;
+    };
 
     useEffect(() => {
-        if (!moreFetchData) return;
+        const targetItem = ref.current;
 
-        const selectRefs = refs.current.slice(0, refs.current.length);
-
-        const lastRef = selectRefs[userFetchData.length - 1];
-
-        //디버깅용 색칠하기
-        // if(lastRef){
-        //     lastRef.style.backgroundColor = 'red';
-        // }
-        const io = new IntersectionObserver(
-            entry => {
-                if (entry[0].isIntersecting && moreFetchData) {
-                    setLastPageIdx(selectRefs.length);
-                }
-            },
-            { threshold: 0.1 },
-        );
-        if (lastRef) {
-            io.observe(lastRef);
-        }
-        return () => {
-            io.disconnect();
+        const callback = entry => {
+            if (entry[0].isIntersecting) {
+                console.log('발견');
+                targetItem.style.backgroundColor = 'red';
+                fetchNextPage();
+            }
         };
-    }, [userFetchData, setLastPageIdx, moreFetchData]);
 
-    // console.log(isLoading);
+        const io = new IntersectionObserver(callback, {
+            threshold: 0.5,
+        });
+
+        if (targetItem) {
+            io.observe(targetItem);
+        }
+
+        return () => io.disconnect();
+    }, [ref, fetchNextPage, infinityData]);
+
     return (
         <BoardReplyWrap>
-            <CommentState total={total} />
+            <CommentState total={total} /> {/* 뿌리기 */}
+            {infinityData.pages.map((page, idx) => {
+                const lastPage = idx === infinityData.pages.length - 1;
 
-            {userFetchData &&
-                (() => {
-                    const arr = [];
-                    return userFetchData.map((item, idx) => {
-                        const date = item.date.split(' ')[0];
+                return page.pageData.map((item, idx) => {
+                    const lastItem =
+                        lastPage && idx === page.pageData.length - 1;
 
-                        let isFirstDay = false;
-                        let firstDiv = false;
+                    const date = item.date.split(' ')[0];
+                    let firstData = isFirstDate(date);
 
-                        if (!arr.includes(date)) {
-                            isFirstDay = true;
-                            arr.push(date);
-                        }
-
-                        if (arr.length === 1) {
-                            firstDiv = true;
-                        }
-
-                        return (
-                            <div key={item.board_key}>
-                                {isFirstDay && (
-                                    <Fadeup key={`date-${item.board_key}`}>
-                                        <FirstDayStyle $first={firstDiv}>
-                                            {date}
-                                        </FirstDayStyle>
-                                    </Fadeup>
-                                )}
-                                {userFetchData.length === 0 && (
-                                    <p> 등록된 게시물이 없습니다. </p>
-                                )}
-                                <Fadeup key={item.board_key}>
-                                    <CommentItem
-                                        ref={dom => (refs.current[idx] = dom)}
-                                        lastPageIdx={lastPageIdx}
-                                        item={item}
-                                        role={item.role}
-                                        selectIdx={selectIdx === item.board_key}
-                                        setSelectIdx={setSelectIdx}
-                                        isLoading={isLoading}
-                                        setUserFetchData={setUserFetchData}
-                                    />
-                                </Fadeup>
-                            </div>
-                        );
-                    });
-                })()}
+                    return (
+                        <div key={item.board_key}>
+                            {firstData && <FirstDayStyle>{date}</FirstDayStyle>}
+                            <Motion.FadeInOut>
+                                <CommentItem
+                                    ref={lastItem ? ref : null}
+                                    item={item}
+                                    role={item.role}
+                                    selectIdx={selectIdx === item.board_key}
+                                    setSelectIdx={setSelectIdx}
+                                />
+                            </Motion.FadeInOut>
+                        </div>
+                    );
+                });
+            })}
         </BoardReplyWrap>
     );
 }

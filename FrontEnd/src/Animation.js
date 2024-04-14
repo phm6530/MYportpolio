@@ -1,5 +1,5 @@
 import { ReactQuery } from 'lib/lib';
-import { fetchData } from './page/Board/BoardFetch';
+import { fetchData } from 'services/boardService';
 import Fadeup from './FadeinComponent';
 
 const { useQuery } = ReactQuery;

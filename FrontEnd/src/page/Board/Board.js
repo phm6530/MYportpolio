@@ -4,7 +4,7 @@ import { ReactQuery } from 'lib/lib';
 
 import BoardCommentForm from './component/BoardCommentForm/BoardCommentForm';
 import BannerCommon from '../../component/ui/BannerCommon';
-import { PageGrid, LayoutSpacer } from '../../component/ui/Grid';
+import { PageGrid } from '../../component/ui/Grid';
 
 import DashBoard from '../../component/ui/DashBoard';
 import DashBoardTitle from '../../component/ui/DashBoardTitle';
@@ -12,7 +12,7 @@ import SubTitle from '../../component/ui/Subtitle';
 import UserProfile from 'component/profile/UserProfile';
 import BoardCommentList from './component/BoardCommentList/BoardCommentList';
 
-import { fetchData } from './BoardFetch';
+import { fetchData } from 'services/boardService';
 import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
@@ -54,51 +54,20 @@ const RightWrap = styled.div`
 
 export default function Board() {
     // 초기데이터 + 페이징 데이터 로드
-    const [userFetchData, setUserFetchData] = useState([]);
-    const [moreFetchData, setFetchMoreData] = useState(true);
     const [total, setTotal] = useState(0);
-    const [lastPageIdx, setLastPageIdx] = useState(null);
 
-    const fetchingTest = pageParam => {
-        const last = 4;
-        const nextpage = last > pageParam ? pageParam + 1 : undefined;
-        // 데이터 구조와 `nextpage` 정보를 반환
-        return {
-            items: Array.from(
-                { length: 10 },
-                (_, i) => `Item ${pageParam * 10 + i + 1}`,
-            ),
-            nextpage,
-        };
-    };
-
-    const { data: infinityData } = useInfiniteQuery({
+    const {
+        data: infinityData,
+        isLoading,
+        isFetching,
+        fetchNextPage,
+    } = useInfiniteQuery({
         queryKey: ['board'],
-        queryFn: ({ pageParam = 0 }) => fetchingTest(pageParam),
+        queryFn: ({ pageParam = 0 }) => fetchData(pageParam),
         getNextPageParam: lastPage => {
-            // `nextpage` 정보를 올바르게 참조
-            return lastPage.nextpage;
+            return lastPage.nextPage || undefined;
         },
     });
-
-    console.log('infinityData: ', infinityData);
-
-    const { isLoading, isError, data, isSuccess } = useQuery({
-        queryKey: ['board', lastPageIdx],
-        queryFn: () => fetchData(lastPageIdx),
-    });
-
-    useEffect(() => {
-        if (isSuccess) {
-            if (data.pageData.length === 0) {
-                setFetchMoreData(false);
-            }
-            setTotal(data.counter);
-            setUserFetchData(prev => {
-                return [...prev, ...data.pageData];
-            });
-        }
-    }, [data, isSuccess]);
 
     useEffect(() => {
         window.scrollTo({
@@ -106,6 +75,10 @@ export default function Board() {
             behavior: 'smooth', // 부드러운 스크롤 효과 적용
         });
     }, []);
+
+    if (isLoading) {
+        return <>loading...</>;
+    }
 
     return (
         <>
@@ -140,22 +113,19 @@ export default function Board() {
 
                     <BoardCommentForm
                         setTotal={setTotal}
-                        setUserFetchData={setUserFetchData}
+                        // setUserFetchData={setUserFetchData}
                     />
 
                     {/* BoardComment */}
-                    {!isLoading && isError && 'error'}
+                    {/* {!isLoading && isError && 'error'} */}
 
-                    {userFetchData && (
-                        <BoardCommentList
-                            userFetchData={userFetchData}
-                            moreFetchData={moreFetchData}
-                            total={total}
-                            isLoading={isLoading}
-                            setUserFetchData={setUserFetchData}
-                            setLastPageIdx={setLastPageIdx}
-                        />
-                    )}
+                    <BoardCommentList
+                        fetchNextPage={fetchNextPage}
+                        infinityData={infinityData}
+                        isFetching={isFetching}
+                        total={total}
+                    />
+
                     {isLoading && <SpinnerLoading />}
                 </RightWrap>
             </PageGrid>

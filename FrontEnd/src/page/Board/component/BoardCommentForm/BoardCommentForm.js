@@ -2,8 +2,8 @@ import { Controller } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useContext, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { fetchReply } from '../../BoardFetch';
 
+import { fetchReply } from 'services/boardService';
 import styled, { keyframes } from 'styled-components';
 
 import { DarkMode } from '../../../../context/DarkModeContext';
@@ -22,6 +22,7 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup'; // Yup + form hook 연동
 import { useForm } from 'react-hook-form';
 import { useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 const checkAnimtaion = keyframes`
     from{
@@ -241,13 +242,14 @@ export default function BoardCommentForm({ setTotal, setUserFetchData }) {
             userIcon: randomUserIcon,
         });
     }, [login]);
+    const queryClient = useQueryClient();
 
     // Query 뮤테이션
     const mutation = useMutation({
         mutationFn: formData => fetchReply(formData),
-        onSuccess: data => {
-            setUserFetchData(prev => [{ ...data.resData }, ...prev]);
-            dispatch(alertThunk('댓글 등록되었습니다.', true));
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['board'] });
+            toast.success('댓글이 등록되었습니다.');
             reset({
                 ...getValues(),
                 userName: login ? 'Admin' : '',

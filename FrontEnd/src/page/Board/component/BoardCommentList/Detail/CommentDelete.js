@@ -23,7 +23,6 @@ const ButtonSTyle = styled.button`
 
 export default function CommentDelete({ mutate, board_key, setSelectIdx }) {
     const { handleSubmit, reset } = useFormContext();
-    const dispatch = useDispatch();
 
     const onSubmitHandler = async data => {
         const password = data.password;

@@ -44,13 +44,9 @@ const FullFlexColumnDiv = styled(FlexColumnDiv)`
 const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
     const { register, handleSubmit, setValue } = useForm();
     const { clientAuthCheck } = useAuthCheck();
+
     const [prevWork, setPrevWork] = useState(ScheduleItem.work);
     const theme = useTheme();
-
-    // 이전 댓글과 비교하여 재 패칭 방지
-    useEffect(() => {
-        setPrevWork(ScheduleItem.work);
-    }, [ScheduleItem]);
 
     const [textAreaHeight, setTextArerHeight] = useState(
         ScheduleItem.work.split(/\r\n|\r|\n/).length,
@@ -78,6 +74,7 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
     // Inline Edit 가능하도록 setValue 설정함
     useEffect(() => {
         setValue('work', ScheduleItem.work);
+        setPrevWork(ScheduleItem.work);
     }, [ScheduleItem, setValue]);
 
     const onEditHandler = async data => {
@@ -89,6 +86,7 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
         if (prevWork === data.work) {
             console.log('동일함');
         } else {
+            console.log('실행');
             EditMutate(requstData);
         }
         setSelectWork(null);
@@ -122,7 +120,7 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
                     sx={{
                         padding: 0,
                         mr: 1,
-                        color: theme.palette.primary.main,
+                        color: theme.palette.checkbox.main,
                     }}
                     onChange={() => onToggleHandler(schedule_key)}
                     checked={complete === 1}
@@ -157,7 +155,9 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
                         <Category>{ScheduleItem.category}</Category>
                     </FullFlexColumnDiv>
                     {ScheduleItem.schedule_key === selectWork && (
-                        <Btn type="submit">확인</Btn>
+                        <Btn type="submit" variant="contained" size="small">
+                            확인
+                        </Btn>
                     )}
                 </FormStyle>
 
