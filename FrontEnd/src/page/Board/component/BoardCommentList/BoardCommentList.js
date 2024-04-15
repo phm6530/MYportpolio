@@ -3,7 +3,6 @@ import CommentItem from './Detail/CommentItem';
 import Fadeup from '../../../../FadeinComponent';
 import styled from 'styled-components';
 import CommentState from './Detail/CommentState';
-import Motion from 'component/animations/Motion';
 // import { useIsFetching } from '@tanstack/react-query';
 
 const FirstDayStyle = styled.div`
@@ -100,7 +99,7 @@ export default function BoardCommentList({
                     return (
                         <div key={item.board_key}>
                             {firstData && <FirstDayStyle>{date}</FirstDayStyle>}
-                            <Motion.FadeInOut>
+                            <Fadeup>
                                 <CommentItem
                                     ref={lastItem ? ref : null}
                                     item={item}
@@ -108,7 +107,7 @@ export default function BoardCommentList({
                                     selectIdx={selectIdx === item.board_key}
                                     setSelectIdx={setSelectIdx}
                                 />
-                            </Motion.FadeInOut>
+                            </Fadeup>
                         </div>
                     );
                 });

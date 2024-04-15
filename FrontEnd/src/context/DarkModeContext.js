@@ -6,12 +6,12 @@ const DarkMode = createContext();
 
 const GlobalStyle = createGlobalStyle`
         body{
-            ${props => (props.darkMode ? `background: #222;` : `background: #f9f9f9; `)}
+            /* ${props => (props.darkMode ? `background: #222;` : `background: #f9f9f9; `)} */
             /* ${props => (props.transition ? '' : `transition: background 1.6s  cubic-bezier(0, 0.88, 0, 1.03)`)} */
         }   
         
         p,span, li{
-                color : ${props => (props.darkMode ? `#ffffff` : `#333333`)};
+                /* color : ${props => (props.darkMode ? `#ffffff` : `#333333`)}; */
                 /* ${props => (props.transition ? '' : `transition: color 1.6s cubic-bezier(0, 0.88, 0, 1.03) `)} */
         }
     `;

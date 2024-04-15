@@ -66,7 +66,6 @@ export default function FadeinComponent({
 }) {
     const ref = useRef();
     const [visible, setVisible] = useState(false);
-    console.log(visible);
 
     const slideHandler = entry => {
         entry[0].isIntersecting && setVisible(true);

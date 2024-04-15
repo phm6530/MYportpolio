@@ -284,7 +284,7 @@ const ScheduleTimer = () => {
                         </>
                     ) : (
                         <HookformRadio
-                            Radio={SCHEDULE_CATEGORY}
+                            options={SCHEDULE_CATEGORY}
                             control={control}
                             errors={errors}
                             keyName={'category'}

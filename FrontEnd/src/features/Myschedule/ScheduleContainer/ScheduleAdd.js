@@ -131,7 +131,7 @@ const ScheduleAdd = ({ selectDay }) => {
                         </ErrorBubble>
                 )} */}
                     <HookformRadio
-                        Radio={SCHEDULE_CATEGORY}
+                        options={SCHEDULE_CATEGORY}
                         control={control}
                         errors={errors}
                         keyName={'TaskCategory'}

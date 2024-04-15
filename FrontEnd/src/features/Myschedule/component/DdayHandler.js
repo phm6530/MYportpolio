@@ -45,7 +45,7 @@ const DdayHandler = forwardRef((props, ref) => {
                 )}
             />
             <HookformRadio
-                Radio={SCHEDULE_CATEGORY}
+                options={SCHEDULE_CATEGORY}
                 control={control}
                 errors={errors}
                 keyName={'category'}

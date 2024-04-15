@@ -182,7 +182,7 @@ const UserIconViewer = styled.div`
     }
 `;
 
-export default function BoardCommentForm({ setTotal, setUserFetchData }) {
+export default function BoardCommentForm() {
     const { darkMode } = useContext(DarkMode);
     const { login } = useSelector(state => state.authSlice);
 
@@ -256,9 +256,6 @@ export default function BoardCommentForm({ setTotal, setUserFetchData }) {
                 contents: '',
                 password: '',
             });
-        },
-        onError: error => {
-            dispatch(alertThunk(error.message, 0));
         },
     });
 

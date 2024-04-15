@@ -3,7 +3,6 @@ const fetchReply = async formData => {
     const token = localStorage.getItem('token');
 
     const Url = `http://localhost:8080/Board/reply${token ? '/auth' : ''}`;
-    console.log(Url);
 
     const response = await fetch(Url, {
         method: 'POST',
