@@ -61,6 +61,7 @@ export default function Board() {
         isLoading,
         isFetching,
         fetchNextPage,
+        isError,
     } = useInfiniteQuery({
         queryKey: ['board'],
         queryFn: ({ pageParam = 0 }) => fetchData(pageParam),
@@ -75,10 +76,6 @@ export default function Board() {
             behavior: 'smooth', // 부드러운 스크롤 효과 적용
         });
     }, []);
-
-    if (isLoading) {
-        return <>loading...</>;
-    }
 
     return (
         <>
@@ -117,14 +114,14 @@ export default function Board() {
                     />
 
                     {/* BoardComment */}
-                    {/* {!isLoading && isError && 'error'} */}
-
-                    <BoardCommentList
-                        fetchNextPage={fetchNextPage}
-                        infinityData={infinityData}
-                        isFetching={isFetching}
-                        total={total}
-                    />
+                    {!isLoading && !isError && (
+                        <BoardCommentList
+                            fetchNextPage={fetchNextPage}
+                            infinityData={infinityData}
+                            isFetching={isFetching}
+                            total={total}
+                        />
+                    )}
 
                     {isLoading && <SpinnerLoading />}
                 </RightWrap>

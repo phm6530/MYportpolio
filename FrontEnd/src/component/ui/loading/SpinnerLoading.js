@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { CircularProgress, Box } from '@mui/material';
 const SpinnerStyle = styled.div`
     display: flex;
     align-items: center;
@@ -15,16 +15,8 @@ const SpinnerStyle = styled.div`
 const SpinnerLoading = () => {
     return (
         <SpinnerStyle>
-            {/* <Spinner
-                thickness="4px"
-                speed="0.65s"
-                emptyColor="olive.200"
-                color="olive.800"
-                role="status"
-                zIndex="9999"
-                display={true}
-            ></Spinner>
-            <Text display={true}>Loading...</Text> */}
+            <CircularProgress color="secondary" />
+            <p>loading...</p>
         </SpinnerStyle>
     );
 };
