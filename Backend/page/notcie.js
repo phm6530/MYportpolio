@@ -21,6 +21,7 @@ const getTotalCount = async (conn) => {
 const replyHandler = async (reqData, res, requestRoleType) => {
     const { userIcon, userName, contents, idx, password = null } = reqData;
     const conn = await db.getConnection();
+
     try {
         const limit = 1;
         let hashedPassword = undefined;

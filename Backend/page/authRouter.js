@@ -50,13 +50,14 @@ router.post('/login', async (req, res) => {
 const logoutState = async (id) => {
     const conn = await db.getConnection();
     const sql = `update admin_user set state = 0 where id = ?`;
-    const [result] = await conn.query(sql, [id]);
-    conn.release();
 
+    const [result] = await conn.query(sql, [id]);
+
+    conn.release();
     return result;
 };
 
-router.post('/logout', verify, async (req, res) => {
+router.post('/logout', async (req, res) => {
     const token = req.headers.authorization?.split(' ')[1];
     console.log(token);
 

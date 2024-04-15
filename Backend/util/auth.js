@@ -15,10 +15,7 @@ const verify = (req, res, next) => {
         req.headers.authState = true;
         next();
     } catch (error) {
-        return res.json({
-            Auth: false,
-            message: 'Not Access Token or Missing Token',
-        });
+        throw new NotFoundError('유효하지 않은 토큰입니다.');
     }
 };
 
