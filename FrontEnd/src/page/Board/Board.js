@@ -61,6 +61,7 @@ export default function Board() {
         isLoading,
         isFetching,
         fetchNextPage,
+        hasNextPage,
         isError,
     } = useInfiniteQuery({
         queryKey: ['board'],
@@ -69,6 +70,8 @@ export default function Board() {
             return lastPage.nextPage || undefined;
         },
     });
+
+    console.log('hasNextPage', hasNextPage);
 
     useEffect(() => {
         window.scrollTo({
@@ -116,6 +119,7 @@ export default function Board() {
                     {/* BoardComment */}
                     {!isLoading && !isError && (
                         <BoardCommentList
+                            hasNextPage={hasNextPage}
                             fetchNextPage={fetchNextPage}
                             infinityData={infinityData}
                             isFetching={isFetching}

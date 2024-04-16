@@ -45,6 +45,7 @@ const BoardReplyWrap = styled.div`
 `;
 
 export default function BoardCommentList({
+    hasNextPage,
     fetchNextPage,
     infinityData,
     total,
@@ -52,10 +53,14 @@ export default function BoardCommentList({
     const [selectIdx, setSelectIdx] = useState();
     const ref = useRef();
     const dateSet = new Set();
+    const testRef = useRef([]);
+
+    console.log(testRef);
 
     const isFirstDate = date => {
         if (!dateSet.has(date)) {
             dateSet.add(date);
+            testRef.current.push(date);
             return true;
         }
         return false;
@@ -63,7 +68,7 @@ export default function BoardCommentList({
 
     useEffect(() => {
         const targetItem = ref.current;
-
+        if (!hasNextPage || !targetItem) return;
         const callback = entry => {
             if (entry[0].isIntersecting) {
                 console.log('발견');
@@ -80,12 +85,13 @@ export default function BoardCommentList({
             io.observe(targetItem);
         }
 
-        return () => io.disconnect();
-    }, [ref, fetchNextPage, infinityData]);
+        return () => io.unobserve(targetItem);
+    }, [ref, fetchNextPage, infinityData, hasNextPage]);
 
     return (
         <BoardReplyWrap>
-            <CommentState total={total} /> {/* 뿌리기 */}
+            <CommentState total={infinityData.pages[0].counter} />{' '}
+            {/* 뿌리기 */}
             {infinityData.pages.map((page, idx) => {
                 const lastPage = idx === infinityData.pages.length - 1;
 

@@ -155,7 +155,7 @@ const CommentItem = forwardRef((props, ref) => {
     const { mutate } = useMutation({
         mutationFn: formData => deleteFetch(formData),
         onSuccess: () => {
-            toast.success('댓글이 삭제되었습니다.');
+            toast.info('댓글이 삭제되었습니다.');
             queryclient.invalidateQueries({ queryKey: ['board'] });
         },
     });
