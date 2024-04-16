@@ -33,10 +33,10 @@ const TotalGraph = props => {
     const { selectDateRange, arrState } = props;
     const counterRef = useRef(null);
 
-    console.log(
-        'selectDateRangeselectDateRangeselectDateRange',
-        selectDateRange,
-    );
+    // console.log(
+    //     'selectDateRangeselectDateRangeselectDateRange',
+    //     selectDateRange,
+    // );
 
     const values = Object.values(arrState);
     const weekArr = () => {

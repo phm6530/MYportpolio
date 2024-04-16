@@ -22,7 +22,23 @@ const theme = createTheme({
         },
     },
     components: {
+        MuiButton: {
+            variants: [
+                {
+                    props: { variant: 'custom' },
+                    style: {
+                        color: '#fff',
+                        backgroundColor: '#7055db',
+                        '&:hover': {
+                            backgroundColor: '#5e3fbf',
+                        },
+                    },
+                },
+            ],
+        },
+
         MuiRadio: {
+            //기본설정
             styleOverrides: {
                 root: {
                     // 기본 색상을 secondary로 설정
@@ -35,6 +51,26 @@ const theme = createTheme({
                     },
                 },
             },
+            variants: [
+                {
+                    props: { variant: 'customStyle1' }, // 첫 번째 커스텀 스타일
+                    style: {
+                        color: 'blue', // 기본 색상
+                        '&.Mui-checked': {
+                            color: 'darkblue', // 선택됐을 때 색상
+                        },
+                    },
+                },
+                {
+                    props: { variant: 'customStyle2' }, // 두 번째 커스텀 스타일
+                    style: {
+                        color: 'green', // 기본 색상
+                        '&.Mui-checked': {
+                            color: 'darkgreen', // 선택됐을 때 색상
+                        },
+                    },
+                },
+            ],
         },
 
         MuiCheckbox: {

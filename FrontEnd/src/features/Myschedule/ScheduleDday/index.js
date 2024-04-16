@@ -105,8 +105,8 @@ const DdayTask = ({ task }) => {
     const dayDifference = (currentDate - taskDate) / (1000 * 3600 * 24);
     const count = Math.ceil(dayDifference);
 
-    console.log(currentDate);
-    console.log(taskDate);
+    // console.log(currentDate);
+    // console.log(taskDate);
 
     // console.log(work);
     const { mutate: deleteMutate } = useExcuteMutation(

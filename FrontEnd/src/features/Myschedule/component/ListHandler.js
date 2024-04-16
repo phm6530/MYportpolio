@@ -109,7 +109,7 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
     };
     // console.log(selectWork);
 
-    console.log('complete', complete);
+    // console.log('complete', complete);
     return (
         <>
             {/* 삭제팝업 */}

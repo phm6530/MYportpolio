@@ -13,7 +13,7 @@ const TimerStyle = styled.span`
 `;
 
 const StopWatch = ({ date, startTime, endDate, running }) => {
-    console.log('startTime::: ', startTime);
+    // console.log('startTime::: ', startTime);
     // console.log('date:::', date);
     const diffInSeconed = differenceInSeconds(
         new Date(),

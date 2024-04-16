@@ -6,6 +6,12 @@ import { FaGithub } from 'react-icons/fa';
 import { ReactQuery } from 'lib/lib';
 import { useEffect, useState } from 'react';
 import { fetchGit } from 'services/ScheduleService';
+import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
+
+import { Button } from '@mui/material';
+import usePopup from 'hooks/usePopup';
+import useModal from 'hooks/useModal';
+
 const { useQuery } = ReactQuery;
 
 const CustumFlexColumnDiv = styled(FlexColumnDiv)`
@@ -53,10 +59,13 @@ const CustumFlexColumnDiv = styled(FlexColumnDiv)`
 const ScheduleGit = () => {
     const [commitCount, setCommitCount] = useState([]);
 
-    const { data } = useQuery({
+    const { showModalHandler, ModalComponent } = useModal();
+
+    const { data, isLoading } = useQuery({
         queryKey: ['git'],
         queryFn: fetchGit,
     });
+
     console.log(data);
 
     const getUtcKrDate = () => {
@@ -72,6 +81,7 @@ const ScheduleGit = () => {
 
     useEffect(() => {
         const utcKrDate = getUtcKrDate();
+
         const todayGitFilter = data => {
             const todayGit = data
                 .filter(e => {
@@ -94,23 +104,53 @@ const ScheduleGit = () => {
         }
     }, [data]);
 
-    if (!data) {
-        return <>Loading......</>;
-    }
-    return (
-        <CustumFlexColumnDiv>
-            <div className="gitLink">
-                <FaGithub /> Commit Count
-                <span className="gitCount">{commitCount.length}</span>
-            </div>
+    const GitCommitLog = ({ commitCount }) => {
+        return (
+            <>
+                {commitCount.map((e, idx) => (
+                    <div className="git_contents" key={idx}>
+                        <div className="gitDate">
+                            {format(e.date, 'MM. dd')}
+                        </div>
+                        {e.message}
+                    </div>
+                ))}
+            </>
+        );
+    };
 
-            {commitCount.map((e, idx) => (
-                <div className="git_contents" key={idx}>
-                    <div className="gitDate">{format(e.date, 'MM. dd')}</div>
-                    {e.message}
-                </div>
-            ))}
-        </CustumFlexColumnDiv>
+    return (
+        <>
+            <ModalComponent />
+
+            <CustumFlexColumnDiv>
+                {!isLoading ? (
+                    <>
+                        <div className="gitLink">
+                            <FaGithub /> Commit Count
+                            <span className="gitCount">
+                                {commitCount.length}
+                            </span>
+                        </div>
+                        <Button
+                            variant="custom"
+                            onClick={() =>
+                                showModalHandler(
+                                    <GitCommitLog
+                                        isLoading={isLoading}
+                                        commitCount={commitCount}
+                                    />,
+                                )
+                            }
+                        >
+                            asdf
+                        </Button>
+                    </>
+                ) : (
+                    <SpinnerLoading />
+                )}
+            </CustumFlexColumnDiv>
+        </>
     );
 };
 

@@ -110,6 +110,7 @@ const fetchGit = async () => {
     const response = await fetch(
         'https://api.github.com/repos/phm6530/MYportpolio/commits',
     );
+    await new Promise(resolve => setTimeout(resolve, 3000));
     if (!response.ok) {
         throw new Error('Git에 문제가 있는것 같습니다.');
     }

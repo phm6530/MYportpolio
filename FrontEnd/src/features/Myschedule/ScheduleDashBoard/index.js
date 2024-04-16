@@ -13,7 +13,7 @@ const ScheduleDashBoard = () => {
     todayMidnight.setHours(0, 0, 0, 0);
 
     const { timerData } = useTimer();
-    console.log('timerData :::: ', timerData);
+    // console.log('timerData :::: ', timerData);
 
     // const test = data => {
     //     if (!filter) return data;

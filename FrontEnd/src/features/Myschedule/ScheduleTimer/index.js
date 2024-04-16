@@ -159,7 +159,7 @@ const ScheduleTimer = () => {
     const queryClient = useQueryClient();
 
     useEffect(() => {
-        console.log('websoketData', websoketData);
+        // console.log('websoketData', websoketData);
         if (websoketData) {
             getWebsoketTimer();
             setData(false);
