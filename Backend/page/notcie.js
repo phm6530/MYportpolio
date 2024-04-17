@@ -95,42 +95,59 @@ router.post('/reply/delete', async (req, res, next) => {
     }
 });
 
+// 한국날짜계산
+const todayKoreaTime = () => {
+    const date = new Date();
+    const utc = date.getTime() + date.getTimezoneOffset() * 60000;
+    const koreaTime = new Date(utc + 3600000 * 9);
+
+    return koreaTime.toISOString().split('T')[0];
+};
+
 // 초기로드 or 게시판 페이징
 router.get('/:idx', async (req, res, next) => {
+    const conn = await db.getConnection();
+    await conn.beginTransaction();
+
     try {
-        const conn = await db.getConnection();
-        await conn.beginTransaction();
-
         const idx = +req.params.idx;
-
         const limit = 10;
 
-        const sql = `select idx , 
-            user_icon , 
-            user_name , 
-            contents , 
-            board_key , 
-            date ,
-            role
-            from board order by idx desc limit ? offset ?`;
+        const sql = `select idx, user_icon, user_name, contents, board_key, date, role
+                     from board order by idx desc limit ? offset ?`;
         const [response_database] = await conn.query(sql, [limit, idx * limit]);
 
-        const count_sql = `select count(*) as cnt from board`;
-        const [counter] = await conn.query(count_sql);
+        const today = todayKoreaTime();
+        const todayReplysql = `SELECT COUNT(*) AS cnt
+        FROM board
+        WHERE DATE(date) = ?`;
 
-        const nextPage = response_database.length === limit ? idx + 1 : undefined;
-        console.log(nextPage);
-        conn.release();
+        const [todayRepley_response] = await conn.query(todayReplysql, [today]);
+        let counter = null;
+
+        if (idx === 0) {
+            // 첫 페이지 요청 시에만 전체 카운트 전송
+            const count_sql = `select count(*) as cnt from board`;
+            const [count_result] = await conn.query(count_sql);
+            counter = count_result[0].cnt;
+        }
+
+        const nextPage = response_database.length === limit ? idx + 1 : null;
+        await conn.commit();
 
         res.status(201).json({
             path: 'paging',
-            counter: counter[0].cnt,
+            todayReply: todayRepley_response[0].cnt,
+            counter: counter,
             pageData: response_database,
             nextPage: nextPage,
         });
     } catch (error) {
         const err = new NotFoundError();
+        conn.rollback();
         next(err);
+    } finally {
+        conn.release();
     }
 });
 
