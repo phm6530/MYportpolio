@@ -38,6 +38,7 @@ const DdayImportantStyle = styled.span``;
 const TextArea = styled.textarea`
     font-size: 14px;
     width: 100%;
+    ${props => props.$select && 'background:rgba(0,0,0,0.02)'}
 `;
 
 const ImportantStyle = styled.span`
@@ -53,9 +54,9 @@ const ImportantStyle = styled.span`
 const FormStyle = styled.form`
     display: flex;
     flex-grow: 1;
+    align-items: flex-start;
     textarea {
         flex-grow: 1;
-        background: transparent;
     }
 `;
 

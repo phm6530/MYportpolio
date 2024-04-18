@@ -1,7 +1,7 @@
 import usePopup from 'hooks/usePopup';
 
 import { useAuthCheck } from 'hooks/useAuthCheck';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { MdCancel } from 'component/icon/Icon';
 
@@ -44,6 +44,9 @@ const FullFlexColumnDiv = styled(FlexColumnDiv)`
 const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
     const { register, handleSubmit, setValue } = useForm();
     const { clientAuthCheck } = useAuthCheck();
+    const { ref, ...rest } = register('work', {
+        required: '빈칸은 입력 불가합니다.',
+    });
 
     const [prevWork, setPrevWork] = useState(ScheduleItem.work);
     const theme = useTheme();
@@ -51,6 +54,7 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
     const [textAreaHeight, setTextArerHeight] = useState(
         ScheduleItem.work.split(/\r\n|\r|\n/).length,
     );
+
     const { schedule_key, complete, important } = ScheduleItem;
     // console.log(important);
     const { showPopup, hidePopup, PopupComponent } = usePopup();
@@ -74,6 +78,8 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
     // Inline Edit 가능하도록 setValue 설정함
     useEffect(() => {
         setValue('work', ScheduleItem.work);
+
+        // 불필요한 요청막을라고 해둠
         setPrevWork(ScheduleItem.work);
     }, [ScheduleItem, setValue]);
 
@@ -107,9 +113,19 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
         deleteMutate(ScheduleItem.schedule_key);
         hidePopup();
     };
-    // console.log(selectWork);
 
-    // console.log('complete', complete);
+    const textAreaRef = useRef(null);
+    const setRefs = input => {
+        ref(input);
+        textAreaRef.current = input; // 여기에서 input을 직접 할당
+    };
+
+    useEffect(() => {
+        if (ScheduleItem.schedule_key === selectWork) {
+            textAreaRef.current.focus();
+        }
+    }, [selectWork, ScheduleItem.schedule_key]);
+
     return (
         <>
             {/* 삭제팝업 */}
@@ -140,22 +156,21 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
                 <FormStyle onSubmit={handleSubmit(onEditHandler)}>
                     <FullFlexColumnDiv>
                         <TextArea
-                            {...register('work', {
-                                required: '빈칸은 입력 불가합니다.',
-                            })}
+                            ref={e => setRefs(e)}
+                            {...rest}
                             rows={textAreaHeight}
+                            $select={ScheduleItem.schedule_key === selectWork}
                             readOnly={ScheduleItem.schedule_key !== selectWork}
                             onChange={e => {
                                 setTextArerHeight(
                                     e.target.value.split(/\r\n|\r|\n/).length,
                                 );
-                                // console.log(e.target.value.length);
                             }}
                         />
                         <Category>{ScheduleItem.category}</Category>
                     </FullFlexColumnDiv>
                     {ScheduleItem.schedule_key === selectWork && (
-                        <Btn type="submit" variant="contained" size="small">
+                        <Btn type="submit" variant="custom" size="small">
                             확인
                         </Btn>
                     )}

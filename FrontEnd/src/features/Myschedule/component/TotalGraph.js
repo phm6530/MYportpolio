@@ -57,18 +57,19 @@ const TotalGraph = props => {
     useEffect(() => {
         gsap.to('.circular-pbar', {
             '--p': `${result}%`,
-            duration: 3,
+            duration: 2,
             ease: 'expo.out',
         });
 
         // GSAP 애니메이션: 숫자 증가
         if (counterRef.current) {
+            const startValue = +counterRef.current.innerHTML;
             gsap.fromTo(
                 counterRef.current,
-                { innerHTML: 0 }, //시작
+                { innerHTML: startValue }, //시작
                 {
                     innerHTML: result, //최종상태
-                    duration: 3, //걸리는 시간임
+                    duration: 1, //걸리는 시간임
                     ease: 'power1.out', //가속도 조정 이건 공식문서 확인 ㄱㄱ
                     roundProps: 'innerHTML', //innerHTMl가 올라간다라는 소리
                     snap: { innerHTML: 1 }, //1단위로 스냅한다는 뜻

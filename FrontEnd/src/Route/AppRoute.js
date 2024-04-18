@@ -7,6 +7,7 @@ import Board from 'page/Board/Board';
 import Contact from 'page/contact/Contact';
 import { useLocation, Route, Routes } from 'react-router-dom';
 import InfiniteScrollTest from 'test.bak';
+import NotfoundPage from 'component/error/NotfoundPage';
 const AppRoute = () => {
     const location = useLocation();
     const pageKey = location.pathname.split('/')[1] || 'home';
@@ -61,6 +62,14 @@ const AppRoute = () => {
                         element={
                             <Motion.Page>
                                 <InfiniteScrollTest />
+                            </Motion.Page>
+                        }
+                    />
+                    <Route
+                        path="/*"
+                        element={
+                            <Motion.Page>
+                                <NotfoundPage />
                             </Motion.Page>
                         }
                     />

@@ -52,7 +52,6 @@ const FormStyle = styled.form`
     flex-wrap: wrap;
     flex-grow: 1;
     align-items: flex-start;
-    color: transparent;
     background-clip: text;
 `;
 
@@ -99,7 +98,7 @@ const RadioWrap = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    /* padding: 10px 20px; */
     border-radius: 1em;
     margin-bottom: 19px;
     z-index: 10;

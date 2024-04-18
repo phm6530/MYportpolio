@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { ReactQuery } from 'lib/lib';
 
 import BoardCommentForm from './component/BoardCommentForm/BoardCommentForm';
@@ -54,7 +54,6 @@ const RightWrap = styled.div`
 
 export default function Board() {
     // 초기데이터 + 페이징 데이터 로드
-    const [total, setTotal] = useState(0);
 
     const {
         data: infinityData,
@@ -111,10 +110,8 @@ export default function Board() {
                         </PageText>
                     </BoardDashBoard>
 
-                    <BoardCommentForm
-                        setTotal={setTotal}
-                        // setUserFetchData={setUserFetchData}
-                    />
+                    {/* addForm  */}
+                    <BoardCommentForm />
 
                     {/* BoardComment */}
                     {!isLoading && !isError && (
@@ -123,7 +120,6 @@ export default function Board() {
                             fetchNextPage={fetchNextPage}
                             infinityData={infinityData}
                             isFetching={isFetching}
-                            total={total}
                         />
                     )}
 

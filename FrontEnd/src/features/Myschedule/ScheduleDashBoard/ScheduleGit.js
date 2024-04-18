@@ -1,6 +1,6 @@
 import { FlexColumnDiv } from 'features/CommonStyles';
 import styled from 'styled-components';
-import { format, subHours } from 'date-fns';
+import { format } from 'date-fns';
 import { FaGithub } from 'react-icons/fa';
 
 import { ReactQuery } from 'lib/lib';
@@ -8,8 +8,7 @@ import { useEffect, useState } from 'react';
 import { fetchGit } from 'services/ScheduleService';
 import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
 
-import { Button } from '@mui/material';
-import usePopup from 'hooks/usePopup';
+import { Button, Skeleton } from '@mui/material';
 import useModal from 'hooks/useModal';
 
 const { useQuery } = ReactQuery;
@@ -107,14 +106,16 @@ const ScheduleGit = () => {
     const GitCommitLog = ({ commitCount }) => {
         return (
             <>
-                {commitCount.map((e, idx) => (
-                    <div className="git_contents" key={idx}>
-                        <div className="gitDate">
-                            {format(e.date, 'MM. dd')}
-                        </div>
-                        {e.message}
-                    </div>
-                ))}
+                {commitCount.length !== 0
+                    ? commitCount.map((e, idx) => (
+                          <div className="git_contents" key={idx}>
+                              <div className="gitDate">
+                                  {format(e.date, 'MM. dd')}
+                              </div>
+                              {e.message}
+                          </div>
+                      ))
+                    : 'Commit 이력이 없습니다.'}
             </>
         );
     };
@@ -147,7 +148,7 @@ const ScheduleGit = () => {
                         </Button>
                     </>
                 ) : (
-                    <SpinnerLoading />
+                    <Skeleton />
                 )}
             </CustumFlexColumnDiv>
         </>

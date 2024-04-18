@@ -23,11 +23,11 @@ const CurruntReplyState = styled.div`
     }
 `;
 
-export default function CommentState({ total }) {
+export default function CommentState({ todayReply, total }) {
     return (
         <CurruntReplyState>
             <div className="currentReply">
-                오늘 작성된 댓글 <span>1</span>
+                오늘 작성된 댓글 <span>{todayReply}</span>
             </div>
             <div className="currentReply">
                 전체 댓글 <span>{total}</span>

@@ -11,6 +11,7 @@ import CateGoryButton from 'component/ui/CateGoryButton';
 import ProjectSeach from 'features/project/component/Detail/ProjectSeach';
 import { ReactQuery, ReactRouteDom } from 'lib/lib';
 import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
+import { Skeleton, Box } from '@mui/material';
 
 const { useLocation, useSearchParams } = ReactRouteDom;
 const { useQuery } = ReactQuery;
@@ -99,14 +100,14 @@ export default function ProjectList() {
                     <CateGoryButton CateGory={CateGory} type={'queryString'} />
                     <ProjectSeach />
                 </FlexRow>
-                {isLoading && <SpinnerLoading />}
-                {SeachValue && SeachArr.length === 0 && (
+
+                {!isLoading && SeachValue && SeachArr.length === 0 && (
                     <NoSeachingData>
                         &quot;{SeachValue}&quot; 키워드와 일치하는 항목이 없음
                     </NoSeachingData>
                 )}
                 {!isLoading && isError && 'error'}
-                {!isLoading && !isError && (
+                {!isLoading ? (
                     <>
                         {project.length === 0 && '등록된 프로젝트가 없습니다..'}
                         {ProjectArr.map(project => (
@@ -117,6 +118,68 @@ export default function ProjectList() {
                                 key={project.project_key + SeachValue}
                             />
                         ))}
+                    </>
+                ) : (
+                    <>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                flex: '0 0 calc(33.333% - 1.34rem)',
+                                marginBottom: '1rem',
+                                marginRight: '2rem',
+                            }}
+                        >
+                            <Skeleton
+                                variant="rectangular"
+                                animation="wave"
+                                sx={{
+                                    width: '100%',
+                                    height: '10.6rem',
+                                }}
+                            />
+                            <Skeleton />
+                            <Skeleton width="70%" />
+                        </Box>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                flex: '0 0 calc(33.333% - 1.34rem)',
+                                marginBottom: '1rem',
+                                marginRight: '2rem',
+                            }}
+                        >
+                            <Skeleton
+                                variant="rectangular"
+                                animation="wave"
+                                sx={{
+                                    width: '100%',
+                                    height: '10.6rem',
+                                }}
+                            />
+                            <Skeleton />
+                            <Skeleton width="70%" />
+                        </Box>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                flex: '0 0 calc(33.333% - 1.34rem)',
+                                marginBottom: '1rem',
+                            }}
+                        >
+                            <Skeleton
+                                variant="rectangular"
+                                animation="wave"
+                                sx={{
+                                    width: '100%',
+                                    height: '10.6rem',
+                                }}
+                            />
+                            <Skeleton />
+                            <Skeleton width="70%" />
+                        </Box>
                     </>
                 )}
             </ProjectListStyle>

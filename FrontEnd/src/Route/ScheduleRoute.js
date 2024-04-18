@@ -5,6 +5,7 @@ import DashBoardPage from 'page/MySchedule/Detail/DashBoardPage';
 import ScheduleReport from 'page/MySchedule/Detail/ScheduleReport';
 import TaskPage from 'page/MySchedule/Detail/TaskPage';
 import styled from 'styled-components';
+import NotfoundPage from 'component/error/NotfoundPage';
 
 const MotionStyle = styled(Motion.FadeInOut)`
     width: 100%;
@@ -37,6 +38,14 @@ const ScheduleRoute = props => {
                     element={
                         <Motion.FadeInOut>
                             <ScheduleReport {...props} />
+                        </Motion.FadeInOut>
+                    }
+                />
+                <Route
+                    path="*"
+                    element={
+                        <Motion.FadeInOut>
+                            <NotfoundPage />
                         </Motion.FadeInOut>
                     }
                 />

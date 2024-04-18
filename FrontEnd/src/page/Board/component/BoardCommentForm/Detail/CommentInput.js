@@ -6,6 +6,7 @@ import {
     TextAreaStyle,
 } from '../../../../../component/ui/TextArea';
 import ErrorBubble from 'component/error/ErrorBubble';
+import { TextField } from '@mui/material';
 
 const FormInputDiv = styled.div`
     border-radius: 10px;
@@ -14,9 +15,7 @@ const FormInputDiv = styled.div`
     display: flex;
     position: relative;
     flex-direction: column;
-    /* &:last-child{
-        margin-bottom: 0;
-    } */
+
     textarea {
         width: 100%;
         min-height: 10px;

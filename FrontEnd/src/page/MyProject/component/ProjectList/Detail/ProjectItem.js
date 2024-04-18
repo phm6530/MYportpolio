@@ -5,12 +5,7 @@ import Fadein from '../../../../../FadeinComponent';
 import ProjectItemHeader from 'features/project/component/ProjectItemHeader';
 import { useNavigate } from 'react-router-dom';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
-
-// const ProjectDuration = styled.div`
-//     display: flex;
-//     align-items: center;
-//     font-size: 13px;
-// `;
+import { useState } from 'react';
 
 const ProjectFadeinStyle = styled(Fadein)`
     margin-bottom: 1.5rem;
@@ -135,8 +130,6 @@ const ViewIconAnimation = styled.div`
     }
 `;
 
-const ProjectButtonWrap = styled.div``;
-
 export default function ProjectItem({ activeIdx, setActiveIdx, project }) {
     const { thumbnail, company, hashtag, description, project_key } = project;
     const navigate = useNavigate();
@@ -167,7 +160,6 @@ export default function ProjectItem({ activeIdx, setActiveIdx, project }) {
                     />
 
                     {/* Company */}
-
                     <ProjectDescription>{description}</ProjectDescription>
                     <div>
                         {hashtag &&
@@ -180,18 +172,6 @@ export default function ProjectItem({ activeIdx, setActiveIdx, project }) {
                                 </HashtageStyle>
                             ))}
                     </div>
-                    {/*                             
-                                <ProjectSubTitle>프로젝트 기간</ProjectSubTitle>
-
-                                <ProjectDuration>
-                                    <CiCalendar/>
-                                    {project.startProject} - {project.endProject}
-                                </ProjectDuration> */}
-
-                    <ProjectButtonWrap>
-                        {/* <Button.Type onClick={() => projectView(project_url)}>VIEW</Button.Type> */}
-                        {/* <Button.Type onClick={() => navigate(`${project_key}`)}>More</Button.Type> */}
-                    </ProjectButtonWrap>
                 </ContentsWrap>
             </ProjectFadeinStyle>
         </>

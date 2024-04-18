@@ -48,14 +48,11 @@ export default function BoardCommentList({
     hasNextPage,
     fetchNextPage,
     infinityData,
-    total,
 }) {
     const [selectIdx, setSelectIdx] = useState();
     const ref = useRef();
     const dateSet = new Set();
     const testRef = useRef([]);
-
-    console.log(testRef);
 
     const isFirstDate = date => {
         if (!dateSet.has(date)) {
@@ -90,7 +87,10 @@ export default function BoardCommentList({
 
     return (
         <BoardReplyWrap>
-            <CommentState total={infinityData.pages[0].counter} />{' '}
+            <CommentState
+                todayReply={infinityData.pages[0].todayReply}
+                total={infinityData.pages[0].counter}
+            />
             {/* 뿌리기 */}
             {infinityData.pages.map((page, idx) => {
                 const lastPage = idx === infinityData.pages.length - 1;
@@ -102,9 +102,16 @@ export default function BoardCommentList({
                     const date = item.date.split(' ')[0];
                     let firstData = isFirstDate(date);
 
+                    const arrayFromSet = Array.from(dateSet);
+                    const firstDateDiv = arrayFromSet[0] === date;
+
                     return (
                         <div key={item.board_key}>
-                            {firstData && <FirstDayStyle>{date}</FirstDayStyle>}
+                            {firstData && (
+                                <FirstDayStyle $first={firstDateDiv}>
+                                    {date}
+                                </FirstDayStyle>
+                            )}
                             <Fadeup>
                                 <CommentItem
                                     ref={lastItem ? ref : null}

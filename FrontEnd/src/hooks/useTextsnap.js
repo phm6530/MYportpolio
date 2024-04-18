@@ -3,12 +3,13 @@ import { gsap } from 'gsap';
 
 const useTextsnap = text => {
     const textRef = useRef(null);
-    // console.log(textRef.current);
+
     useEffect(() => {
         if (textRef.current) {
+            const startValue = +textRef.current.innerHTML;
             gsap.fromTo(
                 textRef.current,
-                { innerHTML: 0 },
+                { innerHTML: startValue },
                 {
                     innerHTML: text,
                     duration: 2,

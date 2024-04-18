@@ -3,6 +3,8 @@ import { fetchDetail } from 'services/projectService';
 import alertThunk from 'store/alertTrunk';
 import { ReactQuery, ReactRouteDom } from 'lib/lib';
 import { useEffect } from 'react';
+import { toast } from 'react-toastify';
+import NotfoundPage from 'component/error/NotfoundPage';
 
 const { useNavigate, useParams } = ReactRouteDom;
 const { useQuery } = ReactQuery;
@@ -26,11 +28,7 @@ export default function WithRedirect({ Component, redirectPath }) {
         if (isSuccess) {
             console.log('성공!');
         }
-        if (isError) {
-            dispatch(alertThunk(error.message, 0));
-            navigate(redirectPath);
-        }
-    }, [isError, isSuccess, dispatch, redirectPath, error, navigate]);
+    }, [isError, isSuccess, dispatch, redirectPath]);
 
     if (error) {
         console.log('Error outside: ', error);
@@ -38,5 +36,5 @@ export default function WithRedirect({ Component, redirectPath }) {
     }
 
     // projectDetail이 존재하는 경우, 정상적으로 컴포넌트 렌더링
-    return projectDetail ? <Component {...projectDetail} /> : null;
+    return projectDetail ? <Component {...projectDetail} /> : <NotfoundPage />;
 }

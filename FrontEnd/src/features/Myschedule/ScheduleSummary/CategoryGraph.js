@@ -19,7 +19,7 @@ const CustumFlexColumnDiv = styled(FlexColumnDiv)`
 
 const CategoryGraph = props => {
     const { categorys = [], arrState } = props;
-
+    console.log(props);
     return (
         <CustumFlexColumnDiv>
             {/* <span className="CategoryWrapTitle">카테고리 별 완료도</span> */}

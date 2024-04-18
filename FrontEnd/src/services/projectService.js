@@ -10,6 +10,7 @@ const projectFetch = async () => {
                     `요청이 실패하였습니다. errorCode :  ${response.status}`,
             );
         }
+        // await new Promise(resolve => setTimeout(resolve, 15000));
         const data = await response.json();
         return data;
     } catch (error) {

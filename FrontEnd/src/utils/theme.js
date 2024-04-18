@@ -27,7 +27,10 @@ const theme = createTheme({
                 {
                     props: { variant: 'custom' },
                     style: {
+                        padding: '0rem',
+                        width: '1rem',
                         color: '#fff',
+                        fontSize: 12,
                         backgroundColor: '#7055db',
                         '&:hover': {
                             backgroundColor: '#5e3fbf',

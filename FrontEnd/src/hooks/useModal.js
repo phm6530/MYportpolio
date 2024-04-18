@@ -9,7 +9,7 @@ const useModal = () => {
     const [contents, setContents] = useState(null);
     const [animationTrigger, setAnimationTrigger] = useState(false);
 
-    const ClosePopup = () => {
+    const closePopup = () => {
         setAnimationTrigger(true);
         const timer = setTimeout(() => {
             setAnimationTrigger(false);
@@ -32,10 +32,7 @@ const useModal = () => {
                     <PopupStyle>
                         <PopupWrap $close={animationTrigger}>
                             {contents}
-                            <button
-                                onClick={() => ClosePopup(false)}
-                                className="close"
-                            >
+                            <button onClick={closePopup} className="close">
                                 <span>close</span>
                             </button>
                         </PopupWrap>

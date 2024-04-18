@@ -10,6 +10,7 @@ import ScheduleDdaySetter from '../component/ScheduleDdaySetter';
 import { format } from 'date-fns';
 import TotalGraph from '../component/TotalGraph';
 import { SubDescription, SubTitle } from 'features/CommonStyles';
+import useModal from 'hooks/useModal';
 
 const ButtonNavWrap = styled.div`
     border-radius: 1em;
@@ -59,7 +60,7 @@ const TaskNav = ({ listData = {}, selectDay, setSelectDay }) => {
         selectDay,
     });
 
-    console.log(cateGorys);
+    const { showModalHandler, ModalComponent } = useModal();
 
     const [dDayForm, setDdayForm] = useState(false);
     const [, setSeachParam] = useSearchParams();
@@ -79,20 +80,17 @@ const TaskNav = ({ listData = {}, selectDay, setSelectDay }) => {
     // searchParams.set('year', todayStr.split('-')[0]);
     // searchParams.set('month', todayStr.split('-')[1]);
 
-    const DdayPopupShow = () => {
-        setDdayForm(prev => !prev);
-    };
+    // const DdayPopupShow = () => {
+    //     setDdayForm(prev => !prev);
+    // };
 
     const today = TodaySeletor();
 
     // console.log('selectDay', selectDay);
     return (
         <>
-            {dDayForm && (
-                <Popup closePopup={() => setDdayForm(false)}>
-                    <ScheduleDdaySetter />
-                </Popup>
-            )}
+            <ModalComponent />
+            {/* {dDayForm && <Popup closePopup={() => setDdayForm(false)}></Popup>} */}
 
             <SelelctDayDescript>
                 <FontWrapper>
@@ -102,7 +100,11 @@ const TaskNav = ({ listData = {}, selectDay, setSelectDay }) => {
                         <Button.ForsquareBtn onClick={() => todayButton()}>
                             ToDay
                         </Button.ForsquareBtn>
-                        <Button.ForsquareBtn onClick={() => DdayPopupShow()}>
+                        <Button.ForsquareBtn
+                            onClick={() =>
+                                showModalHandler(<ScheduleDdaySetter />)
+                            }
+                        >
                             D-day 설정
                         </Button.ForsquareBtn>
                     </ButtonNavWrap>
