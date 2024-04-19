@@ -56,9 +56,8 @@ router.get('/', async (req, res, next) => {
 });
 
 // Project Insert
-const insertQuery = async ({ project_description, ...project }) => {
+const insertQuery = async ({ project_description, ...project }, conn) => {
     console.log('target!!');
-    // console.log(Object.values(project));
     try {
         let sql = `INSERT INTO project (
             project_key,
@@ -74,16 +73,17 @@ const insertQuery = async ({ project_description, ...project }) => {
         ) 
         VALUES (?, ?, ?, ?, ? , ?, ?, ?, ? , ?)`;
 
-        await db.query(sql, Object.values(project));
+        await conn.query(sql, Object.values(project));
         // project_Description 테이블에 데이터 삽입
         sql = `INSERT INTO project_description (
             project_key,
             project_description
         ) 
         VALUES (?, ?)`;
-        await db.query(sql, [project.project_key, project_description]);
+        await conn.query(sql, [project.project_key, project_description]);
     } catch (error) {
         const err = new NotFoundError(error.message);
+        await conn.rollback();
         throw err;
     }
 };
@@ -122,7 +122,7 @@ const updateQuery = async ({ project_key, project_description, ...project }) => 
     }
 };
 
-const ProjectHandler = async (req, res, endPoint) => {
+const ProjectHandler = async (req, res, endPoint, conn) => {
     // console.log(req.body);
     const {
         idx,
@@ -159,7 +159,7 @@ const ProjectHandler = async (req, res, endPoint) => {
     };
 
     if (endPoint === 'add') {
-        await insertQuery(project);
+        await insertQuery(project, conn);
     } else {
         await updateQuery(project);
     }
@@ -169,13 +169,19 @@ const ProjectHandler = async (req, res, endPoint) => {
 };
 
 router.post('/add', async (req, res, next) => {
+    const conn = await db.getConnection();
+
     try {
+        await conn.beginTransaction();
+
         const endPoint = 'add';
-        await ProjectHandler(req, res, endPoint);
+        await ProjectHandler(req, res, endPoint, conn);
     } catch (error) {
-        // console.error(error);
         const err = new NotFoundError(error.message); // NotFoundError가 커스텀 에러라면 이 부분은 적절히 처리
+        await conn.rollback();
         next(err);
+    } finally {
+        conn.release();
     }
 });
 
@@ -325,33 +331,38 @@ router.get('/:key', async (req, res, next) => {
 });
 
 router.post('/addproject', async (req, res, next) => {
+    const conn = await db.getConnection();
+
     try {
         const { key, ProjectDescription } = req.body;
 
         const sql = `
             select * from project as a inner join project_description as b on a.project_key = b.project_key where a.project_key = ?;
         `;
-        const result = await db.query(sql, [key]);
+        const result = await conn.query(sql, [key]);
 
         if (result.length === 0) {
             // console.log('인서트');
             const sql = `
                 insert into project_description(project_key , project_description) value(?,?);
             `;
-            const result = await db.query(sql, [key, ProjectDescription]);
+            await conn.query(sql, [key, ProjectDescription]);
         } else {
             // console.log('업데이트');
             const sql = `
                 update project_description set description = ? where project_key = ?;
             `;
-            const result = await db.query(sql, [ProjectDescription, key]);
+            await conn.query(sql, [ProjectDescription, key]);
         }
-
+        await conn.commit();
         // // SELECT * FROM project AS a INNER JOIN project_description AS b ON a.project_key = b.project_key;
         return res.status(200).json({ message: 1 });
     } catch (error) {
         const err = new NotFoundError(error.message);
+        await conn.rollback();
         next(err);
+    } finally {
+        await conn.release();
     }
 });
 
