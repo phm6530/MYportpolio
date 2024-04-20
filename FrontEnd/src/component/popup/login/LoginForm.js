@@ -14,7 +14,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { fetchLogin } from 'services/authService';
 
 import { jwtDecode } from 'jwt-decode';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 const LoginHeaderStyle = styled.div`
@@ -118,6 +118,7 @@ const schema = Yup.object({
 
 export default function LoginForm() {
     const dispatch = useDispatch();
+    const [throttle, setThorttle] = useState(false);
     const {
         handleSubmit,
         register,
@@ -142,8 +143,8 @@ export default function LoginForm() {
         onSuccess: data => {
             // 토큰 저장
             localStorage.setItem('token', data.token);
-
             toast.success('로그인 되었습니다.');
+
             // 로그인 상태 업데이트
             dispatch(authAction.login());
             // dispatch(alertThunk('로그인 되었습니다.', 1));
@@ -151,7 +152,14 @@ export default function LoginForm() {
     });
 
     const onSubmitHandler = async formData => {
+        if (throttle) return;
+        setThorttle(true);
+
         mutate(formData);
+
+        setTimeout(() => {
+            setThorttle(false);
+        }, 1000);
     };
 
     return (

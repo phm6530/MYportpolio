@@ -16,8 +16,6 @@ import { fetchData } from 'services/boardService';
 import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-const { useQuery } = ReactQuery;
-
 const PageText = styled.div`
     word-break: keep-all;
     margin-top: 10px;
@@ -123,7 +121,7 @@ export default function Board() {
                         />
                     )}
 
-                    {isLoading && <SpinnerLoading />}
+                    {(isLoading || isFetching) && <SpinnerLoading />}
                 </RightWrap>
             </PageGrid>
         </>

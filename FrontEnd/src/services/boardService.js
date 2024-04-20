@@ -40,7 +40,6 @@ const fetchData = async page => {
     const response = await fetch(`http://localhost:8080/Board/${targetIdx}`);
 
     const result = await response.json();
-
     if (!response.ok) {
         throw new Error(
             result.message ||

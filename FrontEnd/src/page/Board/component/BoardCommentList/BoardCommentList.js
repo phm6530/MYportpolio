@@ -66,7 +66,7 @@ export default function BoardCommentList({
     useEffect(() => {
         const targetItem = ref.current;
         if (!hasNextPage || !targetItem) return;
-        const callback = entry => {
+        const callback = async entry => {
             if (entry[0].isIntersecting) {
                 console.log('발견');
                 targetItem.style.backgroundColor = 'red';
