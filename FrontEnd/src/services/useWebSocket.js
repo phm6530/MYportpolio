@@ -14,12 +14,14 @@ function useWebSocket(url) {
 
         const onMessage = event => {
             try {
-                const test = JSON.parse(event.data);
-                setData(test.timerSet);
+                console.log(event.data);
+                // const test = JSON.parse(event.data);
+                // setData(test.timerSet);
             } catch (error) {
                 console.log(error);
             }
         };
+
         const onClose = () => {
             setStatus('disconnected');
         };
@@ -44,7 +46,7 @@ function useWebSocket(url) {
         }
     }
 
-    return { data, status, setData, sendMessage };
+    return { data };
 }
 
 export default useWebSocket;

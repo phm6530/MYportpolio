@@ -149,7 +149,7 @@ const ScheduleTimer = () => {
     const [touched, setTouched] = useState();
     const { data, isLoading, getWebsoketTimer } = useTimer();
 
-    const { data: websoketData, setData } = useWebSocket('ws://localhost:8080');
+    const { data: websoketData } = useWebSocket('ws://localhost:8080');
     const [running, setRunning] = useState(false);
 
     const nowTIme = () => {
@@ -162,9 +162,8 @@ const ScheduleTimer = () => {
         // console.log('websoketData', websoketData);
         if (websoketData) {
             getWebsoketTimer();
-            setData(false);
         }
-    }, [websoketData, setData, getWebsoketTimer]);
+    }, [websoketData, getWebsoketTimer]);
 
     const {
         control,
