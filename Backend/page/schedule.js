@@ -238,13 +238,24 @@ const ScheduleRouter = (wss) => {
                         throw new Error('업데이트가 처리되지 않았습니다.');
                     }
                 }
+
                 await conn.commit(); // 트랜잭션 커밋
-                console.log('실행');
+
+                console.log('타이머 갱신함');
+
                 // 웹소켓에서는 JSON, XML를 가정하지않기때문에 JSOn.stringfly해서 보내야댐
-                ws.send(JSON.stringify({ status: 'success', message: '타이머가 갱신 되었습니다..', timerSet: true }));
+                ws.clients.forEach((client) => {
+                    client.send(
+                        JSON.stringify({ status: 'success', message: '타이머가 갱신 되었습니다..', timerSet: true }),
+                    );
+                });
             } else {
-                console.log('실행');
-                ws.send(JSON.stringify({ status: 'success', message: '갱신할 타이머가 없습니다.', timerSet: false }));
+                console.log('타이머 갱신할게없네요');
+                ws.clients.forEach((client) => {
+                    client.send(
+                        JSON.stringify({ status: 'success', message: '갱신할 타이머가 없습니다.', timerSet: false }),
+                    );
+                });
             }
         } catch (error) {
             await conn.rollback(); // 에러 발생 시 롤백
@@ -254,10 +265,9 @@ const ScheduleRouter = (wss) => {
         }
     };
 
+    // 매일 자정으로 변경
     schedule.scheduleJob('0 0 * * *', () => {
-        wss.clients.forEach((client) => {
-            timerRestart(client);
-        });
+        timerRestart(wss);
     });
 
     wss.on('connection', () => {
