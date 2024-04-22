@@ -1,5 +1,5 @@
 import { Controller } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useContext, useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -9,7 +9,6 @@ import styled, { keyframes } from 'styled-components';
 import { DarkMode } from '../../../../context/DarkModeContext';
 import { findForBadword } from 'utils/filterBadWording';
 import CommentInput from './Detail/CommentInput';
-import alertThunk from '../../../../store/alertTrunk';
 
 import { QuestionMark } from '../../../../component/icon/Icon';
 import { Button } from '../../../../component/ui/Button';
@@ -188,7 +187,6 @@ export default function BoardCommentForm() {
     const [changeCrector, setChangeCrector] = useState(false);
 
     const location = useLocation();
-    const dispatch = useDispatch();
 
     const schama = Yup.object({
         userIcon: Yup.string().required('필수항목 입니다.'),
@@ -258,15 +256,18 @@ export default function BoardCommentForm() {
         },
     });
 
+    const scriptReplace = text => {
+        return text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    };
+
     // submit
-    const onSubmitHandlr = async data => {
-        // if(!findForBadword(data.contents)){
-        //     dispatch(alertThunk('비속어는 입력 불가합니다...', false));
-        //     return;
-        // }
+    const onSubmitHandlr = async ({ contents, userName, ...data }) => {
+        if (!findForBadword(contents)) return;
 
         const formData = {
             idx: uuidv4(),
+            contents: scriptReplace(contents),
+            userName: scriptReplace(userName),
             ...data,
             page: new URLSearchParams(location.search).get('page') || 1,
         };
