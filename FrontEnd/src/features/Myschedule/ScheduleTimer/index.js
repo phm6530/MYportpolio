@@ -1,4 +1,3 @@
-import { TfiTimer } from 'react-icons/tfi';
 import { FlexRow } from 'component/CommonStyle';
 
 import { useEffect, useState } from 'react';
@@ -6,7 +5,6 @@ import styled from 'styled-components';
 import { format } from 'date-fns';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';
-import alertThunk from 'store/alertTrunk';
 import { useAuthCheck } from 'hooks/useAuthCheck';
 import {
     fetchTimerSetting,
@@ -19,6 +17,7 @@ import HookformRadio from '../component/HookformRadio';
 import { useForm } from 'react-hook-form';
 import { SCHEDULE_CATEGORY } from 'utils/constans';
 import useTimer from 'hooks/useTimer';
+import { toast } from 'react-toastify';
 
 const StopWatchStyle = styled.div`
     padding: 2rem 2rem 1.8rem;
@@ -113,7 +112,6 @@ const Button = styled.button`
     box-sizing: border-box;
     width: 50%;
     height: 40px;
-    left: 5px;
     top: 5px;
     position: absolute;
     border-radius: 3rem;
@@ -142,7 +140,6 @@ const Today = styled.div`
 `;
 
 const ScheduleTimer = () => {
-    const dispatch = useDispatch();
     const [timerData, setTimerData] = useState(null);
     const { user } = useSelector(state => state.authSlice);
     const { clientAuthCheck } = useAuthCheck();
@@ -181,7 +178,7 @@ const ScheduleTimer = () => {
     const { mutate: startMutate } = useMutation({
         mutationFn: data => fetchTimerStart(data),
         onSuccess: () => {
-            dispatch(alertThunk('타이머 시작', 1));
+            toast.success('타이머시작');
             queryClient.invalidateQueries({
                 queryKey: ['ScheduleTimer'],
             });
@@ -193,7 +190,7 @@ const ScheduleTimer = () => {
     const { mutate: endMutate } = useMutation({
         mutationFn: data => fetchTimerEnd(data),
         onSuccess: () => {
-            dispatch(alertThunk('타이머 중지', 1));
+            toast.info('타이머중지');
             queryClient.invalidateQueries({
                 queryKey: ['ScheduleTimer'],
             });
