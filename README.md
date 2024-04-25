@@ -2,6 +2,12 @@
 
 개인포트폴리오
 
+## 예정
+
+> [redux@toolkit] 상태관리 redux \*주스탠드로 변환예정
+> [vite]로 변경
+> [million.js] 확인해보기
+
 # FRONT
 
 1. React-icons
@@ -13,6 +19,7 @@
    npm install zustand
 
    > 라우터
+
    > [redux@toolkit] 상태관리 redux \*주스탠드로 변환예정
    > [framer-motion] 애니메이션 라우터 전환 및 컴포넌트 전환 애니메이션이
    > date-fns [Date 라이브러리]
