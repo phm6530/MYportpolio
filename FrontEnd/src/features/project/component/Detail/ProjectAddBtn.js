@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import alertThunk from 'store/alertTrunk';
 import styled from 'styled-components';
 
@@ -20,13 +21,12 @@ const SeachArea = styled.div`
 `;
 
 export default function ProjectAddBtn() {
-    const dispatch = useDispatch();
     const location = useLocation();
     const { login } = useSelector(state => state.authSlice);
     const navigate = useNavigate();
     const AuthCheck = text => {
         if (!login) {
-            dispatch(alertThunk(`${text} 권한이 없습니다.`), 0);
+            toast.warn(`${text} 권한이 없습니다.`);
             return false;
         }
         return true;
