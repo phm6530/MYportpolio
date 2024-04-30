@@ -85,8 +85,15 @@ const LeftWrap = styled.div`
 `;
 
 const RightWrap = styled.div`
-    width: 65%;
-    border-radius: 37px;
+    height: 100%;
+    display: flex;
+    width: 100%;
+    transition: all 0.5s ease;
+    background: #fff;
+    padding: 2rem 3rem;
+    border-radius: 2.5rem;
+    /* box-shadow: 50px 80px 15px rgba(0,0,0,0.1); */
+    flex-direction: column;
 `;
 
 export {

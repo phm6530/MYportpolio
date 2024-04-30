@@ -22,6 +22,46 @@ const theme = createTheme({
         },
     },
     components: {
+        MuiAccordion: {
+            variants: [
+                {
+                    props: { variant: 'customAccrdion' },
+                    style: {
+                        padding: '0rem',
+                        width: '1rem',
+                        color: '#fff',
+                        fontSize: 12,
+                        backgroundColor: '#7055db',
+                        '&:hover': {
+                            backgroundColor: '#5e3fbf',
+                        },
+                    },
+                },
+            ],
+        },
+        MuiAccordionSummary: {
+            variants: [
+                {
+                    props: { variant: 'customAccrdion' },
+                    style: {
+                        padding: '0rem',
+                        fontSize: 14,
+                        minHeight: 'inital',
+                    },
+                },
+            ],
+        },
+        MuiAccordionDetails: {
+            variants: [
+                {
+                    props: { variant: 'customAccrdion' },
+                    style: {
+                        padding: '0rem',
+                        fontSize: 14,
+                    },
+                },
+            ],
+        },
         MuiButton: {
             variants: [
                 {

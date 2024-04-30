@@ -43,14 +43,14 @@ export default function ProjectSeach() {
             navigate(`${location.pathname}?seach=${input}`);
         }
 
-        setId(null);
-        setInput('');
+        // setId(null);
+        // setInput('');
     };
     useEffect(() => {
         return () => {
             setId(null);
-            setInput('');
-            setView(false);
+            // setInput('');
+            // setView(false);
         };
     }, [location.search]);
 
@@ -65,7 +65,7 @@ export default function ProjectSeach() {
                         value={input}
                     />
                 )}
-                <button onClick={() => setView(prev => !prev)}>
+                <button onClick={() => setView(true)}>
                     <FaMagnifyingGlass />
                 </button>
             </form>

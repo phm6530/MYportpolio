@@ -15,6 +15,7 @@ import BoardCommentList from './component/BoardCommentList/BoardCommentList';
 import { fetchData } from 'services/boardService';
 import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { RightWrap } from 'features/CommonStyles';
 
 const PageText = styled.div`
     word-break: keep-all;
@@ -36,18 +37,6 @@ const BoardDashBoard = styled.div`
         margin-right: 3rem;
         box-shadow: 3px 21px 17px rgb(0 0 0 / 25%);
     }
-`;
-
-const RightWrap = styled.div`
-    height: 100%;
-    display: flex;
-    width: 100%;
-    transition: all 0.5s ease;
-    background: #fff;
-    padding: 2rem;
-    border-radius: 1rem;
-    /* box-shadow: 50px 80px 15px rgba(0,0,0,0.1); */
-    flex-direction: column;
 `;
 
 export default function Board() {

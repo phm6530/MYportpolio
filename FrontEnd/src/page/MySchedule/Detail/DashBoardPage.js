@@ -9,7 +9,6 @@ import ScheduleList from 'features/Myschedule/ScheduleContainer/ScheduleList';
 import CardSubtitle from 'features/Myschedule/component/CardSubtitle';
 import ScheduleTimer from 'features/Myschedule/ScheduleTimer';
 import {
-    FlexColumnDiv,
     SubDescription,
     SubTitle,
     LeftWrap,
@@ -46,6 +45,7 @@ const DashBoardPage = props => {
 
                     <ScheduleGit />
 
+                    {/* Rank */}
                     <ScheduleDashBoard />
 
                     {/* Summary */}
@@ -57,6 +57,7 @@ const DashBoardPage = props => {
                         redirectTo={'/myschedule/Task'}
                         buttonText={'Task'}
                     />
+
                     <ScheduleList
                         selectDay={today()}
                         listData={props.listData} //업로드해야할 날짜

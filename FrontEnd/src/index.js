@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import App from './App';
 import { ReactQuery } from 'lib/lib';
 import { queryClient } from 'react-query/queryClient';
-import { ThemeProvider } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { ToastContainer } from 'react-toastify';
 import theme from 'utils/theme';
 import { toastConfig } from 'utils/toast';
