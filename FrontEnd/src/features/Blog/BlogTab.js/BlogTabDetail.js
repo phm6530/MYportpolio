@@ -5,6 +5,7 @@ const CategoryList = styled.div`
     margin-left: 1rem;
     cursor: pointer;
 
+    height: 2rem;
     &:hover {
         color: red;
     }

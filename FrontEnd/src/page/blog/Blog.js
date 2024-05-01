@@ -1,11 +1,8 @@
-import UserProfile from 'component/profile/UserProfile';
 import BannerCommon from 'component/ui/BannerCommon';
 import DashBoard from 'component/ui/DashBoard';
 import DashBoardTitle from 'component/ui/DashBoardTitle';
 import { PageGrid } from 'component/ui/Grid';
-import SubTitle from 'component/ui/Subtitle';
 import BlogLayOut from 'features/Blog/BlogLayout';
-import { RightWrap } from 'features/CommonStyles';
 
 const Blog = () => {
     return (

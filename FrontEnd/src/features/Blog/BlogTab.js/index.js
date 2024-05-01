@@ -5,8 +5,15 @@ import useQueryString from '../hooks/useQueryString';
 
 const ListWapper = styled.div`
     overflow: hidden;
+    margin-left: 1rem;
     max-height: ${props => (props.$view ? `${props.$height}px` : '0')};
     transition: 0.3s ease;
+    border-bottom: 1px solid;
+`;
+
+const CateGory = styled.div`
+    font-size: 16px;
+    padding: 1rem;
 `;
 
 const AccodianTab = ({ list, open, category }) => {
@@ -28,7 +35,7 @@ const AccodianTab = ({ list, open, category }) => {
 
     return (
         <>
-            <div onClick={() => ToggleBtn(category)}>{category}</div>
+            <CateGory onClick={() => ToggleBtn(category)}>{category}</CateGory>
             <ListWapper $view={view} ref={ref} $height={height}>
                 {Object.keys(list[category]).map((item, idx) => {
                     return (

@@ -90,7 +90,7 @@ const RightWrap = styled.div`
     width: 100%;
     transition: all 0.5s ease;
     background: #fff;
-    padding: 2rem 3rem;
+    padding: 2rem 2rem;
     border-radius: 2.5rem;
     /* box-shadow: 50px 80px 15px rgba(0,0,0,0.1); */
     flex-direction: column;

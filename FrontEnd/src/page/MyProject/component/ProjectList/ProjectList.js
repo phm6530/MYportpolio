@@ -84,6 +84,7 @@ export default function ProjectList() {
     });
     const ProjectArr = SeachValue ? SeachArr : project;
     const CateGory = ['All', '반응형', 'React', '참여율 100%'];
+
     return (
         <>
             <ProjectListStyle>

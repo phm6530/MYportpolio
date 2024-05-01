@@ -5,7 +5,6 @@ import Fadein from '../../../../../FadeinComponent';
 import ProjectItemHeader from 'features/project/component/ProjectItemHeader';
 import { useNavigate } from 'react-router-dom';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
-import { useState } from 'react';
 
 const ProjectFadeinStyle = styled(Fadein)`
     margin-bottom: 1.5rem;

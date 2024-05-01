@@ -32,9 +32,7 @@ export default function WithRedirect({ Component, redirectPath }) {
 
     if (error) {
         console.log('Error outside: ', error);
-        // 필요한 경우 여기에서도 에러 처리를 할 수 있습니다.
     }
 
-    // projectDetail이 존재하는 경우, 정상적으로 컴포넌트 렌더링
     return projectDetail ? <Component {...projectDetail} /> : <NotfoundPage />;
 }

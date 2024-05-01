@@ -1,41 +1,40 @@
-import { AnimatePresence } from 'framer-motion';
-import { useSearchParams } from 'react-router-dom';
+import { Route, Routes, useSearchParams } from 'react-router-dom';
 import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading.js';
 
-import Motion from 'component/animations/Motion.js';
 import BlogTab from './BlogTab.js';
 import { Tab } from './BlogCommonStyle.js';
 import BlogPage from './BlogPage/index.js';
 import { BoardWrapper } from './BlogCommonStyle.js';
 import useBlogCategory from './hooks/useBlogCategory.js';
+import BlogDetail from './BlogDetail/index.js';
 
 const BlogLayOut = () => {
     const [param] = useSearchParams();
     const { data, isLoading } = useBlogCategory();
+    const parameter = param.get('item') || 'All';
 
     console.log(data);
-    const parameter = param.get('item') || 'All';
+    console.log(parameter);
 
     return (
         <>
-            <AnimatePresence mode="wait">
-                <BoardWrapper>
-                    {isLoading ? (
-                        <SpinnerLoading />
-                    ) : (
-                        <>
-                            <Tab>
-                                <BlogTab cateGory={data.category} />
-                            </Tab>
+            <BoardWrapper>
+                {isLoading ? (
+                    <SpinnerLoading />
+                ) : (
+                    <>
+                        <Tab>
+                            <BlogTab cateGory={data.category} />
+                        </Tab>
 
-                            {/* ContentsArea */}
-                            <Motion.FadeInOut key={parameter}>
-                                <BlogPage data={data} />
-                            </Motion.FadeInOut>
-                        </>
-                    )}
-                </BoardWrapper>
-            </AnimatePresence>
+                        {/* ContentsArea */}
+                        <Routes>
+                            <Route index element={<BlogPage data={data} />} />
+                            <Route path=":key" element={<BlogDetail />} />
+                        </Routes>
+                    </>
+                )}
+            </BoardWrapper>
         </>
     );
 };

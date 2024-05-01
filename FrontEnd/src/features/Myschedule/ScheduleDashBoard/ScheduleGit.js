@@ -148,7 +148,7 @@ const ScheduleGit = () => {
                         </Button>
                     </>
                 ) : (
-                    <Skeleton />
+                    <SpinnerLoading />
                 )}
             </CustumFlexColumnDiv>
         </>

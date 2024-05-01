@@ -1,0 +1,163 @@
+import styled, { css } from 'styled-components';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { FaMagnifyingGlass } from 'react-icons/fa6';
+import Fadein from 'FadeinComponent';
+
+const ProjectFadeinStyle = styled(Fadein)`
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 calc(33.333% - 1.34rem);
+    width: 100%;
+    align-items: start;
+    cursor: pointer;
+    margin-right: 2rem;
+
+    &:nth-child(3n) {
+        margin-right: 0rem;
+    }
+
+    img {
+        transition: all 0.2s ease;
+    }
+    &:hover {
+        .projectItemImg {
+            background-size: 120%;
+        }
+        .aniTarget {
+            background: rgba(0, 0, 0, 0.3);
+            svg {
+                opacity: 1;
+                transform: translateY(0px);
+            }
+        }
+        img {
+            transform: scale(1.1);
+        }
+    }
+`;
+
+const ProjectImgArea = styled.div`
+    width: 100%;
+    height: 10.6rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.3rem;
+    transition: all 0.5s ease;
+    margin-right: 3rem;
+    ${props =>
+        props.$backImg &&
+        css`
+            background-image: url(${props.$backImg});
+            background-size: 110%;
+            background-position: center center;
+        `}
+`;
+
+const ViewIconAnimation = styled.div`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0);
+    transition: all 0.5s ease;
+    overflow: hidden;
+    border-radius: 1rem;
+    svg {
+        opacity: 0;
+        transform: translateY(40px);
+        font-size: 2rem;
+        color: #fff;
+        filter: drop-shadow(0px 0px 10px);
+        transition: all 0.3s 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+`;
+
+const ProjectDescription = styled.div`
+    font-size: 14px;
+    white-space: pre-line;
+    margin-bottom: 7px;
+    color: #3d4757;
+    line-height: 1.7rem;
+    word-break: keep-all;
+`;
+
+const ProjectItemHeaderStyle = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 0.3rem;
+    img {
+        width: 15px;
+    }
+    margin-top: 1rem;
+    font-weight: 600;
+    font-size: 1rem;
+    display: flex;
+    letter-spacing: -0.7px;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    background: #212224;
+    color: transparent;
+    background-clip: text;
+`;
+
+const ContentsWrap = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* padding: 1rem 0.5rem 0.5rem 3rem; */
+    /* width: 65%; */
+    flex-grow: 1;
+`;
+
+const ProjectCompany = styled.div`
+    font-size: 12px;
+    margin-bottom: 3px;
+    color: rgba(113 113 122);
+    display: none;
+`;
+
+const BlogItem = ({ item }) => {
+    const { thumbNail } = item;
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    return (
+        <ProjectFadeinStyle onClick={() => navigate(`${item.id}`)}>
+            <ProjectImgArea $backImg={thumbNail} className="projectItemImg">
+                <ViewIconAnimation className="aniTarget">
+                    <FaMagnifyingGlass />
+                </ViewIconAnimation>
+            </ProjectImgArea>
+
+            <ContentsWrap>
+                {/* Header */}
+                <ProjectCompany>dfgfdgdfg</ProjectCompany>
+
+                <ProjectItemHeaderStyle>dfgdfgdfgdfgdfg</ProjectItemHeaderStyle>
+
+                {/* Company */}
+                <ProjectDescription>dfgdfgdfg</ProjectDescription>
+                {/* <div>
+                    {hashtag &&
+                        hashtag.map((e, idx) => (
+                            <HashtageStyle
+                                className="hashTag"
+                                key={`hash-${idx}`}
+                            >
+                                # {e}
+                            </HashtageStyle>
+                        ))}
+                </div> */}
+            </ContentsWrap>
+        </ProjectFadeinStyle>
+    );
+};
+
+export default BlogItem;

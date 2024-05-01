@@ -5,6 +5,7 @@ const SpinnerStyle = styled.div`
     align-items: center;
     width: 100%;
     justify-content: center;
+
     p {
         margin-left: 1rem;
         font-weight: bold;

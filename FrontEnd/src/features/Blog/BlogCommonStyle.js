@@ -2,10 +2,11 @@ import styled from 'styled-components';
 
 const Tab = styled.div`
     width: 14rem;
+    margin-right: 4rem;
 `;
 
 const Contents = styled.div`
-    width: 65%;
+    width: 100%;
 `;
 
 const BoardWrapper = styled.div`
@@ -14,7 +15,7 @@ const BoardWrapper = styled.div`
     width: 100%;
     transition: all 0.5s ease;
     background: #fff;
-    padding: 2rem 3rem;
+    padding: 2rem 2rem;
     border-radius: 2.5rem;
 `;
 
