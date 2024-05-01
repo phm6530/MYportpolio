@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 import BlogItem from './BlogItem';
+import { AnimatePresence } from 'framer-motion';
+import Motion from 'component/animations/Motion';
+import { useLocation } from 'react-router-dom';
 
 const Contents = styled.div`
     flex-direction: row;
@@ -15,14 +18,19 @@ const Contents = styled.div`
 `;
 
 const BlogContents = ({ data = [] }) => {
-    console.log(data);
+    const location = useLocation();
 
+    console.log(location);
     return (
-        <Contents>
-            {data.map((item, idx) => (
-                <BlogItem item={item} key={'test' + idx} />
-            ))}
-        </Contents>
+        <AnimatePresence mode="wait">
+            <Motion.FadeInOut key={location.search}>
+                <Contents>
+                    {data.map((item, idx) => {
+                        return <BlogItem item={item} key={'test' + idx} />;
+                    })}
+                </Contents>
+            </Motion.FadeInOut>
+        </AnimatePresence>
     );
 };
 

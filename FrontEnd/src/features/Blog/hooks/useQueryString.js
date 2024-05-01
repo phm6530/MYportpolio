@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-const useQueryString = () => {
+const useQueryString = path => {
     const navigate = useNavigate();
 
     const navigateHandler = params => {
@@ -10,8 +10,7 @@ const useQueryString = () => {
                     `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`,
             )
             .join('&');
-
-        navigate(`?${query}`);
+        navigate(`/${path}?${query}`, { replace: true });
     };
 
     return {

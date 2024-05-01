@@ -32,29 +32,30 @@ const Search = styled.div`
 
 export default function SearchForm() {
     const [input, setInput] = useState('');
-    const [id, setId] = useState(null);
-    const location = useLocation();
+
     const [view, setView] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
 
     const searchProject = e => {
         e.preventDefault();
+        if (!view) return;
+        const newSearchParams = new URLSearchParams(searchParams);
         if (input.trim() !== '') {
-            const newSearchParams = new URLSearchParams(searchParams);
-            console.log(newSearchParams);
             newSearchParams.set('search', input.trim());
+            setSearchParams(newSearchParams);
+        } else {
+            newSearchParams.delete('search');
             setSearchParams(newSearchParams);
         }
     };
 
-    useEffect(() => {
-        return () => {
-            setId(null);
-        };
-    }, [location.search]);
-
     return (
         <Search $view={view}>
+            <select name="" id="">
+                <option value="전체">전체</option>
+                <option value="내용">내용</option>
+            </select>
+
             <form onSubmit={e => searchProject(e)}>
                 {view && (
                     <input

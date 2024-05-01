@@ -10,6 +10,7 @@ import Motion from 'component/animations/Motion.js';
 import BlogContents from '../BlogContents';
 import styled from 'styled-components';
 import SearchForm from 'component/ui/SearchForm';
+import NonData from 'component/NonData';
 
 const MotionCustum = styled(Motion.FadeInOut)`
     width: 100%;
@@ -22,6 +23,9 @@ const BlogPage = () => {
 
     const item = searchParams.get('item') || 'All';
     const search = searchParams.get('search') || 'all';
+
+    console.log('data:::', data);
+    console.log('filteredData:::', filteredData);
 
     useEffect(() => {
         setFilter(item);
@@ -41,30 +45,32 @@ const BlogPage = () => {
 
     return (
         <>
-            <AnimatePresence mode="wait">
-                <MotionCustum key={`key-${item}`}>
-                    <Contents>
-                        <SubTitle>
-                            <div className="subText">
-                                <span className="point">{item}</span>
-                            </div>
-                        </SubTitle>
+            <Contents>
+                <SubTitle>
+                    <div className="subText">
+                        <span className="point">{item}</span>
+                    </div>
+                </SubTitle>
 
-                        {/* Search */}
-                        <SearchForm setSearchParams={setSearchParams} />
+                {/* Search */}
+                <SearchForm setSearchParams={setSearchParams} />
 
-                        {!isLoading ? (
-                            data.length === 0 ? (
-                                '데이터가 없습니다'
-                            ) : (
-                                <BlogContents data={filteredData} />
-                            )
+                {isLoading ? (
+                    <SpinnerLoading />
+                ) : filteredData && filteredData.length > 0 ? (
+                    <BlogContents data={filteredData} />
+                ) : (
+                    <div>
+                        {search === 'all' || search.trim() === '' ? (
+                            <NonData message={'등록된 데이터가 없습니다.'} />
                         ) : (
-                            <SpinnerLoading />
+                            <NonData
+                                message={`"${search}" 검색 데이터가 없습니다.`}
+                            />
                         )}
-                    </Contents>
-                </MotionCustum>
-            </AnimatePresence>
+                    </div>
+                )}
+            </Contents>
         </>
     );
 };

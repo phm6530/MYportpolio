@@ -19,7 +19,7 @@ const CateGory = styled.div`
 const AccodianTab = ({ list, open, category }) => {
     const [view, setView] = useState(open || false);
     const [height, setHeight] = useState(0);
-    const { navigateHandler } = useQueryString();
+    const { navigateHandler } = useQueryString('blog');
     const ref = useRef();
 
     const ToggleBtn = category => {

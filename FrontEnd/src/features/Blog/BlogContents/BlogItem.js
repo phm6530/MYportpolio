@@ -78,12 +78,16 @@ const ViewIconAnimation = styled.div`
 `;
 
 const ProjectDescription = styled.div`
-    font-size: 14px;
+    font-size: 13px;
     white-space: pre-line;
     margin-bottom: 7px;
-    color: #3d4757;
-    line-height: 1.7rem;
+    color: #888c94;
     word-break: keep-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* 표시할 줄 수 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 `;
 
 const ProjectItemHeaderStyle = styled.div`
@@ -116,17 +120,16 @@ const ContentsWrap = styled.div`
     flex-grow: 1;
 `;
 
-const ProjectCompany = styled.div`
+const ItemDate = styled.div`
+    margin-top: 0.5rem;
     font-size: 12px;
-    margin-bottom: 3px;
-    color: rgba(113 113 122);
-    display: none;
+    opacity: 0.5;
+    font-weight: b;
 `;
 
 const BlogItem = ({ item }) => {
     const { thumbNail } = item;
     const navigate = useNavigate();
-    const location = useLocation();
 
     return (
         <ProjectFadeinStyle onClick={() => navigate(`${item.id}`)}>
@@ -138,12 +141,12 @@ const BlogItem = ({ item }) => {
 
             <ContentsWrap>
                 {/* Header */}
-                <ProjectCompany>dfgfdgdfg</ProjectCompany>
 
-                <ProjectItemHeaderStyle>dfgdfgdfgdfgdfg</ProjectItemHeaderStyle>
+                <ProjectItemHeaderStyle>{item.title}</ProjectItemHeaderStyle>
 
                 {/* Company */}
-                <ProjectDescription>dfgdfgdfg</ProjectDescription>
+                <ProjectDescription>{item.content}</ProjectDescription>
+                <ItemDate>{item.date}</ItemDate>
                 {/* <div>
                     {hashtag &&
                         hashtag.map((e, idx) => (
