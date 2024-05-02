@@ -12,6 +12,7 @@ const wss = initializeWebSocket(httpServer);
 
 // page
 const boardRouter = require('./page/notcie'); // Board
+const blogRouter = require('./page/blog'); // Blog
 const projectRouter = require('./page/project'); //프로젝트
 const scheduleRouter = require('./page/schedule'); //스케줄
 const authRouter = require('./page/authRouter'); //login logout 로직
@@ -24,6 +25,7 @@ app.use(cors());
 // 게시판 로직
 app.use(authRouter);
 app.use('/board', boardRouter);
+app.use('/blog', blogRouter);
 app.use('/project', projectRouter);
 app.use('/schedule', scheduleRouter(wss));
 app.use('/mailModule', mailModuleRouter);
