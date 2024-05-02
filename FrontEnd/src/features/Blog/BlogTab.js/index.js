@@ -2,21 +2,29 @@ import styled from 'styled-components';
 import BlogTabDetail from './BlogTabDetail';
 import { useEffect, useRef, useState } from 'react';
 import useQueryString from '../hooks/useQueryString';
+import { LuMinus } from 'react-icons/lu';
+import { GoPlus } from 'react-icons/go';
 
 const ListWapper = styled.div`
     overflow: hidden;
-    margin-left: 1rem;
+    padding-left: 1rem;
     max-height: ${props => (props.$view ? `${props.$height}px` : '0')};
     transition: 0.3s ease;
-    border-bottom: 1px solid;
+    border-bottom: 1px solid ${({ theme }) => theme.asdf};
 `;
 
 const CateGory = styled.div`
-    font-size: 16px;
-    padding: 1rem;
+    font-size: 14px;
+    padding: 1rem 0;
+    display: flex;
+    align-items: center;
+
+    justify-content: space-between;
 `;
 
-const AccodianTab = ({ list, open, category }) => {
+const AccodianTab = ({ list, open, idx, category }) => {
+    console.log(list);
+    console.log(category);
     const [view, setView] = useState(open || false);
     const [height, setHeight] = useState(0);
     const { navigateHandler } = useQueryString('blog');
@@ -29,20 +37,33 @@ const AccodianTab = ({ list, open, category }) => {
         setView(prev => !prev);
     };
 
+    const allCnt = idx === 0 && list;
+
     useEffect(() => {
         setHeight(ref.current.scrollHeight);
     }, [view]);
 
     return (
         <>
-            <CateGory onClick={() => ToggleBtn(category)}>{category}</CateGory>
+            <CateGory onClick={() => ToggleBtn(category)}>
+                {idx === 0 ? (
+                    <>
+                        {category} ( {allCnt} )
+                    </>
+                ) : (
+                    <>{category}</>
+                )}
+                {idx !== 0 ? !view ? <GoPlus /> : <LuMinus /> : undefined}
+            </CateGory>
+
             <ListWapper $view={view} ref={ref} $height={height}>
-                {Object.keys(list[category]).map((item, idx) => {
+                {Object.keys(list).map((item, idx) => {
                     return (
                         <BlogTabDetail
                             category={category}
-                            cnt={list[category][item]}
                             item={item}
+                            cnt={list[item].count}
+                            new={list[item].new}
                             key={`${item}-${idx}`}
                         />
                     );
@@ -52,14 +73,15 @@ const AccodianTab = ({ list, open, category }) => {
     );
 };
 
-const BlogTab = ({ cateGory }) => {
+const BlogTab = ({ categories }) => {
     return (
         <>
-            {Object.keys(cateGory).map((category, idx) => (
+            {Object.keys(categories).map((category, idx) => (
                 <AccodianTab
-                    list={cateGory}
+                    list={categories[category]}
                     category={category}
                     open={idx === 1}
+                    idx={idx}
                     key={idx}
                 />
             ))}

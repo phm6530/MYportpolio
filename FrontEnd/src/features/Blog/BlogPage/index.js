@@ -1,20 +1,15 @@
 import { useSearchParams } from 'react-router-dom';
 import { Contents } from '../BlogCommonStyle';
 import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
-import { AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 import SubTitle from 'component/ui/Subtitle';
 import useBlog from '../hooks/useBlog';
-import Motion from 'component/animations/Motion.js';
 import BlogContents from '../BlogContents';
-import styled from 'styled-components';
 import SearchForm from 'component/ui/SearchForm';
 import NonData from 'component/NonData';
-
-const MotionCustum = styled(Motion.FadeInOut)`
-    width: 100%;
-`;
+import Paging from 'component/Paging';
+import ProjectAddBtn from 'features/project/component/Detail/ProjectAddBtn';
 
 const BlogPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -23,9 +18,6 @@ const BlogPage = () => {
 
     const item = searchParams.get('item') || 'All';
     const search = searchParams.get('search') || 'all';
-
-    console.log('data:::', data);
-    console.log('filteredData:::', filteredData);
 
     useEffect(() => {
         setFilter(item);
@@ -49,6 +41,7 @@ const BlogPage = () => {
                 <SubTitle>
                     <div className="subText">
                         <span className="point">{item}</span>
+                        <ProjectAddBtn />
                     </div>
                 </SubTitle>
 
@@ -58,7 +51,10 @@ const BlogPage = () => {
                 {isLoading ? (
                     <SpinnerLoading />
                 ) : filteredData && filteredData.length > 0 ? (
-                    <BlogContents data={filteredData} />
+                    <>
+                        <BlogContents data={filteredData} />
+                        <Paging />
+                    </>
                 ) : (
                     <div>
                         {search === 'all' || search.trim() === '' ? (

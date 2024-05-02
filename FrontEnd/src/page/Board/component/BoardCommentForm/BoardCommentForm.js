@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { fetchReply } from 'services/boardService';
 import styled, { keyframes } from 'styled-components';
 
-import { DarkMode } from '../../../../context/DarkModeContext';
 import { findForBadword } from 'utils/filterBadWording';
 import CommentInput from './Detail/CommentInput';
 
@@ -181,8 +180,8 @@ const UserIconViewer = styled.div`
 `;
 
 export default function BoardCommentForm() {
-    const { darkMode } = useContext(DarkMode);
     const { login } = useSelector(state => state.authSlice);
+    const { darkMode } = useSelector(state => state.darkModeSlice);
 
     const [changeCrector, setChangeCrector] = useState(false);
 

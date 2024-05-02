@@ -40,7 +40,7 @@ const ProjectFadeinStyle = styled(Fadein)`
 
 const ProjectImgArea = styled.div`
     width: 100%;
-    height: 10.6rem;
+    height: 12.6rem;
     position: relative;
     overflow: hidden;
     border-radius: 0.3rem;
@@ -81,7 +81,7 @@ const ProjectDescription = styled.div`
     font-size: 13px;
     white-space: pre-line;
     margin-bottom: 7px;
-    color: #888c94;
+    color: ${({ theme }) => theme.descriptionColor};
     word-break: keep-all;
     display: -webkit-box;
     -webkit-line-clamp: 3; /* 표시할 줄 수 */
@@ -94,21 +94,19 @@ const ProjectItemHeaderStyle = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
     img {
         width: 15px;
     }
     margin-top: 1rem;
-    font-weight: 600;
     font-size: 1rem;
     display: flex;
+    font-weight: bold;
     letter-spacing: -0.7px;
     justify-content: space-between;
     align-items: center;
     position: relative;
-    background: #212224;
-    color: transparent;
-    background-clip: text;
+    color: ${({ theme }) => theme.textColor};
 `;
 
 const ContentsWrap = styled.div`
@@ -126,6 +124,8 @@ const ItemDate = styled.div`
     opacity: 0.5;
     font-weight: b;
 `;
+
+const hashTag = 'React';
 
 const BlogItem = ({ item }) => {
     const { thumbNail } = item;
@@ -146,7 +146,9 @@ const BlogItem = ({ item }) => {
 
                 {/* Company */}
                 <ProjectDescription>{item.content}</ProjectDescription>
+                <div className="hashTag">{hashTag}</div>
                 <ItemDate>{item.date}</ItemDate>
+
                 {/* <div>
                     {hashtag &&
                         hashtag.map((e, idx) => (

@@ -11,11 +11,15 @@ const SubTitleStyle = styled.div`
         line-height: 1.1em;
         font-weight: bold;
         color: #333333;
+        flex-grow: 1;
         font-family: 'Poppins';
+        display: flex;
+        align-items: center;
         .point {
             background: linear-gradient(to left, #7264ef, #7264ef, #dd8efc);
             color: transparent;
             background-clip: text;
+            margin-right: 0.5rem;
         }
     }
     img {

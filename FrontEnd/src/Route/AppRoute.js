@@ -9,80 +9,38 @@ import { useLocation, Route, Routes } from 'react-router-dom';
 import InfiniteScrollTest from 'test.bak';
 import NotfoundPage from 'component/error/NotfoundPage';
 import Blog from 'page/blog/Blog';
+
 const AppRoute = () => {
     const location = useLocation();
     const pageKey = location.pathname.split('/')[1] || 'home';
+
+    const paths = [
+        { path: '/', Component: <HomeComponent /> },
+        { path: '/project/*', Component: <ProjectLayout /> },
+        { path: '/myschedule/*', Component: <MySchedule /> },
+        { path: '/Board', Component: <Board /> },
+        { path: '/contact', Component: <Contact /> },
+        { path: '/blog/*', Component: <Blog /> },
+        { path: '/test', Component: <InfiniteScrollTest /> },
+        { path: '/*', Component: <NotfoundPage /> },
+    ];
 
     return (
         <>
             <AnimatePresence mode="wait">
                 <Routes location={location} key={pageKey}>
-                    <Route
-                        path="/"
-                        element={
-                            <Motion.Page>
-                                <HomeComponent />
-                            </Motion.Page>
-                        }
-                    />
-                    <Route
-                        path="/project/*"
-                        element={
-                            <Motion.Page>
-                                <ProjectLayout />
-                            </Motion.Page>
-                        }
-                    />
-                    <Route
-                        path="/myschedule/*"
-                        element={
-                            <Motion.Page>
-                                <MySchedule />
-                            </Motion.Page>
-                        }
-                    />
-
-                    <Route
-                        path="/Board"
-                        element={
-                            <Motion.Page>
-                                <Board />
-                            </Motion.Page>
-                        }
-                    />
-                    <Route
-                        path="/contact"
-                        element={
-                            <Motion.Page>
-                                <Contact />
-                            </Motion.Page>
-                        }
-                    />
-                    <Route
-                        path="/blog/*"
-                        element={
-                            <Motion.Page>
-                                <Blog />
-                            </Motion.Page>
-                        }
-                    />
-
-                    <Route
-                        path="/test"
-                        element={
-                            <Motion.Page>
-                                <InfiniteScrollTest />
-                            </Motion.Page>
-                        }
-                    />
-                    <Route
-                        path="/*"
-                        element={
-                            <Motion.Page>
-                                <NotfoundPage />
-                            </Motion.Page>
-                        }
-                    />
+                    {paths.map(path => {
+                        return (
+                            <Route
+                                path={path.path}
+                                key={path.path}
+                                element={
+                                    <Motion.Page>{path.Component}</Motion.Page>
+                                }
+                            />
+                        );
+                    })}
+                    ;
                 </Routes>
             </AnimatePresence>
         </>

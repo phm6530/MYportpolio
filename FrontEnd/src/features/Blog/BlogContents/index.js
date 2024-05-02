@@ -7,11 +7,11 @@ import { useLocation } from 'react-router-dom';
 const Contents = styled.div`
     flex-direction: row;
     border-radius: 1em;
-    background: #fff;
+    /* background: ${({ theme }) => theme.backgroundColor}; */
     flex-grow: 1;
     width: 100%;
+    padding-top: 2rem;
     overflow: hidden;
-    padding: 2rem 2rem;
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;

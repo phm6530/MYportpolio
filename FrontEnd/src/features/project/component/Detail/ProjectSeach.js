@@ -4,11 +4,15 @@ import { FaMagnifyingGlass } from 'react-icons/fa6';
 import styled from 'styled-components';
 
 const Search = styled.div`
-    display: flex;
+    display: inline-flex;
     position: relative;
     font-size: 14px;
     border-bottom: 1px solid transparent;
-    ${props => props.$view && 'border-bottom: 1px solid;'}
+    /* background: transparent; */
+    background: #fbfbfb;
+    border-radius: 4rem;
+    /* padding: 0 .7rem; */
+    padding-left: 1rem;
 
     form {
         display: flex;

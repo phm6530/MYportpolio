@@ -1,65 +1,63 @@
 @charset "UTF-8";
-@import 'react-toastify/dist/ReactToastify.css';
-
 .circular-pbar {
-    width: 150px;
-    height: 150px;
-    border-radius: 100%;
-    --p: 0;
-    background: conic-gradient(#ae8aed, #c57e90 var(--p, 0), 0, #f7f7f7);
-    position: relative;
-    display: flex;
-    flex-direction: column;
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  --p: 0;
+  background: conic-gradient(#ae8aed, #c57e90 var(--p, 0), 0, #f7f7f7);
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 .circular-pbar:after {
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    height: 80%;
-    background: #fff;
-    position: absolute;
-    content: '';
-    border-radius: 100%;
-    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  background: #fff;
+  position: absolute;
+  content: "";
+  border-radius: 100%;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.2);
 }
 
 .circular-pbar-counter {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 1.6rem;
-    font-weight: bold;
-    z-index: 1;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.6rem;
+  font-weight: bold;
+  z-index: 1;
 }
 
 #quill_Editor h1 {
-    font-size: 1.4rem;
+  font-size: 1.4rem;
 }
 #quill_Editor img {
-    border-radius: 1rem;
+  border-radius: 1rem;
 }
 
 .ql-editor {
-    height: auto !important;
+  height: auto !important;
 }
 .ql-editor .ql-size-huge {
-    background: linear-gradient(to top, #000000, #4b5787, #000000);
-    color: transparent;
-    background-clip: text;
-    -webkit-background-clip: text;
-    font-weight: bold;
-    font-size: 1.5rem !important;
-    margin-bottom: 1rem;
-    margin-top: 3rem;
-    display: inline-block;
+  background: linear-gradient(to top, #000000, #4b5787, #000000);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  font-weight: bold;
+  font-size: 1.5rem !important;
+  margin-bottom: 1rem;
+  margin-top: 3rem;
+  display: inline-block;
 }
 .ql-editor blockquote {
-    border-left: 4px solid #ccc;
-    margin-bottom: 5px;
-    margin-top: 5px;
-    padding-left: 16px !important;
+  border-left: 4px solid #ccc;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding-left: 16px !important;
 }
 
 .ql-editor p,
@@ -73,79 +71,80 @@
 .ql-editor h4,
 .ql-editor h5,
 .ql-editor h6 {
-    line-height: 1.7rem !important;
+  line-height: 1.7rem !important;
 }
 
 .skill_Item {
-    display: inline-block;
-    color: #555969;
-    border-radius: 4px;
-    padding: 0.3rem 0.5rem;
-    font-size: 0.7rem;
-    font-weight: bold;
-    margin-right: 0.6rem;
-    color: rgb(120, 141, 170);
-    border: 1px solid rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  color: #555969;
+  border-radius: 4px;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-right: 0.6rem;
+  color: rgb(120, 141, 170);
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 .skill_Item input {
-    margin-right: 0.3rem;
+  margin-right: 0.3rem;
 }
 .hashTag {
-    align-items: center;
-    display: inline-flex;
-    font-weight: 500;
-    font-size: 11px;
-    padding: 2px 7px;
-    border-radius: 11px;
-    color: rgb(139, 122, 202);
-    background-color: rgba(226, 226, 226, 0.32);
-    margin-right: 0.6rem;
-    align-items: center;
-    font-weight: bold;
-    margin-bottom: 0.3rem;
+  align-items: center;
+  display: inline-flex;
+  font-weight: 500;
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 11px;
+  color: rgb(139, 122, 202);
+  background-color: rgba(226, 226, 226, 0.32);
+  margin-right: 0.6rem;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
 }
 .hashTag svg {
-    margin-left: 0.4rem;
+  margin-left: 0.4rem;
 }
 
 .FlexColumn {
-    display: flex;
-    flex-direction: column;
-    /* width: 100%; */
-    flex-grow: 1;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  /* width: 100%; */
+  flex-grow: 1;
+  align-items: flex-start;
 }
 
 .titleTextStyle {
-    background: linear-gradient(to left, #7264ef, #7264ef, #dd8efc);
-    color: transparent;
-    -webkit-background-clip: text;
-    background-clip: text;
+  background: linear-gradient(to left, #7264ef, #7264ef, #dd8efc);
+  color: transparent;
+  -webkit-background-clip: text;
+          background-clip: text;
+  margin-right: 0.5rem;
 }
 
 .swiper-pagination {
-    bottom: 10px; /* 위치 조정 */
-    left: 0;
-    position: initial !important;
-    text-align: center;
+  bottom: 10px; /* 위치 조정 */
+  left: 0;
+  position: initial !important;
+  text-align: center;
 }
 
 .margin-bottom-30 {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .margin-bottom-20 {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .margin-bottom-10 {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .margin-bottom-1rem {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 .margin-bottom-2rem {
-    margin-bottom: 2rem;
-} /*# sourceMappingURL=lib.css.map */
+  margin-bottom: 2rem;
+}/*# sourceMappingURL=lib.css.map */

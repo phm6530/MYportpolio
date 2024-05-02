@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import Fadein from '../../../../../FadeinComponent';
 
 // icon
-import ProjectItemHeader from 'features/project/component/ProjectItemHeader';
 import { useNavigate } from 'react-router-dom';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 
@@ -20,15 +19,6 @@ const ProjectFadeinStyle = styled(Fadein)`
     &:nth-child(3n + 2) {
         margin-right: 0rem;
     }
-    /* &:after {
-        position: absolute;
-        content: '01';
-        left: 50%;
-        top: -30px;
-        font-size: 3rem;
-        opacity: 0.2;
-        font-weight: bold;
-    } */
 
     img {
         transition: all 0.2s ease;
@@ -58,17 +48,6 @@ const ProjectImgArea = styled.div`
     border-radius: 0.3rem;
     transition: all 0.5s ease;
     margin-right: 3rem;
-    /* &::after {
-        position: absolute;
-        content: '01';
-        left: -29px;
-        background: linear-gradient(to right, #775ec2, #6672c4);
-        top: -9px;
-        padding: 0.3rem 2rem;
-        padding-top: 1rem;
-        color: #fff;
-        transform: rotate(-45deg);
-    } */
     ${props =>
         props.$backImg &&
         css`
@@ -128,8 +107,25 @@ const ViewIconAnimation = styled.div`
         transition: all 0.3s 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
     }
 `;
+const ProjectItemHeaderStyle = styled.div`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 0.3rem;
+    img {
+        width: 15px;
+    }
+    margin-top: 1rem;
+    font-size: 1rem;
+    display: flex;
+    letter-spacing: -0.7px;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    color: ${({ theme }) => theme.textColor};
+`;
 
-export default function ProjectItem({ activeIdx, setActiveIdx, project }) {
+export default function ProjectItem({ project }) {
     const { thumbnail, company, hashtag, description, project_key } = project;
     const navigate = useNavigate();
 
@@ -151,12 +147,9 @@ export default function ProjectItem({ activeIdx, setActiveIdx, project }) {
                     {/* Header */}
                     <ProjectCompany>{company}</ProjectCompany>
 
-                    {/* <ProjectSubTitle>기술스택</ProjectSubTitle> */}
-                    <ProjectItemHeader
-                        activeIdx={activeIdx === project.id}
-                        setActiveIdx={setActiveIdx}
-                        project={project}
-                    />
+                    <ProjectItemHeaderStyle>
+                        {project.title}
+                    </ProjectItemHeaderStyle>
 
                     {/* Company */}
                     <ProjectDescription>{description}</ProjectDescription>

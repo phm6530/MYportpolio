@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation, useSearchParams } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading.js';
 import styled from 'styled-components';
 import BlogTab from './BlogTab.js';
@@ -15,15 +15,16 @@ const MotionStyle = styled(Motion.FadeInOut)`
 `;
 
 const BlogLayOut = () => {
-    const [param] = useSearchParams();
-    const { data, isLoading } = useBlogCategory();
-    const parameter = param.get('item') || 'All';
+    // const [param] = useSearchParams();
+    const { data, isLoading, isError } = useBlogCategory();
+    // const parameter = param.get('item') || 'All';
 
     console.log(data);
-    console.log(parameter);
-
     const location = useLocation();
 
+    if (isError) {
+        return <>Error</>;
+    }
     return (
         <>
             <BoardWrapper>
@@ -32,7 +33,7 @@ const BlogLayOut = () => {
                 ) : (
                     <>
                         <Tab>
-                            <BlogTab cateGory={data.category} />
+                            <BlogTab categories={data.resData} />
                         </Tab>
 
                         {/* ContentsArea */}

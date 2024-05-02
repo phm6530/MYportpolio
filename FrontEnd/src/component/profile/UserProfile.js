@@ -6,7 +6,7 @@ const ProfileCard = styled.div`
     border-radius: 1em;
     box-shadow: 50px 50px 55px rgba(0, 0, 0, 0.1);
     margin-bottom: 3rem;
-    background: #fff;
+    background: ${({ theme }) => theme.backgroundColor};
     margin-right: 2rem;
     height: 70vh;
     padding: 2rem;

@@ -26,7 +26,7 @@ const DashBoardTitleStyle = styled.div`
     /* background: linear-gradient(to left, #7264ef, #7264ef, #dd8efc); */
     color: transparent;
     background-clip: text;
-
+    margin-right: 0.5rem;
     opacity: 0;
     font-family: 'Poppins';
     -webkit-background-clip: text;

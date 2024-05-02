@@ -1,8 +1,8 @@
 import { forwardRef, useContext } from 'react';
 import styled from 'styled-components';
-import { DarkMode } from '../../../context/DarkModeContext';
 import { InputStyle, TextAreaStyle } from '../../../component/ui/TextArea';
 import ErrorBubble from 'component/error/ErrorBubble';
+import { useSelector } from 'react-redux';
 
 const FormInputDiv = styled.div`
     border-radius: 10px;
@@ -34,7 +34,7 @@ const FormInputDiv = styled.div`
     }
 `;
 const InputReply = forwardRef((fields, ref) => {
-    const { darkMode } = useContext(DarkMode);
+    const { darkMode } = useSelector(state => state.darkModeSlice);
     const { isAuth, label, error, ...props } = fields;
 
     return (

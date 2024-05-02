@@ -1,5 +1,4 @@
-import { useContext, useState } from 'react';
-import { DarkMode } from '../../context/DarkModeContext';
+import { useState } from 'react';
 import useLogout from 'hooks/useLogout';
 
 import styled from 'styled-components';
@@ -29,7 +28,7 @@ const Link = ({ children, className, to, ...prop }) => {
 //css in js  초기랜더링 > 훅실행 > 스타일 생성
 const List = styled(Link)`
     transition: color 0.4s cubic-bezier(0, 0.88, 0, 1.03);
-    ${props => props.$active && 'color : red; font-weight:bold;'};
+    color: var(--white-color);
 `;
 
 const Header = styled.header`
@@ -41,7 +40,7 @@ const Header = styled.header`
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
-export default function RootNav({ ChangePageHandler }) {
+export default function RootNav() {
     const { view } = useSelector(state => state.alertSlice);
     const { login } = useSelector(state => state.authSlice);
     const { pathname } = useLocation();
@@ -53,8 +52,6 @@ export default function RootNav({ ChangePageHandler }) {
 
     const navigate = useNavigate();
 
-    //Dark Mode
-    const ctx = useContext(DarkMode);
     const NavPageObject = [
         { path: '/', pathName: 'HOME', AuthPage: false },
         { path: '/project', pathName: 'PROJECT', AuthPage: false },
@@ -90,10 +87,7 @@ export default function RootNav({ ChangePageHandler }) {
             <Header>
                 <div className="wrap">
                     <nav>
-                        <DarkModeBtn
-                            onClick={ctx.toggleMode}
-                            darkMode={ctx.darkMode}
-                        />
+                        <DarkModeBtn />
 
                         {/* Nav */}
                         <ul>
@@ -128,8 +122,10 @@ export default function RootNav({ ChangePageHandler }) {
                             })}
 
                             {/* login Component */}
-                            {!login && <li onClick={openLoginPopup}>로그인</li>}
-                            {login && <li onClick={logout}>로그아웃</li>}
+                            {!login && (
+                                <List onClick={openLoginPopup}>로그인</List>
+                            )}
+                            {login && <List onClick={logout}>로그아웃</List>}
                         </ul>
                     </nav>
                 </div>

@@ -1,8 +1,9 @@
-import { BsSun, Moon } from 'react-icons/bs';
-import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { LuSunDim } from 'react-icons/lu';
 import { IoMoon } from 'react-icons/io5';
+import { useDispatch, useSelector } from 'react-redux';
+import { darkModeAction } from 'store/appSlice';
+import { useEffect, useState } from 'react';
 
 const DarkmodeButton = styled.div`
     border-radius: 1em;
@@ -60,15 +61,26 @@ const DarkModeIcon = styled.div`
     }
 
     ${props =>
-        props.$darkmode
+        props.$darkMode
             ? ` left:calc(100% - 27px);  background: #5b5b5b;`
             : `background: #ffffff4a; color: #fff;`}
 `;
 
-export default function DarkModeBtn({ darkMode, ...props }) {
+export default function DarkModeBtn() {
+    const { darkMode } = useSelector(state => state.darkModeSlice);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        localStorage.setItem('darkMode', darkMode);
+    }, [darkMode]);
+
+    const modeHandler = () => {
+        dispatch(darkModeAction.toggleMode());
+    };
+
     return (
-        <DarkmodeButton $darkmode={darkMode} {...props}>
-            <DarkModeIcon $darkmode={darkMode}>
+        <DarkmodeButton onClick={() => modeHandler()}>
+            <DarkModeIcon $darkMode={darkMode}>
                 {darkMode ? <LuSunDim size={'20'} /> : <IoMoon size={'15'} />}
             </DarkModeIcon>
         </DarkmodeButton>

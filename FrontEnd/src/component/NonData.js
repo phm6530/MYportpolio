@@ -5,7 +5,6 @@ const NoSeachingData = styled(FadeinComponent)`
     text-align: center;
     height: 300px;
     width: 100%;
-    background: #fff;
     display: flex;
     align-items: center;
     justify-content: center;

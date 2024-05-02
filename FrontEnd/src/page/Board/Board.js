@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { useEffect } from 'react';
-import { ReactQuery } from 'lib/lib';
 
 import BoardCommentForm from './component/BoardCommentForm/BoardCommentForm';
 import BannerCommon from '../../component/ui/BannerCommon';

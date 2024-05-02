@@ -76,15 +76,29 @@ const modalSlice = createSlice({
     },
 });
 
+const darkModeSlice = createSlice({
+    name: 'darkMode',
+    initialState: {
+        darkMode: localStorage.getItem('darkMode') === 'true' ? true : false,
+    },
+    reducers: {
+        toggleMode(state) {
+            state.darkMode = !state.darkMode;
+        },
+    },
+});
+
 const store = configureStore({
     reducer: {
         alertSlice: alertSlice.reducer,
         authSlice: authSlice.reducer,
         modalSlice: modalSlice.reducer,
+        darkModeSlice: darkModeSlice.reducer,
     },
 });
 
 export const authAction = authSlice.actions;
 export const alertAction = alertSlice.actions;
 export const modalAction = modalSlice.actions;
+export const darkModeAction = darkModeSlice.actions;
 export default store;

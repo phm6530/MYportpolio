@@ -1,28 +1,32 @@
-import { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import styled from 'styled-components';
 
 const Search = styled.div`
-    display: flex;
+    display: inline-flex;
     position: relative;
-    font-size: 14px;
+    font-size: 13px;
     border-bottom: 1px solid transparent;
-    ${props => props.$view && 'border-bottom: 1px solid;'}
+    transition: all 0.3s ease;
+    background: ${({ theme }) => theme.SearchBackground};
+    border-radius: 4rem;
+    margin-top: 1rem;
+    padding-left: 1rem;
 
     form {
         display: flex;
+        flex-grow: 1;
     }
     input {
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        /* border: 1px solid rgba(255, 255, 255, 0.1); */
         box-sizing: border-box;
-        color: #000;
         background: transparent;
         flex-grow: 1;
     }
     button {
         border-radius: 5rem;
-        background: #fff;
+        background: transparent;
         padding: 0.5rem;
         margin: 0.2rem;
         box-sizing: border-box;
@@ -30,18 +34,25 @@ const Search = styled.div`
     }
 `;
 
-export default function SearchForm() {
-    const [input, setInput] = useState('');
+const Select = styled.select`
+    background: transparent;
+    font-size: 12px;
+    margin-right: 1rem;
+    option {
+        background: ${({ theme }) => theme.SearchBackground};
+    }
+`;
 
-    const [view, setView] = useState(false);
+export default function SearchForm() {
     const [searchParams, setSearchParams] = useSearchParams();
+    const ref = useRef();
 
     const searchProject = e => {
         e.preventDefault();
-        if (!view) return;
         const newSearchParams = new URLSearchParams(searchParams);
-        if (input.trim() !== '') {
-            newSearchParams.set('search', input.trim());
+
+        if (ref.current.value.trim() !== '') {
+            newSearchParams.set('search', ref.current.value.trim());
             setSearchParams(newSearchParams);
         } else {
             newSearchParams.delete('search');
@@ -50,23 +61,20 @@ export default function SearchForm() {
     };
 
     return (
-        <Search $view={view}>
-            <select name="" id="">
-                <option value="전체">전체</option>
+        <Search>
+            <Select>
+                <option value="제목">제목</option>
                 <option value="내용">내용</option>
-            </select>
+            </Select>
 
             <form onSubmit={e => searchProject(e)}>
-                {view && (
-                    <input
-                        type="text"
-                        placeholder="검색어를 적어주세요..."
-                        onChange={e => setInput(e.target.value)}
-                        value={input}
-                    />
-                )}
+                <input
+                    type="text"
+                    placeholder="검색어를 적어주세요..."
+                    ref={ref}
+                />
 
-                <button onClick={() => setView(true)}>
+                <button>
                     <FaMagnifyingGlass />
                 </button>
             </form>

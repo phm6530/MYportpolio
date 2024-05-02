@@ -12,6 +12,11 @@ body {
     font-family: 'SUIT-Regular', sans-serif;
 }
 
+select {
+    border: none;
+    outline: none;
+}
+
 label {
     display: block;
 }
@@ -60,18 +65,6 @@ nav {
             margin-left: 30px;
             padding: 25px 0px;
             font-size: 14px;
-        }
-    }
-}
-
-.darkMode {
-    background-color: $dark-bgcolor;
-    color: $dark-textColor;
-
-    li {
-        color: $dark-textColor;
-        a {
-            color: $dark-textColor;
         }
     }
 }

@@ -14,11 +14,9 @@ const BoardWrapper = styled.div`
     display: flex;
     width: 100%;
     transition: all 0.5s ease;
-    background: #fff;
+    background: ${({ theme }) => theme.backgroundColor};
     padding: 2rem 2rem;
     border-radius: 2.5rem;
 `;
-
-const BlogAccodian = styled.div``;
 
 export { Tab, Contents, BoardWrapper };
