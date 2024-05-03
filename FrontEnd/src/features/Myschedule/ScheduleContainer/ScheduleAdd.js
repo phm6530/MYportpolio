@@ -71,7 +71,7 @@ const ScheduleAdd = ({ selectDay }) => {
         },
     });
     // console.log('errors : ',errors);
-    const { clientAuthCheck } = useAuthCheck();
+    const { checkHandler } = useAuthCheck();
 
     const queryclient = useQueryClient();
 
@@ -108,7 +108,7 @@ const ScheduleAdd = ({ selectDay }) => {
 
         console.log(requestData);
 
-        if (!clientAuthCheck('입력')) return;
+        if (!checkHandler('입력')) return;
         mutation.mutate(requestData);
     };
 

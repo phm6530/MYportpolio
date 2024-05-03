@@ -10,7 +10,7 @@ const projectFetch = async () => {
                     `요청이 실패하였습니다. errorCode :  ${response.status}`,
             );
         }
-        // await new Promise(resolve => setTimeout(resolve, 15000));
+        await new Promise(resolve => setTimeout(resolve, 15000));
         const data = await response.json();
         return data;
     } catch (error) {
@@ -36,6 +36,7 @@ const fetchDetail = async key => {
 
 // Insert or Update하기
 const addProjectFetch = async (formData, Type) => {
+    console.log(Type);
     try {
         const response = await fetch(
             Type !== 'edit'
@@ -51,6 +52,8 @@ const addProjectFetch = async (formData, Type) => {
             const errorResult = await response.json();
             throw new Error(errorResult.message);
         }
+
+        console.log(response);
         return await response.json();
     } catch (error) {
         console.log(error);

@@ -31,7 +31,7 @@ const DdayInputStyle = styled(InputStyle)`
 
 const ScheduleDdaySetter = () => {
     const dispatch = useDispatch();
-    const { clientAuthCheck } = useAuthCheck();
+    const { checkHandle } = useAuthCheck();
     const childRef = useRef();
 
     const {
@@ -60,7 +60,7 @@ const ScheduleDdaySetter = () => {
             important: 2,
             category: data.category,
         };
-        if (!clientAuthCheck('D-day 설정')) return;
+        if (!checkHandle('D-day 설정')) return;
         // console.log(formData);
         mutate(formData);
     };

@@ -1,14 +1,15 @@
 import Motion from 'component/animations/Motion';
 import { AnimatePresence } from 'framer-motion';
+import { useLocation, Route, Routes } from 'react-router-dom';
+
 import HomeComponent from 'page/Home/HomeComponent';
-import ProjectLayout from 'features/project/ProjectLayout';
 import MySchedule from 'page/MySchedule/MySchedule';
 import Board from 'page/Board/Board';
 import Contact from 'page/contact/Contact';
-import { useLocation, Route, Routes } from 'react-router-dom';
 import InfiniteScrollTest from 'test.bak';
 import NotfoundPage from 'component/error/NotfoundPage';
 import Blog from 'page/blog/Blog';
+import MyProject from 'page/MyProject/MyProject';
 
 const AppRoute = () => {
     const location = useLocation();
@@ -16,7 +17,7 @@ const AppRoute = () => {
 
     const paths = [
         { path: '/', Component: <HomeComponent /> },
-        { path: '/project/*', Component: <ProjectLayout /> },
+        { path: '/project/*', Component: <MyProject /> },
         { path: '/myschedule/*', Component: <MySchedule /> },
         { path: '/Board', Component: <Board /> },
         { path: '/contact', Component: <Contact /> },

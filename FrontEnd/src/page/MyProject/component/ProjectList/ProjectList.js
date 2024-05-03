@@ -5,13 +5,11 @@ import SubTitle from 'component/ui/Subtitle';
 
 import { useEffect, useState } from 'react';
 import { projectFetch } from 'services/projectService';
-// import { ProjectWrapStyle } from './Styled/ProjectListStyled';
 import ProjectAddBtn from 'features/project/component/Detail/ProjectAddBtn';
 import CateGoryButton from 'component/ui/CateGoryButton';
-import ProjectSeach from 'features/project/component/Detail/ProjectSeach';
 import { ReactQuery, ReactRouteDom } from 'lib/lib';
-import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
-import { Skeleton, Box } from '@mui/material';
+import SkeletonPost from 'component/ui/loading/Skeleton';
+import SearchForm from 'component/ui/SearchForm';
 
 const { useLocation, useSearchParams } = ReactRouteDom;
 const { useQuery } = ReactQuery;
@@ -66,15 +64,10 @@ export default function ProjectList() {
         }
     }, [isSuccess, data]);
 
-    // useEffect(() => {
-    //     const responseData = data?.resData || [];
-    //     setProject(responseData);
-    // }, [isSuccess]);
-
     const [param] = useSearchParams();
     const [project, setProject] = useState([]);
     const [activeIdx, setActiveIdx] = useState(null);
-    const SeachValue = param.get('seach');
+    const SeachValue = param.get('search');
 
     const SeachArr = project.filter(e => {
         if (SeachValue === 'All') {
@@ -89,7 +82,6 @@ export default function ProjectList() {
         <>
             <ProjectListStyle>
                 <SubTitle>
-                    {/* <img src="/img/board/talk.png" alt="" /> */}
                     <div className="subText">
                         <span className="point">MY PORTPOLIO</span> LIST
                     </div>
@@ -99,7 +91,9 @@ export default function ProjectList() {
                 {/* List */}
                 <FlexRow>
                     <CateGoryButton CateGory={CateGory} type={'queryString'} />
-                    <ProjectSeach />
+
+                    {/* 검색창 */}
+                    <SearchForm />
                 </FlexRow>
 
                 {!isLoading && SeachValue && SeachArr.length === 0 && (
@@ -122,65 +116,8 @@ export default function ProjectList() {
                     </>
                 ) : (
                     <>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                flex: '0 0 calc(33.333% - 1.34rem)',
-                                marginBottom: '1rem',
-                                marginRight: '2rem',
-                            }}
-                        >
-                            <Skeleton
-                                variant="rectangular"
-                                animation="wave"
-                                sx={{
-                                    width: '100%',
-                                    height: '10.6rem',
-                                }}
-                            />
-                            <Skeleton />
-                            <Skeleton width="70%" />
-                        </Box>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                flex: '0 0 calc(33.333% - 1.34rem)',
-                                marginBottom: '1rem',
-                                marginRight: '2rem',
-                            }}
-                        >
-                            <Skeleton
-                                variant="rectangular"
-                                animation="wave"
-                                sx={{
-                                    width: '100%',
-                                    height: '10.6rem',
-                                }}
-                            />
-                            <Skeleton />
-                            <Skeleton width="70%" />
-                        </Box>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                flex: '0 0 calc(33.333% - 1.34rem)',
-                                marginBottom: '1rem',
-                            }}
-                        >
-                            <Skeleton
-                                variant="rectangular"
-                                animation="wave"
-                                sx={{
-                                    width: '100%',
-                                    height: '10.6rem',
-                                }}
-                            />
-                            <Skeleton />
-                            <Skeleton width="70%" />
-                        </Box>
+                        {/* 스켈레톤 */}
+                        <SkeletonPost listCnt={6} />
                     </>
                 )}
             </ProjectListStyle>

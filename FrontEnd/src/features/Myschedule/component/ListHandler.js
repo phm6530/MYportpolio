@@ -43,7 +43,7 @@ const FullFlexColumnDiv = styled(FlexColumnDiv)`
 
 const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
     const { register, handleSubmit, setValue } = useForm();
-    const { clientAuthCheck } = useAuthCheck();
+    const { checkHandler } = useAuthCheck();
     const { ref, ...rest } = register('work', {
         required: '빈칸은 입력 불가합니다.',
     });
@@ -99,17 +99,17 @@ const ListHandler = ({ selectWork, setSelectWork, ScheduleItem }) => {
     };
 
     const readOnlyHandler = idx => {
-        if (!clientAuthCheck('수정')) return;
+        if (!checkHandler()) return;
         setSelectWork(idx);
     };
 
     const onToggleHandler = key => {
-        if (!clientAuthCheck('변경 권한')) return;
+        if (!checkHandler()) return;
         toggleMutate(key);
     };
 
     const removeSchedule = () => {
-        if (!clientAuthCheck('삭제')) return;
+        if (!checkHandler()) return;
         deleteMutate(ScheduleItem.schedule_key);
         hidePopup();
     };

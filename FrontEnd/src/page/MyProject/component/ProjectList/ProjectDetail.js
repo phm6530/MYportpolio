@@ -156,7 +156,7 @@ const Hashtage = styled.div`
 `;
 
 function ProjectDetail({ result }) {
-    const { clientAuthCheck } = useAuthCheck();
+    const { checkHandler } = useAuthCheck();
     const ref = useRef();
     const {
         mutateAsync,
@@ -189,19 +189,20 @@ function ProjectDetail({ result }) {
     const renderHTML = quillHTML => {
         return { __html: quillHTML };
     };
+
     const projectView = url => {
         window.open(url, '_blank');
     };
 
     const updateHandler = key => {
-        if (!clientAuthCheck('수정')) {
+        if (!checkHandler()) {
             return;
         }
         navigate(`/project/add?type=edit&key=${key}`);
     };
 
     const deleteHandler = () => {
-        if (!clientAuthCheck('삭제')) {
+        if (!checkHandler()) {
             return;
         }
         setModal(true);

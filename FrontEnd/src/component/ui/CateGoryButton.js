@@ -1,9 +1,4 @@
-import {
-    useLocation,
-    useNavigate,
-    useParams,
-    useSearchParams,
-} from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from 'component/ui/Button';
 
@@ -18,7 +13,7 @@ export default function CateGoryButton({ CateGory, type }) {
     const { pathname } = useLocation();
     const [param] = useSearchParams();
 
-    const pathName = path => {
+    const pathName = () => {
         // console.log(path);
         const arr = pathname.split('/');
         const lastIdx = arr.length - 1;
@@ -31,14 +26,12 @@ export default function CateGoryButton({ CateGory, type }) {
     // path
     const ParameterNav = path => {
         const arrPath = pathname.split('/');
-
         if (arrPath.length <= 2) {
             arrPath.push(path);
         } else {
             arrPath[arrPath.length - 1] = path;
         }
         const newPath = arrPath.join('/');
-
         return newPath;
     };
 
@@ -52,13 +45,13 @@ export default function CateGoryButton({ CateGory, type }) {
                     $active={
                         e ===
                         (pageType
-                            ? param.get('seach') || CateGory[0]
+                            ? param.get('search') || CateGory[0]
                             : pathName(e) || CateGory[0])
                     }
                     onClick={() =>
                         navigate(
                             pageType
-                                ? `${pathname}?seach=${e}`
+                                ? `${pathname}?search=${e}`
                                 : ParameterNav(e),
                         )
                     }

@@ -53,10 +53,10 @@ export default function SearchForm() {
 
         if (ref.current && ref.current.value.trim() !== '') {
             newSearchParams.set('search', ref.current.value.trim());
-            newSearchParams.set('page', '1'); // 페이지를 1로 설정
+            newSearchParams.delete('page');
         } else {
             newSearchParams.delete('search');
-            newSearchParams.set('page', '1'); // 여기서도 페이지를 1로 설정
+            newSearchParams.delete('page');
         }
         // URLSearchParams 인스턴스를 string으로 변환하여 setSearchParams에 전달
         setSearchParams(newSearchParams.toString());

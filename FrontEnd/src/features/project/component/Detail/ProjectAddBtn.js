@@ -18,21 +18,17 @@ const SeachArea = styled.div`
 `;
 
 export default function ProjectAddBtn() {
-    const location = useLocation();
     const navigate = useNavigate();
     const { checkHandler } = useAuthCheck();
 
     const nav = path => {
         if (!checkHandler()) return;
-        navigate(location.pathname + path);
+        navigate(path);
     };
 
     return (
         <SeachArea>
-            <button
-                onClick={() => nav(`/add?key=${uuidv4()}`)}
-                className="addProjectBtn"
-            >
+            <button onClick={() => nav(`add`)} className="addProjectBtn">
                 + Add Project
             </button>
         </SeachArea>

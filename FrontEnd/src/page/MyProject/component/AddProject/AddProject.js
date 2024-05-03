@@ -1,10 +1,10 @@
+import * as Yup from 'yup';
+import 'react-datepicker/dist/react-datepicker.css';
+import React, { useEffect, useRef, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
-import * as Yup from 'yup';
-import 'react-datepicker/dist/react-datepicker.css';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { InputStyle, TextAreaStyle } from '../../../../component/ui/TextArea';
 import { MdCancel } from 'react-icons/md';
 
@@ -153,23 +153,14 @@ export default function AddProject() {
         name: 'hashtag',
     });
 
-    const location = useLocation();
-
     const thumNail = watch('thumbnail');
-    // console.log('thumNail::::::::::::::::::::::::', thumNail);
-
-    // const ctx = useContext(DarkMode);
-    // console.log(ctx);
     const [PROJECT_KEY, SETPROJECT_KEY] = useState(null);
     const [Params] = useSearchParams();
-    // console.log('PROJECT_KEY ::::: ',PROJECT_KEY)
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const Type = Params.get('type');
     const ProjectKey = Params.get('key');
-
-    // console.log(errors);
-    // console.log(getValues());
 
     useEffect(() => {
         const fetching = async () => {
@@ -180,7 +171,6 @@ export default function AddProject() {
         if (Type === 'edit') {
             fetching()
                 .then(res => {
-                    console.log(' res :::::: ', res);
                     reset({
                         idx: res.project_key,
                         title: res.title,
@@ -215,14 +205,9 @@ export default function AddProject() {
             } else {
                 setObj = { ...data, idx: PROJECT_KEY };
             }
-            // const hash = setObj.hashtag;
 
-            // const newHashArr = hash.flatMap(e => Object.values(e));
-
-            // setObj = { ...setObj, hashtag: newHashArr };
-
-            console.log('setObjsetObjsetObjsetObj :::: ', setObj);
-            await addProjectFetch(setObj, Type);
+            const result = await addProjectFetch(setObj, Type);
+            console.log(result);
 
             dispatch(
                 alertThunk(
@@ -232,6 +217,7 @@ export default function AddProject() {
                     true,
                 ),
             );
+
             navigate('/project');
             reset(); // 서버 요청이 성공적일 때만 reset 호출
         } catch (error) {
@@ -364,6 +350,7 @@ export default function AddProject() {
 
                 <InputWrap>
                     <InputLabel>해시태그</InputLabel>
+
                     <div className="FlexColumn">
                         <InputWrap>
                             <CustumInputWrap
@@ -372,18 +359,24 @@ export default function AddProject() {
                             />
                             <button onClick={addHashtag}>Add</button>
                         </InputWrap>
+
                         <HashtagWrap>
-                            {getValues('hashtag').map((field, index) => (
-                                <div className="hashTag" key={field.id}>
-                                    {field}
-                                    <button
-                                        type="button"
-                                        onClick={() => remove(index)}
+                            {getValues('hashtag').map((field, index) => {
+                                return (
+                                    <div
+                                        className="hashTag"
+                                        key={field.id + index}
                                     >
-                                        <MdCancel />
-                                    </button>
-                                </div>
-                            ))}
+                                        {field}
+                                        <button
+                                            type="button"
+                                            onClick={() => remove(index)}
+                                        >
+                                            <MdCancel />
+                                        </button>
+                                    </div>
+                                );
+                            })}
                         </HashtagWrap>
                     </div>
                     {errors.hashtag && (

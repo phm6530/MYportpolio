@@ -30,7 +30,7 @@ const useProjectActions = type => {
     }, [isSuccess]);
 
     // const updateHandler = key => {
-    //     if (!clientAuthCheck('수정')) {
+    //     if (!checkHandle('수정')) {
     //         return;
     //     }
     //     navigate(`/project/add?type=edit&key=${key}`);
@@ -38,7 +38,7 @@ const useProjectActions = type => {
 
     // const deleteHandler = async deleteKey => {
     //     //권한 확인
-    //     if (!clientAuthCheck('삭제')) {
+    //     if (!checkHandle('삭제')) {
     //         return;
     //     }
     //     setModal(true);

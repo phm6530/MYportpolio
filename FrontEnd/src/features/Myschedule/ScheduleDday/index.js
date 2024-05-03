@@ -96,7 +96,7 @@ const DdayItem = styled.div`
 `;
 
 const DdayTask = ({ task }) => {
-    const { clientAuthCheck } = useAuthCheck();
+    const { checkHandler } = useAuthCheck();
     const { showPopup, PopupComponent } = usePopup();
 
     const { work, schedule_key, formatted_date } = task;
@@ -116,7 +116,7 @@ const DdayTask = ({ task }) => {
     );
 
     const deleteHandler = () => {
-        if (!clientAuthCheck('삭제')) {
+        if (!checkHandler('삭제')) {
             return;
         }
         deleteMutate(schedule_key);

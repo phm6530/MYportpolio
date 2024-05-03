@@ -142,7 +142,7 @@ const Today = styled.div`
 const ScheduleTimer = () => {
     const [timerData, setTimerData] = useState(null);
     const { user } = useSelector(state => state.authSlice);
-    const { clientAuthCheck } = useAuthCheck();
+    const { checkHandler } = useAuthCheck();
     const [touched, setTouched] = useState();
     const { data, isLoading, getWebsoketTimer } = useTimer();
 
@@ -221,7 +221,7 @@ const ScheduleTimer = () => {
             console.log(category);
             if (!category) return;
 
-            if (!clientAuthCheck('타이머')) return;
+            if (!checkHandler('타이머')) return;
             const nowTime = nowTIme();
             const fetchData = {
                 startTime: nowTime[1],
@@ -231,7 +231,7 @@ const ScheduleTimer = () => {
             };
             startMutate(fetchData);
         } else {
-            if (!clientAuthCheck('타이머')) return;
+            if (!checkHandler('타이머')) return;
 
             setRunning(false);
             const nowTime = nowTIme();
