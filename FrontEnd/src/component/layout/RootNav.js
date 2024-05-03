@@ -10,14 +10,14 @@ import { useSelector } from 'react-redux';
 import Alert from 'component/alert/Alert';
 import Popup from '../popup/Popup';
 
-import DarkModeBtn from '../ui/DarkModeBtn';
 import { useLocation, useNavigate } from 'react-router-dom';
+import DarkModeBtn from '../ui/DarkModeBtn';
 import LoginForm from '../popup/login/LoginForm';
 import TopButton from 'component/ui/TopButton';
 import useUserDecoded from 'hooks/useUserDecoded';
 
 // Nav 선택
-const Link = ({ children, className, to, ...prop }) => {
+const Link = ({ children, className, ...prop }) => {
     return (
         <li className={className} {...prop}>
             {children}
@@ -33,7 +33,7 @@ const List = styled(Link)`
 
 const Header = styled.header`
     position: fixed;
-    z-index: 1;
+    z-index: 10;
     width: 100%;
     /* background: #ffffff14; */
     backdrop-filter: blur(12px);

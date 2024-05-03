@@ -86,12 +86,6 @@ const LoginInputStyle = styled.input`
     font-size: 14px;
     flex-grow: 1;
     background: transparent;
-    &:-webkit-autofill,
-    &:-webkit-autofill:hover,
-    &:-webkit-autofill:focus,
-    &:-webkit-autofill:active {
-        transition: background-color 5000s ease-in-out 0s;
-    }
 `;
 
 const LabelWrap = styled.div`
@@ -110,9 +104,6 @@ const LabelWrap = styled.div`
 `;
 
 const ErrorMessage = styled.div`
-    color: var(--error-color);
-    margin-top: 5px;
-    font-size: 12px;
     font-weight: bold;
     opacity: 0.8;
 `;
@@ -132,7 +123,6 @@ export default function LoginForm() {
     } = useForm({
         resolver: yupResolver(schema),
     });
-
     // 디바운싱
     // useEffect(()=>{
     //     const debounce = setTimeout(()=>{

@@ -99,7 +99,7 @@ const RadioWrap = styled.div`
     /* padding: 10px 20px; */
     border-radius: 1em;
     margin-bottom: 19px;
-    z-index: 10;
+    z-index: 1;
     left: 0;
     top: -4em;
     border: 3px solid #ffffff4f;

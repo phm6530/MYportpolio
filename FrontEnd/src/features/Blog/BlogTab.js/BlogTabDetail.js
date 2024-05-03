@@ -21,6 +21,7 @@ const Cnt = styled.span`
     font-size: 12px;
     margin: 0 5px 0 2px;
 `;
+
 const NewIcon = styled.span`
     width: 12px;
     height: 12px;

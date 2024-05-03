@@ -3,9 +3,13 @@ import { useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { queryKey } from 'services/queryKey';
 
-const fetchData = async (item, category, page = 1) => {
+const fetchData = async (item, category, page = 1, search) => {
     console.log(page);
-    const queryParams = new URLSearchParams({ category, item }).toString();
+    const queryParams = new URLSearchParams({
+        category,
+        item,
+        search,
+    }).toString();
     const response = await fetch(
         `http://localhost:8080/blog/${page}?${queryParams}`,
     );
@@ -15,36 +19,46 @@ const fetchData = async (item, category, page = 1) => {
         throw new Error(errorMessage.message);
     }
     await new Promise(resolve => setTimeout(resolve, 1000));
-    const { resData } = await response.json();
-    return resData;
+    return response.json();
 };
 
 const useBlog = () => {
-    const [filter, setFilter] = useState('All');
+    // const [filter, setFilter] = useState('All');
     const [params] = useSearchParams();
 
     // 쿼리스트링
-    const category = params.get('category');
+    const category = params.get('category') || 'All';
     const item = params.get('item');
     const page = params.get('page') || 1;
 
-    const selectFn = useCallback(
-        data => {
-            if (data) {
-                const filtering = data.filter(e => {
-                    return e.cateGory === filter;
-                });
-                console.log(filtering);
-                return filtering;
-            }
-        },
-        [filter],
-    );
+    const search = params.get('search') || null;
+
+    console.log('Search::: ', search);
+
+    // const selectFn = useCallback(
+    //     data => {
+    //         if (data) {
+    //             console.log(data);
+    //             const filtering = data.resData.filter(e => {
+    //                 const lowerCaseSearch = search.toLocaleLowerCase();
+    //                 return e.title
+    //                     .toLocaleLowerCase()
+    //                     .includes(lowerCaseSearch);
+    //             });
+    //             console.log(filtering);
+    //             return {
+    //                 ...data, // 기존 data 객체의 다른 속성들을 유지
+    //                 resData: filtering, // resData만 필터링된 결과로 교체
+    //             };
+    //         }
+    //     },
+    //     [search],
+    // );
 
     const { data, isLoading, isSuccess, isError } = useQuery({
-        queryKey: [queryKey.blog, item, category, page],
-        queryFn: () => fetchData(item, category, page),
-        select: filter !== 'All' ? selectFn : undefined,
+        queryKey: [queryKey.blog, item, category, page, search],
+        queryFn: () => fetchData(item, category, page, search),
+        // select: search ? selectFn : undefined,
         staleTime: 10000,
     });
 
@@ -53,7 +67,6 @@ const useBlog = () => {
         isLoading,
         isSuccess,
         isError,
-        setFilter,
     };
 };
 

@@ -1,25 +1,30 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import alertThunk from 'store/alertTrunk';
 import { tokenCheck } from 'services/authService';
+import { useQuery } from '@tanstack/react-query';
+import { queryKey } from 'services/queryKey';
+import { authAction } from 'store/appSlice';
 
 export default function useAuthRedirect(redirectPath) {
-    const isAuth = useSelector(state => state.authSlice.login); // 클라이언트 인증로직
-    const dispatch = useDispatch();
+    const isAuth = useSelector(state => state.authSlice.login); // 클라이언트 인증 상태
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const { isError } = useQuery({
+        queryKey: [queryKey.auth],
+        queryFn: tokenCheck,
+    });
+
+    const deleteLocalToken = () => {
+        localStorage.removeItem('token');
+    };
 
     useEffect(() => {
-        const authCheck = async () => {
-            return await tokenCheck();
-        };
-
-        authCheck().then(data => {
-            const { Auth } = data;
-            if (Auth === false || isAuth === false) {
-                navigate(redirectPath);
-                dispatch(alertThunk('권한이 없습니다', 0));
-            }
-        });
-    }, [dispatch, redirectPath, navigate, isAuth]); //서버 , 클라이언트에서 모두 체킹
+        if (isError || !isAuth) {
+            deleteLocalToken();
+            navigate(redirectPath);
+            dispatch(authAction.logOut());
+        }
+    }, [isError, isAuth, navigate, redirectPath, dispatch]);
 }

@@ -5,7 +5,7 @@ const BackdropStyle = styled.div`
     width: 100%;
     height: 100%;
     background-color: #1d1d1da3;
-    z-index: 2;
+    z-index: 100;
     top: 0;
     -webkit-backdrop-filter: blur(1px);
     backdrop-filter: blur(1px);

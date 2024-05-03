@@ -68,7 +68,7 @@ const ProjectDescription = styled.div`
     font-size: 14px;
     white-space: pre-line;
     margin-bottom: 7px;
-    color: #3d4757;
+    color: ${({ theme }) => theme.descriptionColor};
     line-height: 1.7rem;
     word-break: keep-all;
 `;
@@ -118,6 +118,7 @@ const ProjectItemHeaderStyle = styled.div`
     margin-top: 1rem;
     font-size: 1rem;
     display: flex;
+    font-weight: bold;
     letter-spacing: -0.7px;
     justify-content: space-between;
     align-items: center;

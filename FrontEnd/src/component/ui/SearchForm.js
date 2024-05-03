@@ -51,13 +51,15 @@ export default function SearchForm() {
         e.preventDefault();
         const newSearchParams = new URLSearchParams(searchParams);
 
-        if (ref.current.value.trim() !== '') {
+        if (ref.current && ref.current.value.trim() !== '') {
             newSearchParams.set('search', ref.current.value.trim());
-            setSearchParams(newSearchParams);
+            newSearchParams.set('page', '1'); // 페이지를 1로 설정
         } else {
             newSearchParams.delete('search');
-            setSearchParams(newSearchParams);
+            newSearchParams.set('page', '1'); // 여기서도 페이지를 1로 설정
         }
+        // URLSearchParams 인스턴스를 string으로 변환하여 setSearchParams에 전달
+        setSearchParams(newSearchParams.toString());
     };
 
     return (

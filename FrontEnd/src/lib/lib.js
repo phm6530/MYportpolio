@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { useForm, FormProvider, Controller } from 'react-hook-form';
 import {
     useMutation,

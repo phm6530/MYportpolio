@@ -209,7 +209,6 @@ export default function AddProject() {
 
     const onSubmitHandler = async data => {
         try {
-            // const replaceDescription = {...data , description : data.description.replaceAll('\n', '<br>')}
             let setObj;
             if (Type === 'edit') {
                 setObj = data;

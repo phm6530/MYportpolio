@@ -65,8 +65,6 @@ const ScheduleGit = () => {
         queryFn: fetchGit,
     });
 
-    console.log(data);
-
     const getUtcKrDate = () => {
         const month = String(new Date().getMonth() + 1).padStart(2, '0');
         const year = new Date().getFullYear();

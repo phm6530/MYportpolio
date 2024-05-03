@@ -1,39 +1,21 @@
 import { useSearchParams } from 'react-router-dom';
 import { Contents } from '../BlogCommonStyle';
-import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
-import { useEffect, useState } from 'react';
 
+import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
 import SubTitle from 'component/ui/Subtitle';
 import useBlog from '../hooks/useBlog';
 import BlogContents from '../BlogContents';
 import SearchForm from 'component/ui/SearchForm';
 import NonData from 'component/NonData';
 import Paging from 'component/Paging';
-import ProjectAddBtn from 'features/project/component/Detail/ProjectAddBtn';
+import AddPostBtn from 'features/common/Post/AddPostBtn';
 
 const BlogPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const { data, isLoading, setFilter } = useBlog();
-    const [filteredData, setFilteredData] = useState([]);
+    const { data, isLoading } = useBlog();
 
     const item = searchParams.get('item') || 'All';
     const search = searchParams.get('search') || 'all';
-
-    useEffect(() => {
-        setFilter(item);
-    }, [item, data, setFilter]);
-
-    useEffect(() => {
-        if (search === 'all' || search.trim() === '') {
-            setFilteredData(data);
-        } else {
-            const lowerCaseSearch = search.toLocaleLowerCase();
-            const result = data?.filter(e =>
-                e.title.toLocaleLowerCase().includes(lowerCaseSearch),
-            );
-            setFilteredData(result);
-        }
-    }, [data, search]);
 
     return (
         <>
@@ -41,7 +23,7 @@ const BlogPage = () => {
                 <SubTitle>
                     <div className="subText">
                         <span className="point">{item}</span>
-                        <ProjectAddBtn />
+                        <AddPostBtn />
                     </div>
                 </SubTitle>
 
@@ -50,10 +32,10 @@ const BlogPage = () => {
 
                 {isLoading ? (
                     <SpinnerLoading />
-                ) : filteredData && filteredData.length > 0 ? (
+                ) : data && data.resData.length > 0 ? (
                     <>
-                        <BlogContents data={filteredData} />
-                        <Paging />
+                        <BlogContents data={data.resData} />
+                        <Paging paging={data.paging} />
                     </>
                 ) : (
                     <div>

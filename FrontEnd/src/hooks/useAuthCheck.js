@@ -1,18 +1,28 @@
-import { useDispatch, useSelector } from 'react-redux';
-import alertThunk from 'store/alertTrunk';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
-export const useAuthCheck = () => {
-    const dispatch = useDispatch();
+const useAuthCheck = () => {
     const { login } = useSelector(state => state.authSlice);
+    const [throttle, setThrottle] = useState(false);
 
-    const clientAuthCheck = message => {
+    const checkHandler = () => {
+        if (throttle) return;
+        setThrottle(true);
+
         if (!login) {
-            dispatch(alertThunk(`${message} 권한이 없습니다.`), 0);
-            return false;
+            toast.warn('권한이 없습니다.');
         }
-        return true;
+        setTimeout(() => {
+            setThrottle(false);
+        }, 1000);
+
+        return login ? true : false;
     };
+
     return {
-        clientAuthCheck,
+        checkHandler,
     };
 };
+
+export { useAuthCheck };

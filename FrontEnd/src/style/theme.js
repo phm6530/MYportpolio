@@ -1,4 +1,3 @@
-import { color } from 'framer-motion';
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
@@ -6,6 +5,8 @@ export const GlobalStyle = createGlobalStyle`
     --white-color: rgb(182, 190, 201);
     --text-color: ${({ theme }) => theme.textColor};
     --background-color: ${({ theme }) => theme.backgroundColor};
+    --popup-background-color: ${({ theme }) => theme.BackgroundColor_Type_1};
+    --error-color: #f34141;
   }
 
   body {
@@ -23,6 +24,9 @@ export const lightTheme = {
 
     // input
     SearchBackground: '#fbfbfb',
+    BackgroundColor_Type_1: '#eef8ff',
+
+    // errorColor
 
     tabCnt: 'rgb(102, 179, 255)',
 };
@@ -34,7 +38,9 @@ export const darkTheme = {
     descriptionColor: '#c9c9c9',
 
     // input
-    SearchBackground: '#000',
+    SearchBackground: '#161b24',
+
+    BackgroundColor_Type_1: '#353b3f',
 
     tabCnt: 'rgb(102, 179, 255)',
 };

@@ -1,25 +1,24 @@
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading.js';
+import { BoardWrapper } from './BlogCommonStyle.js';
+import { Tab } from './BlogCommonStyle.js';
+import { AnimatePresence } from 'framer-motion';
+
 import styled from 'styled-components';
 import BlogTab from './BlogTab.js';
-import { Tab } from './BlogCommonStyle.js';
 import BlogPage from './BlogPage/index.js';
-import { BoardWrapper } from './BlogCommonStyle.js';
 import useBlogCategory from './hooks/useBlogCategory.js';
 import BlogDetail from './BlogDetail/index.js';
-
-import { AnimatePresence } from 'framer-motion';
 import Motion from 'component/animations/Motion.js';
+import BlogAdd from './BlogAdd/index.js';
+
 const MotionStyle = styled(Motion.FadeInOut)`
     width: 100%;
 `;
 
 const BlogLayOut = () => {
-    // const [param] = useSearchParams();
     const { data, isLoading, isError } = useBlogCategory();
-    // const parameter = param.get('item') || 'All';
 
-    console.log(data);
     const location = useLocation();
 
     if (isError) {
@@ -52,6 +51,14 @@ const BlogLayOut = () => {
                                     element={
                                         <MotionStyle>
                                             <BlogDetail />
+                                        </MotionStyle>
+                                    }
+                                />
+                                <Route
+                                    path="/add"
+                                    element={
+                                        <MotionStyle>
+                                            <BlogAdd />
                                         </MotionStyle>
                                     }
                                 />

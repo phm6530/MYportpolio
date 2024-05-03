@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 const commonStyle = css`
     padding: 5px 10px;
     border-radius: 0.5em;
-    background: #fdfdfd;
+    background: ${({ theme }) => theme.SearchBackground};
     border: 1px solid #00000014;
     font-size: 14px;
     color: #222;

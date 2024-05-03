@@ -21,11 +21,21 @@ const CateGory = styled.div`
 
     justify-content: space-between;
 `;
+const Cnt = styled.span`
+    color: ${({ theme }) => theme.tabCnt};
+    font-size: 12px;
+    margin: 0 15px 0 5px;
+`;
+
+const LeftAlign = styled.div`
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    cursor: pointer;
+`;
 
 const AccodianTab = ({ list, open, idx, category }) => {
-    console.log(list);
-    console.log(category);
-    const [view, setView] = useState(open || false);
+    const [view, setView] = useState(true);
     const [height, setHeight] = useState(0);
     const { navigateHandler } = useQueryString('blog');
     const ref = useRef();
@@ -47,9 +57,9 @@ const AccodianTab = ({ list, open, idx, category }) => {
         <>
             <CateGory onClick={() => ToggleBtn(category)}>
                 {idx === 0 ? (
-                    <>
-                        {category} ( {allCnt} )
-                    </>
+                    <LeftAlign>
+                        {category} <Cnt>( {allCnt} )</Cnt>
+                    </LeftAlign>
                 ) : (
                     <>{category}</>
                 )}

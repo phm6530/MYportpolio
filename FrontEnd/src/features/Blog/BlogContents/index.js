@@ -19,8 +19,6 @@ const Contents = styled.div`
 
 const BlogContents = ({ data = [] }) => {
     const location = useLocation();
-
-    console.log(location);
     return (
         <AnimatePresence mode="wait">
             <Motion.FadeInOut key={location.search}>

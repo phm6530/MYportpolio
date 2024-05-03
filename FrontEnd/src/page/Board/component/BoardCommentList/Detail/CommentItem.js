@@ -93,7 +93,7 @@ const ReplyWrap = styled.div`
 `;
 
 const ReplyBubble = styled.div`
-    background-color: #fff;
+    background-color: ${({ theme }) => theme.SearchBackground};
     padding: 10px 15px;
     border-radius: 0.5em;
     position: relative;
@@ -111,7 +111,7 @@ const ReplyBubble = styled.div`
         height: 0;
         border-bottom: 5px solid transparent;
         border-top: 5px solid transparent;
-        border-left: 10px solid rgb(255, 255, 255);
+        border-left: 10px solid ${({ theme }) => theme.SearchBackground};
         border-right: 10px solid transparent;
         transform: rotate(180deg);
     }

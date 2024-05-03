@@ -25,7 +25,7 @@ const offPopup = keyframes`
 const PopupStyle = styled.div`
     max-width: 400px;
     position: fixed;
-    z-index: 10;
+    z-index: 110;
     width: 95%;
     left: 50%;
     top: 50%;
@@ -38,8 +38,6 @@ const PopupStyle = styled.div`
         font-size: 0.8rem;
 
         span {
-            color: #000;
-            position: relative;
             &::after {
                 position: absolute;
                 left: 0;
@@ -49,16 +47,14 @@ const PopupStyle = styled.div`
                 border-bottom: 1px solid rgba(0, 0, 0, 0.5);
                 display: none;
             }
-            &:hover::after {
-                display: block;
-            }
         }
     }
 `;
+
 const PopupWrap = styled.div`
     padding: 20px;
     border-radius: 1em;
-    background: #fff;
+    background: var(--popup-background-color);
     animation: ${onPopup} 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
     ${props =>
         props.$close &&

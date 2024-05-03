@@ -1,7 +1,7 @@
+import { PageGrid } from 'component/ui/Grid';
 import BannerCommon from 'component/ui/BannerCommon';
 import DashBoard from 'component/ui/DashBoard';
 import DashBoardTitle from 'component/ui/DashBoardTitle';
-import { PageGrid } from 'component/ui/Grid';
 import BlogLayOut from 'features/Blog/BlogLayout';
 
 const Blog = () => {
@@ -12,6 +12,7 @@ const Blog = () => {
                     <img src="/img/developer.png" alt="developer" />
                     my Blog
                 </BannerCommon.BannerPoint>
+
                 <DashBoardTitle>
                     <b>Blog</b>
                 </DashBoardTitle>

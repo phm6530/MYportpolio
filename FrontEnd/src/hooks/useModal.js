@@ -1,6 +1,5 @@
 import ReactDOM from 'react-dom';
-import React, { useCallback, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
 import { PopupStyle, PopupWrap } from 'component/popup/PopupStyle';
 import BackDrop from 'component/popup/Backdrop';
 
