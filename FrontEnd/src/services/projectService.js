@@ -10,7 +10,7 @@ const projectFetch = async () => {
                     `요청이 실패하였습니다. errorCode :  ${response.status}`,
             );
         }
-        await new Promise(resolve => setTimeout(resolve, 15000));
+        // await new Promise(resolve => setTimeout(resolve, 15000));
         const data = await response.json();
         return data;
     } catch (error) {
@@ -74,7 +74,8 @@ const projectEdit = async key => {
     if (!response.ok) {
         throw new Error(result.message || '에러');
     }
-    return result;
+
+    return result.resData;
 };
 
 //삭제

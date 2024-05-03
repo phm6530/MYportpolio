@@ -1,9 +1,10 @@
+import * as Yup from 'yup';
+
 import { useDispatch } from 'react-redux';
 import { authAction } from '../../../store/appSlice';
 import { Button } from '../../ui/Button';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import * as Yup from 'yup';
 
 import { LoginUser, LoginPassword } from '../../icon/Icon';
 
@@ -13,6 +14,7 @@ import { useMutation } from '@tanstack/react-query';
 import { fetchLogin } from 'services/authService';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import InputErrorMessage from 'component/error/InputErrorMessage';
 
 const LoginHeaderStyle = styled.div`
     padding-bottom: 30px;
@@ -109,14 +111,6 @@ const LabelWrap = styled.div`
     ${props => props.$error && `border : 1px solid #ff0000ad;`}
 `;
 
-const ErrorMessage = styled.div`
-    color: var(--error-color);
-    margin-top: 5px;
-    font-size: 12px;
-    font-weight: bold;
-    opacity: 0.8;
-`;
-
 const schema = Yup.object({
     user_id: Yup.string().required('아이디를 적어주세요.'),
     user_password: Yup.string().required('비밀번호를 적어주세요.'),
@@ -132,17 +126,6 @@ export default function LoginForm() {
     } = useForm({
         resolver: yupResolver(schema),
     });
-
-    // 디바운싱
-    // useEffect(()=>{
-    //     const debounce = setTimeout(()=>{
-    //         setFormValid(loginData.id.isValid && loginData.pw.isValid);
-    //     },500);
-
-    //     return()=>{
-    //         clearTimeout(debounce);
-    //     }
-    // },[loginData]);
 
     // 로그인 로직
     const { mutate } = useMutation({
@@ -183,7 +166,9 @@ export default function LoginForm() {
                         />
                     </LabelWrap>
                     {errors.user_id && (
-                        <ErrorMessage>{errors.user_id.message}</ErrorMessage>
+                        <InputErrorMessage>
+                            {errors.user_id.message}
+                        </InputErrorMessage>
                     )}
                 </LabelStyle>
 
@@ -197,9 +182,9 @@ export default function LoginForm() {
                         />
                     </LabelWrap>
                     {errors.user_password && (
-                        <ErrorMessage>
+                        <InputErrorMessage>
                             {errors.user_password.message}
-                        </ErrorMessage>
+                        </InputErrorMessage>
                     )}
                 </LabelStyle>
                 <Button.Submit>Login</Button.Submit>

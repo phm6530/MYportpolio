@@ -16,7 +16,7 @@ const PageSubText = styled.div`
 const ProjectWrapStyle = styled.div`
     flex-direction: column;
     border-radius: 1em;
-    background: #fff;
+    background: ${({ theme }) => theme.backgroundColor};
     flex-grow: 1;
     overflow: hidden;
     padding: 0 2rem;

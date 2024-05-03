@@ -3,4 +3,6 @@ export const queryKey = {
     blog: 'blog',
     auth: 'auth',
     blogCategory: 'blogCategory',
+
+    projectAdd: 'projectAdd',
 };

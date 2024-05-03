@@ -57,7 +57,6 @@ const ProjectSummary = styled.div`
     margin-bottom: 1rem;
     .title {
         font-size: 1.5rem;
-        color: #222;
         font-weight: bold;
         display: flex;
         justify-content: space-between;

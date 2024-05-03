@@ -116,7 +116,7 @@ export default function DashBoard({ className, page, children }) {
                 {children}
                 {/* <p>*전 회사의 공개 가능한 프로젝트 / 개인 작업물만 공유합니다.</p> */}
                 <PathStyle>
-                    <IoMdHome /> HOME / {path}
+                    <IoMdHome /> HOME / {path.replace('/', ' / ')}
                 </PathStyle>
             </PageBannerGrid>
 

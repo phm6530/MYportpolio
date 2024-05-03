@@ -11,7 +11,6 @@ const Search = styled.div`
     transition: all 0.3s ease;
     background: ${({ theme }) => theme.SearchBackground};
     border-radius: 4rem;
-    margin-top: 1rem;
     padding-left: 1rem;
 
     form {

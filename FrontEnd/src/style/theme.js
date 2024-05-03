@@ -6,7 +6,8 @@ export const GlobalStyle = createGlobalStyle`
     --text-color: ${({ theme }) => theme.textColor};
     --background-color: ${({ theme }) => theme.backgroundColor};
     --popup-background-color: ${({ theme }) => theme.BackgroundColor_Type_1};
-    --error-color: #f34141;
+    --error-color: #d32f2f;
+    --error-color2: #ffcece;
   }
 
   body {
@@ -26,8 +27,9 @@ export const lightTheme = {
     SearchBackground: '#fbfbfb',
     BackgroundColor_Type_1: '#eef8ff',
 
-    // errorColor
+    input_background: '#fcfeff',
 
+    // errorColor
     tabCnt: 'rgb(102, 179, 255)',
 };
 
@@ -41,6 +43,7 @@ export const darkTheme = {
     SearchBackground: '#161b24',
 
     BackgroundColor_Type_1: '#353b3f',
+    input_background: '#262e3d',
 
     tabCnt: 'rgb(102, 179, 255)',
 };

@@ -1,6 +1,6 @@
 import WithRedirect from 'component/hoc/WithRedirect';
 import ProjectDetail from 'page/MyProject/component/ProjectList/ProjectDetail';
-import AddProject from 'page/MyProject/component/AddProject/AddProject';
+import AddProject from 'features/project/Addproject';
 import Motion from 'component/animations/Motion';
 import WithAuth from 'component/hoc/WithAuth';
 

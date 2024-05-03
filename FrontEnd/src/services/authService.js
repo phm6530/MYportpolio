@@ -1,4 +1,3 @@
-import { json } from 'react-router-dom';
 import store, { authAction } from '../store/appSlice';
 
 // 로그인

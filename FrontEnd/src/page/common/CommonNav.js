@@ -12,7 +12,6 @@ const LeftComponent = styled.div`
     margin-right: 2rem;
 `;
 const PageSubText = styled.div`
-    color: #222;
     font-size: 16px;
     margin-bottom: 70px;
     p {

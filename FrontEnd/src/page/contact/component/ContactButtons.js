@@ -32,7 +32,7 @@ const ContactButton = styled.div`
     transition: transform 0.5s ease;
     span {
         font-weight: bold;
-        color: #222;
+        /* color: #222; */
         font-size: 12px;
         ${props =>
             props.onClick &&

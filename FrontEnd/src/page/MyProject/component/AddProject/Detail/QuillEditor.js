@@ -1,9 +1,8 @@
-import ReactQuill, { Quill } from 'react-quill';
+import ReactQuill from 'react-quill';
 import 'quill/dist/quill.snow.css';
 
-// import SubTitle from '../../../../../component/ui/Subtitle';
 import styled from 'styled-components';
-import { useMemo, useRef, forwardRef, useEffect } from 'react';
+import { useMemo, useRef, forwardRef } from 'react';
 import { useDispatch } from 'react-redux';
 import alertThunk from 'store/alertTrunk';
 import { uploadImage } from 'services/projectService';
@@ -90,44 +89,6 @@ const QuillEditor = forwardRef(({ PROJECT_KEY, ...props }, _) => {
             },
         };
     }, []);
-
-    // fetchEditor1();
-    // const fetchEditor = async (formData, projectKey) => {
-    //     console.log(projectKey);
-    //     try {
-    //         const response = await fetch('http://localhost:8080/project/addproject', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify({
-    //                 key: projectKey,
-    //                 ProjectDescription: formData,
-    //             }),
-    //         });
-    //         if (!response.ok) {
-    //             throw new Error('서버에 문제가 있습니다.');
-    //         }
-    //         return await response.json();
-    //     } catch (error) {
-    //         console.error('Error uploading image:', error);
-    //         dispatch(alertThunk(error.message, 0));
-    //     }
-    // };
-
-    // const onSubmitHandler = async(e) =>{
-    //     e.preventDefault();
-    //     console.log(e);
-    //     const result = await fetchEditor(editorContent , PROJECT_KEY);
-    //     console.log(result);
-    //     // const editor = quillRef.current.getEditor();
-
-    //     // const content = editor.getContents(); // 또는 editor.getText()
-    //     // console.log(content);
-
-    //     // const result = await fetchEditor(e);
-    //     // console.log(result);
-    // }
 
     return (
         <EditorStyle>

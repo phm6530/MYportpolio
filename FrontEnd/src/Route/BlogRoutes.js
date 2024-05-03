@@ -14,8 +14,8 @@ const BlogRoutes = ({ data }) => {
     const location = useLocation();
     const paths = [
         { path: '/', index: true, Component: <BlogPage data={data} /> },
-        { path: '/project/*', Component: <BlogDetail /> },
-        { path: '/myschedule/*', Component: <BlogAdd /> },
+        { path: '/:key', Component: <BlogDetail /> },
+        { path: '/add', Component: <BlogAdd /> },
     ];
 
     return (

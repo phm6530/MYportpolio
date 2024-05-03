@@ -26,7 +26,6 @@ const FormStyle = styled.form`
         display: none;
     }
     label {
-        color: #222;
         font-size: 18px;
         margin-bottom: 10px;
     }
