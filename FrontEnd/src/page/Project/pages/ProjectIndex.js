@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import FadeinComponent from '../../../../FadeinComponent';
-import ProjectItem from './Detail/ProjectItem';
+import FadeinComponent from 'FadeinComponent';
+import ProjectItem from 'features/project/ProjectItem';
 import SubTitle from 'component/ui/Subtitle';
 
 import { useEffect, useState } from 'react';
 import { projectFetch } from 'services/projectService';
-import ProjectAddBtn from 'features/project/component/Detail/ProjectAddBtn';
+import AddPostBtn from 'features/common/Post/AddPostBtn';
 import CateGoryButton from 'component/ui/CateGoryButton';
 import { ReactQuery, ReactRouteDom } from 'lib/lib';
 import SkeletonPost from 'component/ui/loading/Skeleton';
@@ -45,7 +45,7 @@ const FlexRow = styled.div`
     align-items: center;
 `;
 
-export default function ProjectList() {
+export default function ProjectIndex() {
     const location = useLocation();
     const isProjectIndex =
         location.pathname === '/project' || location.pathname === '/project/';
@@ -86,7 +86,9 @@ export default function ProjectList() {
                     <div className="subText">
                         <span className="point">MY PORTPOLIO</span> LIST
                     </div>
-                    <ProjectAddBtn />
+
+                    {/* add Project */}
+                    <AddPostBtn />
                 </SubTitle>
 
                 {/* List */}

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import Fadein from 'FadeinComponent';
 

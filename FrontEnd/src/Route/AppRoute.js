@@ -9,7 +9,7 @@ import Contact from 'page/contact/Contact';
 import InfiniteScrollTest from 'test.bak';
 import NotfoundPage from 'component/error/NotfoundPage';
 import Blog from 'page/blog/Blog';
-import MyProject from 'page/MyProject/MyProject';
+import Project from 'page/Project';
 
 const AppRoute = () => {
     const location = useLocation();
@@ -17,7 +17,7 @@ const AppRoute = () => {
 
     const paths = [
         { path: '/', Component: <HomeComponent /> },
-        { path: '/project/*', Component: <MyProject /> },
+        { path: '/project/*', Component: <Project /> },
         { path: '/myschedule/*', Component: <MySchedule /> },
         { path: '/Board', Component: <Board /> },
         { path: '/contact', Component: <Contact /> },

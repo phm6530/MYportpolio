@@ -1,10 +1,8 @@
 import 'quill/dist/quill.snow.css';
 import styled from 'styled-components';
 import useProjectActions from 'hooks/useProjectActions';
-import Popup from 'component/popup/Popup';
-import Confirm from 'component/ui/Confirm';
 
-import { ProjectWrapStyle } from './Styled/ProjectListStyled';
+import { ProjectWrapStyle } from 'features/project/ProjectListStyled';
 import { useNavigate } from 'react-router-dom';
 import { FaListUl } from 'react-icons/fa6';
 import { FaTrashAlt } from 'react-icons/fa';
@@ -57,6 +55,7 @@ const ButtonArea = styled.div`
 const ProjectSummary = styled.div`
     margin: 0 1rem;
     margin-bottom: 1rem;
+    width: 100%;
     .title {
         font-size: 1.5rem;
         font-weight: bold;

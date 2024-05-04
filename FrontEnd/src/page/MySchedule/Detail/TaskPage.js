@@ -45,16 +45,8 @@ const TaskPage = props => {
         paramMonth,
         DdayArr,
     } = props;
-    // console.log(props);
-    // console.log('select::::', select);
-    // console.log('selectDay ::::: ', selectDay);
-
-    // console.log('selectDay ::: ', selectDay);/
 
     const bookedDayss = listData && Object.keys(listData).map(e => new Date(e));
-    // console.log(bookedDayss);
-    // const bookedDays = [new Date(2024, 3 - 1, 10), new Date(2024, 3 - 1, 19)];
-    // console.log(bookedDays);
 
     const [param] = useSearchParams();
     const getYear = param.get('year');

@@ -1,11 +1,11 @@
 import WithRedirect from 'component/hoc/WithRedirect';
-import ProjectDetail from 'page/MyProject/component/ProjectList/ProjectDetail';
-import AddProject from 'features/project/Addproject';
+import ProjectDetail from 'page/Project/pages/ProjectDetail';
+import ProjectAdd from 'page/Project/pages/ProjectAdd';
 import Motion from 'component/animations/Motion';
 import WithAuth from 'component/hoc/WithAuth';
 
 import styled from 'styled-components';
-import ProjectList from 'page/MyProject/component/ProjectList/ProjectList';
+import ProjectIndex from 'page/Project/pages/ProjectIndex';
 
 import { AnimatePresence } from 'framer-motion';
 import { Route, Routes, useLocation } from 'react-router-dom';
@@ -17,7 +17,7 @@ const FlexMotion = styled(Motion.FadeInOut)`
 const ProjectRoutes = () => {
     const location = useLocation();
     const paths = [
-        { path: '/', index: true, Component: <ProjectList /> },
+        { path: '/', index: true, Component: <ProjectIndex /> },
         {
             path: ':key',
             Component: (
@@ -30,7 +30,7 @@ const ProjectRoutes = () => {
         {
             path: 'add',
             Component: (
-                <WithAuth Component={AddProject} redirectPath={'/project'} />
+                <WithAuth Component={ProjectAdd} redirectPath={'/project'} />
             ),
         },
     ];

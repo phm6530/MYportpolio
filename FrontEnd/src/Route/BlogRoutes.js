@@ -1,21 +1,27 @@
 import styled from 'styled-components';
 import { useLocation, Route, Routes } from 'react-router-dom';
-import BlogDetail from 'features/Blog/BlogDetail/index.js';
+import BlogDetail from 'page/blog/pages/BlogDetail';
 
 import { AnimatePresence } from 'framer-motion';
 import Motion from 'component/animations/Motion.js';
-import BlogAdd from 'features/Blog/BlogAdd';
+import BlogAdd from 'page/blog/pages/BlogAdd';
 import BlogPage from 'features/Blog/BlogPage/index.js';
+import withAuth from 'component/hoc/WithAuth';
 
 const MotionStyle = styled(Motion.FadeInOut)`
-    width: 100%;
+    flex: 1;
 `;
 const BlogRoutes = ({ data }) => {
     const location = useLocation();
+    const AuthenticatedBlodAdd = withAuth(BlogAdd, '/blog');
+
     const paths = [
         { path: '/', index: true, Component: <BlogPage data={data} /> },
         { path: '/:key', Component: <BlogDetail /> },
-        { path: '/add', Component: <BlogAdd /> },
+        {
+            path: '/add',
+            Component: <AuthenticatedBlodAdd />,
+        },
     ];
 
     return (
@@ -23,7 +29,6 @@ const BlogRoutes = ({ data }) => {
             <AnimatePresence mode="wait">
                 <Routes location={location} key={location.pathname}>
                     {paths.map(path => {
-                        console.log(path);
                         return (
                             <Route
                                 path={path.path}

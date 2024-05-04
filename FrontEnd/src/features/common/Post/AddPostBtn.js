@@ -20,7 +20,7 @@ const AddPostBtn = () => {
                 }}
                 variant="text"
                 size="small"
-                onClick={() => nav()}
+                onClick={nav}
             >
                 글쓰기
             </Button>

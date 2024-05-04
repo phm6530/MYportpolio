@@ -8,7 +8,6 @@ import DatePicker from 'react-datepicker';
 import styled from 'styled-components';
 import InputErrorMessage from 'component/error/InputErrorMessage';
 import { FaRegCalendar } from 'react-icons/fa';
-import { FaCalendar } from 'react-icons/fa';
 
 // 데이터피커 스타일
 const DatePickerStyle = styled(DatePicker)`

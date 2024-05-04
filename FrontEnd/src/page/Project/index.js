@@ -7,7 +7,7 @@ import ProjectRoutes from 'Route/ProjectRoutes';
 
 import { PageGrid } from 'component/ui/Grid';
 
-export default function MyProject() {
+export default function Project() {
     return (
         <>
             <DashBoard>

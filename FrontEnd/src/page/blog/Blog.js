@@ -14,6 +14,10 @@ import BlogRoutes from 'Route/BlogRoutes';
 const Blog = () => {
     const { data, isLoading } = useBlogCategory();
 
+    if (isLoading) {
+        return <SpinnerLoading />;
+    }
+
     return (
         <>
             <DashBoard page={'Contact'}>
@@ -29,21 +33,15 @@ const Blog = () => {
 
             <PageGrid>
                 {/* Blog LayOut */}
-                <BoardWrapper>
-                    {isLoading ? (
-                        <SpinnerLoading />
-                    ) : (
-                        <>
-                            {/* 탭 */}
-                            <Tab>
-                                <BlogTab categories={data.resData} />
-                            </Tab>
+                {data && (
+                    <BoardWrapper>
+                        <Tab>
+                            <BlogTab categories={data?.resData} />
+                        </Tab>
 
-                            {/* Route */}
-                            <BlogRoutes data={data} />
-                        </>
-                    )}
-                </BoardWrapper>
+                        <BlogRoutes data={data} />
+                    </BoardWrapper>
+                )}
             </PageGrid>
         </>
     );

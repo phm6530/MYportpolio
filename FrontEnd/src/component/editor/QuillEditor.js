@@ -2,14 +2,13 @@ import ReactQuill from 'react-quill';
 import 'quill/dist/quill.snow.css';
 
 import styled from 'styled-components';
-import { useMemo, useRef, forwardRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import alertThunk from 'store/alertTrunk';
 import { uploadImage } from 'services/projectService';
-import CustomToolbar from './QuillCustumToolbar';
 
 const EditorStyle = styled.div`
-    padding: 2rem 0;
+    /* padding: 2rem 0; */
 `;
 
 const ReactQuillStyle = styled(ReactQuill)`
@@ -28,7 +27,7 @@ const ReactQuillStyle = styled(ReactQuill)`
     }
 `;
 
-const QuillEditor = forwardRef(({ PROJECT_KEY, ...props }, _) => {
+const QuillEditor = ({ PROJECT_KEY, ...props }) => {
     // console.log({ ...props });
     const quillRef = useRef();
     const dispatch = useDispatch();
@@ -94,11 +93,10 @@ const QuillEditor = forwardRef(({ PROJECT_KEY, ...props }, _) => {
 
     return (
         <EditorStyle>
-            <CustomToolbar />
             {/* <SubTitle><span className='subText'>PROJECT - 내용</span></SubTitle> */}
             <ReactQuillStyle modules={modules} ref={quillRef} {...props} />
         </EditorStyle>
     );
-});
+};
 
 export default QuillEditor;

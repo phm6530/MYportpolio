@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components';
-import Fadein from '../../../../../FadeinComponent';
+import FadeinComponent from 'FadeinComponent';
 
 // icon
 import { useNavigate } from 'react-router-dom';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { HashTag } from 'component/CommonStyle';
 
-const ProjectFadeinStyle = styled(Fadein)`
+const ProjectFadeinStyle = styled(FadeinComponent)`
     margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
     display: flex;

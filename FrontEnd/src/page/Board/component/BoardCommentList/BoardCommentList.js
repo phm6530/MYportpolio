@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import CommentItem from './Detail/CommentItem';
-import Fadeup from '../../../../FadeinComponent';
+import FadeinComponent from 'FadeinComponent';
 import styled from 'styled-components';
 import CommentState from './Detail/CommentState';
 // import { useIsFetching } from '@tanstack/react-query';
@@ -112,7 +112,7 @@ export default function BoardCommentList({
                                     {date}
                                 </FirstDayStyle>
                             )}
-                            <Fadeup>
+                            <FadeinComponent>
                                 <CommentItem
                                     ref={lastItem ? ref : null}
                                     item={item}
@@ -120,7 +120,7 @@ export default function BoardCommentList({
                                     selectIdx={selectIdx === item.board_key}
                                     setSelectIdx={setSelectIdx}
                                 />
-                            </Fadeup>
+                            </FadeinComponent>
                         </div>
                     );
                 });

@@ -1,17 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 import * as Yup from 'yup';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { v4 as uuidv4 } from 'uuid';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 
 // Quill 에디터
-import QuillEditor from 'page/MyProject/component/AddProject/Detail/QuillEditor';
 
 import { Controller, useForm } from 'react-hook-form';
-import CustumDatePicker from 'page/MyProject/component/AddProject/Detail/CustumDatePicker';
+import CustumDatePicker from 'component/editor/CustumDatePicker';
 
 import SubTitle from 'component/ui/Subtitle';
 import EditorInput from 'component/editor/EditorInput';
@@ -21,14 +18,18 @@ import { Button } from 'component/ui/Button';
 
 // Hard Coding
 import EditorAddHash from 'component/editor/EditorAddHash';
-
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PROJECT_STACK } from 'utils/constans';
-import EditorChecklist from 'component/editor/EditorChecklist';
-import EditorTextArea from 'component/editor/EditorTextArea';
-import EditorUploader from 'component/editor/EditorUploader';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { queryKey } from 'services/queryKey';
 import { toast } from 'react-toastify';
+
+import EditorChecklist from 'component/editor/EditorChecklist';
+import EditorTextArea from 'component/editor/EditorTextArea';
+import EditorUploader from 'component/editor/EditorUploader';
+import QuillEditor from 'component/editor/QuillEditor';
+import CustomToolbar from 'component/editor/QuillCustumToolbar';
+import useKey from 'hooks/useKey';
 
 const AdminProjectStyle = styled.div`
     background: var(--background-color-box);
@@ -66,7 +67,14 @@ const schema = Yup.object().shape({
     projectDescription: Yup.string().required('필수 입력란 입니다.'),
 });
 
-export default function AddProject() {
+export default function ProjectAdd() {
+    const navigate = useNavigate();
+    const [Params] = useSearchParams();
+
+    const { key: projectKey } = useKey();
+
+    const Type = Params.get('type');
+
     const initalFormValue = {
         title: '',
         skill: [],
@@ -94,10 +102,6 @@ export default function AddProject() {
     });
 
     const ref = useRef();
-    const [Params] = useSearchParams();
-    const projectKey = Params.get('key') || uuidv4();
-    const navigate = useNavigate();
-    const Type = Params.get('type');
 
     const { data } = useQuery({
         queryKey: [queryKey.projectAdd],
@@ -121,8 +125,13 @@ export default function AddProject() {
         },
     });
 
-    function mapDataToForm(data) {
+    const mapDataToForm = useCallback(data => {
         if (!data) return null; // 데이터가 없으면 null 반환
+
+        const parseDate = dateString => {
+            const date = new Date(dateString);
+            return isNaN(date) ? new Date() : date; // 유효하지 않은 날짜는 오늘 날짜로 대체
+        };
         return {
             idx: data.project_key,
             title: data.title,
@@ -131,27 +140,32 @@ export default function AddProject() {
             projectUrl: data.project_url,
             skill: data.skill ? data.skill.split(',') : [],
             hashtag: data.hashtag ? data.hashtag.split(',') : [],
-            startDate: new Date(data.startProject),
-            endDate: new Date(data.endProject),
+            startDate: parseDate(data.startProject),
+            endDate: parseDate(data.endProject),
             projectDescription: data.project_description,
             thumbnail: data.thumbnail,
         };
-    }
+    }, []);
 
     useEffect(() => {
-        if (Type === 'edit' && data) {
-            console.log(data);
-            reset(mapDataToForm(data));
+        if (data) {
+            console.log('Data loaded: ', data);
+            if (Type === 'edit') {
+                reset(mapDataToForm(data));
+            }
         }
-    }, [projectKey, Type, reset, Params, data]);
+    }, [data, Type]);
 
     const cancelEvent = () => {
         navigate(-1);
     };
 
-    const onSubmitHandler = async data => {
-        mutate(data);
-    };
+    const onSubmitHandler = useCallback(
+        async data => {
+            mutate(data);
+        },
+        [mutate],
+    );
 
     return (
         <AdminProjectStyle>
@@ -236,14 +250,15 @@ export default function AddProject() {
                 />
 
                 {/* Quill Editor */}
+                <CustomToolbar />
                 {projectKey && (
                     <>
                         <Controller
                             name="projectDescription"
                             control={control}
-                            render={({ field }) => (
+                            render={({ ref, ...restfield }) => (
                                 <QuillEditor
-                                    {...field}
+                                    {...restfield}
                                     PROJECT_KEY={projectKey}
                                 />
                             )}

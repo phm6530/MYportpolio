@@ -8,16 +8,14 @@ const CustomInputWrap = styled(InputStyle)`
     ${props => props.$error && 'border: 1px solid red'}
 `;
 
-const EditorInput = ({ label, type, placeholder, error, value, register }) => {
+const EditorTitle = ({ placeholder, error, value, register }) => {
     return (
         <>
             <Wrapper>
-                <InputLabel>{label}</InputLabel>
                 <CustomInputWrap
                     $error={error[value]?.message}
-                    type={type}
                     placeholder={placeholder}
-                    {...register(value)}
+                    {...register(value, { required: '필수 항목입니다. ' })}
                 />
                 {error && error[value] && (
                     <InputErrorMessage>
@@ -29,4 +27,4 @@ const EditorInput = ({ label, type, placeholder, error, value, register }) => {
     );
 };
 
-export default EditorInput;
+export default EditorTitle;

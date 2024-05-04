@@ -1,10 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { useCallback, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { queryKey } from 'services/queryKey';
 
 const fetchData = async (item, category, page = 1, search) => {
-    console.log(page);
     const queryParams = new URLSearchParams({
         category,
         item,
@@ -32,8 +30,6 @@ const useBlog = () => {
     const page = params.get('page') || 1;
 
     const search = params.get('search') || null;
-
-    console.log('Search::: ', search);
 
     // const selectFn = useCallback(
     //     data => {

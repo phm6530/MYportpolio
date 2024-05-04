@@ -1,9 +1,31 @@
-import { useSelector } from 'react-redux';
-import useAuthRedirect from 'hooks/useAuthRedirect';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { tokenCheck } from 'services/authService';
+import { queryKey } from 'services/queryKey';
+import { authAction } from 'store/appSlice';
 
-export default function WithAuth({ Component, redirectPath }) {
-    const isAuth = useSelector(state => state.authSlice); // 클라이언트 인증확인
-    useAuthRedirect(redirectPath);
+const withAuth = (Component, redirectPath) => props => {
+    // 클라이언트 + 서버 인증확인
+    const isAuth = useSelector(state => state.authSlice.login);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    return isAuth ? <Component /> : null;
-}
+    const { isError } = useQuery({
+        queryKey: [queryKey.auth],
+        queryFn: tokenCheck,
+    });
+
+    useEffect(() => {
+        if (!isAuth || isError) {
+            localStorage.removeItem('token');
+            dispatch(authAction.logOut());
+            navigate(redirectPath);
+        }
+    }, [isError, isAuth, navigate, dispatch]);
+
+    return <Component {...props} />;
+};
+
+export default withAuth;
