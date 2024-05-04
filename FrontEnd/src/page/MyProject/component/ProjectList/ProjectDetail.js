@@ -1,11 +1,10 @@
-import { useEffect, useRef } from 'react';
-import { ProjectWrapStyle } from './Styled/ProjectListStyled';
 import 'quill/dist/quill.snow.css';
 import styled from 'styled-components';
 import useProjectActions from 'hooks/useProjectActions';
 import Popup from 'component/popup/Popup';
 import Confirm from 'component/ui/Confirm';
-import { MdCalendarToday } from 'react-icons/md';
+
+import { ProjectWrapStyle } from './Styled/ProjectListStyled';
 import { useNavigate } from 'react-router-dom';
 import { FaListUl } from 'react-icons/fa6';
 import { FaTrashAlt } from 'react-icons/fa';
@@ -13,6 +12,9 @@ import { MdModeEdit } from 'react-icons/md';
 import { HiMiniLink } from 'react-icons/hi2';
 import { Button } from 'component/ui/Button';
 import { useAuthCheck } from 'hooks/useAuthCheck';
+import { HashTag } from 'component/CommonStyle';
+import QuillView from 'component/editor/QuillView';
+import usePopup from 'hooks/usePopup';
 
 const SKill = styled.span`
     display: inline-block;
@@ -66,7 +68,6 @@ const ProjectSummary = styled.div`
         font-size: 0.8rem;
         opacity: 0.6;
         color: rgba(107 114 128);
-        /* border-bottom: 1px solid rgba(0, 0, 0, 0.07); */
         padding-bottom: 2rem;
         margin-bottom: 2rem;
     }
@@ -98,41 +99,8 @@ const ProjectSummary = styled.div`
     }
 `;
 
-const Linkarea = styled.div`
-    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
-    padding-bottom: 2rem;
-    margin-bottom: 2rem;
-    button {
-        border: 1px solid;
-        padding: 0.3rem 1.4rem;
-    }
-`;
-
-const SummaryTitle = styled.div`
-    background: linear-gradient(to top, #000000, #4b5787, #000000);
-    color: transparent;
-    background-clip: text;
-    -webkit-background-clip: text;
-    font-weight: bold;
-    font-size: 1.5rem !important;
-    margin-bottom: 1rem;
-    display: inline-block;
-`;
-
 const HashtagArea = styled.div`
     margin-bottom: 2rem;
-`;
-
-const HashTag = styled.span`
-    align-items: center;
-    display: inline-flex;
-    font-weight: 500;
-    font-size: 10px;
-    padding: 2px 6px;
-    border-radius: 11px;
-    color: rgb(75, 148, 250);
-    background-color: rgb(235, 244, 255);
-    margin-right: 0.4rem;
 `;
 
 const ProjectThumbNail = styled.div`
@@ -148,20 +116,10 @@ const ProjectViewFooter = styled.div`
     margin-bottom: 2rem;
 `;
 
-const Hashtage = styled.div`
-    color: rgb(75, 148, 250);
-    background-color: rgb(235, 244, 255);
-    font-size: 12px;
-`;
-
 function ProjectDetail({ result }) {
     const { checkHandler } = useAuthCheck();
-    const ref = useRef();
-    const {
-        mutateAsync,
-        setModal, //
-        modal,
-    } = useProjectActions('project');
+    const { mutateAsync } = useProjectActions('project');
+    const { showPopup, PopupComponent } = usePopup();
     const navigate = useNavigate();
     const {
         project_key,
@@ -178,17 +136,8 @@ function ProjectDetail({ result }) {
 
     const skillArr = skill.split(',');
     const HashTagArr = hashtag.split(',');
-    // console.log(skillArr);
 
-    useEffect(() => {
-        ref.current.setAttribute('id', 'quill_Editor');
-        ref.current.classList = 'ql-editor';
-    }, []);
-
-    const renderHTML = quillHTML => {
-        return { __html: quillHTML };
-    };
-
+    console.log('랜더');
     const projectView = url => {
         window.open(url, '_blank');
     };
@@ -201,26 +150,18 @@ function ProjectDetail({ result }) {
     };
 
     const deleteHandler = () => {
-        if (!checkHandler()) {
-            return;
-        }
-        setModal(true);
+        if (!checkHandler()) return;
+        showPopup('ㄹㄹ');
     };
 
     return (
         <>
-            {modal && (
-                <Popup closePopup={() => setModal(false)}>
-                    <Confirm
-                        message={title}
-                        confirm={() => mutateAsync(project_key)}
-                    />
-                </Popup>
-            )}
+            <PopupComponent
+                message={title}
+                event={() => mutateAsync(project_key)}
+            />
 
             <CustumStyle>
-                {/* <EditArea param={param.key} /> */}
-                {/* project 정보 */}
                 <ProjectSummary>
                     <div className="title">
                         {title}
@@ -232,7 +173,7 @@ function ProjectDetail({ result }) {
                             <button onClick={() => updateHandler(project_key)}>
                                 <MdModeEdit />
                             </button>
-                            <button onClick={() => deleteHandler()}>
+                            <button onClick={deleteHandler}>
                                 <FaTrashAlt />
                             </button>
                         </ButtonArea>
@@ -240,18 +181,13 @@ function ProjectDetail({ result }) {
                     <HashtagArea>
                         {HashTagArr.map((e, idx) => {
                             return (
-                                <div
+                                <HashTag
                                     className="hashTag"
                                     key={`hash-${idx}`}
-                                >{`# ${e}`}</div>
+                                >{`# ${e}`}</HashTag>
                             );
                         })}
                     </HashtagArea>
-
-                    {/* <div className="company">{company}</div> */}
-                    {/* <Linkarea>
-                        <button>자세히 보기</button>
-                    </Linkarea> */}
                 </ProjectSummary>
                 <ProjectThumbNail>
                     <img
@@ -299,12 +235,6 @@ function ProjectDetail({ result }) {
 
                             {skillArr.map((e, idx) => {
                                 return <SKill key={idx}>{e}</SKill>;
-                                // const SKillComponent = SKILL_ICON[e];
-                                // return (
-                                //     <SkillIconStyle>
-                                //         <SKillComponent label={e} />
-                                //     </SkillIconStyle>
-                                // );
                             })}
                         </span>
                     </div>
@@ -327,11 +257,10 @@ function ProjectDetail({ result }) {
                         </span>
                     </div>
                 </ProjectSummary>
-                {/* quill-editor */}
-                <div
-                    ref={ref}
-                    dangerouslySetInnerHTML={renderHTML(project_description)}
-                ></div>
+
+                {/* quill-view */}
+                <QuillView contents={project_description} />
+
                 <Button.Type onClick={() => navigate('/project')}>
                     목록으로
                 </Button.Type>

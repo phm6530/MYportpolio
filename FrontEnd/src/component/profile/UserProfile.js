@@ -6,7 +6,8 @@ const ProfileCard = styled.div`
     border-radius: 1em;
     box-shadow: 50px 50px 55px rgba(0, 0, 0, 0.1);
     margin-bottom: 3rem;
-    background: ${({ theme }) => theme.backgroundColor};
+    background: var(--background-color-box);
+    border: var(--border--btn-type-1);
     margin-right: 2rem;
     height: 70vh;
     padding: 2rem;
@@ -75,11 +76,7 @@ const ProfileLocation = styled.div`
         margin-right: 10px;
     }
 `;
-const OnLine = styled.div`
-    font-size: 14px;
-    background: #fff;
-    border-radius: 1rem;
-`;
+
 export default function UserProfile() {
     const { login } = useSelector(state => state.authSlice);
     // console.log(login);

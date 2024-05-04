@@ -164,7 +164,6 @@ const UserIconViewer = styled.div`
         padding: 3px 17px;
         margin-top: 10px;
         border-radius: 3em;
-        color: #222;
     }
     .ImgArea {
         width: 70px;

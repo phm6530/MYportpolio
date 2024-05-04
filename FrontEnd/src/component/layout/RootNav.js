@@ -28,7 +28,7 @@ const Link = ({ children, className, ...prop }) => {
 //css in js  초기랜더링 > 훅실행 > 스타일 생성
 const List = styled(Link)`
     transition: color 0.4s cubic-bezier(0, 0.88, 0, 1.03);
-    color: var(--white-color);
+    color: var(--color-white);
 `;
 
 const Header = styled.header`

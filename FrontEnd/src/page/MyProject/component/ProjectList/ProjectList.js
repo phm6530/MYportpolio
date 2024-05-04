@@ -28,7 +28,8 @@ const NoSeachingData = styled(FadeinComponent)`
 const ProjectListStyle = styled.div`
     flex-direction: row;
     border-radius: 1em;
-    background: ${({ theme }) => theme.backgroundColor};
+    background: var(--background-color-box);
+    border: var(--border--btn-type-1);
     flex-grow: 1;
     overflow: hidden;
     padding: 2rem 2rem;

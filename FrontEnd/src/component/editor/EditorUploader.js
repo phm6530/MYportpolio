@@ -1,23 +1,35 @@
 import styled from 'styled-components';
 import InputErrorMessage from 'component/error/InputErrorMessage';
 import { InputLabel } from 'component/ui/TextArea';
-import { useFormContext } from 'react-hook-form';
 import { uploadImage } from 'services/projectService';
 import { toast } from 'react-toastify';
 import { Button } from 'component/ui/Button';
+import { Wrapper } from './EditorStyle';
 
 const UPloadFileName = styled.div`
     font-size: 12px;
-    width: 200px;
+    flex-grow: 1;
     white-space: nowrap;
     text-overflow: ellipsis;
     word-break: break-all;
     overflow: hidden;
+
     margin-left: 1rem;
 `;
 
-const EditorUploader = ({ label, value, error, projectKey }) => {
-    const { setValue, watch } = useFormContext();
+const WrapperFlex = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
+const EditorUploader = ({
+    label,
+    value,
+    error,
+    projectKey,
+    setValue,
+    watch,
+}) => {
     const thumNail = watch('thumbnail');
     const fileHandler = async e => {
         const ImgFile = e.target.files[0];
@@ -27,7 +39,7 @@ const EditorUploader = ({ label, value, error, projectKey }) => {
 
         const imgSize = ImgFile.size / 1024 / 1024;
         if (imgSize.toFixed(2) > 5) {
-            alert(`${imgSize} 는 너무 큼`);
+            alert(`${imgSize} 는 너무 크네요.. 5mb이하만 가능합니다. `);
             return;
         }
         if (!ImgFile.type.startsWith('image/')) {
@@ -49,12 +61,17 @@ const EditorUploader = ({ label, value, error, projectKey }) => {
     };
 
     return (
-        <>
+        <Wrapper>
             <InputLabel>{label}</InputLabel>
-            <Button.UploadButton htmlFor="input-file">
-                ThumbNail
-            </Button.UploadButton>
-            <UPloadFileName>{thumNail ? thumNail : '파일없음'}</UPloadFileName>
+            <WrapperFlex>
+                <Button.UploadButton htmlFor="input-file">
+                    Upload a File
+                </Button.UploadButton>
+
+                <UPloadFileName>
+                    {thumNail ? thumNail : '파일없음'}
+                </UPloadFileName>
+            </WrapperFlex>
             <input
                 type="file"
                 style={{ display: 'none' }}
@@ -65,7 +82,7 @@ const EditorUploader = ({ label, value, error, projectKey }) => {
             {error && error[value] && (
                 <InputErrorMessage>{error[value]?.message}</InputErrorMessage>
             )}
-        </>
+        </Wrapper>
     );
 };
 

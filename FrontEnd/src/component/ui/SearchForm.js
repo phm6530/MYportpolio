@@ -9,7 +9,7 @@ const Search = styled.div`
     font-size: 13px;
     border-bottom: 1px solid transparent;
     transition: all 0.3s ease;
-    background: ${({ theme }) => theme.SearchBackground};
+    background: ${({ theme }) => theme.searchBackground};
     border-radius: 4rem;
     padding-left: 1rem;
 

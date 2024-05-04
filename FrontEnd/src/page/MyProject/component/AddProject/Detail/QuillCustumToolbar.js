@@ -1,5 +1,32 @@
+import styled from 'styled-components';
+
+const Toolbar = styled.div`
+    span,
+    button,
+    svg,
+    path,
+    line,
+    polygon,
+    rect,
+    polyline {
+        color: var(--quill-toolbar-color);
+        stroke: var(--quill-toolbar-color) !important;
+    }
+    .ql-active span,
+    .ql-active button,
+    .ql-active svg,
+    .ql-active path,
+    .ql-active line,
+    .ql-active polygon,
+    .ql-active rect,
+    .ql-active polyline {
+        color: red;
+        stroke: red !important;
+    }
+`;
+
 const CustomToolbar = () => (
-    <div id="toolbar">
+    <Toolbar id="toolbar">
         <span className="ql-formats">
             <select className="ql-font" defaultValue="arial">
                 <option value="arial">Arial</option>
@@ -26,7 +53,7 @@ const CustomToolbar = () => (
             <button className="ql-italic" />
             <button className="ql-underline" />
             <button className="ql-strike" />
-            <button className="ql-blockquote" />
+            <button className="ql-link" />
         </span>
         <span className="ql-formats">
             <select className="ql-color" />
@@ -48,7 +75,7 @@ const CustomToolbar = () => (
         <span className="ql-formats">
             <button className="ql-clean" />
         </span>
-    </div>
+    </Toolbar>
 );
 
 export default CustomToolbar;

@@ -2,8 +2,11 @@ import styled from 'styled-components';
 import InputErrorMessage from 'component/error/InputErrorMessage';
 import { InputLabel, InputStyle } from 'component/ui/TextArea';
 import { forwardRef } from 'react';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { useFieldArray } from 'react-hook-form';
 import { MdCancel } from 'react-icons/md';
+import { HashTag } from 'component/CommonStyle';
+import { Button } from '@mui/material';
+import { Wrapper } from './EditorStyle';
 
 const CustomInputWrap = styled(InputStyle)`
     flex-grow: 1;
@@ -14,32 +17,32 @@ const InputWrap = styled.div`
     display: flex;
     align-items: center;
     margin-bottom: 1rem;
+    max-width: 300px;
+    width: 90%;
 `;
 
-const HashTag = styled.div`
-    align-items: center;
-    display: inline-flex;
-    font-weight: 500;
-    font-size: 11px;
-    padding: 2px 7px;
-    border-radius: 11px;
-    color: rgb(139 122 202);
-    background-color: rgb(226 226 226 / 32%);
-    margin-right: 0.6rem;
-    align-items: center;
-    font-weight: bold;
-    margin-bottom: 0.3rem;
-    svg {
-        margin-left: 0.4rem;
-    }
+const HashtagWrap = styled.div`
+    border: 1px solid ${({ theme }) => theme.listColor};
+    background: ${({ theme }) => theme.listBackground};
+    border-radius: 0.3rem;
+    padding: 0.5rem 0.5rem;
+    min-height: 30px;
 `;
-
-const HashtagWrap = styled.div``;
 
 const EditorAddHash = forwardRef(
-    ({ label, placeholder, error, value, control }, ref) => {
-        const { setError, trigger, getValues } = useFormContext();
-
+    (
+        {
+            label,
+            placeholder,
+            error,
+            value,
+            control,
+            setError,
+            trigger,
+            getValues,
+        },
+        ref,
+    ) => {
         const { fields, append, remove } = useFieldArray({
             control,
             name: value,
@@ -66,34 +69,39 @@ const EditorAddHash = forwardRef(
 
         return (
             <>
-                <InputLabel>{label}</InputLabel>
-                <CustomInputWrap ref={ref} placeholder={placeholder} />
+                <Wrapper>
+                    <InputLabel>{label}</InputLabel>
 
-                <InputWrap>
-                    <button onClick={addHashtag}>Add</button>
-                </InputWrap>
+                    <InputWrap>
+                        <CustomInputWrap ref={ref} placeholder={placeholder} />
 
-                {error && error[value] && (
-                    <InputErrorMessage>
-                        {error[value]?.message}
-                    </InputErrorMessage>
-                )}
+                        <Button variant="outlined" onClick={addHashtag}>
+                            Add
+                        </Button>
+                    </InputWrap>
 
-                <HashtagWrap>
-                    {getValues(value).map((field, index) => {
-                        return (
-                            <HashTag key={`hash${index}`}>
-                                {field}
-                                <button
-                                    type="button"
-                                    onClick={() => remove(index)}
-                                >
-                                    <MdCancel />
-                                </button>
-                            </HashTag>
-                        );
-                    })}
-                </HashtagWrap>
+                    {error && error[value] && (
+                        <InputErrorMessage>
+                            {error[value]?.message}
+                        </InputErrorMessage>
+                    )}
+
+                    <HashtagWrap>
+                        {getValues(value).map((field, index) => {
+                            return (
+                                <HashTag key={`hash${index}`}>
+                                    {field}
+                                    <button
+                                        type="button"
+                                        onClick={() => remove(index)}
+                                    >
+                                        <MdCancel />
+                                    </button>
+                                </HashTag>
+                            );
+                        })}
+                    </HashtagWrap>
+                </Wrapper>
             </>
         );
     },

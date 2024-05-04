@@ -32,48 +32,6 @@
   z-index: 1;
 }
 
-#quill_Editor h1 {
-  font-size: 1.4rem;
-}
-#quill_Editor img {
-  border-radius: 1rem;
-}
-
-.ql-editor {
-  height: auto !important;
-}
-.ql-editor .ql-size-huge {
-  background: linear-gradient(to top, #000000, #4b5787, #000000);
-  color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-  font-weight: bold;
-  font-size: 1.5rem !important;
-  margin-bottom: 1rem;
-  margin-top: 3rem;
-  display: inline-block;
-}
-.ql-editor blockquote {
-  border-left: 4px solid #ccc;
-  margin-bottom: 5px;
-  margin-top: 5px;
-  padding-left: 16px !important;
-}
-
-.ql-editor p,
-.ql-editor ol,
-.ql-editor ul,
-.ql-editor pre,
-.ql-editor blockquote,
-.ql-editor h1,
-.ql-editor h2,
-.ql-editor h3,
-.ql-editor h4,
-.ql-editor h5,
-.ql-editor h6 {
-  line-height: 1.7rem !important;
-}
-
 .skill_Item {
   display: inline-block;
   color: #555969;

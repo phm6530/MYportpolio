@@ -10,7 +10,6 @@ const { useQueryClient, useMutation } = ReactQuery;
 
 const useProjectActions = type => {
     const queryClient = useQueryClient();
-    const [modal, setModal] = useState(false);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -18,7 +17,7 @@ const useProjectActions = type => {
     const { mutateAsync, isSuccess } = useMutation({
         mutationKey: [type],
         mutationFn: deleteKey => projectDelete(deleteKey),
-        onSuccess: data => {
+        onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: type });
         },
     });
@@ -29,25 +28,8 @@ const useProjectActions = type => {
         }
     }, [isSuccess]);
 
-    // const updateHandler = key => {
-    //     if (!checkHandle('수정')) {
-    //         return;
-    //     }
-    //     navigate(`/project/add?type=edit&key=${key}`);
-    // };
-
-    // const deleteHandler = async deleteKey => {
-    //     //권한 확인
-    //     if (!checkHandle('삭제')) {
-    //         return;
-    //     }
-    //     setModal(true);
-    // };
-
     return {
         mutateAsync,
-        setModal, //
-        modal, //
     };
 };
 

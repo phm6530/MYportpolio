@@ -61,12 +61,29 @@ const ConfirmButton = ({ children, ...props }) => {
     );
 };
 
+const UploadBtn = styled.label`
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--color-lightBlue);
+    color: var(--color-lightBlue);
+    padding: 0.5rem 0.7rem;
+    border-radius: 5px;
+    cursor: pointer;
+    &:active {
+        background: #304149;
+    }
+    & svg {
+        margin-left: 0.5rem;
+    }
+`;
+
 const UploadButton = ({ children, ...props }) => {
     return (
-        <label className="btn-upload" {...props}>
+        <UploadBtn {...props}>
             {children}
             <MdUpload />
-        </label>
+        </UploadBtn>
     );
 };
 

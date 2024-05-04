@@ -65,7 +65,7 @@ const LabelStyle = styled.label`
         top: -10px;
         padding: 0px 5px;
         font-size: 12px;
-        background: var(--popup-background-color);
+        background: var(--color-popup-background);
         font-weight: bold;
     }
 

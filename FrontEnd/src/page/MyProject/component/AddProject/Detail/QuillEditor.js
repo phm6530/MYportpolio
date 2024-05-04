@@ -13,8 +13,10 @@ const EditorStyle = styled.div`
 `;
 
 const ReactQuillStyle = styled(ReactQuill)`
+    /* background: var(--color-background-input); */
     .ql-editor {
-        height: 500px !important;
+        min-height: 500px !important;
+        line-height: 1.8 !important;
         font-family: 'Poppins', 'SUIT-Regular', sans-serif;
     }
     .ql-align-center {

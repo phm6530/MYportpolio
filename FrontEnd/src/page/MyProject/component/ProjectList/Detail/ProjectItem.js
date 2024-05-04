@@ -4,6 +4,7 @@ import Fadein from '../../../../../FadeinComponent';
 // icon
 import { useNavigate } from 'react-router-dom';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
+import { HashTag } from 'component/CommonStyle';
 
 const ProjectFadeinStyle = styled(Fadein)`
     margin-bottom: 1.5rem;
@@ -13,7 +14,6 @@ const ProjectFadeinStyle = styled(Fadein)`
     flex: 0 0 calc(33.333% - 1.34rem);
     width: 100%;
     align-items: start;
-    /* border-bottom: 1px solid rgba(0, 0, 0, 0.04); */
     cursor: pointer;
     margin-right: 2rem;
     &:nth-child(3n + 2) {
@@ -80,10 +80,6 @@ const ContentsWrap = styled.div`
     /* padding: 1rem 0.5rem 0.5rem 3rem; */
     /* width: 65%; */
     flex-grow: 1;
-`;
-
-const HashtageStyle = styled.div`
-    font-size: 0.65rem;
 `;
 
 const ViewIconAnimation = styled.div`
@@ -157,12 +153,12 @@ export default function ProjectItem({ project }) {
                     <div>
                         {hashtag &&
                             hashtag.map((e, idx) => (
-                                <HashtageStyle
+                                <HashTag
                                     className="hashTag"
                                     key={`hash-${idx}`}
                                 >
                                     # {e}
-                                </HashtageStyle>
+                                </HashTag>
                             ))}
                     </div>
                 </ContentsWrap>

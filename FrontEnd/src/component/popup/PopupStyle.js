@@ -54,7 +54,7 @@ const PopupStyle = styled.div`
 const PopupWrap = styled.div`
     padding: 20px;
     border-radius: 1em;
-    background: var(--popup-background-color);
+    background: var(--color-popup-background);
     animation: ${onPopup} 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
     ${props =>
         props.$close &&

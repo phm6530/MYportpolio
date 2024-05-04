@@ -19,7 +19,6 @@ const ContactButton = styled.div`
 
     cursor: pointer;
     svg {
-        color: #222;
         margin-left: auto;
         font-size: 12px;
         opacity: 0.6;

@@ -19,7 +19,6 @@ import { RightWrap } from 'features/CommonStyles';
 const PageText = styled.div`
     word-break: keep-all;
     margin-top: 10px;
-    color: #222;
     font-size: 14px;
     padding-bottom: 20px;
 `;
