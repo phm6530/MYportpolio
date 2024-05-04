@@ -1,26 +1,25 @@
 import styled from 'styled-components';
-import { InputStyle, InputLabel } from 'component/ui/TextArea';
+import { InputStyle } from 'component/ui/TextArea';
 import { Wrapper } from './EditorStyle';
 import InputErrorMessage from 'component/error/InputErrorMessage';
 
 const CustomInputWrap = styled(InputStyle)`
     flex-grow: 1;
+    font-size: 16px;
     ${props => props.$error && 'border: 1px solid red'}
 `;
 
-const EditorTitle = ({ placeholder, error, value, register }) => {
+const EditorTitle = ({ placeholder, error, register }) => {
     return (
         <>
             <Wrapper>
                 <CustomInputWrap
-                    $error={error[value]?.message}
+                    $error={error?.message}
                     placeholder={placeholder}
-                    {...register(value, { required: '필수 항목입니다. ' })}
+                    {...register}
                 />
-                {error && error[value] && (
-                    <InputErrorMessage>
-                        {error[value]?.message}
-                    </InputErrorMessage>
+                {error && error && (
+                    <InputErrorMessage>{error?.message}</InputErrorMessage>
                 )}
             </Wrapper>
         </>

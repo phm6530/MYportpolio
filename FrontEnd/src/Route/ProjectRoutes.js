@@ -2,7 +2,7 @@ import WithRedirect from 'component/hoc/WithRedirect';
 import ProjectDetail from 'page/Project/pages/ProjectDetail';
 import ProjectAdd from 'page/Project/pages/ProjectAdd';
 import Motion from 'component/animations/Motion';
-import WithAuth from 'component/hoc/WithAuth';
+import withAuth from 'component/hoc/WithAuth';
 
 import styled from 'styled-components';
 import ProjectIndex from 'page/Project/pages/ProjectIndex';
@@ -16,6 +16,8 @@ const FlexMotion = styled(Motion.FadeInOut)`
 
 const ProjectRoutes = () => {
     const location = useLocation();
+    const AthencatedProjectAdd = withAuth(ProjectAdd, '/project');
+
     const paths = [
         { path: '/', index: true, Component: <ProjectIndex /> },
         {
@@ -29,9 +31,7 @@ const ProjectRoutes = () => {
         },
         {
             path: 'add',
-            Component: (
-                <WithAuth Component={ProjectAdd} redirectPath={'/project'} />
-            ),
+            Component: <AthencatedProjectAdd />,
         },
     ];
 

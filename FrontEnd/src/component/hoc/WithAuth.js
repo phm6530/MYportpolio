@@ -12,7 +12,7 @@ const withAuth = (Component, redirectPath) => props => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { isError } = useQuery({
+    const { data, isError } = useQuery({
         queryKey: [queryKey.auth],
         queryFn: tokenCheck,
     });
@@ -25,7 +25,7 @@ const withAuth = (Component, redirectPath) => props => {
         }
     }, [isError, isAuth, navigate, dispatch]);
 
-    return <Component {...props} />;
+    return data?.Auth && <Component {...props} />;
 };
 
 export default withAuth;
