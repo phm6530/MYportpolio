@@ -17,6 +17,7 @@ const BoardWrapper = styled.div`
     background: ${({ theme }) => theme.backgroundColor};
     padding: 2rem 2rem;
     border-radius: 2.5rem;
+    min-height: 300px;
 `;
 
 export { Tab, Contents, BoardWrapper };

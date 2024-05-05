@@ -5,4 +5,6 @@ export const queryKey = {
     blogCategory: 'blogCategory',
 
     projectAdd: 'projectAdd',
+
+    blogImageUpload: 'blogImageUpload',
 };

@@ -10,7 +10,7 @@ import { Button } from '../../../component/ui/Button';
 import ErrorBubble from 'component/error/ErrorBubble';
 import HookformRadio from '../component/HookformRadio';
 
-import { SCHEDULE_CATEGORY } from 'utils/constans';
+import { SCHEDULE_CATEGORY } from 'constants/pageConstacts';
 import { toast } from 'react-toastify';
 
 // lib

@@ -1,3 +1,5 @@
+import { Wrapper } from 'component/editor/EditorStyle';
+import InputErrorMessage from 'component/error/InputErrorMessage';
 import styled from 'styled-components';
 
 const Select = styled.select`
@@ -14,40 +16,43 @@ const Option = styled.option``;
 const BlogCategory = ({ list, error, register }) => {
     const categories = Object.keys(list);
 
-    console.log(list);
-
     return (
         <>
-            <Select {...register} $error={error}>
-                <Option value="" disabled selected>
-                    카테고리 선택
-                </Option>
-                {categories.map((category, idx) => {
-                    const keys = Object.keys(list[category]);
-                    return (
-                        <optgroup label={category} key={category}>
-                            {keys.map((e, subIdx) => {
-                                const cnt = list[category][e].count;
+            <Wrapper>
+                <Select {...register} $error={error} defaultValue="">
+                    <Option value="" disabled>
+                        카테고리 선택
+                    </Option>
+                    {categories.map((category, idx) => {
+                        const keys = Object.keys(list[category]);
+                        return (
+                            <optgroup label={category} key={category}>
+                                {keys.map((e, subIdx) => {
+                                    const cnt = list[category][e].count;
 
-                                return (
-                                    <Option
-                                        value={e}
-                                        key={`${category}-${e}-${subIdx}`}
-                                    >
-                                        {e} ({cnt})
-                                    </Option>
-                                );
-                            })}
-                            <Option
-                                disabled={true}
-                                key={`divider-${category}-${idx}`}
-                            >
-                                -------------------
-                            </Option>
-                        </optgroup>
-                    );
-                })}
-            </Select>
+                                    return (
+                                        <Option
+                                            value={`${category}:${e}`}
+                                            key={`${category}-${e}-${subIdx}`}
+                                        >
+                                            {e} ({cnt})
+                                        </Option>
+                                    );
+                                })}
+                                <Option
+                                    disabled={true}
+                                    key={`divider-${category}-${idx}`}
+                                >
+                                    -------------------
+                                </Option>
+                            </optgroup>
+                        );
+                    })}
+                </Select>
+                {error && error && (
+                    <InputErrorMessage>{error?.message}</InputErrorMessage>
+                )}
+            </Wrapper>
         </>
     );
 };

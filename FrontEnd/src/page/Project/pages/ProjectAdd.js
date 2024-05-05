@@ -6,7 +6,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 // Quill 에디터
-
 import { Controller, useForm } from 'react-hook-form';
 import CustumDatePicker from 'component/editor/CustumDatePicker';
 
@@ -16,10 +15,9 @@ import { addProjectFetch, projectEdit } from 'services/projectService';
 import styled from 'styled-components';
 import { Button } from 'component/ui/Button';
 
-// Hard Coding
 import EditorAddHash from 'component/editor/EditorAddHash';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { PROJECT_STACK } from 'utils/constans';
+import { PROJECT_STACK } from 'constants/pageConstacts';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { queryKey } from 'services/queryKey';
 import { toast } from 'react-toastify';
@@ -256,12 +254,15 @@ export default function ProjectAdd() {
                         <Controller
                             name="projectDescription"
                             control={control}
-                            render={({ ref, ...restfield }) => (
-                                <QuillEditor
-                                    {...restfield}
-                                    PROJECT_KEY={projectKey}
-                                />
-                            )}
+                            render={({ field }) => {
+                                const { ref, ...restField } = field; // `ref`를 제외하고 나머지 필드를 추출
+                                return (
+                                    <QuillEditor
+                                        {...restField} // `ref`를 제외한 나머지 프로퍼티 전달
+                                        PROJECT_KEY={projectKey}
+                                    />
+                                );
+                            }}
                         />
                         {errors.projectDescription && (
                             <p className="errorMessage">

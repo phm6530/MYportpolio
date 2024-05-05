@@ -6,16 +6,12 @@ import { format } from 'date-fns';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useAuthCheck } from 'hooks/useAuthCheck';
-import {
-    fetchTimerSetting,
-    fetchTimerStart,
-    fetchTimerEnd,
-} from 'services/tastTimerService';
+import { fetchTimerStart, fetchTimerEnd } from 'services/tastTimerService';
 import StopWatch from '../component/StopWatch';
 import useWebSocket from 'services/useWebSocket';
 import HookformRadio from '../component/HookformRadio';
 import { useForm } from 'react-hook-form';
-import { SCHEDULE_CATEGORY } from 'utils/constans';
+import { SCHEDULE_CATEGORY } from 'constants/pageConstacts';
 import useTimer from 'hooks/useTimer';
 import { toast } from 'react-toastify';
 

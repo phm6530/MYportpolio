@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import { useMemo, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import alertThunk from 'store/alertTrunk';
-import { uploadImage } from 'services/projectService';
+import { uploadImage } from 'services/uploadService';
+import { ENDPOINT_URL } from 'constants/apiUrl';
 
 const EditorStyle = styled.div`
     /* padding: 2rem 0; */
@@ -28,7 +29,7 @@ const ReactQuillStyle = styled(ReactQuill)`
 `;
 
 const QuillEditor = ({ PROJECT_KEY, ...props }) => {
-    // console.log({ ...props });
+    console.log({ ...props });
     const quillRef = useRef();
     const dispatch = useDispatch();
 
@@ -45,14 +46,18 @@ const QuillEditor = ({ PROJECT_KEY, ...props }) => {
         input.addEventListener('change', async () => {
             const file = input.files[0];
             const formData = new FormData(); // FormData 인스턴스 생성
+
             formData.append('img', file); // 'img' 필드에 파일 추가
             formData.append('type', 'editor');
+
             try {
                 const { fileUrl: imgUrl } = await uploadImage(
                     formData,
                     PROJECT_KEY,
                 );
                 const editor = quillRef.current.getEditor();
+
+                console.log(imgUrl);
 
                 // 현재 커서의 위치를 가져옴
                 const range = editor.getSelection();
@@ -62,13 +67,14 @@ const QuillEditor = ({ PROJECT_KEY, ...props }) => {
                     editor.insertEmbed(
                         range.index,
                         'image',
-                        `http://localhost:8080/${imgUrl}`,
+                        `${ENDPOINT_URL}/${imgUrl}`,
                     );
                     // 이미지 삽입 후 커서를 이동하는 로직은 경우에 따라 다를 수 있으므로,
                     // 정확한 커서 위치 조정이 필요하면 추가 로직을 구현해야 합니다.
 
                     // 이미지 바로 뒤에 줄 바꿈을 삽입
                     editor.insertText(range.index + 1, '\n');
+
                     // 커서를 줄 바꿈 뒤로 이동
                     editor.setSelection(range.index + 2, 0);
                 }

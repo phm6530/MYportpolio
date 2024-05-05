@@ -54,6 +54,7 @@ const CustomToolbar = () => (
             <button className="ql-underline" />
             <button className="ql-strike" />
             <button className="ql-link" />
+            <button className="ql-code-block" />
         </span>
         <span className="ql-formats">
             <select className="ql-color" />

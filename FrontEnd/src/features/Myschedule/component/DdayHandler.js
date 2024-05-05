@@ -3,7 +3,7 @@ import { forwardRef, useState, useImperativeHandle } from 'react';
 import { DayPicker } from 'react-day-picker';
 import { Controller, useFormContext } from 'react-hook-form';
 import HookformRadio from './HookformRadio';
-import { SCHEDULE_CATEGORY } from 'utils/constans';
+import { SCHEDULE_CATEGORY } from 'constants/pageConstacts';
 
 const DdayHandler = forwardRef((props, ref) => {
     const [selected, setSelected] = useState();

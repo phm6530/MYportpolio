@@ -20,8 +20,10 @@ export const GlobalStyle = createGlobalStyle`
     --background-color-box : ${({ theme }) => theme.boxBackground};
     --color-background-input : ${({ theme }) => theme.inputBackground};
 
-    --quill-toolbar-color : ${({ theme }) => theme.toolbarColor}
+    --quill-toolbar-color : ${({ theme }) => theme.toolbarColor};
     
+    /* 그라디언트 */
+    --gradient-title-color : ${({ theme }) => theme.gradiendtTitle};
   }
 
 
@@ -53,12 +55,14 @@ export const lightTheme = {
     tagBackground: 'rgb(226 226 226 / 32%)',
 
     btnBackground: '#212b35',
-
     listBackground: 'rgba(29, 33, 38, 0.1)',
+
     listColor: 'rgba(61, 71, 81, 0.3)',
 
     btnBorderType1: '1px solid rgb(217 224 232 / 3%)',
     toolbarColor: '#444',
+
+    gradiendtTitle: 'linear-gradient(to left, #7264ef, #7264ef, #dd8efc)',
 };
 
 export const darkTheme = {
@@ -67,9 +71,9 @@ export const darkTheme = {
     asdf: '#454545',
     descriptionColor: '#c9c9c9',
     boxBackground: 'rgb(11, 13, 14)',
+
     // input
     searchBackground: '#161b24',
-
     btnBackground: '#212b35',
 
     backgroundColorType1: '#353b3f',
@@ -87,4 +91,5 @@ export const darkTheme = {
     btnBorderType1: '1px solid rgba(48, 56, 64, 0.5)',
 
     toolbarColor: 'rgb(120, 141, 170)',
+    gradiendtTitle: 'linear-gradient(to left, #64c7ef, #a9a5cc, #8e9bfc)',
 };

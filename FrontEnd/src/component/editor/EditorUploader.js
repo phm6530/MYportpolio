@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import InputErrorMessage from 'component/error/InputErrorMessage';
 import { InputLabel } from 'component/ui/TextArea';
-import { uploadImage } from 'services/projectService';
+import { uploadImage } from 'services/uploadService';
 import { toast } from 'react-toastify';
 import { Button } from 'component/ui/Button';
 import { Wrapper } from './EditorStyle';
@@ -33,6 +33,7 @@ const EditorUploader = ({
     const thumNail = watch('thumbnail');
     const fileHandler = async e => {
         const ImgFile = e.target.files[0];
+
         if (!ImgFile) {
             return;
         }
@@ -44,16 +45,12 @@ const EditorUploader = ({
         }
         if (!ImgFile.type.startsWith('image/')) {
             alert('이미지 파일만 업로드 가능합니다.');
-            return; // 이미지가 아닌 파일은 여기서 처리 중단
+            return;
         }
         try {
             const formData = new FormData();
             formData.append('img', ImgFile);
-            const { fileUrl } = await uploadImage(
-                formData,
-                projectKey,
-                'thumNail',
-            );
+            const { fileUrl } = await uploadImage(formData, projectKey);
             setValue('thumbnail', fileUrl, { shouldValidate: true });
         } catch (error) {
             toast.error(error.message);

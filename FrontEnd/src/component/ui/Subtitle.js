@@ -16,7 +16,7 @@ const SubTitleStyle = styled.div`
         margin-bottom: 1rem;
         align-items: center;
         .point {
-            background: linear-gradient(to left, #7264ef, #7264ef, #dd8efc);
+            background: var(--gradient-title-color);
             color: transparent;
             background-clip: text;
             margin-right: 0.5rem;
