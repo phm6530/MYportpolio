@@ -4,13 +4,12 @@ const { NotFoundError } = require('./error');
 //DB 연동
 const db = require('../util/config');
 const jwt = require('jsonwebtoken');
-
+const getConn = require('../util/configg');
 require('dotenv').config();
 
 const runTransaction = async (callback) => {
-    let conn;
+    const conn = await getConn();
     try {
-        conn = await db.getConnection();
         await conn.beginTransaction();
 
         // 콜백 함수 실행
@@ -96,3 +95,4 @@ const isDeleteReply = async ({ reply_password, board_key, auth }, token) => {
 
 exports.isValidAdmin = isValidAdmin;
 exports.isDeleteReply = isDeleteReply;
+exports.runTransaction = runTransaction;

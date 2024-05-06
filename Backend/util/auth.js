@@ -15,6 +15,7 @@ const verify = (req, res, next) => {
         req.headers.authState = true;
         next();
     } catch (error) {
+        console.log('에러');
         throw new NotFoundError('유효하지 않은 토큰입니다.');
     }
 };

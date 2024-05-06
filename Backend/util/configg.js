@@ -10,7 +10,17 @@ const pool = mysql.createPool({
     timezone: '+09:00',
 });
 
-const connection = pool.getConnection();
+// getConnection 메서드는 프로미스를 반환하므로 await을 사용하여 해결해야 합니다.
+async function getConnection() {
+    try {
+        return await pool.getConnection();
+    } catch (error) {
+        console.error('Error getting database connection:', error);
+        throw error;
+    }
+}
+
+module.exports = getConnection;
 
 // pool.connect((err) => {
 //     if (err) {
@@ -20,8 +30,6 @@ const connection = pool.getConnection();
 //         console.log('연결 성공');
 //     }
 // });
-
-module.exports = pool;
 
 // const mysql = require('mysql2/promise');
 // //.env 파일 읽기

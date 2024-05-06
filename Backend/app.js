@@ -1,5 +1,5 @@
 const express = require('express'); // express 라이브러리 로드
-const cors = require('cors'); // cors 검토
+const cors = require('cors'); // cors 허용
 require('dotenv').config();
 
 const http = require('http');
@@ -7,8 +7,10 @@ const app = express(); // 익스프레스 서버
 const httpServer = http.createServer(app); //서버생성
 
 const initializeWebSocket = require('./util/websoket');
-
 const wss = initializeWebSocket(httpServer);
+
+const path = require('path');
+global.appRoot = path.resolve(__dirname); // 전역 root 경로 설정
 
 // page
 const boardRouter = require('./page/notcie'); // Board

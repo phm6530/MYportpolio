@@ -57,7 +57,6 @@ router.get('/', async (req, res, next) => {
 
 // Project Insert
 const insertQuery = async ({ project_description, ...project }, conn) => {
-    console.log('target!!');
     try {
         let sql = `INSERT INTO project (
             project_key,
@@ -89,7 +88,7 @@ const insertQuery = async ({ project_description, ...project }, conn) => {
 };
 
 // Project Update
-const updateQuery = async ({ project_key, project_description, ...project }) => {
+const updateQuery = async ({ project_key, project_description, ...project }, conn) => {
     try {
         // project 테이블 업데이트 쿼리
         let sql = `UPDATE project SET 
@@ -109,13 +108,13 @@ const updateQuery = async ({ project_key, project_description, ...project }) => 
         test.push(project_key);
 
         // project_key를 마지막에 넣어 WHERE 조건에 사용
-        await db.query(sql, test);
+        await conn.query(sql, test);
 
         // project_Description 테이블에 데이터 삽입
         sql = `update project_description set 
             project_key = ?,
             project_description = ? where project_key = ? `;
-        await db.query(sql, [project_key, project_description, project_key]);
+        await conn.query(sql, [project_key, project_description, project_key]);
     } catch (error) {
         const err = new NotFoundError(error.message);
         throw err;
@@ -123,7 +122,6 @@ const updateQuery = async ({ project_key, project_description, ...project }) => 
 };
 
 const ProjectHandler = async (req, res, endPoint, conn) => {
-    // console.log(req.body);
     const {
         idx,
         title,
@@ -138,11 +136,10 @@ const ProjectHandler = async (req, res, endPoint, conn) => {
         thumbnail,
     } = req.body;
 
-    // console.log(req.body);
     const typeString_skill = skill.join();
     const typeString_hashtag = hashtag.join();
-    const formatingStartDate = startDate.split('T')[0];
-    const formatingEndDate = endDate.split('T')[0]; // 변수명 오타 수정
+    const formattedStartDate = startDate.split('T')[0];
+    const formattedEndDate = endDate.split('T')[0];
 
     const project = {
         project_key: idx,
@@ -151,29 +148,30 @@ const ProjectHandler = async (req, res, endPoint, conn) => {
         skill: typeString_skill,
         hashtag: typeString_hashtag,
         description,
-        startProject: formatingStartDate,
-        endProject: formatingEndDate,
+        startProject: formattedStartDate,
+        endProject: formattedEndDate,
         project_url: projectUrl,
         project_description: projectDescription,
         thumbnail,
     };
 
-    if (endPoint === 'add') {
-        await insertQuery(project, conn);
-    } else {
-        await updateQuery(project);
+    try {
+        if (endPoint === 'add') {
+            await insertQuery(project, conn);
+        } else {
+            await updateQuery(project, conn);
+        }
+        res.status(200).json({ message: 'Project processed successfully' });
+    } catch (error) {
+        console.error('Database operation failed:', error);
+        res.status(500).json({ message: 'Database operation failed', error: error.message });
     }
-
-    // project 테이블에 데이터 삽입
-    res.status(200).json({ message: 'success' });
 };
 
 router.post('/add', async (req, res, next) => {
     const conn = await db.getConnection();
-
     try {
         await conn.beginTransaction();
-
         const endPoint = 'add';
         await ProjectHandler(req, res, endPoint, conn);
     } catch (error) {
@@ -186,12 +184,17 @@ router.post('/add', async (req, res, next) => {
 });
 
 router.post('/editProject', async (req, res, next) => {
+    const conn = await db.getConnection();
     try {
+        await conn.beginTransaction();
         const endPoint = 'edit';
-        await ProjectHandler(req, res, endPoint);
+        await ProjectHandler(req, res, endPoint, conn);
     } catch (error) {
         const err = new NotFoundError(error.message);
+        await conn.rollback();
         next(err);
+    } finally {
+        conn.release();
     }
 });
 
@@ -226,7 +229,9 @@ router.post('/edit', async (req, res, next) => {
         project_description as b on a.project_key = b.project_key where a.project_key =?
         `;
             const [response] = await conn.query(sql, [key]);
-            res.status(200).json(response[0]);
+            console.log(response);
+
+            res.status(200).json({ resData: response[0] || [] });
         } catch (error) {
             const err = new NotFoundError(error.message);
             next(err);
@@ -235,25 +240,27 @@ router.post('/edit', async (req, res, next) => {
 });
 
 router.delete('/delete/:key', async (req, res, next) => {
-    console.log(req.body);
-    try {
-        const param = req.params.key;
-        // console.log(param);
-        const sql = `
-            delete from project where project_key = '${param}'
-        `;
-        const response = await db.query(sql);
-        res.status(200).json({ message: 'success' });
-    } catch (error) {
-        const err = new NotFoundError(error.message);
-        next(err);
-    }
+    return runTransaction(async (conn) => {
+        try {
+            const param = req.params.key;
+            // console.log(param);
+            const sql = `
+                delete from project where project_key = '${param}'
+            `;
+            await conn.query(sql);
+            res.status(200).json({ message: 'success' });
+        } catch (error) {
+            const err = new NotFoundError(error.message);
+            next(err);
+        }
+    });
 });
 
 const storage = multer.diskStorage({
     destination: (req, _, next) => {
         const key = req.params.key;
         const type = req.query.type;
+        console.log('gg');
 
         // console.log('type :::::::::::::::::::::::::::::::: ', type);
         const uploadPath = path.join(__dirname, `uploads/${key}/`); // 안전한 경로 구성
@@ -294,18 +301,6 @@ router.post('/imgUploader/:key', upload.single('img'), async (req, res, next) =>
 });
 
 //single은 img만 딱 검사가능함
-router.post('/thunbnail/:key', upload.single('img'), async (req, res, next) => {
-    const { url } = req.file;
-    req.page.body = '1';
-    // console.log('test :::: ', url);
-    try {
-        const imgUrl = `project/uploads/${url}`;
-        return res.json({ message: 'success', fileUrl: imgUrl });
-    } catch (error) {
-        const err = new NotFoundError(error.message);
-        next(err);
-    }
-});
 
 router.get('/:key', async (req, res, next) => {
     const param = req.params.key;
