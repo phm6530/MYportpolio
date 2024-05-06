@@ -47,6 +47,8 @@ const AccodianTab = ({ list, open, idx, category }) => {
         setView(prev => !prev);
     };
 
+    console.log(list);
+
     const allCnt = idx === 0 && list;
 
     useEffect(() => {
@@ -72,8 +74,8 @@ const AccodianTab = ({ list, open, idx, category }) => {
                         <BlogTabDetail
                             category={category}
                             item={item}
-                            cnt={list[item].count}
-                            new={list[item].new}
+                            cnt={list[item].post_count}
+                            new={list[item].post_new}
                             key={`${item}-${idx}`}
                         />
                     );

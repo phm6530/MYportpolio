@@ -1,12 +1,17 @@
 import { ENDPOINT_URL } from 'constants/apiUrl';
 
-const blogloadImage = async (category, key, images) => {
-    console.log('category::', category);
+const blogloadImage = async ({ category, key, formData }) => {
+    console.log(formData);
+
+    for (const [key, value] of formData.entries()) {
+        console.log(key, value);
+    }
+
     const response = await fetch(
-        `${ENDPOINT_URL}/blog/uploadimg/${category}/${key}}`,
+        `${ENDPOINT_URL}/blog/uploadimg/${category}/${key}`,
         {
             method: 'POST',
-            body: images,
+            body: formData,
         },
     );
     if (!response.ok) {

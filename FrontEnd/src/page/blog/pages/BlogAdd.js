@@ -10,9 +10,10 @@ import BlogCategory from 'features/Blog/BlogCategory';
 import { Button } from 'component/ui/Button';
 import SubTitle from 'component/ui/Subtitle';
 import TestQuillEditor from 'component/editor/TestQuillEditor';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { blogloadImage } from 'services/blogService';
+import Loading from 'component/ui/Loading';
 
 const BlogAdd = () => {
     const { data } = useBlogCategory();
@@ -34,24 +35,34 @@ const BlogAdd = () => {
         },
     });
 
-    const { mutate } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: blogloadImage,
     });
+
+    const normalizeFileName = fileName => {
+        // 특수 문자나 공백 등을 처리하여 올바른 형식으로 변환합니다.
+        const normalizedFileName = fileName.replace(/[^\w.-]/g, '_'); // 특수 문자 및 공백을 밑줄로 치환합니다.
+        return normalizedFileName;
+    };
 
     const onSubmitHandler = data => {
         const formData = new FormData();
         const { category } = data;
+        imgFile.forEach(file => {
+            // 파일명에서 특수 문자 및 공백을 처리하여 올바른 형식으로 변환합니다.
+            const normalizedFileName = normalizeFileName(file.name);
+            formData.append('images', file, normalizedFileName); // 파일명을 함께 추가합니다.
+        });
+        // formData.append('text', 'test');
         console.log(key);
-        console.log(category);
-        console.log(imgFile);
-        formData.append('images', imgFile);
 
         // 이미지 + category 전송
-        mutate(category, key, formData);
+        mutate({ category, key, formData });
     };
 
     return (
         <>
+            {isPending && <Loading />}
             <SubTitle>
                 <div className="subText">
                     <span className="point">BLOG POST</span>

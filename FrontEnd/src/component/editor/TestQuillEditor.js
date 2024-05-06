@@ -31,11 +31,12 @@ const TestQuillEditor = ({ setImgFile, ...props }) => {
         //미리보기 생성
         var reader = new FileReader();
         reader.readAsDataURL(file);
-        // 이벤트 핸들러를 readAsDataURL() 호출 전에 설정
 
+        // 이벤트 핸들러를 readAsDataURL() 호출 전에 설정
         reader.onload = event => {
             const dataUrl = event.target.result;
             const editor = quillRef.current.getEditor();
+
             // 현재 커서의 위치를 가져옴
             const range = editor.getSelection();
 

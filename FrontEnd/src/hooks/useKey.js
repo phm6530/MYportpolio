@@ -1,9 +1,20 @@
 import { v4 as uuidv4 } from 'uuid';
 import { useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const useKey = () => {
-    const [Params] = useSearchParams();
-    const key = Params.get('key') || uuidv4();
+    const [params] = useSearchParams();
+    const [key, setKey] = useState(null);
+
+    useEffect(() => {
+        let currentKey = params.get('key');
+
+        if (!currentKey) {
+            currentKey = uuidv4();
+        }
+
+        setKey(currentKey);
+    }, [params]);
 
     return { key };
 };

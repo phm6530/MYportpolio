@@ -14,6 +14,8 @@ import BlogRoutes from 'Route/BlogRoutes';
 const Blog = () => {
     const { data, isLoading } = useBlogCategory();
 
+    console.log(data?.resData);
+
     return (
         <>
             <DashBoard page={'Contact'}>

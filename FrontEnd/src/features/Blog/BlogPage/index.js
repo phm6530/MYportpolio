@@ -14,6 +14,8 @@ const BlogPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const { data, isLoading } = useBlog();
 
+    console.log(data);
+
     const item = searchParams.get('item') || 'All';
     const search = searchParams.get('search') || 'all';
 

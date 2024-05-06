@@ -13,7 +13,6 @@ import { TodaySeletor } from 'utils/TodaySeletor';
 import { PageGrid } from 'component/ui/Grid';
 
 //그래프
-// import ReactChat from 'react-apexcharts';
 import { FlexColumnDiv } from 'features/CommonStyles';
 import ScheduleHeader from 'features/Myschedule/Layout/ScheduleHeader';
 import ScheduleRoute from 'Route/ScheduleRoute';
@@ -30,6 +29,8 @@ const CustumlexColumnDiv = styled(FlexColumnDiv)`
     padding: 3rem 3.5rem;
     border-radius: 2.5rem;
     flex-grow: 1;
+    background: var(--background-color-box);
+    border: var(--border--btn-type-1);
 `;
 
 export default function MySchedule() {
@@ -101,7 +102,7 @@ export default function MySchedule() {
             <PageGrid>
                 {/* UserProFile */}
                 {/* <UserProfile /> */}
-                <CustumlexColumnDiv style={{ backgroundColor: '#fff' }}>
+                <CustumlexColumnDiv>
                     <ScheduleHeader />
                     {/* 서브 라우터 */}
                     <ScheduleRoute
