@@ -23,7 +23,11 @@
    > [redux@toolkit] 상태관리 redux \*주스탠드로 변환예정
    > [framer-motion] 애니메이션 라우터 전환 및 컴포넌트 전환 애니메이션이
    > date-fns [Date 라이브러리]
-   > quill editor [에디터] > [jwt-decode] JWT 디코딩 라이브러리
+   > quill editor [에디터]
+
+   - react-quill 만 설치하면됨
+
+   > [jwt-decode] JWT 디코딩 라이브러리
    > [Mui]
    > npm install @mui/material @emotion/react @emotion/styled /* MUI 컴포넌트라이브러리
    > npm install @mui/icons-material *MUI 아이콘 패키지

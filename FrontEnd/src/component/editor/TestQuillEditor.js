@@ -1,8 +1,11 @@
 import ReactQuill from 'react-quill';
 import 'quill/dist/quill.snow.css';
-
+import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 import { useMemo, useRef } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { blogloadImage } from 'services/blogService';
+import { toast } from 'react-toastify';
 
 const EditorStyle = styled.div`
     /* padding: 2rem 0; */
@@ -24,43 +27,52 @@ const ReactQuillStyle = styled(ReactQuill)`
     }
 `;
 
-const TestQuillEditor = ({ setImgFile, ...props }) => {
+const TestQuillEditor = ({ postKey, ...props }) => {
     const quillRef = useRef();
+    console.log('postKey::', postKey);
 
-    const previewImage = file => {
-        //미리보기 생성
-        var reader = new FileReader();
-        reader.readAsDataURL(file);
+    const { mutateAsync } = useMutation({
+        mutationFn: blogloadImage,
+        onSuccess: () => {
+            toast.success('업로드됨');
+        },
+    });
 
-        // 이벤트 핸들러를 readAsDataURL() 호출 전에 설정
-        reader.onload = event => {
-            const dataUrl = event.target.result;
-            const editor = quillRef.current.getEditor();
+    const previewImage = async file => {
+        const formData = new FormData();
 
-            // 현재 커서의 위치를 가져옴
-            const range = editor.getSelection();
+        const newFileName = file.name.replace(/[^\w.-]/g, '_');
+        formData.append('image', file, newFileName); // 'img' 필드에 파일 추가
 
-            // 커서가 있는 위치에 이미지 삽입
-            if (range) {
-                editor.insertEmbed(range.index, 'image', `${dataUrl}`);
-                // 이미지 삽입 후 커서를 이동하는 로직은 경우에 따라 다를 수 있으므로,
-                // 정확한 커서 위치 조정이 필요하면 추가 로직을 구현해야 함.
-                editor.insertText(range.index + 1, '\n');
-                editor.setSelection(range.index + 2, 0);
-            }
-        };
+        //quill editor
+        const editor = quillRef.current.getEditor();
+
+        //커서위치 가져옴
+        const range = editor.getSelection();
+        if (range) {
+            const result = await mutateAsync({
+                test: 'test',
+                key: postKey,
+                formData,
+            });
+            console.log('result:::', result);
+
+            editor.insertEmbed(range.index, 'image', `${result.imgUrl}`);
+            editor.insertText(range.index + 1, '\n'); //뒤로 한칸가서 엔터 치기
+            editor.setSelection(range.index + 2, 0); //마우커서는 엔터 뒤로
+        }
     };
 
     const imageHandler = () => {
         const input = document.createElement('input');
         input.setAttribute('type', 'file');
         input.setAttribute('accept', 'image/*');
+
         input.click(); // 이미지 input 강제 트리거 시키는거
 
         input.addEventListener('change', async () => {
             const file = input.files[0];
             previewImage(file);
-            setImgFile(prev => [...prev, file]);
         });
     };
 

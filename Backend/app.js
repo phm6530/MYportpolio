@@ -32,6 +32,9 @@ app.use('/project', projectRouter);
 app.use('/schedule', scheduleRouter(wss));
 app.use('/mailModule', mailModuleRouter);
 
+// 이미지 라우터
+app.use('/uploads', express.static(path.join(global.appRoot, 'uploads')));
+
 // 테스트 미들웨어
 app.get('/test', (req, res, next) => {
     const param = req.params.item;

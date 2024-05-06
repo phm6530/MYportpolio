@@ -11,9 +11,8 @@ const upload = multer({ storage: blogStorage });
 
 router.get('/tab', BlogController.blogTab);
 router.get('/:page', BlogController.blogPage);
-router.post('/uploadimg/:category/:key', upload.array('images'), BlogController.postImageUploader);
 
-// 이미지 라우터
-router.use('/uploads', express.static(path.join(global.appRoot, 'uploads')));
+// post 이미지 업로더
+router.post('/uploadimg/:category/:key', upload.single('image'), BlogController.postImageUploader);
 
 module.exports = router;

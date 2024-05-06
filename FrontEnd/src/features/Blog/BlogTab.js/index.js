@@ -47,8 +47,6 @@ const AccodianTab = ({ list, open, idx, category }) => {
         setView(prev => !prev);
     };
 
-    console.log(list);
-
     const allCnt = idx === 0 && list;
 
     useEffect(() => {

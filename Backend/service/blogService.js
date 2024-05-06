@@ -1,6 +1,8 @@
 const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
+const { URL } = require('../util/constancs');
+require('dotenv').config();
 
 const { pageCalculator } = require('../featrues/common/paging');
 const { searchFilter, queryStringFilter } = require('../featrues/common/filter');
@@ -36,24 +38,20 @@ const fileFilter = (req, file, callback) => {
 const blogStorage = multer.diskStorage({
     // 파일경로 설정
     destination: (req, _, cb) => {
-        const { category: categories, key } = req.params;
-        const [category, subCategory] = categories.split(':');
-
+        const key = req.params.key;
+        console.log(key);
         // uploads 파일 안에 category, subCategory 구성함
-        const uploadPath = path.join(global.appRoot, 'uploads', category, subCategory, key);
-
+        const uploadPath = path.join(global.appRoot, 'uploads', 'blog', key);
         if (!fs.existsSync(uploadPath)) {
             // 폴더가 존재하지 않는 경우 폴더생성
             fs.mkdirSync(uploadPath, { recursive: true });
         }
+
         cb(null, uploadPath);
     },
 
     filename: (req, file, cb) => {
-        const { category: categories, key } = req.params;
-        const [category, subCategory] = categories.split(':');
-
-        const categoryUrl = `${category}/${subCategory}/`;
+        const key = req.params.key;
 
         const date = new Date();
         const dateString = date.toISOString().replace(/:/g, '').replace(/-/g, '').replace('T', '').replace(/\..+/, '');
@@ -61,7 +59,8 @@ const blogStorage = multer.diskStorage({
         const [originName, ext] = file.originalname.split('.');
 
         const newFilename = `${originName}_${dateString}.${ext}`;
-        file.url = `${categoryUrl}${key}/${newFilename}`;
+        file.url = `${process.env.END_POINT}/uploads/blog/${key}/${newFilename}`;
+
         cb(null, newFilename);
     },
 });

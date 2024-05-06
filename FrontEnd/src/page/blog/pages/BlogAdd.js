@@ -1,4 +1,3 @@
-import QuillEditor from 'component/editor/QuillEditor';
 import useBlogCategory from 'features/Blog/hooks/useBlogCategory';
 import CustomToolbar from 'component/editor/QuillCustumToolbar';
 import EditorTitle from 'component/editor/EditorTitle';
@@ -10,16 +9,14 @@ import BlogCategory from 'features/Blog/BlogCategory';
 import { Button } from 'component/ui/Button';
 import SubTitle from 'component/ui/Subtitle';
 import TestQuillEditor from 'component/editor/TestQuillEditor';
-import { useEffect, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { blogloadImage } from 'services/blogService';
 import Loading from 'component/ui/Loading';
 
 const BlogAdd = () => {
     const { data } = useBlogCategory();
+    const { key: postKey } = useKey();
     const auth = useSelector(state => state.authSlice);
-    const { key } = useKey();
-    const [imgFile, setImgFile] = useState([]);
 
     const {
         register,
@@ -39,25 +36,16 @@ const BlogAdd = () => {
         mutationFn: blogloadImage,
     });
 
-    const normalizeFileName = fileName => {
-        // 특수 문자나 공백 등을 처리하여 올바른 형식으로 변환합니다.
-        const normalizedFileName = fileName.replace(/[^\w.-]/g, '_'); // 특수 문자 및 공백을 밑줄로 치환합니다.
-        return normalizedFileName;
-    };
-
     const onSubmitHandler = data => {
         const formData = new FormData();
         const { category } = data;
-        imgFile.forEach(file => {
-            // 파일명에서 특수 문자 및 공백을 처리하여 올바른 형식으로 변환합니다.
-            const normalizedFileName = normalizeFileName(file.name);
-            formData.append('images', file, normalizedFileName); // 파일명을 함께 추가합니다.
-        });
-        // formData.append('text', 'test');
-        console.log(key);
+        // imgFile.forEach(file => {
+        //     // 파일명에서 특수 문자 및 공백을 처리하여 올바른 형식으로 변환합니다.
+        //     const normalizedFileName = normalizeFileName(file.name);
+        //     formData.append('images', file, normalizedFileName); // 파일명을 함께 추가합니다.
+        // });
 
         // 이미지 + category 전송
-        mutate({ category, key, formData });
     };
 
     return (
@@ -90,22 +78,22 @@ const BlogAdd = () => {
                         required: '필수항목 입니다.',
                     })}
                 />
-
-                <Controller
-                    name="post"
-                    control={control}
-                    render={({ field }) => {
-                        const { ref, ...restField } = field; // `ref`를 제외하고 나머지 필드를 추출
-                        return (
-                            <TestQuillEditor
-                                setImgFile={setImgFile}
-                                {...restField} // `ref`를 제외한 나머지 프로퍼티 전달
-                                // PROJECT_KEY={projectKey}
-                            />
-                        );
-                    }}
-                />
-
+                {postKey && (
+                    <Controller
+                        name="post"
+                        control={control}
+                        render={({ field }) => {
+                            const { ref: _, ...restField } = field; // `ref`를 제외하고 나머지 필드를 추출
+                            return (
+                                <TestQuillEditor
+                                    postKey={postKey}
+                                    {...restField} // `ref`를 제외한 나머지 프로퍼티 전달
+                                    // PROJECT_KEY={projectKey}
+                                />
+                            );
+                        }}
+                    />
+                )}
                 <Button.Submit style={{ marginLeft: 'auto' }}>
                     블로그 포스팅하기
                 </Button.Submit>

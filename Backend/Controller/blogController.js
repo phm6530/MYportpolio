@@ -101,15 +101,10 @@ const blogPage = async (req, res, next) => {
 
 const postImageUploader = async (req, res, next) => {
     try {
-        const files = req.files;
+        const file = req.file;
+        console.log(file);
 
-        const filesUrl = files.map((file) => {
-            return file.url;
-        });
-
-        console.log(filesUrl);
-
-        res.json({ message: 'success' });
+        res.json({ message: 'success', imgUrl: file.url });
     } catch (err) {
         next(err);
     }
