@@ -1,5 +1,5 @@
 const { NotFoundError } = require('../util/error');
-const { postAction, rendingData, blogtabService } = require('../service/blogService');
+const { postAction, rendingData, blogtabService, getDetail } = require('../service/blogService');
 const { runTransaction } = require('../util/util');
 
 // 동적 탭
@@ -9,7 +9,6 @@ const fetchCategoryList = async (_, res, next) => {
             return blogtabService(conn);
         });
 
-        console.log(categoryList);
         res.json({ message: 'success', resData: categoryList });
     } catch (error) {
         console.log(error);
@@ -24,15 +23,16 @@ const fetchBlogPosts = async (req, res, next) => {
         const { data, paging } = await runTransaction(async (conn) => {
             return rendingData(conn, req);
         });
-
         res.json({ message: 'success', resData: data, paging });
     } catch (error) {
+        console.log(error);
         next(new NotFoundError(error.message));
     }
 };
 
 //blog post img 업로더
 const postImageUploader = async (req, res, next) => {
+    console.log('실행');
     try {
         const file = req.file;
         res.json({ message: 'success', imgUrl: file.url });
@@ -57,9 +57,27 @@ const createBlogPost = async (req, res, next) => {
     }
 };
 
+//post
+const fetchPostDetail = async (req, res, next) => {
+    try {
+        const postKey = req.params;
+        console.log(postKey.key);
+        const result = await runTransaction(async (conn) => {
+            const postResult = await getDetail(conn, postKey.key);
+            return postResult;
+        });
+
+        res.status(200).json({ message: 'success', resData: result });
+    } catch (error) {
+        console.log(error.message);
+        next(new NotFoundError(error.message));
+    }
+};
+
 module.exports = {
     fetchCategoryList,
     fetchBlogPosts,
     postImageUploader,
     createBlogPost,
+    fetchPostDetail,
 };

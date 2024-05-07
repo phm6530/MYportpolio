@@ -1,7 +1,3 @@
-const multer = require('multer');
-const fs = require('fs');
-const path = require('path');
-const { URL } = require('../util/constancs');
 require('dotenv').config();
 const { DUMMY_DATA } = require('../DUMMY_DATA');
 
@@ -10,7 +6,7 @@ const { searchFilter, queryStringFilter } = require('../featrues/common/filter')
 
 const parametersAuth = (category, itemParam) => {
     const validCategories = new Set(DUMMY_DATA.map((item) => item.cateGory.toLowerCase()));
-    const cateGoryList = ['react', 'next', 'scss', 'css'];
+    const cateGoryList = ['react', 'next', 'scss', 'css', 'etc'];
 
     // 입력 파라미터의 존재 여부 확인
     if (category !== 'all' && !validCategories.has(category.toLowerCase())) {
@@ -24,9 +20,9 @@ const parametersAuth = (category, itemParam) => {
 
 const getBlogPosts = async (data, page, category, itemParam, searchParam) => {
     const { firstIdx, lastIdx } = pageCalculator(page);
-    const filterData = queryStringFilter(data, category, itemParam);
-    const resultData = searchParam ? searchFilter(filterData, searchParam) : filterData;
 
+    // const filterData = queryStringFilter(data, category, itemParam);
+    // const resultData = searchParam ? searchFilter(filterData, searchParam) : filterData;
     return {
         data: resultData.slice(firstIdx, lastIdx),
         paging: Math.ceil(resultData.length / 10),
@@ -78,10 +74,84 @@ const rendingData = async (conn, req) => {
     const item = req.query.item === 'null' ? null : req.query.item; // subCategory
     const search = req.query.search === 'null' ? null : req.query.search;
 
-    if (category || itemParam) {
-        parametersAuth(category, item);
+    const idxCalculator = (curPage, limit) => {
+        const first_idx = (curPage - 1) * limit;
+        const last_idx = curPage * limit;
+        return { first_idx, last_idx };
+    };
+
+    const limit = 9;
+    const { first_idx, last_idx } = idxCalculator(page, limit);
+
+    // 쿼리 파라미터
+    const params_postList = [last_idx, first_idx];
+    const params_cnt = [];
+
+    // if (category || itemParam) {
+    //     parametersAuth(category, item);
+    // }
+
+    let query = '';
+    let query_cnt = '';
+    if (category !== 'all') {
+        query = 'where bc.category_name = ? and bs.subcategory_name = ?';
+        query_cnt = 'where bc.category_name =? and bs.subcategory_name = ?';
+        params_postList.unshift(category, item);
+        params_cnt.push(category, item);
     }
-    const result = await getBlogPosts(DUMMY_DATA, page, category, item, search);
+
+    const sql_getlistCount = `
+        select count(*) as cnt from blog_metadata bm 
+        join 
+            blog_categories bc on bm.category_id = bc.category_id
+        join 
+            blog_subcategories bs on bm.subcategory_id = bs.subcategory_id
+        ${query_cnt};
+    `;
+
+    const [cnt] = await conn.query(sql_getlistCount, params_cnt);
+    console.log(cnt);
+
+    console.log(params_postList);
+
+    const sql_getPostlist = `
+        select 
+        bm.post_id as post_id , 
+        bm.post_title as post_title , 
+        bm.post_description as description , 
+        bm.create_at as date , 
+        bt.thumnail_url as thumnail ,
+        bc.category_name as category ,
+        bs.subcategory_name as subcategory 
+        
+        from 
+            blog_metadata bm 
+        join 
+            blog_thumnail bt on bm.post_id = bt.post_id
+        join 
+            blog_categories bc on bm.category_id = bc.category_id
+        join 
+            blog_subcategories bs on bm.subcategory_id = bs.subcategory_id 
+        ${query}
+        order by post_id desc limit ? offset ?;
+    `;
+
+    console.log(category, item, first_idx, last_idx);
+
+    const [rows] = await conn.query(sql_getPostlist, params_postList);
+
+    // 전체페이지
+    const getPaging = (cnt, limit) => {
+        const pages = cnt / limit;
+        return Math.ceil(pages);
+    };
+
+    const paging = getPaging(cnt[0].cnt, limit);
+
+    // const result = await getBlogPosts(DUMMY_DATA, page, category, item, search);
+    // console.log(result);
+
+    const result = { data: rows, paging };
     return result;
 };
 
@@ -133,9 +203,34 @@ const blogtabService = async (conn) => {
     return categoryList;
 };
 
+const getDetail = async (conn, key) => {
+    const sql_postDetail = `
+            select 
+            bm.post_id as post_id ,  
+            bm.post_title as post_title,
+            bm.create_at as create_date, 
+            bm.create_user as user,
+            bp.contents as contents,
+            bc.category_name as category,
+            bs.subcategory_name as subcategory
+            from 
+                blog_metadata bm 
+            join 
+                blog_post bp on bm.post_id = bp.post_id
+            join 
+                blog_categories bc on bm.category_id = bc.category_id
+            join
+                blog_subcategories bs on bm.subcategory_id = bs.subcategory_id
+            where bm.post_id = ?;
+    `;
+    const [row] = await conn.query(sql_postDetail, [key]);
+    return row[0];
+};
+
 module.exports = {
     getBlogPosts,
     postAction,
     rendingData,
     blogtabService,
+    getDetail,
 };
