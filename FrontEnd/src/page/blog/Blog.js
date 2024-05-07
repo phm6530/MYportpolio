@@ -3,19 +3,13 @@ import BannerCommon from 'component/ui/BannerCommon';
 import DashBoard from 'component/ui/DashBoard';
 import DashBoardTitle from 'component/ui/DashBoardTitle';
 
-import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading.js';
 import { BoardWrapper } from 'features/Blog/BlogCommonStyle.js';
 import { Tab } from 'features/Blog/BlogCommonStyle.js';
 
 import BlogTab from 'features/Blog/BlogTab.js/index.js';
-import useBlogCategory from 'features/Blog/hooks/useBlogCategory.js';
 import BlogRoutes from 'Route/BlogRoutes';
 
 const Blog = () => {
-    const { data, isLoading } = useBlogCategory();
-
-    console.log(data?.resData);
-
     return (
         <>
             <DashBoard page={'Contact'}>
@@ -32,19 +26,10 @@ const Blog = () => {
             <PageGrid>
                 <BoardWrapper>
                     {/* Blog LayOut */}
-                    {isLoading ? (
-                        <SpinnerLoading />
-                    ) : (
-                        data && (
-                            <>
-                                <Tab>
-                                    <BlogTab categories={data?.resData} />
-                                </Tab>
-
-                                <BlogRoutes data={data} />
-                            </>
-                        )
-                    )}
+                    <Tab>
+                        <BlogTab />
+                    </Tab>
+                    <BlogRoutes />
                 </BoardWrapper>
             </PageGrid>
         </>

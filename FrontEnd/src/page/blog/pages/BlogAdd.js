@@ -1,20 +1,22 @@
-import useBlogCategory from 'features/Blog/hooks/useBlogCategory';
 import CustomToolbar from 'component/editor/QuillCustumToolbar';
 import EditorTitle from 'component/editor/EditorTitle';
+import useKey from 'hooks/useKey';
+import BlogCategory from 'features/Blog/BlogCategory';
+import SubTitle from 'component/ui/Subtitle';
+import TestQuillEditor from 'component/editor/TestQuillEditor';
+import Loading from 'component/ui/Loading';
 
 import { useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
-import useKey from 'hooks/useKey';
-import BlogCategory from 'features/Blog/BlogCategory';
 import { Button } from 'component/ui/Button';
-import SubTitle from 'component/ui/Subtitle';
-import TestQuillEditor from 'component/editor/TestQuillEditor';
-import { useMutation } from '@tanstack/react-query';
-import { blogloadImage } from 'services/blogService';
-import Loading from 'component/ui/Loading';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { blogPost } from 'services/blogService';
+import { queryKey } from 'services/queryKey';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const BlogAdd = () => {
-    const { data } = useBlogCategory();
+    const navigate = useNavigate();
     const { key: postKey } = useKey();
     const auth = useSelector(state => state.authSlice);
 
@@ -32,20 +34,44 @@ const BlogAdd = () => {
         },
     });
 
+    const queryClient = useQueryClient();
     const { mutate, isPending } = useMutation({
-        mutationFn: blogloadImage,
+        mutationFn: blogPost,
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: [queryKey.blogCategory],
+            });
+            queryClient.invalidateQueries({ queryKey: [queryKey.blog] });
+            toast.success('블로그 글이 포스팅되었습니다.');
+            navigate('/blog?category=All');
+        },
     });
 
-    const onSubmitHandler = data => {
-        const formData = new FormData();
-        const { category } = data;
-        // imgFile.forEach(file => {
-        //     // 파일명에서 특수 문자 및 공백을 처리하여 올바른 형식으로 변환합니다.
-        //     const normalizedFileName = normalizeFileName(file.name);
-        //     formData.append('images', file, normalizedFileName); // 파일명을 함께 추가합니다.
-        // });
+    // 썸네일 + 간략한설명 추출
+    const getContnets = post => {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = post;
 
-        // 이미지 + category 전송
+        return {
+            getImg: () => {
+                const imgSelect = tempDiv.querySelector('img');
+                return imgSelect ? imgSelect.getAttribute('src') : null;
+            },
+            getText: () => {
+                const text = tempDiv.textContent;
+                return text.slice(0, 150);
+            },
+        };
+    };
+
+    // Sumit
+    const onSubmitHandler = data => {
+        const content = getContnets(data.post);
+        const thumNail = content.getImg();
+        const description = content.getText();
+
+        const requestData = { ...data, key: postKey, thumNail, description };
+        mutate(requestData);
     };
 
     return (
@@ -60,7 +86,6 @@ const BlogAdd = () => {
             {/* 선택 카테고리 */}
             <form onSubmit={handleSubmit(onSubmitHandler)}>
                 <BlogCategory
-                    list={data?.resData}
                     error={errors?.['category']}
                     register={register('category', {
                         required: '필수항목 입니다.',

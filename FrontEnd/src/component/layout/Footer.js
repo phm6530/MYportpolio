@@ -88,7 +88,9 @@ export default function Footer() {
                 <FooterList>
                     <TbPhoneCall size={'14'} /> <span> 010-0000-0000</span>
                 </FooterList>
-
+                <a href="https://kr.freepik.com/free-vector/gradient-no-photo-sign-design_23101642.htm#fromView=search&page=2&position=14&uuid=9687882a-75ea-4aab-948b-4f842187b5da">
+                    출처 freepik
+                </a>
                 <span style={{ marginTop: '20px', opacity: '.5' }}>
                     CopyRight ⓒ p. Hyun
                 </span>

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import useQueryString from '../hooks/useQueryString';
 import { LuMinus } from 'react-icons/lu';
 import { GoPlus } from 'react-icons/go';
+import useBlogCategory from '../hooks/useBlogCategory';
 
 const ListWapper = styled.div`
     overflow: hidden;
@@ -83,18 +84,29 @@ const AccodianTab = ({ list, open, idx, category }) => {
     );
 };
 
-const BlogTab = ({ categories }) => {
+const BlogTab = () => {
+    const { data, isLoading } = useBlogCategory();
+    const [categories, setCategories] = useState(null);
+
+    useEffect(() => {
+        console.log('랜더링');
+        if (!isLoading) {
+            setCategories(data?.resData);
+        }
+    }, [data, isLoading]);
+
     return (
         <>
-            {Object.keys(categories).map((category, idx) => (
-                <AccodianTab
-                    list={categories[category]}
-                    category={category}
-                    open={idx === 1}
-                    idx={idx}
-                    key={idx}
-                />
-            ))}
+            {categories &&
+                Object.keys(categories).map((category, idx) => (
+                    <AccodianTab
+                        list={categories[category]}
+                        category={category}
+                        open={idx === 1}
+                        idx={idx}
+                        key={idx}
+                    />
+                ))}
         </>
     );
 };

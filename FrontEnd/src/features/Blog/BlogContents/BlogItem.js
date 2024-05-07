@@ -44,15 +44,12 @@ const ProjectImgArea = styled.div`
     position: relative;
     overflow: hidden;
     border-radius: 0.3rem;
-    transition: all 0.5s ease;
     margin-right: 3rem;
-    ${props =>
-        props.$backImg &&
-        css`
-            background-image: url(${props.$backImg});
-            background-size: 110%;
-            background-position: center center;
-        `}
+    transition: all 0.5s ease;
+    background-image: ${({ $backImg }) =>
+        `url(${$backImg || '/img/blog/noImg.jpg'})`};
+    background-size: 110%;
+    background-position: center;
 `;
 
 const ViewIconAnimation = styled.div`
@@ -128,12 +125,12 @@ const ItemDate = styled.div`
 const hashTag = 'React';
 
 const BlogItem = ({ item }) => {
-    const { thumbNail } = item;
+    const { post_id, thumnail, post_title, description, date } = item;
     const navigate = useNavigate();
 
     return (
-        <ProjectFadeinStyle onClick={() => navigate(`${item.id}`)}>
-            <ProjectImgArea $backImg={thumbNail} className="projectItemImg">
+        <ProjectFadeinStyle onClick={() => navigate(`${post_id}`)}>
+            <ProjectImgArea $backImg={thumnail} className="projectItemImg">
                 <ViewIconAnimation className="aniTarget">
                     <FaMagnifyingGlass />
                 </ViewIconAnimation>
@@ -142,12 +139,12 @@ const BlogItem = ({ item }) => {
             <ContentsWrap>
                 {/* Header */}
 
-                <ProjectItemHeaderStyle>{item.title}</ProjectItemHeaderStyle>
+                <ProjectItemHeaderStyle>{post_title}</ProjectItemHeaderStyle>
 
                 {/* Company */}
-                <ProjectDescription>{item.content}</ProjectDescription>
+                <ProjectDescription>{description}</ProjectDescription>
                 <div className="hashTag">{hashTag}</div>
-                <ItemDate>{item.date}</ItemDate>
+                <ItemDate>{date}</ItemDate>
 
                 {/* <div>
                     {hashtag &&

@@ -11,12 +11,12 @@ import withAuth from 'component/hoc/WithAuth';
 const MotionStyle = styled(Motion.FadeInOut)`
     flex: 1;
 `;
-const BlogRoutes = ({ data }) => {
+const BlogRoutes = () => {
     const location = useLocation();
     const AuthenticatedBlodAdd = withAuth(BlogAdd, '/blog');
 
     const paths = [
-        { path: '/', index: true, Component: <BlogPage data={data} /> },
+        { path: '/', index: true, Component: <BlogPage /> },
         { path: '/:key', Component: <BlogDetail /> },
         {
             path: '/add',

@@ -1,38 +1,5 @@
 import styled, { css } from 'styled-components';
 
-const getTextAreaStyles = props => {
-    // console.log('props:::', props.$complete);
-    return `
-    transition: color 0.2s ease;
-    ${
-        props.$complete &&
-        css`
-            color: rgba(0, 0, 0, 0.4);
-            text-decoration: line-through;
-        `
-    }
-`;
-};
-
-const getDdayAreaStyles = props => `
-    ${
-        props.$Dday &&
-        css`
-            display: flex;
-            align-items: flex-start;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            border: 1px solid #cdcdcd;
-            border-radius: 1rem;
-            box-shadow:
-                26px 32px 15px 5px rgb(16 16 16 / 14%),
-                inset 0 -2px 0 0 rgb(243 231 249 / 36%);
-            padding: 1rem;
-            margin-bottom: 4rem;
-        `
-    }
-`;
-
 const DdayImportantStyle = styled.span``;
 
 const TextArea = styled.textarea`
@@ -71,9 +38,27 @@ const IsComplete = styled.div`
     }
     textarea {
         resize: none;
-        ${props => getTextAreaStyles(props)}
+        background: transparent;
+        ${({ $complete }) =>
+            $complete &&
+            css`
+                text-decoration: line-through;
+            `}
     }
-    ${props => getDdayAreaStyles(props)}
+    ${props =>
+        props.$Dday &&
+        css`
+            display: flex;
+            align-items: flex-start;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border: 1px solid #cdcdcd;
+            border-radius: 1rem;
+            box-shadow:
+                26px 32px 15px 5px rgb(16 16 16 / 14%),
+                inset 0 -2px 0 0 rgb(243 231 249 / 36%);
+            padding: 1rem;
+            margin-bottom: 4rem;
+        `}
 `;
-
 export { FormStyle, ImportantStyle, IsComplete, TextArea, DdayImportantStyle };

@@ -6,13 +6,40 @@ import { useMemo, useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { blogloadImage } from 'services/blogService';
 import { toast } from 'react-toastify';
+import hljs from 'highlight.js/lib/core';
+import javascript from 'highlight.js/lib/languages/javascript';
 
+import 'highlight.js/styles/atom-one-dark.min.css';
 const EditorStyle = styled.div`
     /* padding: 2rem 0; */
 `;
-
+const Toolbar = styled.div``;
 const ReactQuillStyle = styled(ReactQuill)`
     /* background: var(--color-background-input); */
+    .ql-toolbar {
+        span,
+        button,
+        svg,
+        path,
+        line,
+        polygon,
+        rect,
+        polyline {
+            color: var(--quill-toolbar-color);
+            stroke: var(--quill-toolbar-color) !important;
+        }
+        .ql-active span,
+        .ql-active button,
+        .ql-active svg,
+        .ql-active path,
+        .ql-active line,
+        .ql-active polygon,
+        .ql-active rect,
+        .ql-active polyline {
+            color: red;
+            stroke: red !important;
+        }
+    }
     .ql-editor {
         min-height: 500px !important;
         line-height: 1.8 !important;
@@ -76,14 +103,44 @@ const TestQuillEditor = ({ postKey, ...props }) => {
         });
     };
 
+    hljs.configure({
+        languages: [
+            'javascript',
+            'ruby',
+            'python',
+            'java',
+            'cpp',
+            'kotlin',
+            'sql',
+        ],
+    });
+
     //게시판 형식 메모이제이션해서 매번 다시 할당되지 않도록 함
     const modules = useMemo(() => {
         return {
             toolbar: {
-                container: '#toolbar',
+                container: [
+                    [{ size: ['small', false, 'large', 'huge'] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['link', 'code-block'],
+                    ['image'],
+                    ['blockquote'],
+                    // [({ list: 'ordered' }, { list: 'bullet' })],
+                    // [{ script: 'sub' }, { script: 'super' }],
+                    [
+                        'align',
+                        { align: 'center' },
+                        { align: 'right' },
+                        { align: 'justify' },
+                    ],
+                ],
                 handlers: {
                     image: imageHandler,
                 },
+            },
+            syntax: {
+                highlight: text => hljs.highlightAuto(text).value,
+                languages: hljs.registerLanguage('javascript', javascript),
             },
         };
     }, []);

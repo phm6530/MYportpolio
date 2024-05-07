@@ -23,14 +23,27 @@ const blogloadImage = async ({ category, key, formData }) => {
 const blogPost = async data => {
     const response = await fetch(`${ENDPOINT_URL}/blog/post`, {
         method: 'POST',
-        body: data,
+        headers: {
+            'ConTent-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
     });
-    if (!response.ok) {
-        throw new Error('이미지가 업로드 되지 않았습니다.');
-    }
     const result = await response.json();
-    console.log(result);
+    if (!response.ok) {
+        throw new Error(result.message);
+    }
     return result;
 };
 
-export { blogloadImage };
+const fetchBlogCategory = async () => {
+    const response = await fetch('http://localhost:8080/blog/tab');
+    if (!response.ok) {
+        const errorMessage = await response.json();
+        throw new Error(errorMessage.message);
+    }
+
+    const { resData } = await response.json();
+    return { resData };
+};
+
+export { blogloadImage, blogPost, fetchBlogCategory };

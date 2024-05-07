@@ -1,6 +1,8 @@
 import { Wrapper } from 'component/editor/EditorStyle';
 import InputErrorMessage from 'component/error/InputErrorMessage';
 import styled from 'styled-components';
+import useBlogCategory from './hooks/useBlogCategory';
+import { useEffect, useState } from 'react';
 
 const Select = styled.select`
     background: var(--color-background-input);
@@ -13,8 +15,15 @@ const Select = styled.select`
 
 const Option = styled.option``;
 
-const BlogCategory = ({ list, error, register }) => {
-    const categories = Object.keys(list);
+const BlogCategory = ({ error, register }) => {
+    const { data } = useBlogCategory();
+    const [categories, setCategories] = useState([]);
+    const [list, setList] = useState({});
+
+    useEffect(() => {
+        setCategories(Object.keys(data?.resData));
+        setList(data?.resData);
+    }, [data]);
 
     return (
         <>

@@ -1,10 +1,14 @@
 export const queryKey = {
+    // another
     timer: 'ScheduleTimer',
-    blog: 'blog',
     auth: 'auth',
-    blogCategory: 'blogCategory',
 
+    // project
     projectAdd: 'projectAdd',
 
+    // blog
+    blog: 'blog',
+    blogCategory: 'blogCategory',
     blogImageUpload: 'blogImageUpload',
+    blogDetail: 'blogDetail',
 };
