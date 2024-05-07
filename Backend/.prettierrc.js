@@ -9,7 +9,7 @@ module.exports = {
     jsxBracketSameLine: false,
     jsxSingleQuote: false,
     // arrowParens: 'avoid',
-}
+};
 // {
 //     "arrowParens": "avoid", // 화살표 함수 괄호 사용 방식
 //     "bracketSpacing": false, // 객체 리터럴에서 괄호에 공백 삽입 여부

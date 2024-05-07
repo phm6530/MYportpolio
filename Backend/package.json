@@ -22,5 +22,8 @@
   },
   "scripts": {
     "start": "node app.js"
+  },
+  "devDependencies": {
+    "prettier-plugin-sql": "^0.18.0"
   }
 }
