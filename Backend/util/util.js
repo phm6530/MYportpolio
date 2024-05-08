@@ -2,32 +2,9 @@ const { compare } = require('bcrypt');
 const { NotFoundError } = require('./error');
 
 //DB 연동
-const db = require('../util/config');
 const jwt = require('jsonwebtoken');
-const getConn = require('../util/configg');
+const { runTransaction } = require('../service/databaseService');
 require('dotenv').config();
-
-const runTransaction = async (callback) => {
-    const conn = await getConn();
-    try {
-        await conn.beginTransaction();
-
-        // 콜백 함수 실행
-        const result = await callback(conn);
-
-        await conn.commit(); // 트랜잭션 커밋
-        return result;
-    } catch (error) {
-        if (conn) {
-            await conn.rollback(); // 트랜잭션 롤백
-        }
-        throw error;
-    } finally {
-        if (conn) {
-            conn.release(); // 커넥션 반환
-        }
-    }
-};
 
 const isValidAdmin = async (id, userPassword) => {
     return runTransaction(async (conn) => {
@@ -43,14 +20,12 @@ const isValidAdmin = async (id, userPassword) => {
         if (!isMatch) {
             throw new NotFoundError('비밀번호가 맞지않습니다.');
         }
-
         let result = {};
         for (const item in response[0]) {
             if (item !== 'password') {
                 result[item] = response[0][item];
             }
         }
-
         return result;
     });
 };
@@ -95,4 +70,3 @@ const isDeleteReply = async ({ reply_password, board_key, auth }, token) => {
 
 exports.isValidAdmin = isValidAdmin;
 exports.isDeleteReply = isDeleteReply;
-exports.runTransaction = runTransaction;

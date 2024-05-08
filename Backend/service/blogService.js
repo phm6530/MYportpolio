@@ -29,7 +29,7 @@ const getBlogPosts = async (data, page, category, itemParam, searchParam) => {
     };
 };
 
-const postAction = async (conn, body) => {
+const postInsert = async (conn, body, id) => {
     const { title, category, post, user, key, thumNail, description } = body;
     console.log(body);
     const [mainCategory, subCategory] = category.split(':');
@@ -66,6 +66,66 @@ const postAction = async (conn, body) => {
         insert into blog_thumnail (post_id, thumnail_url) values(?, ?);
     `;
     await conn.query(sql_thumNail, [postId, thumNail]);
+};
+
+/**
+ *
+ * @param {d} conn
+ * @param {*} body
+ * @param {*} postId 포스트 아이디 임 프론트에서 보냈음
+ */
+const postUpdate = async (conn, body, postId) => {
+    const { title, category, post, user, thumNail, description } = body;
+
+    console.log(body);
+
+    const [mainCategory, subCategory] = category.split(':');
+
+    const sqlGetCategoryId = 'SELECT category_id FROM blog_categories WHERE category_name = ?;';
+    const sqlGetSubCategoryId = `SELECT bs.subcategory_id FROM blog_subcategories bs JOIN blog_categories bc ON bs.fk_category_id = bc.category_id WHERE bs.subcategory_name = ? AND bc.category_name = ?;
+    `;
+
+    const [[category_id], [subCategory_id]] = await Promise.all([
+        conn.query(sqlGetCategoryId, [mainCategory]),
+        conn.query(sqlGetSubCategoryId, [subCategory, mainCategory]),
+    ]);
+
+    const sql_UpdateMeta = `
+        UPDATE blog_metadata 
+        SET 
+            post_title = ? , 
+            post_description = ? , 
+            update_at = now() , 
+            create_user = ? , 
+            category_id = ? , 
+            subcategory_id = ?
+        WHERE 
+            post_id = ?`;
+
+    const [meta_result] = await conn.query(sql_UpdateMeta, [
+        title,
+        description,
+        user.name,
+        category_id[0].category_id,
+        subCategory_id[0].subcategory_id,
+        postId,
+    ]);
+
+    const sql_contents = `
+        update blog_post set 
+            contents = ?
+        where post_id = ? 
+        ;
+    `;
+    await conn.query(sql_contents, [post, postId]);
+
+    const sql_thumNail = `
+        update blog_thumnail set 
+        thumnail_url = ? 
+        where
+            post_id = ?
+    `;
+    await conn.query(sql_thumNail, [thumNail, postId]);
 };
 
 const rendingData = async (conn, req) => {
@@ -212,7 +272,8 @@ const getDetail = async (conn, key) => {
             bm.create_user as user,
             bp.contents as contents,
             bc.category_name as category,
-            bs.subcategory_name as subcategory
+            bs.subcategory_name as subcategory,
+            bp.contents_key as imgkey
             from 
                 blog_metadata bm 
             join 
@@ -223,14 +284,21 @@ const getDetail = async (conn, key) => {
                 blog_subcategories bs on bm.subcategory_id = bs.subcategory_id
             where bm.post_id = ?;
     `;
+
     const [row] = await conn.query(sql_postDetail, [key]);
+    console.log(row);
+
+    if (row.length === 0) {
+        throw new Error('삭제되었거나 없는 게시물입니다.');
+    }
     return row[0];
 };
 
 module.exports = {
     getBlogPosts,
-    postAction,
+    postInsert,
     rendingData,
     blogtabService,
     getDetail,
+    postUpdate,
 };
