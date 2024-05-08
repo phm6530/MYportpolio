@@ -1,35 +1,52 @@
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
-import { queryKey } from 'services/queryKey';
-import { ENDPOINT_URL } from 'constants/apiUrl';
-import QuillView from 'component/editor/QuillView';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const blogPostDetail = async key => {
-    try {
-        console.log(`${ENDPOINT_URL}/blog/postdetail/${key}`);
-        const response = await fetch(`${ENDPOINT_URL}/blog/postdetail/${key}`);
-        const result = await response.json();
-        if (!response.ok) {
-            throw new Error(result.message);
-        }
-        return result;
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
-};
+import { Button } from '@mui/material';
+import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
+
+import QuillView from 'component/editor/QuillView';
+import useBlogPostDetail from 'hooks/useBlogPostDetail';
+import NotfoundPage from 'component/error/NotfoundPage';
+
+import BlogDetailDeleteBtn from 'features/Blog/BlogDetailControls/BlogDetailDeleteBtn';
+import BlogDetailEditBtn from 'features/Blog/BlogDetailControls/BlogDetailEditBtn';
 
 const BlogDetail = () => {
     const { key } = useParams();
-    const { data } = useQuery({
-        queryKey: [queryKey.blogDetail],
-        queryFn: () => blogPostDetail(key),
-    });
+    const navigate = useNavigate();
+
+    const { data, isLoading, isError } = useBlogPostDetail(key);
+
+    if (isLoading) {
+        return (
+            <>
+                <SpinnerLoading />
+            </>
+        );
+    }
+    if (isError) {
+        return (
+            <>
+                <NotfoundPage redirectPath={'/blog'} />
+            </>
+        );
+    }
 
     return (
         <>
-            {data && JSON.stringify(data.resData)}
-            <QuillView contents={data?.resData.contents} />
+            {data && (
+                <>
+                    <Button onClick={() => navigate(-1)}>이전</Button>
+
+                    {/* 수정 */}
+                    <BlogDetailEditBtn postId={key} />
+
+                    {/* 삭제 */}
+                    <BlogDetailDeleteBtn postKey={key} />
+
+                    {/* Quill View */}
+                    <QuillView contents={data?.resData.contents} />
+                </>
+            )}
         </>
     );
 };

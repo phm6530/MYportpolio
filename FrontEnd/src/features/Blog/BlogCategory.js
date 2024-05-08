@@ -3,6 +3,7 @@ import InputErrorMessage from 'component/error/InputErrorMessage';
 import styled from 'styled-components';
 import useBlogCategory from './hooks/useBlogCategory';
 import { useEffect, useState } from 'react';
+import { InputLabel } from 'component/ui/TextArea';
 
 const Select = styled.select`
     background: var(--color-background-input);
@@ -28,6 +29,7 @@ const BlogCategory = ({ error, register }) => {
     return (
         <>
             <Wrapper>
+                <InputLabel>카테고리</InputLabel>
                 <Select {...register} $error={error} defaultValue="">
                     <Option value="" disabled>
                         카테고리 선택

@@ -43,28 +43,22 @@ const fetchLogout = async token => {
 
 // 토큰체크
 const tokenCheck = async () => {
-    store.dispatch(authAction.loading());
-    try {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:8080/auth`, {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+    const token = localStorage.getItem('token');
+    const response = await fetch(`http://localhost:8080/auth`, {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
 
-        if (!response.ok) {
-            const errorMessage = await response.json();
-            throw new Error(errorMessage.message);
-        }
-        store.dispatch(authAction.complete());
-        // console.log('datat ::::', data);
-        // data를 사용하거나 반환
-        return response.json();
-    } catch (error) {
-        store.dispatch(authAction.complete());
-        throw error;
+    if (!response.ok) {
+        const errorMessage = await response.json();
+        throw new Error(errorMessage.message);
     }
+    // store.dispatch(authAction.complete());
+    // console.log('datat ::::', data);
+    // data를 사용하거나 반환
+    return response.json();
 };
 
 export { tokenCheck, fetchLogout, fetchLogin };

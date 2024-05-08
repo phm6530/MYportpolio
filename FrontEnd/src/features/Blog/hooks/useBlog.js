@@ -31,11 +31,14 @@ const useBlog = () => {
 
     const search = params.get('search') || null;
 
+    const isEnabled = Boolean(item || search || category);
+
     const { data, isLoading, isSuccess, isError } = useQuery({
         queryKey: [queryKey.blog, item, category, page, search],
         queryFn: () => fetchData(item, category, page, search),
         // select: search ? selectFn : undefined,
-        staleTime: 10000,
+        staleTime: 5000,
+        enabled: isEnabled,
     });
 
     return {

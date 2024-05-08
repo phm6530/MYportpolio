@@ -1,6 +1,4 @@
-import CustomToolbar from 'component/editor/QuillCustumToolbar';
 import EditorTitle from 'component/editor/EditorTitle';
-import useKey from 'hooks/useKey';
 import BlogCategory from 'features/Blog/BlogCategory';
 import SubTitle from 'component/ui/Subtitle';
 import TestQuillEditor from 'component/editor/TestQuillEditor';
@@ -9,21 +7,29 @@ import Loading from 'component/ui/Loading';
 import { useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
 import { Button } from 'component/ui/Button';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { blogPost } from 'services/blogService';
-import { queryKey } from 'services/queryKey';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import { getContnets } from 'features/Blog/BlogUtil';
+import useBlogPostDetail from 'hooks/useBlogPostDetail';
+import useBlogPostAction from 'hooks/useBlogPostAction';
+import { useEffect, useState } from 'react';
 
 const BlogAdd = () => {
-    const navigate = useNavigate();
-    const { key: postKey } = useKey();
+    const [params] = useSearchParams();
     const auth = useSelector(state => state.authSlice);
+
+    const postId = params.get('post');
+    const editorType = params.get('type');
+
+    const { data } = useBlogPostDetail(postId);
+    const { mutate, isPending } = useBlogPostAction(editorType, postId);
+    const [postKey, setPostKey] = useState(() => editorType || uuidv4());
 
     const {
         register,
         handleSubmit,
         control,
+        reset,
         formState: { errors },
     } = useForm({
         defaultValues: {
@@ -34,41 +40,28 @@ const BlogAdd = () => {
         },
     });
 
-    const queryClient = useQueryClient();
-    const { mutate, isPending } = useMutation({
-        mutationFn: blogPost,
-        onSuccess: () => {
-            queryClient.invalidateQueries({
-                queryKey: [queryKey.blogCategory],
+    useEffect(() => {
+        // ?type=edit 시 formData에 value 삽입
+        if (editorType === 'modify' && data?.resData) {
+            const { post_title, category, subcategory, contents, imgkey } =
+                data.resData;
+            reset({
+                title: post_title,
+                category: `${category}:${subcategory}`,
+                post: contents,
+                user: auth.user,
             });
-            queryClient.invalidateQueries({ queryKey: [queryKey.blog] });
-            toast.success('블로그 글이 포스팅되었습니다.');
-            navigate('/blog?category=All');
-        },
-    });
-
-    // 썸네일 + 간략한설명 추출
-    const getContnets = post => {
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = post;
-
-        return {
-            getImg: () => {
-                const imgSelect = tempDiv.querySelector('img');
-                return imgSelect ? imgSelect.getAttribute('src') : null;
-            },
-            getText: () => {
-                const text = tempDiv.textContent;
-                return text.slice(0, 150);
-            },
-        };
-    };
+            setPostKey(imgkey);
+        }
+    }, [data, reset, editorType, auth.user]);
 
     // Sumit
     const onSubmitHandler = data => {
         const content = getContnets(data.post);
         const thumNail = content.getImg();
         const description = content.getText();
+
+        console.log(thumNail);
 
         const requestData = { ...data, key: postKey, thumNail, description };
         mutate(requestData);
@@ -93,7 +86,7 @@ const BlogAdd = () => {
                 />
 
                 {/* quill 툴바 */}
-                <CustomToolbar />
+                {/* <CustomToolbar /> */}
 
                 {/* quill 에디터 */}
                 <EditorTitle

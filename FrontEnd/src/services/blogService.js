@@ -20,14 +20,20 @@ const blogloadImage = async ({ category, key, formData }) => {
     return result;
 };
 
-const blogPost = async data => {
-    const response = await fetch(`${ENDPOINT_URL}/blog/post`, {
-        method: 'POST',
+const blogPostAction = async (data, pageType, postId) => {
+    //페이지 타입
+    const isModify = pageType === 'modify';
+    const url = `${ENDPOINT_URL}/blog/${isModify ? `modify/${postId}` : 'post'}`;
+    const method = isModify ? 'PATCH' : 'POST';
+
+    const response = await fetch(url, {
+        method: method,
         headers: {
             'ConTent-Type': 'application/json',
         },
         body: JSON.stringify(data),
     });
+
     const result = await response.json();
     if (!response.ok) {
         throw new Error(result.message);
@@ -46,4 +52,37 @@ const fetchBlogCategory = async () => {
     return { resData };
 };
 
-export { blogloadImage, blogPost, fetchBlogCategory };
+const blogPostDetail = async key => {
+    console.log('key', key);
+    try {
+        const response = await fetch(`${ENDPOINT_URL}/blog/postdetail/${key}`);
+        const result = await response.json();
+        if (!response.ok) {
+            throw new Error(result.message);
+        }
+        return result;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+const deleteBlogPost = async key => {
+    const response = await fetch(`${ENDPOINT_URL}/blog/deletepost/${key}`, {
+        method: 'delete',
+    });
+    if (!response.ok) {
+        const errorMessage = await response.json();
+        throw new Error(errorMessage.message);
+    }
+    const result = await response.json();
+    return result;
+};
+
+export {
+    blogloadImage,
+    blogPostAction,
+    fetchBlogCategory,
+    blogPostDetail,
+    deleteBlogPost,
+};

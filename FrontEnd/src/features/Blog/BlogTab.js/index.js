@@ -89,7 +89,6 @@ const BlogTab = () => {
     const [categories, setCategories] = useState(null);
 
     useEffect(() => {
-        console.log('랜더링');
         if (!isLoading) {
             setCategories(data?.resData);
         }

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Page = styled.div`
@@ -40,14 +41,15 @@ const Page = styled.div`
     }
 `;
 
-const NotfoundPage = () => {
+const NotfoundPage = ({ redirectPath }) => {
+    const navigate = useNavigate();
     return (
         <Page>
             <h1>권한이 없거나 존재하지 않는 페이지입니다.</h1>
-            <p>궁금하신 사항은 고객센터로 문의해 주시기 바랍니다</p>
-            <a className="button" href="#">
+            <p>아래의 버튼을 눌러 정상 경로로 접근 부탁드립니다.</p>
+            <button className="button" onClick={() => navigate(redirectPath)}>
                 이전화면
-            </a>
+            </button>
         </Page>
     );
 };

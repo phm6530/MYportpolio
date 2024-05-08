@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { InputStyle } from 'component/ui/TextArea';
+import { InputLabel, InputStyle } from 'component/ui/TextArea';
 import { Wrapper } from './EditorStyle';
 import InputErrorMessage from 'component/error/InputErrorMessage';
 
@@ -13,6 +13,7 @@ const EditorTitle = ({ placeholder, error, register }) => {
     return (
         <>
             <Wrapper>
+                <InputLabel>제목</InputLabel>
                 <CustomInputWrap
                     $error={error?.message}
                     placeholder={placeholder}
