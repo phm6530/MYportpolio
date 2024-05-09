@@ -29,7 +29,6 @@ const getConn = async (callback) => {
     const conn = await pool.getConnection();
     try {
         const result = await callback(conn);
-        await conn.commit();
         return result;
     } catch (error) {
         await conn.rollback();

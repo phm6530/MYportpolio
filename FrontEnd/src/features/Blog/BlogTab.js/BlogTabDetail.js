@@ -3,14 +3,14 @@ import useQueryString from '../hooks/useQueryString';
 import { useSearchParams } from 'react-router-dom';
 
 const CategoryList = styled.div`
-    height: 2rem;
-    font-size: 14px;
+    height: 2.4rem;
+    font-size: 16px;
 
     cursor: pointer;
     display: flex;
     align-items: center;
     &:hover {
-        color: #7f8fae;
+        color: var(--hover-color);
     }
 
     ${props => props.$select && `color: #7f8fae`}

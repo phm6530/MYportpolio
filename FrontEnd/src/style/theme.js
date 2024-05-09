@@ -14,18 +14,27 @@ export const GlobalStyle = createGlobalStyle`
     --color-error-secondary: #ffcece;
     --color-lightBlue  : rgb(120, 141, 170);
 
-
     --background-color-btn1 : ${({ theme }) => theme.btnBackground};
     --border--btn-type-1 : ${({ theme }) => theme.btnBorderType1};
     --background-color-box : ${({ theme }) => theme.boxBackground};
     --color-background-input : ${({ theme }) => theme.inputBackground};
 
+
+    /* quill */
     --quill-toolbar-color : ${({ theme }) => theme.toolbarColor};
     
     /* 그라디언트 */
     --gradient-title-color : ${({ theme }) => theme.gradiendtTitle};
-  }
 
+    /* border 색상 */
+    --borer-line-color : ${({ theme }) => theme.borderColor};
+
+    /* Description Color */
+    --color-description-color : ${({ theme }) => theme.descriptionColor};
+
+    /* tab or list hover color */
+    --hover-color : #7f8fae;
+  }
 
   body {
     color: var(--color-text);
@@ -39,7 +48,6 @@ export const lightTheme = {
     backgroundColor: '#FFF',
     asdf: '#ebe5e5',
     descriptionColor: '#888c94',
-
     boxBackground: '#fff',
 
     // input
@@ -49,7 +57,7 @@ export const lightTheme = {
     inputBackground: '#fcfeff',
 
     // errorColor
-    tabCnt: 'rgb(102, 179, 255)',
+    tabCnt: 'rgb(60 114 166)',
 
     tagColor: 'rgb(139 122 202);',
     tagBackground: 'rgb(226 226 226 / 32%)',
@@ -63,13 +71,16 @@ export const lightTheme = {
     toolbarColor: '#444',
 
     gradiendtTitle: 'linear-gradient(to left, #7264ef, #7264ef, #dd8efc)',
+
+    // border line Style
+    borderColor: 'rgba(61 71 81 / 14%)',
 };
 
 export const darkTheme = {
-    textColor: '#FFF',
+    textColor: '#d3d3d3',
     backgroundColor: '#0f1214',
     asdf: '#454545',
-    descriptionColor: '#c9c9c9',
+    descriptionColor: '#c5c5c5',
     boxBackground: 'rgb(11, 13, 14)',
 
     // input
@@ -92,4 +103,7 @@ export const darkTheme = {
 
     toolbarColor: 'rgb(120, 141, 170)',
     gradiendtTitle: 'linear-gradient(to left, #64c7ef, #a9a5cc, #8e9bfc)',
+
+    // border line Style
+    borderColor: 'rgba(61 71 81 / 72%)',
 };

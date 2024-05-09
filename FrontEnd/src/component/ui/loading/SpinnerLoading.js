@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { CircularProgress, Box } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 const SpinnerStyle = styled.div`
     display: flex;
     align-items: center;

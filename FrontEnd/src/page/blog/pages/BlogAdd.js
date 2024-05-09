@@ -2,7 +2,6 @@ import EditorTitle from 'component/editor/EditorTitle';
 import BlogCategory from 'features/Blog/BlogCategory';
 import SubTitle from 'component/ui/Subtitle';
 import TestQuillEditor from 'component/editor/TestQuillEditor';
-import Loading from 'component/ui/Loading';
 
 import { useSelector } from 'react-redux';
 import { Controller, useForm } from 'react-hook-form';
@@ -13,6 +12,7 @@ import { getContnets } from 'features/Blog/BlogUtil';
 import useBlogPostDetail from 'hooks/useBlogPostDetail';
 import useBlogPostAction from 'hooks/useBlogPostAction';
 import { useEffect, useState } from 'react';
+import DotLoading from 'component/ui/loading/DotLoading';
 
 const BlogAdd = () => {
     const [params] = useSearchParams();
@@ -69,7 +69,7 @@ const BlogAdd = () => {
 
     return (
         <>
-            {isPending && <Loading />}
+            {isPending && <DotLoading />}
             <SubTitle>
                 <div className="subText">
                     <span className="point">BLOG POST</span>

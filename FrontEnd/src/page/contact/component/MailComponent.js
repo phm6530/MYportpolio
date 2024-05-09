@@ -5,11 +5,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import alertThunk from '../../../store/alertTrunk';
-import Loading from 'component/ui/Loading';
 import ErrorBubble from 'component/error/ErrorBubble';
 import SubTitle from '../../../component/ui/Subtitle';
 import { Button } from '../../../component/ui/Button';
 import { FaCheck } from 'react-icons/fa';
+import DotLoading from 'component/ui/loading/DotLoading';
 
 const FormStyle = styled.form`
     display: flex;
@@ -159,7 +159,7 @@ export default function MailComponent() {
 
     return (
         <>
-            {mailSubmit && <Loading Message={'메일 전송중...'} />}
+            {mailSubmit && <DotLoading Message={'메일 전송중...'} />}
             <ContactContents>
                 <FormStyle onSubmit={handleSubmit(onSubmitHandler)}>
                     <SubTitle>

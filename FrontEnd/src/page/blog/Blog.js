@@ -9,6 +9,8 @@ import { Tab } from 'features/Blog/BlogCommonStyle.js';
 import BlogTab from 'features/Blog/BlogTab.js/index.js';
 import BlogRoutes from 'Route/BlogRoutes';
 
+import BlogNewPostList from 'features/Blog/BlogNewPostList';
+
 const Blog = () => {
     return (
         <>
@@ -28,6 +30,9 @@ const Blog = () => {
                     {/* Blog LayOut */}
                     <Tab>
                         <BlogTab />
+
+                        {/* 최신글 */}
+                        <BlogNewPostList />
                     </Tab>
                     <BlogRoutes />
                 </BoardWrapper>

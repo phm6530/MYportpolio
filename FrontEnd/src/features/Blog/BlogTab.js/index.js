@@ -6,20 +6,21 @@ import { LuMinus } from 'react-icons/lu';
 import { GoPlus } from 'react-icons/go';
 import useBlogCategory from '../hooks/useBlogCategory';
 
-const ListWapper = styled.div`
+const ListWrapper = styled.div`
     overflow: hidden;
     padding-left: 1rem;
-    max-height: ${props => (props.$view ? `${props.$height}px` : '0')};
+    height: ${props =>
+        props.$first ? 'auto' : props.$view ? `${props.$height + 20}px` : '0'};
     transition: 0.3s ease;
-    border-bottom: 1px solid ${({ theme }) => theme.asdf};
+    border-bottom: 1px solid var(--borer-line-color); // 변수명 오타 수정 "borer" -> "border"
 `;
 
 const CateGory = styled.div`
-    font-size: 14px;
+    font-size: 16px;
     padding: 1rem 0;
     display: flex;
     align-items: center;
-
+    font-weight: bold;
     justify-content: space-between;
 `;
 const Cnt = styled.span`
@@ -67,7 +68,12 @@ const AccodianTab = ({ list, open, idx, category }) => {
                 {idx !== 0 ? !view ? <GoPlus /> : <LuMinus /> : undefined}
             </CateGory>
 
-            <ListWapper $view={view} ref={ref} $height={height}>
+            <ListWrapper
+                $first={idx === 0}
+                $view={view}
+                ref={ref}
+                $height={height}
+            >
                 {Object.keys(list).map((item, idx) => {
                     return (
                         <BlogTabDetail
@@ -79,7 +85,7 @@ const AccodianTab = ({ list, open, idx, category }) => {
                         />
                     );
                 })}
-            </ListWapper>
+            </ListWrapper>
         </>
     );
 };

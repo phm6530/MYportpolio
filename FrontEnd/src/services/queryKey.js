@@ -11,4 +11,6 @@ export const queryKey = {
     blogCategory: 'blogCategory',
     blogImageUpload: 'blogImageUpload',
     blogDetail: 'blogDetail',
+    blogNewPostLIst: 'blogNewPostLIst',
+    blogRelated: 'blogRelated',
 };

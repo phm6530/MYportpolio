@@ -11,7 +11,6 @@ const FooterStyle = styled.div`
     span {
         font-size: 12px;
         opacity: 0.9;
-        color: #000;
     }
 `;
 const FooterIconAlign = styled.div`
@@ -23,16 +22,16 @@ const FooterIcon = styled.div`
     cursor: pointer;
     width: 40px;
     height: 40px;
-    color: #000;
     /* background: #fff; */
     margin-right: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--borer-line-color);
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 100%;
     img {
         width: 15px;
+        filter: invert(1);
     }
 `;
 
@@ -50,7 +49,7 @@ const FooterList = styled.div`
 
         &::after {
             content: '';
-            border-left: 1px solid rgba(0, 0, 0, 0.5);
+            border-left: 1px solid var(--borer-line-color);
             display: block;
             position: absolute;
             top: 50%;

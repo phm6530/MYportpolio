@@ -14,6 +14,7 @@ const EditorStyle = styled.div`
 
 const ReactQuillStyle = styled(ReactQuill)`
     /* background: var(--color-background-input); */
+    font-size: 14px;
     .ql-editor {
         min-height: 500px !important;
         line-height: 1.8 !important;

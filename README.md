@@ -33,6 +33,7 @@
    > npm install @mui/icons-material *MUI 아이콘 패키지
    > npm install @fontsource/roboto /폰트 애초에 기본폰트가 로보토임
    > npm install notistack // MUI Toast + notistack로 에러 효과 처리
+   > Highlight.js + quill
    > [tanstack/query]
    > lodash > 쓰로틀링
 

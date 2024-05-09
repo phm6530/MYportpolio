@@ -2,7 +2,7 @@ require('dotenv').config();
 const { DUMMY_DATA } = require('../DUMMY_DATA');
 
 const { pageCalculator } = require('../featrues/common/paging');
-const { searchFilter, queryStringFilter } = require('../featrues/common/filter');
+const { query } = require('../util/configg');
 
 const parametersAuth = (category, itemParam) => {
     const validCategories = new Set(DUMMY_DATA.map((item) => item.cateGory.toLowerCase()));
@@ -128,62 +128,23 @@ const postUpdate = async (conn, body, postId) => {
     await conn.query(sql_thumNail, [thumNail, postId]);
 };
 
-const rendingData = async (conn, req) => {
-    const page = req.params.page; // 페이지
+//rending Data
+const renderingData = async (conn, req) => {
+    console.log('호출됨?');
+    const page = parseInt(req.params.page, 10); // 페이지
     const category = req.query.category.toLocaleLowerCase(); //category
     const item = req.query.item === 'null' ? null : req.query.item; // subCategory
     const search = req.query.search === 'null' ? null : req.query.search;
 
-    const idxCalculator = (curPage, limit) => {
-        const first_idx = (curPage - 1) * limit;
-        const last_idx = curPage * limit;
-        return { first_idx, last_idx };
-    };
-
-    const limit = 9;
-    const { first_idx, last_idx } = idxCalculator(page, limit);
-
-    // 쿼리 파라미터
-    const params_postList = [last_idx, first_idx];
-    const params_cnt = [];
-
-    // if (category || itemParam) {
-    //     parametersAuth(category, item);
-    // }
-
-    let query = '';
-    let query_cnt = '';
-    if (category !== 'all') {
-        query = 'where bc.category_name = ? and bs.subcategory_name = ?';
-        query_cnt = 'where bc.category_name =? and bs.subcategory_name = ?';
-        params_postList.unshift(category, item);
-        params_cnt.push(category, item);
+    if (isNaN(page) || page < 1) {
+        throw new Error('정상적인 경로가 아닙니다.');
     }
 
-    const sql_getlistCount = `
-        select count(*) as cnt from blog_metadata bm 
-        join 
-            blog_categories bc on bm.category_id = bc.category_id
-        join 
-            blog_subcategories bs on bm.subcategory_id = bs.subcategory_id
-        ${query_cnt};
-    `;
+    // 쿼리 파라미터
+    const baseParams = [];
 
-    const [cnt] = await conn.query(sql_getlistCount, params_cnt);
-    console.log(cnt);
-
-    console.log(params_postList);
-
-    const sql_getPostlist = `
-        select 
-        bm.post_id as post_id , 
-        bm.post_title as post_title , 
-        bm.post_description as description , 
-        bm.create_at as date , 
-        bt.thumnail_url as thumnail ,
-        bc.category_name as category ,
-        bs.subcategory_name as subcategory 
-        
+    //baseSQL
+    let baseQuery = `        
         from 
             blog_metadata bm 
         join 
@@ -192,13 +153,48 @@ const rendingData = async (conn, req) => {
             blog_categories bc on bm.category_id = bc.category_id
         join 
             blog_subcategories bs on bm.subcategory_id = bs.subcategory_id 
-        ${query}
-        order by post_id desc limit ? offset ?;
+        where 
+            1=1
     `;
 
-    console.log(category, item, first_idx, last_idx);
+    // 카테고리 필터
+    if (category !== 'all') {
+        baseQuery += 'AND bc.category_name = ? AND bs.subcategory_name = ?';
+        baseParams.push(category, item);
+    }
 
-    const [rows] = await conn.query(sql_getPostlist, params_postList);
+    // 검색 필터
+    if (!!search) {
+        baseQuery += `AND bm.post_title like ?`;
+        baseParams.push(`%${search}%`);
+    }
+
+    //처음 + 마지막 인덱스 계산
+    const idxCalculator = (curPage, listCnt) => {
+        return (curPage - 1) * listCnt;
+    };
+
+    const reqSql_getlistCount = `
+        select count(*) as cnt ${baseQuery}
+    `;
+    const reqSql_getPostlist = `
+        select 
+        bm.post_id as post_id , 
+        bm.post_title as post_title , 
+        bm.post_description as description , 
+        bm.create_at as date , 
+        bt.thumnail_url as thumnail ,
+        bc.category_name as category ,
+        bs.subcategory_name as subcategory
+        ${baseQuery}
+        ORDER BY post_id DESC limit ? offset ?
+    `;
+
+    const limit = 9;
+    const offset_idx = idxCalculator(page, limit);
+
+    const [cnt] = await conn.query(reqSql_getlistCount, baseParams);
+    const [rows] = await conn.query(reqSql_getPostlist, [...baseParams, limit, offset_idx]);
 
     // 전체페이지
     const getPaging = (cnt, limit) => {
@@ -207,9 +203,6 @@ const rendingData = async (conn, req) => {
     };
 
     const paging = getPaging(cnt[0].cnt, limit);
-
-    // const result = await getBlogPosts(DUMMY_DATA, page, category, item, search);
-    // console.log(result);
 
     const result = { data: rows, paging };
     return result;
@@ -273,7 +266,8 @@ const getDetail = async (conn, key) => {
             bp.contents as contents,
             bc.category_name as category,
             bs.subcategory_name as subcategory,
-            bp.contents_key as imgkey
+            bp.contents_key as imgkey,
+            bm.update_at as update_date
             from 
                 blog_metadata bm 
             join 
@@ -286,7 +280,6 @@ const getDetail = async (conn, key) => {
     `;
 
     const [row] = await conn.query(sql_postDetail, [key]);
-    console.log(row);
 
     if (row.length === 0) {
         throw new Error('삭제되었거나 없는 게시물입니다.');
@@ -297,7 +290,7 @@ const getDetail = async (conn, key) => {
 module.exports = {
     getBlogPosts,
     postInsert,
-    rendingData,
+    renderingData,
     blogtabService,
     getDetail,
     postUpdate,

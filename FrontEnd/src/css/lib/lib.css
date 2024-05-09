@@ -32,6 +32,10 @@
   z-index: 1;
 }
 
+.ql-snow .ql-editor pre.ql-syntax {
+  border-radius: 1rem;
+}
+
 .skill_Item {
   display: inline-block;
   color: #555969;

@@ -6,8 +6,11 @@ const BlogController = require('../Controller/blogController');
 const { blogUpload } = require('../config/fileUploadConfig');
 
 router.get('/tab', BlogController.fetchCategoryList);
-router.get('/:page', BlogController.fetchBlogPosts);
+router.get('/posts/newlist', BlogController.fetchNewpostList);
+router.get('/posts/:page', BlogController.fetchBlogPosts);
 router.post('/post', BlogController.createBlogPost);
+
+router.get('/posts/:id/related', BlogController.fetchPostRelated);
 
 router.get('/postdetail/:key', BlogController.fetchPostDetail);
 router.delete('/deletepost/:key', BlogController.deletePostDetail);

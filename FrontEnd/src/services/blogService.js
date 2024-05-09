@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { ENDPOINT_URL } from 'constants/apiUrl';
 
 const blogloadImage = async ({ category, key, formData }) => {
@@ -79,10 +80,52 @@ const deleteBlogPost = async key => {
     return result;
 };
 
+const fetchNewPostlist = async () => {
+    try {
+        const result = await axios.get(`${ENDPOINT_URL}/blog/posts/newlist`);
+        return result;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+const fetchPostRelated = async postId => {
+    console.log(postId);
+    try {
+        const result = await axios.get(
+            `${ENDPOINT_URL}/blog/posts/${postId}/related`,
+        );
+        return result;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+// 전체 리스트
+const fetchBlogPageData = async (item, category, page = 1, search) => {
+    const queryParams = new URLSearchParams({
+        category,
+        item,
+        search,
+    }).toString();
+    const response = await fetch(
+        `http://localhost:8080/blog/posts/${page}?${queryParams}`,
+    );
+
+    if (!response.ok) {
+        const errorMessage = await response.json();
+        throw new Error(errorMessage.message);
+    }
+    return response.json();
+};
+
 export {
     blogloadImage,
     blogPostAction,
     fetchBlogCategory,
     blogPostDetail,
     deleteBlogPost,
+    fetchNewPostlist,
+    fetchBlogPageData,
+    fetchPostRelated,
 };

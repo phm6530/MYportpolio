@@ -1,5 +1,5 @@
 const { NotFoundError } = require('../util/error');
-const { postInsert, postUpdate, rendingData, blogtabService, getDetail } = require('../service/blogService');
+const { postInsert, postUpdate, renderingData, blogtabService, getDetail } = require('../service/blogService');
 const { runTransaction, getConn } = require('../service/databaseService');
 
 // 동적 탭
@@ -21,7 +21,7 @@ const fetchCategoryList = async (_, res, next) => {
 const fetchBlogPosts = async (req, res, next) => {
     try {
         const { data, paging } = await runTransaction(async (conn) => {
-            return rendingData(conn, req);
+            return renderingData(conn, req);
         });
         res.json({ message: 'success', resData: data, paging });
     } catch (error) {
@@ -80,10 +80,13 @@ const deletePostDetail = async (req, res, next) => {
         const result = await getConn(async (conn) => {
             const key = req.params.key;
             const sql_detetePost = 'delete from blog_metadata where post_id = ?;';
+
             const [row] = await conn.query(sql_detetePost, [key]);
+
             const isDelete = await row.affectedRows;
             return isDelete === 1 ? true : false;
         });
+
         res.status(200).json({ message: 'success', result });
     } catch (error) {
         const err = new NotFoundError(error.message);
@@ -107,6 +110,62 @@ const patchPostDetail = async (req, res, next) => {
     }
 };
 
+const fetchNewpostList = async (_, res, next) => {
+    try {
+        const result = await getConn(async (conn) => {
+            const sql_getNewpost = `
+            select 
+                post_id,
+                post_title,
+                post_description,
+                create_at
+            from
+                blog_metadata
+            order by post_id desc limit ? offset 0;`;
+            const [rows] = await conn.query(sql_getNewpost, [5]);
+            return rows;
+        });
+
+        res.status(200).json({ message: 'success', resData: result });
+    } catch (error) {
+        next(new NotFoundError(error.message));
+    }
+};
+
+const fetchPostRelated = async (req, res, next) => {
+    try {
+        const postId = req.params.id;
+
+        const result = await getConn(async (conn) => {
+            const sql_RelatedList = `
+            select 
+                bm2.post_id,
+                bm2.post_title,
+                bm2.create_at,
+                bt.thumnail_url
+                from
+                blog_metadata bm1
+            join
+                blog_metadata bm2 on bm1.category_id = bm2.category_id AND bm1.subcategory_id = bm2.subcategory_id 
+            join 
+                blog_thumnail bt on bm2.post_id = bt.post_id
+            where
+                bm1.post_id = ? AND bm2.post_id <> ?
+            order by 
+                post_id desc limit ? offset 0;
+            `;
+            const [rows] = await conn.query(sql_RelatedList, [postId, postId, 3]);
+            ``;
+            return rows;
+        });
+
+        res.status(200).json({ message: 'success', resData: result });
+    } catch (error) {
+        const err = new NotFoundError(error.message);
+        next(err);
+    }
+};
+
 module.exports = {
     fetchCategoryList,
     fetchBlogPosts,
@@ -115,4 +174,6 @@ module.exports = {
     fetchPostDetail,
     deletePostDetail,
     patchPostDetail,
+    fetchNewpostList,
+    fetchPostRelated,
 };

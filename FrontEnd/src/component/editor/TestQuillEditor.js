@@ -14,6 +14,7 @@ const EditorStyle = styled.div`
     /* padding: 2rem 0; */
 `;
 const Toolbar = styled.div``;
+
 const ReactQuillStyle = styled(ReactQuill)`
     /* background: var(--color-background-input); */
     .ql-toolbar {
@@ -43,6 +44,7 @@ const ReactQuillStyle = styled(ReactQuill)`
     .ql-editor {
         min-height: 500px !important;
         line-height: 1.8 !important;
+        font-size: 14px;
         font-family: 'Poppins', 'SUIT-Regular', sans-serif;
     }
     .ql-align-center {

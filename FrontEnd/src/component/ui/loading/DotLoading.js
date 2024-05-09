@@ -66,7 +66,7 @@ const LoadingComponent = ({ Message }) => {
     );
 };
 
-export default function Loading({ Message }) {
+export default function DotLoading({ Message }) {
     return ReactDom.createPortal(
         <LoadingComponent Message={Message} />,
         document.getElementById('alert-root'),
