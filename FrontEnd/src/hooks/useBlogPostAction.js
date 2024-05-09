@@ -15,6 +15,9 @@ const useBlogPostAction = (pageType, postId) => {
                 queryKey: [queryKey.blogCategory],
             });
             queryClient.invalidateQueries({ queryKey: [queryKey.blog] });
+            queryClient.invalidateQueries({
+                queryKey: [queryKey.blogNewPostLIst],
+            });
             toast.success('블로그 글이 포스팅되었습니다.');
             navigate('/blog?category=All');
         },

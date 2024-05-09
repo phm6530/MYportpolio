@@ -24,6 +24,11 @@ const useBlogPostDelete = postKey => {
             queryClient.invalidateQueries({
                 queryKey: [queryKey.blogCategory],
             });
+
+            queryClient.invalidateQueries({
+                queryKey: [queryKey.blogNewPostLIst],
+            });
+
             navigate('/blog');
         },
     });
