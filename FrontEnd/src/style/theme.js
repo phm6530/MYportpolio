@@ -19,7 +19,12 @@ export const GlobalStyle = createGlobalStyle`
     --background-color-box : ${({ theme }) => theme.boxBackground};
     --color-background-input : ${({ theme }) => theme.inputBackground};
 
-
+    /* box Shadow */
+    --box-shadow-style : ${({ theme }) => theme.div_BoxShaodw};
+    
+    /* searchStyle */
+    --search-border-color : ${({ theme }) => theme.searchBorder};
+    --search-Background-color :${({ theme }) => theme.searchBackground};
     /* quill */
     --quill-toolbar-color : ${({ theme }) => theme.toolbarColor};
     
@@ -34,6 +39,7 @@ export const GlobalStyle = createGlobalStyle`
 
     /* tab or list hover color */
     --hover-color : #7f8fae;
+
   }
 
   body {
@@ -47,11 +53,13 @@ export const lightTheme = {
     textColor: '#333',
     backgroundColor: '#FFF',
     asdf: '#ebe5e5',
-    descriptionColor: '#888c94',
+    descriptionColor: '#63676f',
     boxBackground: '#fff',
 
     // input
-    searchBackground: '#fbfbfb',
+    searchBackground: '#fcfcfc',
+    searchBorder: '1px solid transparent',
+
     backgroundColorType1: '#eef8ff',
 
     inputBackground: '#fcfeff',
@@ -73,22 +81,26 @@ export const lightTheme = {
     gradiendtTitle: 'linear-gradient(to left, #7264ef, #7264ef, #dd8efc)',
 
     // border line Style
-    borderColor: 'rgba(61 71 81 / 14%)',
+    borderColor: 'rgba(61 71 81 / 10%)',
+
+    div_BoxShaodw: '0 0 40px rgb(0 0 0 / 2%)',
 };
 
 export const darkTheme = {
     textColor: '#d3d3d3',
-    backgroundColor: '#0f1214',
+    backgroundColor: '#1b1d21',
     asdf: '#454545',
     descriptionColor: '#c5c5c5',
-    boxBackground: 'rgb(11, 13, 14)',
+    boxBackground: '#1b1d21',
 
     // input
-    searchBackground: '#161b24',
+    searchBackground: '#252931',
+    searchBorder: '1px solid rgb(71 77 89)',
+
     btnBackground: '#212b35',
 
     backgroundColorType1: '#353b3f',
-    inputBackground: '#262e3d',
+    inputBackground: '#1d2025',
 
     tabCnt: 'rgb(102, 179, 255)',
 
@@ -106,4 +118,5 @@ export const darkTheme = {
 
     // border line Style
     borderColor: 'rgba(61 71 81 / 72%)',
+    div_BoxShaodw: '0 -50px 40px rgba(0, 0, 0, 0.4)',
 };

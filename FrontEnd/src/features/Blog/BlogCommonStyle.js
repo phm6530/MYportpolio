@@ -3,6 +3,8 @@ import styled from 'styled-components';
 const Tab = styled.div`
     width: 14rem;
     margin-right: 4rem;
+    padding-right: 2rem;
+    box-shadow: 30px 0px 15px rgb(0 0 0 / 4%);
 `;
 
 const Contents = styled.div`
@@ -16,7 +18,7 @@ const BoardWrapper = styled.div`
     transition: all 0.5s ease;
     background: ${({ theme }) => theme.backgroundColor};
     padding: 2rem 2rem;
-    border-radius: 2.5rem;
+    border-radius: 2rem;
     min-height: 300px;
 `;
 

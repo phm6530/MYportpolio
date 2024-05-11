@@ -8,7 +8,7 @@ const StyledPagination = styled(Pagination)`
     }
 
     .Mui-selected {
-        border: 2px solid ${({ theme }) => theme.textColor}; // 문자열을 제거하고 색상 코드만 남김
+        background: #53535329 !important; // 문자열을 제거하고 색상 코드만 남김
         color: ${({ theme }) => theme.textColor}; // 선택된 페이지의 텍스트 색상
     }
 `;

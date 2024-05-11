@@ -9,9 +9,12 @@ const Search = styled.div`
     font-size: 13px;
     border-bottom: 1px solid transparent;
     transition: all 0.3s ease;
-    background: ${({ theme }) => theme.searchBackground};
+    /* border: var(--search-border-color); */
+    background: var(--search-Background-color);
     border-radius: 4rem;
     padding-left: 1rem;
+    /* border: 1px solid var(--color-lightBlue); */
+    /* background: ${({ theme }) => theme.inputBackground}; */
 
     form {
         display: flex;

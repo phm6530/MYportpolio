@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 
 const CategoryList = styled.div`
     height: 2.4rem;
-    font-size: 16px;
+    font-size: 14px;
 
     cursor: pointer;
     display: flex;

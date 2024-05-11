@@ -92,7 +92,7 @@ const RightWrap = styled.div`
     background: ${({ theme }) => theme.backgroundColor};
     padding: 2rem 2rem;
     border-radius: 1.5rem;
-    /* box-shadow: 50px 80px 15px rgba(0,0,0,0.1); */
+    box-shadow: var(--box-shadow-style);
     flex-direction: column;
 `;
 

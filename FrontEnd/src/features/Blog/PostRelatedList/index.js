@@ -4,12 +4,17 @@ import styled from 'styled-components';
 import RelatedItem from './RelatedItem';
 
 const RelatedPostsContainer = styled.div``;
+
 const ListWrapper = styled.div`
     display: flex;
     width: 100%;
     & div:last-child {
         margin-right: 0;
     }
+`;
+
+const SubCategory = styled.div`
+    margin-bottom: 1rem;
 `;
 
 const PostRelatedList = () => {
@@ -22,7 +27,7 @@ const PostRelatedList = () => {
         <>
             {relatedList.length !== 0 && (
                 <RelatedPostsContainer>
-                    관련 포스트
+                    <SubCategory>관련 포스트</SubCategory>
                     <ListWrapper>
                         {relatedList.map(item => {
                             console.log(item);

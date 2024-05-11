@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import Thumbnail from 'component/ui/Thumbnail';
 import { useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
+import { HashTag } from 'component/CommonStyle';
 
 const Container = styled.div`
     display: flex;
@@ -8,7 +10,23 @@ const Container = styled.div`
 
     margin-right: 2rem;
     cursor: pointer;
-    width: calc(33.333% - 2rem);
+    width: calc(25% - 2rem);
+`;
+
+const Summary = styled.div`
+    margin-top: 0.7rem;
+    .title {
+        font-size: 0.8rem;
+    }
+    .date {
+        font-size: 0.8rem;
+        opacity: 0.4;
+    }
+`;
+
+const ThumbnailCustom = styled(Thumbnail)`
+    height: 8.6rem !important;
+    border-radius: 2px;
 `;
 
 const RelatedItem = ({ props }) => {
@@ -16,9 +34,12 @@ const RelatedItem = ({ props }) => {
     const { post_id, post_title, create_at, thumnail_url } = props;
     return (
         <Container onClick={() => navigate(`/blog/${post_id}`)}>
-            <Thumbnail img={thumnail_url} />
-            {post_title}
-            {create_at}
+            <ThumbnailCustom img={thumnail_url} />
+            <Summary>
+                <div className="title">{post_title}</div>
+
+                <div className="date">{format(create_at, 'yyyy-MM-dd')}</div>
+            </Summary>
         </Container>
     );
 };

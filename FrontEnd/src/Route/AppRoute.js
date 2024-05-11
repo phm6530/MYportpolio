@@ -2,7 +2,7 @@ import Motion from 'component/animations/Motion';
 import { AnimatePresence } from 'framer-motion';
 import { useLocation, Route, Routes } from 'react-router-dom';
 
-import HomeComponent from 'page/Home/HomeComponent';
+import Home from 'page/Home';
 import MySchedule from 'page/MySchedule/MySchedule';
 import Board from 'page/Board/Board';
 import Contact from 'page/contact/Contact';
@@ -16,7 +16,7 @@ const AppRoute = () => {
     const pageKey = location.pathname.split('/')[1] || 'home';
 
     const paths = [
-        { path: '/', Component: <HomeComponent /> },
+        { path: '/', Component: <Home /> },
         { path: '/project/*', Component: <Project /> },
         { path: '/myschedule/*', Component: <MySchedule /> },
         { path: '/Board', Component: <Board /> },

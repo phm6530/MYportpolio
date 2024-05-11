@@ -11,7 +11,6 @@ const Contents = styled.div`
     flex-grow: 1;
     width: 100%;
     padding-top: 2rem;
-    overflow: hidden;
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;

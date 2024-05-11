@@ -11,10 +11,8 @@ import BlogDetailDeleteBtn from 'features/Blog/BlogDetailControls/BlogDetailDele
 import BlogDetailEditBtn from 'features/Blog/BlogDetailControls/BlogDetailEditBtn';
 import PostRelatedList from 'features/Blog/PostRelatedList';
 
-import { format } from 'date-fns';
-
 import styled from 'styled-components';
-
+import SummaryData from 'features/component/SummaryDate';
 const PostTitle = styled.div`
     font-size: 2rem;
     padding: 1rem 0;
@@ -53,17 +51,15 @@ const PostDetailHeader = styled.div`
     padding-bottom: 1rem;
 `;
 
-const PostLastUpdate = styled.div`
-    font-size: 13px;
-    opacity: 0.6;
-    margin-top: 3rem;
-    padding-top: 1rem;
-    text-align: right;
-    border-top: 1px solid var(--borer-line-color);
+const QuillViewWrapper = styled.div`
+    margin-bottom: 3rem;
+    border-bottom: 1px solid var(--borer-line-color);
+    padding-bottom: 1rem;
 `;
 
-const QuillViewWrapper = styled.div`
-    margin-bottom: 5rem;
+const SummaryDataAlign = styled(SummaryData)`
+    margin-right: auto;
+    margin-left: 1rem;
 `;
 
 const BlogDetail = () => {
@@ -101,20 +97,21 @@ const BlogDetail = () => {
         <>
             {data && (
                 <div>
+                    {/* Editor View header */}
                     <PostDetailHeader>
                         <CateGroy>
                             {category} / {subcategory}
                         </CateGroy>
 
                         <PostTitle>{post_title}</PostTitle>
+
                         <PostInfo>
                             <UserPictrue>
                                 <img src="/img/me.jpg" alt="" />
                             </UserPictrue>
                             {user}
-                            <span className="create_at">
-                                {format(create_date, 'yyyy-MM-dd HH:mm:ss')}
-                            </span>
+
+                            <SummaryDataAlign date={create_date} />
                             <ControlBtnWrap>
                                 <Button onClick={() => navigate(-1)}>
                                     목록
@@ -131,10 +128,11 @@ const BlogDetail = () => {
                     <QuillViewWrapper>
                         <QuillView contents={data?.resData.contents} />
                         {update_date && (
-                            <PostLastUpdate>
-                                게시물 최근 수정 일{' '}
-                                {format(update_date, 'yyyy-MM-dd HH:mm:ss')}
-                            </PostLastUpdate>
+                            <SummaryData
+                                style={{ marginTop: '5rem', display: 'block' }}
+                                message={'게시물 최근 수정 일'}
+                                date={update_date}
+                            />
                         )}
                     </QuillViewWrapper>
 

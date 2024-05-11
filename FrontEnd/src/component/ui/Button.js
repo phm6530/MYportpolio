@@ -93,7 +93,8 @@ const BtnSubmitStyle = styled.button`
         `            
             background-color: #8B6EF2;
             color: rgba(255, 255, 255, 1);
-        `};
+    `};
+    border: 1px solid var(--borer-line-color);
 `;
 
 const SubmitButton = ({ children, active, ...props }) => {

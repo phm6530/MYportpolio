@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Fadein from 'FadeinComponent';
 import Thumbnail from 'component/ui/Thumbnail';
+import { HashTag } from 'component/CommonStyle';
+import SummaryData from 'features/component/SummaryDate';
 
 const ProjectFadeinStyle = styled(Fadein)`
     margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem;
+    padding-bottom: 2.5rem;
     display: flex;
     flex-direction: column;
     flex: 0 0 calc(33.333% - 1.34rem);
@@ -24,7 +26,7 @@ const ProjectDescription = styled.div`
     margin-bottom: 7px;
     word-break: keep-all;
     display: -webkit-box;
-    -webkit-line-clamp: 3; /* 표시할 줄 수 */
+    -webkit-line-clamp: 2; /* 표시할 줄 수 */
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -37,6 +39,7 @@ const ProjectItemHeaderStyle = styled.div`
     font-size: 1rem;
     font-weight: bold;
     letter-spacing: -0.7px;
+    align-items: center;
 `;
 
 const ContentsWrap = styled.div`
@@ -46,42 +49,44 @@ const ContentsWrap = styled.div`
     flex-grow: 1;
 `;
 
-const CreateDate = styled.div`
-    margin-top: 0.5rem;
+const CreateDate = styled(SummaryData)`
     font-size: 12px;
     opacity: 0.5;
-    font-weight: b;
+`;
+const HasTagCustom = styled(HashTag)`
+    background: #4131b3;
+    font-weight: normal;
+    top: 10px;
+    left: 10px;
+    font-size: 10px;
+    border-radius: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    margin-bottom: 0;
 `;
 
 const BlogItem = ({ item }) => {
-    const { post_id, thumnail, post_title, description, date } = item;
+    const { post_id, thumnail, post_title, description, date, subcategory } =
+        item;
     const navigate = useNavigate();
-
     return (
         <ProjectFadeinStyle onClick={() => navigate(`${post_id}`)}>
             {/* 썸네일  */}
-            <Thumbnail img={thumnail} />
+            <Thumbnail img={thumnail} badge={subcategory} />
             <ContentsWrap>
                 {/* Header */}
 
-                <ProjectItemHeaderStyle>{post_title}</ProjectItemHeaderStyle>
+                <ProjectItemHeaderStyle>
+                    {/* <HasTagCustom>{subcategory}</HasTagCustom> */}
+                    {post_title}
+                </ProjectItemHeaderStyle>
 
                 {/* Company */}
                 <ProjectDescription>{description}</ProjectDescription>
-                {/* <div className="hashTag">{hashTag}</div> */}
-                <CreateDate>{date}</CreateDate>
+                {/* <HashTag>{subcategory}</HashTag> */}
 
-                {/* <div>
-                    {hashtag &&
-                        hashtag.map((e, idx) => (
-                            <HashtageStyle
-                                className="hashTag"
-                                key={`hash-${idx}`}
-                            >
-                                # {e}
-                            </HashtageStyle>
-                        ))}
-                </div> */}
+                <CreateDate date={date} />
             </ContentsWrap>
         </ProjectFadeinStyle>
     );

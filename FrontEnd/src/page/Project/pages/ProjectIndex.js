@@ -28,13 +28,14 @@ const ProjectListStyle = styled.div`
     flex-direction: row;
     border-radius: 1em;
     background: var(--background-color-box);
-    border: var(--border--btn-type-1);
+    /* border: var(--border--btn-type-1); */
     flex-grow: 1;
     overflow: hidden;
     padding: 2rem 2rem;
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
+    box-shadow: var(--box-shadow-style);
 `;
 
 const FlexRow = styled.div`
@@ -83,7 +84,8 @@ export default function ProjectIndex() {
             <ProjectListStyle>
                 <SubTitle>
                     <div className="subText">
-                        <span className="point">MY PORTPOLIO</span> LIST
+                        <span className="point">MY PORTPOLIO</span>{' '}
+                        <span style={{ marginRight: 'auto' }}>LIST</span>
                     </div>
 
                     {/* add Project */}
