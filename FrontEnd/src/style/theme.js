@@ -1,6 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
+
  :root {
     --color-white: rgb(182, 190, 201);
     --color-text: ${({ theme }) => theme.textColor};
@@ -25,6 +26,7 @@ export const GlobalStyle = createGlobalStyle`
     /* searchStyle */
     --search-border-color : ${({ theme }) => theme.searchBorder};
     --search-Background-color :${({ theme }) => theme.searchBackground};
+
     /* quill */
     --quill-toolbar-color : ${({ theme }) => theme.toolbarColor};
     

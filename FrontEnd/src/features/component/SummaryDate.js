@@ -14,7 +14,7 @@ const SummaryData = ({ className, message, date, ...rest }) => {
     return (
         <PostLastUpdate className={className} {...rest}>
             {message && <span>{message}</span>}
-            {format(date, 'yyyy-MM-dd HH:mm:ss')}
+            {format(date, 'yyyy. MM. dd HH:mm:ss')}
         </PostLastUpdate>
     );
 };

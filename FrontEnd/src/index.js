@@ -3,25 +3,12 @@ import ReactDOM from 'react-dom/client';
 import './css/index.css';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
-import { ReactQuery } from 'lib/lib';
-import { queryClient } from 'react-query/queryClient';
-import { ThemeProvider } from '@mui/material';
-import { ToastContainer } from 'react-toastify';
-import theme from 'utils/theme';
-import { toastConfig } from 'utils/toast';
 
-// 전역 쿼리 설정
-const { QueryClientProvider } = ReactQuery;
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
 root.render(
-    <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={theme}>
-            <App />
-            <ToastContainer {...toastConfig} />
-            {/* 에러메세지 */}
-        </ThemeProvider>
-    </QueryClientProvider>,
+    <>
+        <App />
+    </>,
 );
 
 // If you want to start measuring performance in your app, pass a function
