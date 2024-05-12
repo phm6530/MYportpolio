@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
-
  :root {
     --color-white: rgb(182, 190, 201);
     --color-text: ${({ theme }) => theme.textColor};
@@ -47,7 +46,11 @@ export const GlobalStyle = createGlobalStyle`
   body {
     color: var(--color-text);
     background: var(--color-background);
-    transition: background .5s ease;
+  }
+
+  /* 초기 변환 트랜지션 방지 */
+  body.enable-transition {
+    transition: background 0.5s ease;
   }
 `;
 
