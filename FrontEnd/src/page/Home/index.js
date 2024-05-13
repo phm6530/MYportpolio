@@ -1,8 +1,6 @@
-import VideoCanvas from 'component/common/VideoCanvas';
-import BannerCommon from 'component/ui/BannerCommon';
-import DashBoard from 'component/ui/DashBoard';
 import DashBoardTitle from 'component/ui/DashBoardTitle';
 import { Grid } from 'component/ui/Grid';
+import MainNavs from 'features/Main/MainNavs';
 import styled from 'styled-components';
 
 const HomeContainer = styled.div`
@@ -15,11 +13,12 @@ const Home = () => {
         <HomeContainer>
             <Grid>
                 <DashBoardTitle>
-                    <b>FRONTEND DEVELOPER</b>
+                    <b>PORTPOLIO</b>
                 </DashBoardTitle>
-                <DashBoardTitle>
+                <MainNavs />
+                {/* <DashBoardTitle>
                     <b>FRONTEND DEVELOPER</b>
-                </DashBoardTitle>
+                </DashBoardTitle> */}
             </Grid>
         </HomeContainer>
     );

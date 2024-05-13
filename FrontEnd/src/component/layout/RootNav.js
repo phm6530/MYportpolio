@@ -16,6 +16,8 @@ import LoginForm from '../popup/login/LoginForm';
 import TopButton from 'component/ui/TopButton';
 import useUserDecoded from 'hooks/useUserDecoded';
 
+import { NavPageObject } from 'constants/pageConstacts';
+
 // Nav 선택
 const Link = ({ children, className, ...prop }) => {
     return (
@@ -52,14 +54,6 @@ export default function RootNav() {
 
     const navigate = useNavigate();
 
-    const NavPageObject = [
-        { path: '/', pathName: 'HOME', AuthPage: false },
-        { path: '/project', pathName: 'PROJECT', AuthPage: false },
-        { path: '/myschedule', pathName: 'MY Calendar', AuthPage: false },
-        { path: '/blog', pathName: 'Blog', AuthPage: false },
-        { path: '/Board', pathName: 'Board', AuthPage: false },
-        { path: '/contact', pathName: 'contact', AuthPage: false },
-    ];
     // useEffect(() => {
     //     const Top = setTimeout(() => {
     //         window.scrollTo(0, 0);

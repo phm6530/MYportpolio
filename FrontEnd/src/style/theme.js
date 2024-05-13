@@ -62,7 +62,7 @@ export const lightTheme = {
     boxBackground: '#fff',
 
     // input
-    searchBackground: '#fcfcfc',
+    searchBackground: '#f7f4f4',
     searchBorder: '1px solid transparent',
 
     backgroundColorType1: '#eef8ff',
@@ -88,11 +88,11 @@ export const lightTheme = {
     // border line Style
     borderColor: 'rgba(61 71 81 / 10%)',
 
-    div_BoxShaodw: '0 0 40px rgb(0 0 0 / 2%)',
+    div_BoxShaodw: '50px 50px 55px rgba(0, 0, 0, 0.1)',
 };
 
 export const darkTheme = {
-    textColor: '#d3d3d3',
+    textColor: '#e7e7e7',
     backgroundColor: '#1b1d21',
     asdf: '#454545',
     descriptionColor: '#c5c5c5',
@@ -123,5 +123,5 @@ export const darkTheme = {
 
     // border line Style
     borderColor: 'rgba(61 71 81 / 72%)',
-    div_BoxShaodw: '0 -50px 40px rgba(0, 0, 0, 0.4)',
+    div_BoxShaodw: '0 0px 40px rgba(0, 0, 0, 0.4)',
 };

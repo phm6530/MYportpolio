@@ -12,12 +12,12 @@ const commonStyle = css`
 
 const InputStyle = styled.input`
     ${commonStyle}
-    background: ${({ theme }) => theme.inputBackground};
+    background: var(--color-background-input);
 `;
 
 const TextAreaStyle = styled.textarea`
     ${commonStyle}
-    background: ${({ theme }) => theme.inputBackground};
+    background: var(--color-background-input);
 `;
 
 const InputLabel = styled.div`

@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux';
 
 const ProfileCard = styled.div`
     border-radius: 1em;
-    box-shadow: 50px 50px 55px rgba(0, 0, 0, 0.1);
     margin-bottom: 3rem;
     background: var(--background-color-box);
     border: var(--border--btn-type-1);
+    box-shadow: var(--box-shadow-style);
     margin-right: 2rem;
     height: 70vh;
     padding: 2rem;

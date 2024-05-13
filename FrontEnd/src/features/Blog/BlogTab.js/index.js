@@ -12,7 +12,7 @@ const ListWrapper = styled.div`
     height: ${props =>
         props.$first ? 'auto' : props.$view ? `${props.$height + 20}px` : '0'};
     transition: 0.3s ease;
-    border-bottom: 1px solid var(--borer-line-color); // 변수명 오타 수정 "borer" -> "border"
+    border-bottom: 1px solid var(--borer-line-color);
 `;
 
 const CateGory = styled.div`
