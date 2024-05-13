@@ -45,11 +45,16 @@ const DashBoardShadow = styled.div`
     background: linear-gradient(to top, #ffffff, #a1a1a16e, #000000de);
     left: 10px;
     color: transparent;
+    font-weight: bold;
     background-clip: text;
     opacity: 0;
     transition: all 0.5s cubic-bezier(0.1, 0.45, 0, 1.09);
     animation: ${animationShadow} 1s 0.7s cubic-bezier(0.1, 0.45, 0, 1.09)
         forwards;
+`;
+
+const RelativeContainer = styled.div`
+    position: relative;
 `;
 
 // ... 기존의 styled-components 정의 ...
@@ -68,14 +73,13 @@ export default function DashBoardTitle({ className, children }) {
     }, []);
 
     return (
-        <>
-            <DashBoardShadow id="dashboardShadow" className={className}>
-                {children}
-            </DashBoardShadow>
-
+        <RelativeContainer>
             <DashBoardTitleStyle className={className}>
                 {children}
             </DashBoardTitleStyle>
-        </>
+            <DashBoardShadow id="dashboardShadow" className={className}>
+                {children}
+            </DashBoardShadow>
+        </RelativeContainer>
     );
 }
