@@ -1,6 +1,6 @@
 import { NavPageObject } from 'constants/pageConstacts';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Button = styled.button`
     border-radius: 10px;
@@ -20,6 +20,26 @@ const MainNavsContainer = styled.div`
     margin-top: 1rem;
 `;
 
+const GradientStyle = css`
+    background: linear-gradient(
+        295.14deg,
+        #64c7ef 17.16%,
+        #a9a5cc 50.35%,
+        #8e9bfc 79.79%
+    );
+    span {
+        background: linear-gradient(
+            295.14deg,
+            #64c7ef 17.16%,
+            #a9a5cc 50.35%,
+            #8e9bfc 79.79%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+`;
+
 const BtnGradient = styled.div`
     display: inline-block;
     padding: 3px;
@@ -27,32 +47,17 @@ const BtnGradient = styled.div`
     margin-right: 1rem;
     transition: all 0.5s ease-in;
     background: transparent;
+    ${({ $check }) => $check && GradientStyle}
     &:hover {
-        background: linear-gradient(
-            295.14deg,
-            #64c7ef 17.16%,
-            #a9a5cc 50.35%,
-            #8e9bfc 79.79%
-        );
-        span {
-            background: linear-gradient(
-                295.14deg,
-                #64c7ef 17.16%,
-                #a9a5cc 50.35%,
-                #8e9bfc 79.79%
-            );
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+        ${GradientStyle}
     }
 `;
 
-const HomeNavBtn = ({ path, pathName }) => {
+const HomeNavBtn = ({ idx, path, pathName }) => {
     const navigate = useNavigate();
 
     return (
-        <BtnGradient>
+        <BtnGradient $check={idx === 0}>
             <Button onClick={() => navigate(path)}>
                 <span>{pathName}</span>
             </Button>
@@ -63,10 +68,11 @@ const HomeNavBtn = ({ path, pathName }) => {
 const MainNavs = () => {
     return (
         <MainNavsContainer>
-            {NavPageObject.map(e => {
+            {NavPageObject.map((e, idx) => {
                 return (
                     <HomeNavBtn
                         key={e.path}
+                        idx={idx}
                         path={e.path}
                         pathName={e.pathName}
                     />

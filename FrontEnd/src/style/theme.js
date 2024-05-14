@@ -34,6 +34,7 @@ export const GlobalStyle = createGlobalStyle`
 
     /* border 색상 */
     --borer-line-color : ${({ theme }) => theme.borderColor};
+    --borer-line-picture-color : ${({ theme }) => theme.border_picture_color};
 
     /* Description Color */
     --color-description-color : ${({ theme }) => theme.descriptionColor};
@@ -41,18 +42,36 @@ export const GlobalStyle = createGlobalStyle`
     /* tab or list hover color */
     --hover-color : #7f8fae;
 
+    /* tab or list hover color */
+    --background-disable--input : ${({ theme }) => theme.background_disable_input};
+
   }
 
   body {
     color: var(--color-text);
     overflow-x: hidden;
     background: var(--color-background);
+    font-family: 'SUIT-Regular', sans-serif;
   }
 
   /* 초기 변환 트랜지션 방지 */
-  body.enable-transition {
-    transition: background 0.5s ease;
-  }
+    body.enable-transition {
+      transition: background 0.5s ease;
+    }
+
+   /* Disable */
+   input:disabled {
+        background: var( --background-disable--input);
+        opacity: 0.5;
+    }
+    select {
+        border: none;
+        outline: none;
+    }
+
+    label {
+        display: block;
+    }
 `;
 
 export const lightTheme = {
@@ -90,6 +109,9 @@ export const lightTheme = {
     borderColor: 'rgba(61 71 81 / 10%)',
 
     div_BoxShaodw: '50px 50px 55px rgba(0, 0, 0, 0.1)',
+    background_disable_input: '#ededed',
+
+    border_picture_color: '#fff',
 };
 
 export const darkTheme = {
@@ -125,4 +147,7 @@ export const darkTheme = {
     // border line Style
     borderColor: 'rgba(61 71 81 / 72%)',
     div_BoxShaodw: '0 0px 40px rgba(0, 0, 0, 0.4)',
+    background_disable_input: '#0000004f',
+
+    border_picture_color: '#222732',
 };

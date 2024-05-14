@@ -23,7 +23,7 @@ const CurruntReplyState = styled.div`
     }
 `;
 
-export default function CommentState({ todayReply, total }) {
+export default function BoardCommentStatus({ todayReply, total }) {
     return (
         <CurruntReplyState>
             <div className="currentReply">

@@ -38,13 +38,13 @@ const ReactQuillStyle = styled(ReactQuill)`
         .ql-active rect,
         .ql-active polyline {
             color: red;
-            stroke: red !important;
+            stroke: #239bd5 !important;
         }
     }
     .ql-editor {
         min-height: 500px !important;
         line-height: 1.8 !important;
-        font-size: 14px;
+        font-size: 16px;
         font-family: 'Poppins', 'SUIT-Regular', sans-serif;
     }
     .ql-align-center {

@@ -1,20 +1,15 @@
 import styled from 'styled-components';
-import { useEffect } from 'react';
-
-import BoardCommentForm from './component/BoardCommentForm/BoardCommentForm';
-import BannerCommon from '../../component/ui/BannerCommon';
 import { PageGrid } from '../../component/ui/Grid';
+import { RightWrap } from 'features/CommonStyles';
+
+import BoardCommentForm from 'features/Board/BoardCommentForm';
+import BannerCommon from '../../component/ui/BannerCommon';
 
 import DashBoard from '../../component/ui/DashBoard';
 import DashBoardTitle from '../../component/ui/DashBoardTitle';
 import SubTitle from '../../component/ui/Subtitle';
 import UserProfile from 'component/profile/UserProfile';
-import BoardCommentList from './component/BoardCommentList/BoardCommentList';
-
-import { fetchData } from 'services/boardService';
-import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { RightWrap } from 'features/CommonStyles';
+import BoardCommentList from 'features/Board/BoardCommentList';
 
 const PageText = styled.div`
     word-break: keep-all;
@@ -38,32 +33,6 @@ const BoardDashBoard = styled.div`
 `;
 
 export default function Board() {
-    // 초기데이터 + 페이징 데이터 로드
-
-    const {
-        data: infinityData,
-        isLoading,
-        isFetching,
-        fetchNextPage,
-        hasNextPage,
-        isError,
-    } = useInfiniteQuery({
-        queryKey: ['board'],
-        queryFn: ({ pageParam = 0 }) => fetchData(pageParam),
-        getNextPageParam: lastPage => {
-            return lastPage.nextPage || undefined;
-        },
-    });
-
-    console.log('hasNextPage', hasNextPage);
-
-    useEffect(() => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth', // 부드러운 스크롤 효과 적용
-        });
-    }, []);
-
     return (
         <>
             {/* Header */}
@@ -99,16 +68,7 @@ export default function Board() {
                     <BoardCommentForm />
 
                     {/* BoardComment */}
-                    {!isLoading && !isError && (
-                        <BoardCommentList
-                            hasNextPage={hasNextPage}
-                            fetchNextPage={fetchNextPage}
-                            infinityData={infinityData}
-                            isFetching={isFetching}
-                        />
-                    )}
-
-                    {(isLoading || isFetching) && <SpinnerLoading />}
+                    <BoardCommentList />
                 </RightWrap>
             </PageGrid>
         </>

@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import CommentItem from './Detail/CommentItem';
-import FadeinComponent from 'FadeinComponent';
+import BoardComment from '../BoardComment';
 import styled from 'styled-components';
-import CommentState from './Detail/CommentState';
-// import { useIsFetching } from '@tanstack/react-query';
+
+import FadeinComponent from 'FadeinComponent';
+import BoardCommentStatus from '../BoardCommentStatus';
+import useCommentInfinity from 'features/Board/hooks/useCommentInfinity';
+import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
 
 const FirstDayStyle = styled.div`
     font-size: 1rem;
@@ -44,11 +46,15 @@ const BoardReplyWrap = styled.div`
     }
 `;
 
-export default function BoardCommentList({
-    hasNextPage,
-    fetchNextPage,
-    infinityData,
-}) {
+export default function BoardCommentList() {
+    const {
+        data: infinityData,
+        isLoading,
+        fetchNextPage,
+        hasNextPage,
+        isError,
+    } = useCommentInfinity();
+
     const [selectIdx, setSelectIdx] = useState();
     const ref = useRef();
     const dateSet = new Set();
@@ -66,10 +72,9 @@ export default function BoardCommentList({
     useEffect(() => {
         const targetItem = ref.current;
         if (!hasNextPage || !targetItem) return;
+
         const callback = async entry => {
             if (entry[0].isIntersecting) {
-                console.log('발견');
-                targetItem.style.backgroundColor = 'red';
                 fetchNextPage();
             }
         };
@@ -77,17 +82,28 @@ export default function BoardCommentList({
         const io = new IntersectionObserver(callback, {
             threshold: 0.5,
         });
-
         if (targetItem) {
             io.observe(targetItem);
         }
-
         return () => io.unobserve(targetItem);
     }, [ref, fetchNextPage, infinityData, hasNextPage]);
 
+    if (isLoading) {
+        return (
+            <>
+                <SpinnerLoading />
+            </>
+        );
+    }
+
+    if (isError) {
+        return <>Error</>;
+    }
+
     return (
         <BoardReplyWrap>
-            <CommentState
+            {/* 오늘 댓글 + 전체댓글 */}
+            <BoardCommentStatus
                 todayReply={infinityData.pages[0].todayReply}
                 total={infinityData.pages[0].counter}
             />
@@ -113,7 +129,7 @@ export default function BoardCommentList({
                                 </FirstDayStyle>
                             )}
                             <FadeinComponent>
-                                <CommentItem
+                                <BoardComment
                                     ref={lastItem ? ref : null}
                                     item={item}
                                     role={item.role}

@@ -1,5 +1,3 @@
-import { useDispatch } from 'react-redux';
-import alertThunk from '../../../../../store/alertTrunk';
 import styled from 'styled-components';
 import { Controller, useFormContext } from 'react-hook-form';
 

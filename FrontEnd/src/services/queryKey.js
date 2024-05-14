@@ -1,4 +1,6 @@
 export const queryKey = {
+    board: 'board',
+
     // another
     timer: 'ScheduleTimer',
     auth: 'auth',

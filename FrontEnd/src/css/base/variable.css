@@ -1,23 +1,5 @@
-body {
-  font-family: "SUIT-Regular", sans-serif;
-}
-
-select {
-  border: none;
-  outline: none;
-}
-
-label {
-  display: block;
-}
-
 input:focus {
   outline: none;
-}
-
-input:disabled {
-  background: #f0f0f0;
-  opacity: 0.5;
 }
 
 button {

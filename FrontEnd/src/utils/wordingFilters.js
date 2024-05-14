@@ -1,7 +1,7 @@
 const filterWord = ['돼지', '뚱땡이'];
 
 // 필터링 *** 로 변경하기
-const filterWording = word => {
+const filterBadWording = word => {
     const filteredWording = filterWord.reduce((filtering, badword) => {
         const regExp = new RegExp(badword, 'g');
         return filtering.replace(regExp, '*'.repeat(badword.length));
@@ -20,4 +20,9 @@ const findForBadword = word => {
     }
     return true;
 };
-export { filterWording, findForBadword };
+
+const scriptReplace = text => {
+    return text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+};
+
+export { filterBadWording, findForBadword, scriptReplace };

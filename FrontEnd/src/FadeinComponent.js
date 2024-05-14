@@ -58,12 +58,7 @@ const Component = styled.div`
     }}
 `;
 
-export default function FadeinComponent({
-    board,
-    position,
-    children,
-    ...props
-}) {
+const FadeinComponent = ({ board, position, children, ...props }) => {
     const ref = useRef();
     const [visible, setVisible] = useState(false);
 
@@ -89,4 +84,6 @@ export default function FadeinComponent({
             {children}
         </Component>
     );
-}
+};
+
+export default FadeinComponent;

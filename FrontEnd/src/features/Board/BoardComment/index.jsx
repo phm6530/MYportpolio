@@ -1,27 +1,18 @@
 import styled from 'styled-components';
 import * as Yup from 'yup';
 
-import { forwardRef, useEffect, useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { deleteFetch } from 'services/boardService';
-import alertThunk from '../../../../../store/alertTrunk';
-
 // icon
-import { DeleteIcon } from '../../../../../component/icon/Icon';
+import { DeleteIcon } from 'component/icon/Icon';
 import { FaCircleCheck } from 'react-icons/fa6';
-import CommentDelete from './CommentDelete';
-import { useDispatch, useSelector } from 'react-redux';
-import Popup from '../../../../../component/popup/Popup';
-import Confirm from '../../../../../component/ui/Confirm';
-import { ReactQuery } from 'lib/lib';
-import { toast } from 'react-toastify';
-import { queryClient } from 'react-query/queryClient';
-import { queryKey } from 'services/queryKey';
-import { useQueryClient } from '@tanstack/react-query';
-
-const { useMutation } = ReactQuery;
+import CommentDelete from '../BoardCommentControl/CommentDelete';
+import { useSelector } from 'react-redux';
+import Popup from 'component/popup/Popup';
+import Confirm from 'component/ui/Confirm';
+import useCommentDelete from '../hooks/useCommentDelete';
 
 const HoverStyle = ({ className, children }) => {
     return <span className={className}>{children}</span>;
@@ -117,10 +108,11 @@ const ReplyBubble = styled.div`
     }
 `;
 
-const CommentItem = forwardRef((props, ref) => {
+const BoardComment = forwardRef((props, ref) => {
     const { login } = useSelector(state => state.authSlice);
     const [modal, setModal] = useState(false);
     const { item, selectIdx, setSelectIdx, lastPageIdx, role } = props;
+    const { mutate } = useCommentDelete();
 
     const {
         user_icon,
@@ -149,16 +141,6 @@ const CommentItem = forwardRef((props, ref) => {
     const deleteHandler = key => {
         login ? setModal(true) : setSelectIdx(key);
     };
-
-    const queryclient = useQueryClient();
-
-    const { mutate } = useMutation({
-        mutationFn: formData => deleteFetch(formData),
-        onSuccess: () => {
-            toast.info('댓글이 삭제되었습니다.');
-            queryclient.invalidateQueries({ queryKey: ['board'] });
-        },
-    });
 
     return (
         <>
@@ -220,4 +202,4 @@ const CommentItem = forwardRef((props, ref) => {
     );
 });
 
-export default CommentItem;
+export default BoardComment;

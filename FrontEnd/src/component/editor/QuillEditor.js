@@ -14,11 +14,12 @@ const EditorStyle = styled.div`
 
 const ReactQuillStyle = styled(ReactQuill)`
     /* background: var(--color-background-input); */
-    font-size: 14px;
+
     .ql-editor {
         min-height: 500px !important;
         line-height: 1.8 !important;
         font-family: 'Poppins', 'SUIT-Regular', sans-serif;
+        font-size: 16px !important;
     }
     .ql-align-center {
         text-align: center;

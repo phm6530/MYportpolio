@@ -1,8 +1,8 @@
-import { forwardRef, useContext } from 'react';
+import { forwardRef } from 'react';
+import { InputStyle, TextAreaStyle } from 'component/ui/TextArea';
+
 import styled from 'styled-components';
-import { InputStyle, TextAreaStyle } from '../../../component/ui/TextArea';
 import ErrorBubble from 'component/error/ErrorBubble';
-import { useSelector } from 'react-redux';
 
 const FormInputDiv = styled.div`
     border-radius: 10px;
@@ -11,16 +11,14 @@ const FormInputDiv = styled.div`
     display: flex;
     position: relative;
     flex-direction: column;
-    /* &:last-child{
-        margin-bottom: 0;
-    } */
+
     textarea {
         width: 100%;
         min-height: 10px;
     }
+
     input:focus,
     textarea:focus {
-        /* outline : 1px solid red; */
         background: #fff;
     }
 
@@ -33,15 +31,13 @@ const FormInputDiv = styled.div`
         margin-bottom: 1px;
     }
 `;
-const InputReply = forwardRef((fields, ref) => {
-    const { darkMode } = useSelector(state => state.darkModeSlice);
+const BoardCommentInput = forwardRef((fields, ref) => {
     const { isAuth, label, error, ...props } = fields;
 
     return (
         <>
-            <FormInputDiv $darkMode={darkMode}>
+            <FormInputDiv>
                 <span>{label}</span>
-
                 {fields.type === 'textarea' ? (
                     <TextAreaStyle $error={error} {...props} />
                 ) : (
@@ -54,11 +50,10 @@ const InputReply = forwardRef((fields, ref) => {
                         {...props}
                     />
                 )}
-
                 {error && <ErrorBubble>{error.message}</ErrorBubble>}
             </FormInputDiv>
         </>
     );
 });
 
-export default InputReply;
+export default BoardCommentInput;

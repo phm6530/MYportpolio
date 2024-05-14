@@ -3,45 +3,46 @@ import MainNavs from 'features/Main/MainNavs';
 import ShootingStar from 'features/common/Animation/ShootingStar';
 import { Grid } from 'component/ui/Grid';
 import styled, { keyframes } from 'styled-components';
-
-// 빠르게 진입하는 키프레임
-const fastEntry = keyframes`
+const initialBgAni = keyframes`
   0% {
-    background-position: right bottom;
+    background-size: 120%;
   }
   100% {
-    background-position: left bottom;
+    background-size: 100%;
   }
 `;
 
-// 천천히 무한으로 진행하는 키프레임
-const slowInfinite = keyframes`
+const infiniteBgAni = keyframes`
   0% {
-    background-position: left bottom;
+    background-size: 100%;
+  }
+  50% {
+    background-size: 110%;
   }
   100% {
-    background-position: right  bottom;
+    background-size: 100%;
   }
 `;
 
 const HomeContainer = styled.div`
+    position: relative;
     padding-top: 220px;
     padding-bottom: 10rem;
+    height: 100vh;
     overflow: hidden;
     background-image: url('/img/main.jpg');
-    background-position: bottom;
-    background-size: 120%;
+    background-position: center bottom;
+    background-size: cover;
     animation:
-        ${fastEntry} 2s cubic-bezier(0.16, 0.47, 0, 1.35) forwards,
-        ${slowInfinite} 15s infinite alternate 2s;
+        ${initialBgAni} 1.5s ease forwards,
+        ${infiniteBgAni} 10s ease-in-out 1.5s infinite;
 
     &::after {
         content: '';
         position: absolute;
-        left: 0%;
+        left: 0;
         top: 0;
-
-        height: calc(100vh - 53px);
+        height: 100vh;
         width: 100%;
         background: linear-gradient(
             to right,

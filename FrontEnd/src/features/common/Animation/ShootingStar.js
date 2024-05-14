@@ -1,7 +1,9 @@
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
 const AnimationSection = styled.section`
     overflow: hidden;
+
     @keyframes animateBg {
         0%,
         100% {
@@ -26,6 +28,7 @@ const AnimationSection = styled.section`
             0 0 20px rgba(255, 255, 255, 0.1);
         animation: animate 3s linear infinite;
     }
+
     span::before {
         content: '';
         position: absolute;
@@ -35,6 +38,7 @@ const AnimationSection = styled.section`
         height: 1px;
         background: linear-gradient(90deg, #fff, transparent);
     }
+
     @keyframes animate {
         0% {
             transform: rotate(315deg) translateX(0);
@@ -48,37 +52,44 @@ const AnimationSection = styled.section`
             opacity: 0;
         }
     }
-    span:nth-child(1) {
+
+    .span-1 {
         top: 0;
         right: 0;
         left: initial;
-        animation-delay: 12s;
-        animation-duration: 1s;
     }
-    span:nth-child(2) {
+
+    .span-2 {
         top: 0;
         right: 180px;
         left: initial;
-        animation-delay: 5s;
-        animation-duration: 2s;
     }
-    span:nth-child(3) {
-        top: 80;
-        right: 0px;
+
+    .span-3 {
+        top: 80px;
+        right: 0;
         left: initial;
-        animation-delay: 5s;
-        animation-duration: 2s;
     }
 `;
 
 const ShootingStar = () => {
+    useEffect(() => {
+        const spans = document.querySelectorAll('span');
+
+        spans.forEach(span => {
+            const delay = Math.random() * 12; // 0에서 12초 사이의 랜덤 값
+            const duration = 1 + Math.random() * 2; // 1에서 3초 사이의 랜덤 값
+
+            span.style.animationDelay = `${delay}s`;
+            span.style.animationDuration = `${duration}s`;
+        });
+    }, []);
+
     return (
         <AnimationSection>
-            <section>
-                <span></span>
-                <span></span>
-                <span></span>
-            </section>
+            <span className="span-1"></span>
+            <span className="span-2"></span>
+            <span className="span-3"></span>
         </AnimationSection>
     );
 };

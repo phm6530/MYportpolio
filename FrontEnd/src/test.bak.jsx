@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
-import { fetchData } from 'services/boardService';
+import { fetchData, fetchReply } from 'services/boardService';
 
 const Wrap = styled.div`
     padding-top: 150px;
@@ -29,7 +29,7 @@ export default function InfiniteScrollTest() {
     const { data, isLoading, fetchNextPage, isFetchingNextPage } =
         useInfiniteQuery({
             queryKey: ['test'],
-            queryFn: ({ pageParam = 0 }) => fetchData(pageParam),
+            queryFn: ({ pageParam = 0 }) => fetchReply(pageParam),
             getNextPageParam: nextPage => {
                 return nextPage.nextPage || undefined;
             },
