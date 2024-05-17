@@ -5,9 +5,8 @@ import Motion from 'component/animations/Motion';
 import { useLocation } from 'react-router-dom';
 
 const Contents = styled.div`
-    flex-direction: row;
+    flex-direction: column;
     border-radius: 1em;
-    /* background: ${({ theme }) => theme.backgroundColor}; */
     flex-grow: 1;
     width: 100%;
     padding-top: 2rem;

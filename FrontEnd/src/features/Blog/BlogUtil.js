@@ -10,7 +10,7 @@ const getContnets = post => {
         },
         getText: () => {
             const text = tempDiv.textContent;
-            return text.slice(0, 150);
+            return text.slice(0, 200);
         },
     };
 };

@@ -3,7 +3,6 @@ import { PageGrid } from '../../component/ui/Grid';
 import { RightWrap } from 'features/CommonStyles';
 
 import BoardCommentForm from 'features/Board/BoardCommentForm';
-import BannerCommon from '../../component/ui/BannerCommon';
 
 import DashBoard from '../../component/ui/DashBoard';
 import DashBoardTitle from '../../component/ui/DashBoardTitle';
@@ -36,15 +35,12 @@ export default function Board() {
     return (
         <>
             {/* Header */}
-            <DashBoard page={'board'}>
-                <BannerCommon.BannerPoint>
-                    <img src="img/board.png" alt="board" />
-                    MY Board
-                </BannerCommon.BannerPoint>
-                <DashBoardTitle>
-                    <b>MY PORTPOLIO, BOARD</b>
-                </DashBoardTitle>
-            </DashBoard>
+            <DashBoard
+                pageTitle={'Board'}
+                subComment={
+                    '"방문해 주셔서 감사합니다! 간단한 메시지를 남겨주세요.'
+                }
+            />
 
             {/* Body */}
             <PageGrid>

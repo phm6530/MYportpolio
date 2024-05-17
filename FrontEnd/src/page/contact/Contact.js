@@ -15,15 +15,7 @@ const ContentsWrap = styled.div`
 export default function Contact() {
     return (
         <>
-            <DashBoard page={'Contact'}>
-                <BannerCommon.BannerPoint>
-                    <img src="img/developer.png" alt="developer" />
-                    Contact Me{' '}
-                </BannerCommon.BannerPoint>
-                <DashBoardTitle>
-                    <b>CONTACT</b>
-                </DashBoardTitle>
-            </DashBoard>
+            <DashBoard pageTitle={'CONTACT'} />
 
             <PageGrid>
                 <ContentsWrap>

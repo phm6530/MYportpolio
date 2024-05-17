@@ -1,27 +1,24 @@
 import DashBoard from 'component/ui/DashBoard';
-import BannerCommon from 'component/ui/BannerCommon';
-import DashBoardTitle from 'component/ui/DashBoardTitle';
 
 import UserProfile from 'component/profile/UserProfile';
 import ProjectRoutes from 'Route/ProjectRoutes';
 
 import { PageGrid } from 'component/ui/Grid';
+import Motion from 'component/animations/Motion';
 
 export default function Project() {
     return (
         <>
-            <DashBoard>
-                <BannerCommon.BannerPoint>
-                    <img src="/img/developer.png" alt="developer" />
-                    My Project
-                </BannerCommon.BannerPoint>
-                <DashBoardTitle>
-                    <b>PROJECT</b>
-                </DashBoardTitle>
-            </DashBoard>
+            <DashBoard
+                pageTitle={'PROJECT'}
+                // subComment={'저의 프로젝트를 기록합니다.'}
+            />
 
             <PageGrid>
-                <UserProfile />
+                {/* Common */}
+                <Motion.FadeInOut>
+                    <UserProfile />
+                </Motion.FadeInOut>
 
                 {/* Route  */}
                 <ProjectRoutes />

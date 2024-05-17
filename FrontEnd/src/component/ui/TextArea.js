@@ -5,19 +5,21 @@ const commonStyle = css`
     padding: 5px 10px;
     border-radius: 0.5em;
 
-    border: 1px solid #00000014;
+    border: 1px solid var(--borer-line-color);
     font-size: 14px;
-    ${props => props.$error && `border: 1px solid #ffcece;`}
+    ${props => props.$error && `border: 1px solid var(--color-error);`}
+    background: var(--background-field-border-color);
+    &:focus {
+        background: transparent !important;
+    }
 `;
 
 const InputStyle = styled.input`
     ${commonStyle}
-    background: var(--color-background-input);
 `;
 
 const TextAreaStyle = styled.textarea`
     ${commonStyle}
-    background: var(--color-background-input);
 `;
 
 const InputLabel = styled.div`

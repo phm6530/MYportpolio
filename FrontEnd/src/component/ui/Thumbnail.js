@@ -6,7 +6,7 @@ import { HashTag } from 'component/CommonStyle';
 
 const ThumbNailContainer = styled.div`
     width: 100%;
-    height: 12.6rem;
+    height: 10.6rem;
     position: relative;
     overflow: hidden;
     border-radius: 0.3rem;

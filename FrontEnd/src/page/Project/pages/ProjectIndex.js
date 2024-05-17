@@ -10,6 +10,7 @@ import CateGoryButton from 'component/ui/CateGoryButton';
 import { ReactQuery, ReactRouteDom } from 'lib/lib';
 import SkeletonPost from 'component/ui/loading/Skeleton';
 import SearchForm from 'component/ui/SearchForm';
+import ShootingStar from 'features/common/Animation/ShootingStar';
 
 const { useLocation, useSearchParams } = ReactRouteDom;
 const { useQuery } = ReactQuery;
@@ -27,7 +28,7 @@ const NoSeachingData = styled(FadeinComponent)`
 const ProjectListStyle = styled.div`
     flex-direction: row;
     border-radius: 1em;
-    background: var(--background-color-box);
+    background: var(--color-background);
     /* border: var(--border--btn-type-1); */
     flex-grow: 1;
     overflow: hidden;
@@ -41,7 +42,7 @@ const ProjectListStyle = styled.div`
 const FlexRow = styled.div`
     display: flex;
     width: 100%;
-
+    margin-bottom: 1rem;
     align-items: center;
 `;
 
@@ -77,11 +78,13 @@ export default function ProjectIndex() {
         return e.hashtag.includes(SeachValue);
     });
     const ProjectArr = SeachValue ? SeachArr : project;
+
     const CateGory = ['All', '반응형', 'React', '참여율 100%'];
 
     return (
         <>
             <ProjectListStyle>
+                {' '}
                 <SubTitle>
                     <div className="subText">
                         <span className="point">MY PORTPOLIO</span>{' '}
@@ -91,15 +94,12 @@ export default function ProjectIndex() {
                     {/* add Project */}
                     <AddPostBtn />
                 </SubTitle>
-
                 {/* List */}
                 <FlexRow>
                     <CateGoryButton CateGory={CateGory} type={'queryString'} />
-
                     {/* 검색창 */}
                     <SearchForm />
                 </FlexRow>
-
                 {!isLoading && SeachValue && SeachArr.length === 0 && (
                     <NoSeachingData>
                         &quot;{SeachValue}&quot; 키워드와 일치하는 항목이 없음

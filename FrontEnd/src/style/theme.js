@@ -31,10 +31,12 @@ export const GlobalStyle = createGlobalStyle`
     
     /* 그라디언트 */
     --gradient-title-color : ${({ theme }) => theme.gradiendtTitle};
+    --gradient-subtitle-color : ${({ theme }) => theme.gradiendSubTitle};
 
     /* border 색상 */
     --borer-line-color : ${({ theme }) => theme.borderColor};
     --borer-line-picture-color : ${({ theme }) => theme.border_picture_color};
+    --border-field-border-color : ${({ theme }) => theme.listColor}
 
     /* Description Color */
     --color-description-color : ${({ theme }) => theme.descriptionColor};
@@ -43,6 +45,7 @@ export const GlobalStyle = createGlobalStyle`
     --hover-color : #7f8fae;
 
     /* tab or list hover color */
+    --background-field-border-color : ${({ theme }) => theme.listBackground};
     --background-disable--input : ${({ theme }) => theme.background_disable_input};
 
   }
@@ -96,7 +99,7 @@ export const lightTheme = {
     tagBackground: 'rgb(226 226 226 / 32%)',
 
     btnBackground: '#212b35',
-    listBackground: 'rgba(29, 33, 38, 0.1)',
+    listBackground: 'rgb(255 255 255 / 10%)',
 
     listColor: 'rgba(61, 71, 81, 0.3)',
 
@@ -104,9 +107,9 @@ export const lightTheme = {
     toolbarColor: '#444',
 
     gradiendtTitle: 'linear-gradient(to left, #7264ef, #7264ef, #dd8efc)',
-
+    gradiendSubTitle: 'linear-gradient(to left, #a35d5d, #6a5f86, #5262a8)',
     // border line Style
-    borderColor: 'rgba(61 71 81 / 10%)',
+    borderColor: 'rgb(0 0 0 / 16%)',
 
     div_BoxShaodw: '50px 50px 55px rgba(0, 0, 0, 0.1)',
     background_disable_input: '#ededed',
@@ -116,7 +119,7 @@ export const lightTheme = {
 
 export const darkTheme = {
     textColor: '#e7e7e7',
-    backgroundColor: '#1b1d21',
+    backgroundColor: '#191e22',
     asdf: '#454545',
     descriptionColor: '#c5c5c5',
     boxBackground: '#1b1d21',
@@ -143,6 +146,7 @@ export const darkTheme = {
 
     toolbarColor: 'rgb(120, 141, 170)',
     gradiendtTitle: 'linear-gradient(to left, #64c7ef, #a9a5cc, #8e9bfc)',
+    gradiendSubTitle: 'linear-gradient(to left, #64c7ef, #a9a5cc, #8e9bfc)',
 
     // border line Style
     borderColor: 'rgba(61 71 81 / 72%)',

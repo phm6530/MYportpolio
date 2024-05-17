@@ -60,14 +60,14 @@ const AnimationSection = styled.section`
     }
 
     .span-2 {
-        top: 0;
+        top: -20px;
         right: 180px;
         left: initial;
     }
 
     .span-3 {
         top: 80px;
-        right: 0;
+        right: -30px;
         left: initial;
     }
 `;
@@ -77,7 +77,7 @@ const ShootingStar = () => {
         const spans = document.querySelectorAll('span');
 
         spans.forEach(span => {
-            const delay = Math.random() * 12; // 0에서 12초 사이의 랜덤 값
+            const delay = Math.random() * 2; // 0에서 12초 사이의 랜덤 값
             const duration = 1 + Math.random() * 2; // 1에서 3초 사이의 랜덤 값
 
             span.style.animationDelay = `${delay}s`;

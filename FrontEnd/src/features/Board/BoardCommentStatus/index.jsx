@@ -9,7 +9,7 @@ const CurruntReplyState = styled.div`
         margin-right: 10px;
         background: #e6e6e6;
         color: #fff;
-        background: linear-gradient(to left, #a35d5d, #6a5f86, #5262a8);
+        background: var(--gradient-subtitle-color);
         color: transparent;
         background-clip: text;
         position: relative;

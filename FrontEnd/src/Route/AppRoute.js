@@ -10,7 +10,6 @@ import InfiniteScrollTest from 'test.bak';
 import NotfoundPage from 'component/error/NotfoundPage';
 import Blog from 'page/blog/Blog';
 import Project from 'page/Project';
-import { useEffect } from 'react';
 
 const AppRoute = () => {
     const location = useLocation();
@@ -27,15 +26,15 @@ const AppRoute = () => {
         { path: '/*', Component: <NotfoundPage /> },
     ];
 
-    useEffect(() => {
-        const scrollTop = setTimeout(() => {
-            window.scrollTo(0, 0);
-        }, 500);
+    // useEffect(() => {
+    //     const scrollTop = setTimeout(() => {
+    //         window.scrollTo(0, 0);
+    //     }, 500);
 
-        return () => {
-            clearTimeout(scrollTop);
-        };
-    }, [location]);
+    //     return () => {
+    //         clearTimeout(scrollTop);
+    //     };
+    // }, [location]);
 
     return (
         <>

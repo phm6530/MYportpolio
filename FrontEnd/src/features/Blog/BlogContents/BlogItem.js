@@ -7,17 +7,14 @@ import { HashTag } from 'component/CommonStyle';
 import SummaryData from 'features/component/SummaryDate';
 
 const ProjectFadeinStyle = styled(Fadein)`
-    margin-bottom: 1.5rem;
+    /* margin-bottom: 1.5rem; */
     padding-bottom: 2.5rem;
     display: flex;
-    flex-direction: column;
-    flex: 0 0 calc(33.333% - 1.34rem);
+    flex-direction: row;
+    /* flex: 0 0 calc(33.333% - 1.34rem); */
+    width: 100%;
     margin-right: 2rem;
     cursor: pointer;
-
-    &:nth-child(3n) {
-        margin-right: 0rem;
-    }
 `;
 
 const ProjectDescription = styled.div`
@@ -36,7 +33,7 @@ const ProjectDescription = styled.div`
 const ProjectItemHeaderStyle = styled.div`
     margin-bottom: 0.5rem;
     margin-top: 1rem;
-    font-size: 1rem;
+    font-size: 1.3rem;
     font-weight: bold;
     letter-spacing: -0.7px;
     align-items: center;
@@ -46,12 +43,12 @@ const ContentsWrap = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    flex-grow: 1;
+    width: 70%;
 `;
 
 const CreateDate = styled(SummaryData)`
     font-size: 12px;
-    opacity: 0.5;
+    opacity: 0.7;
 `;
 const HasTagCustom = styled(HashTag)`
     background: #4131b3;
@@ -65,6 +62,9 @@ const HasTagCustom = styled(HashTag)`
     color: #fff;
     margin-bottom: 0;
 `;
+const CustomThumNail = styled(Thumbnail)`
+    width: 30%;
+`;
 
 const BlogItem = ({ item }) => {
     const { post_id, thumnail, post_title, description, date, subcategory } =
@@ -73,7 +73,7 @@ const BlogItem = ({ item }) => {
     return (
         <ProjectFadeinStyle onClick={() => navigate(`${post_id}`)}>
             {/* 썸네일  */}
-            <Thumbnail img={thumnail} badge={subcategory} />
+            <CustomThumNail img={thumnail} badge={subcategory} />
             <ContentsWrap>
                 {/* Header */}
 

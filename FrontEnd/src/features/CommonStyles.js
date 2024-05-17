@@ -9,6 +9,7 @@ const FlexColumnDiv = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    width: 70%;
 `;
 
 const FlexWrapDiv = styled.div`

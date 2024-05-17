@@ -3,25 +3,24 @@ import MainNavs from 'features/Main/MainNavs';
 import ShootingStar from 'features/common/Animation/ShootingStar';
 import { Grid } from 'component/ui/Grid';
 import styled, { keyframes } from 'styled-components';
-const initialBgAni = keyframes`
-  0% {
-    background-size: 120%;
-  }
-  100% {
-    background-size: 100%;
-  }
-`;
+import BlogNewPostList from 'features/Blog/BlogNewPostList';
 
 const infiniteBgAni = keyframes`
   0% {
     background-size: 100%;
   }
-  50% {
-    background-size: 110%;
-  }
   100% {
-    background-size: 100%;
+    background-size: 120%;
   }
+`;
+
+const opacityAni = keyframes`
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
 `;
 
 const HomeContainer = styled.div`
@@ -33,10 +32,8 @@ const HomeContainer = styled.div`
     background-image: url('/img/main.jpg');
     background-position: center bottom;
     background-size: cover;
-    animation:
-        ${initialBgAni} 1.5s ease forwards,
-        ${infiniteBgAni} 10s ease-in-out 1.5s infinite;
-
+    animation: ${infiniteBgAni} 10s cubic-bezier(0.2, 0.56, 0.38, 0.41) infinite
+        forwards alternate;
     &::after {
         content: '';
         position: absolute;
@@ -46,11 +43,12 @@ const HomeContainer = styled.div`
         width: 100%;
         background: linear-gradient(
             to right,
-            rgba(11, 12, 17, 1),
-            rgba(11, 12, 17, 1),
+            rgba(11, 12, 17, 0.9),
+            rgba(11, 12, 17, 0.8),
             rgba(0, 0, 0, 0.3)
         );
         z-index: 0;
+        animation: ${opacityAni} 4s ease;
     }
 `;
 
@@ -124,7 +122,7 @@ const Home = () => {
                     배운 모든 것을 기록하고 공유하는 것을 좋아합니다. 공유의
                     중요성을 잘 알기에 항상 새기고 실천하려고 노력합니다
                 </CareerGoal>
-
+                <BlogNewPostList />
                 <MainNavs />
                 {/* <DashBoardTitle>
                     <b>FRONTEND DEVELOPER</b>

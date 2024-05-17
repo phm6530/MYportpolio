@@ -6,6 +6,7 @@ import FadeinComponent from 'FadeinComponent';
 import BoardCommentStatus from '../BoardCommentStatus';
 import useCommentInfinity from 'features/Board/hooks/useCommentInfinity';
 import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
+import { format } from 'date-fns';
 
 const FirstDayStyle = styled.div`
     font-size: 1rem;
@@ -15,12 +16,18 @@ const FirstDayStyle = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-top: 50px;
-
+    span {
+        font-size: 14px;
+        display: inline-block;
+        font-weight: normal;
+        margin-left: 1rem;
+        opacity: 0.7;
+    }
     ${props => props.$first && 'margin-top: 0;'}
     &:after {
         content: '';
         flex-grow: 1;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid var(--borer-line-color);
         width: 50%;
         margin-left: 2rem;
     }
@@ -102,7 +109,7 @@ export default function BoardCommentList() {
 
     return (
         <BoardReplyWrap>
-            {/* 오늘 댓글 + 전체댓글 */}
+            {/* 오늘 댓글 + 전체댓글  */}
             <BoardCommentStatus
                 todayReply={infinityData.pages[0].todayReply}
                 total={infinityData.pages[0].counter}
@@ -125,7 +132,7 @@ export default function BoardCommentList() {
                         <div key={item.board_key}>
                             {firstData && (
                                 <FirstDayStyle $first={firstDateDiv}>
-                                    {date}
+                                    <span>{format(date, 'yyyy. MM. dd')}</span>
                                 </FirstDayStyle>
                             )}
                             <FadeinComponent>

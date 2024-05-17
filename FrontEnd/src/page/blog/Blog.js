@@ -10,33 +10,29 @@ import BlogTab from 'features/Blog/BlogTab.js/index.js';
 import BlogRoutes from 'Route/BlogRoutes';
 
 import BlogNewPostList from 'features/Blog/BlogNewPostList';
+import Motion from 'component/animations/Motion';
 
 const Blog = () => {
     return (
         <>
-            <DashBoard page={'Contact'}>
-                <BannerCommon.BannerPoint>
-                    <img src="/img/developer.png" alt="developer" />
-                    my Blog
-                </BannerCommon.BannerPoint>
+            <DashBoard
+                pageTitle={'Blog'}
+                subComment={'"퍼블리셔와 개발자 사이 그어딘가"'}
+            />
+            <Motion.FadeUp>
+                <PageGrid>
+                    <BoardWrapper>
+                        {/* Blog LayOut */}
+                        <Tab>
+                            <BlogTab />
 
-                <DashBoardTitle>
-                    <b>Blog</b>
-                </DashBoardTitle>
-            </DashBoard>
-
-            <PageGrid>
-                <BoardWrapper>
-                    {/* Blog LayOut */}
-                    <Tab>
-                        <BlogTab />
-
-                        {/* 최신글 */}
-                        <BlogNewPostList />
-                    </Tab>
-                    <BlogRoutes />
-                </BoardWrapper>
-            </PageGrid>
+                            {/* 최신글 */}
+                            <BlogNewPostList />
+                        </Tab>
+                        <BlogRoutes />
+                    </BoardWrapper>
+                </PageGrid>
+            </Motion.FadeUp>
         </>
     );
 };

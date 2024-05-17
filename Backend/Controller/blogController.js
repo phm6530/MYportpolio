@@ -98,6 +98,7 @@ const patchPostDetail = async (req, res, next) => {
     try {
         const id = req.params.id;
         const body = req.body;
+
         const result = await runTransaction(async (conn) => {
             const updateResult = await postUpdate(conn, body, id);
             return updateResult;
@@ -154,7 +155,7 @@ const fetchPostRelated = async (req, res, next) => {
             order by 
                 post_id desc limit ? offset 0;
             `;
-            const [rows] = await conn.query(sql_RelatedList, [postId, postId, 3]);
+            const [rows] = await conn.query(sql_RelatedList, [postId, postId, 4]);
             ``;
             return rows;
         });

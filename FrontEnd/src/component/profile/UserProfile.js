@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 const ProfileCard = styled.div`
     border-radius: 1em;
     margin-bottom: 3rem;
-    background: var(--background-color-box);
+    background: var(--color-background);
     border: var(--border--btn-type-1);
     box-shadow: var(--box-shadow-style);
     margin-right: 2rem;
@@ -21,10 +21,10 @@ const ProfileCard = styled.div`
     text-align: center;
 `;
 const ProfilePicture = styled.div`
-    width: 4rem;
+    width: 4.5rem;
     border-radius: 100%;
 
-    border: 5px solid #fff;
+    border: 5px solid var(--borer-line-picture-color);
     box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
     img {
         width: 100%;
@@ -38,7 +38,7 @@ const ProfilePicture = styled.div`
         content: '';
         position: absolute;
         left: 0rem;
-        border: 3px solid #fff;
+        border: 3px solid var(--borer-line-picture-color);
         top: 0rem;
         width: 1rem;
         height: 1rem;
@@ -84,7 +84,7 @@ export default function UserProfile() {
     return (
         <ProfileCard>
             <ProfilePicture $isOnline={login}>
-                <img src="/img/me.jpg" alt="IT'S ME" />
+                <img src="/img/me.jpg" alt="IT's ME" />
             </ProfilePicture>
 
             <ProfileInfo>

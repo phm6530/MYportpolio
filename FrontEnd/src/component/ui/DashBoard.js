@@ -1,81 +1,55 @@
 import { useEffect } from 'react';
-import styled, { css } from 'styled-components';
-import VideoCanvas from '../common/VideoCanvas';
+import styled, { keyframes } from 'styled-components';
+// import VideoCanvas from '../common/VideoCanvas';
 
 import { PageBannerGrid } from './Grid';
 import { useLocation } from 'react-router-dom';
 import { IoMdHome } from 'react-icons/io';
+import DashBoardTitle from './DashBoardTitle';
+
+// 좌우로 움직이는 애니메이션 정의
+const moveLeftRight = keyframes`
+  0% {
+    background-position: left bottom;
+  }
+  50% {
+    background-position: right bottom;
+  }
+  100% {
+    background-position: left bottom;
+  }
+`;
+
+const infiniteBgAni = keyframes`
+  0% {
+    background-size: 100%;
+  }
+  100% {
+    background-size: 120%;
+  }
+`;
+
+const opacityAni = keyframes`
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+`;
 
 const PageBanner = styled.div`
     width: 100%;
     min-width: 1280px;
-    height: 29rem;
+    height: 25rem;
     overflow: hidden;
-    position: absolute;
+    position: relative;
     z-index: -1;
-    transition: background 1.5s ease;
-    /* &::after {
-        position: absolute;
-        content: '';
-        left: 0;
-        z-index: -1;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(to top, #f9f9f9, rgba(0, 0, 0, 0));
-    } */
-    ${props => {
-        switch (props.$page) {
-            case 'project':
-                if (props.$DarkMode) {
-                    return css`
-                        background: linear-gradient(to right, #775ec2, #6672c4);
-                    `;
-                } else {
-                    return css`
-                        background: linear-gradient(to right, #775ec2, #6672c4);
-                    `;
-                }
-            case 'board':
-                if (props.$DarkMode) {
-                    return css`
-                        background: url(/img/project/bg_darkmode.jpg);
-                    `;
-                } else {
-                    // return css`background: linear-gradient(to right, #5c68c8, #669dc4);`
-                    // return css`background: url(/img/board/banner.jpg);`
-                    return css`
-                        background: linear-gradient(to right, #775ec2, #6672c4);
-                    `;
-                }
-            case 'Calendar':
-                if (props.$DarkMode) {
-                    return css`
-                        background: url(/img/project/bg_darkmode.jpg);
-                    `;
-                } else {
-                    // return css`background: url(/img/project/bg.jpg);`
-                    return css`
-                        background: linear-gradient(to right, #775ec2, #6672c4);
-                    `;
-                }
-            case 'Contact':
-                if (props.$DarkMode) {
-                    return css`
-                        background: url(/img/contact/bg.jpg);
-                    `;
-                } else {
-                    return css`
-                        background: linear-gradient(to right, #5c68c8, #669dc4);
-                    `;
-                }
-            default:
-                return css`
-                    background: linear-gradient(to right, #775ec2, #6672c4);
-                `;
-        }
-    }}
+    background-image: url('/img/8.jpg');
+    background-position: center bottom;
     background-size: cover;
+    animation: ${infiniteBgAni} 10s cubic-bezier(0.2, 0.56, 0.38, 0.41) infinite
+        forwards alternate;
 `;
 
 const PathStyle = styled.div`
@@ -89,39 +63,96 @@ const PathStyle = styled.div`
     }
 `;
 
-export default function DashBoard({ className, page, children }) {
+const PageTest = styled.div`
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    height: 100vh;
+    width: 100%;
+    opacity: 0;
+    background: linear-gradient(
+        to right,
+        rgb(10 14 15 / 75%),
+        rgb(20 22 32 / 61%),
+        rgb(255 255 255 / 0%)
+    );
+    animation: ${opacityAni} 1s 0.3s ease-in-out forwards;
+`;
+
+const animation = keyframes`
+    from{
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0px);
+    }
+`;
+
+const PageInfoText = styled.div`
+    margin-bottom: 3rem;
+    img {
+        margin-right: 10px;
+    }
+    opacity: 0;
+    background: linear-gradient(to left, #64c7ef, #a9a5cc, #8e9bfc);
+    color: transparent;
+    font-weight: bold;
+    background-clip: text;
+    display: inline-flex;
+    animation: ${animation} 1s 0.6s cubic-bezier(0.1, 0.45, 0, 1.09) forwards;
+`;
+
+export default function DashBoard({
+    className,
+    pageTitle,
+    subComment,
+    page,
+    children,
+}) {
     const { pathname } = useLocation();
 
     useEffect(() => {
         const target = document.getElementById('parallaxEvent');
-
         const ParallaxHandler = () => {
             const Scroll = window.scrollY;
-            target.style.backgroundPosition = `0 -${Scroll / 15}px`;
+            target.style.backgroundPosition = `center bottom -${Scroll / 5}px`; // 상하로 움직이는 효과
         };
-
         document.addEventListener('scroll', ParallaxHandler);
-    }, []);
 
+        // Cleanup function to remove the event listener
+        return () => {
+            document.removeEventListener('scroll', ParallaxHandler);
+        };
+    }, []);
     const path = pathname.slice(1);
 
     return (
-        <PageBanner
-            id="parallaxEvent"
-            $page={page}
-            className={className}
-            // $DarkMode={ctx.darkMode}
-        >
+        <PageBanner id="parallaxEvent" $page={page} className={className}>
+            <PageTest />
             <PageBannerGrid>
-                {children}
-                {/* <p>*전 회사의 공개 가능한 프로젝트 / 개인 작업물만 공유합니다.</p> */}
+                <DashBoardTitle>{pageTitle}</DashBoardTitle>
+
+                {subComment && (
+                    <PageInfoText>
+                        <img
+                            src="/img/contact/talk2.png"
+                            style={{ width: '20px' }}
+                        />
+                        {subComment}
+                    </PageInfoText>
+                )}
+
                 <PathStyle>
                     <IoMdHome /> HOME / {path.replace('/', ' / ')}
                 </PathStyle>
             </PageBannerGrid>
 
             {/* Video */}
-            <VideoCanvas />
+
+            {/* <VideoCanvas /> */}
         </PageBanner>
     );
 }

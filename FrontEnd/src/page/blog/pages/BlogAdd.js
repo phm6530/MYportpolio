@@ -61,8 +61,6 @@ const BlogAdd = () => {
         const thumNail = content.getImg();
         const description = content.getText();
 
-        console.log(thumNail);
-
         const requestData = { ...data, key: postKey, thumNail, description };
         mutate(requestData);
     };

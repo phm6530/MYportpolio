@@ -1,7 +1,6 @@
 const mysql = require('mysql2/promise');
 
 //.env 파일 읽기
-
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -10,7 +9,7 @@ const pool = mysql.createPool({
     timezone: '+09:00',
 });
 
-const connection = pool.getConnection();
+module.exports = pool;
 
 // pool.connect((err) => {
 //     if (err) {
@@ -20,8 +19,6 @@ const connection = pool.getConnection();
 //         console.log('연결 성공');
 //     }
 // });
-
-module.exports = pool;
 
 // const mysql = require('mysql2/promise');
 // //.env 파일 읽기

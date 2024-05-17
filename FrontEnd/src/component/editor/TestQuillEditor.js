@@ -42,7 +42,7 @@ const ReactQuillStyle = styled(ReactQuill)`
         }
     }
     .ql-editor {
-        min-height: 500px !important;
+        max-height: 500px !important;
         line-height: 1.8 !important;
         font-size: 16px;
         font-family: 'Poppins', 'SUIT-Regular', sans-serif;
@@ -142,6 +142,11 @@ const TestQuillEditor = ({ postKey, ...props }) => {
             syntax: {
                 highlight: text => hljs.highlightAuto(text).value,
                 languages: hljs.registerLanguage('javascript', javascript),
+            },
+            history: {
+                delay: 2000, // 변경 사항 간의 최소 시간 간격 (밀리초)
+                maxStack: 500, // 히스토리 스택의 최대 길이
+                userOnly: true, // 사용자 입력만 히스토리에 저장
             },
         };
     }, []);
