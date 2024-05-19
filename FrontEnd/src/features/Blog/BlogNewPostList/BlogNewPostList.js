@@ -22,7 +22,14 @@ const BlogNewPostList = () => {
             <Title>최신글</Title>
             <NewPostList>
                 {listData.map(item => {
-                    return <PostItem key={item.post_id} props={item} />;
+                    return (
+                        <PostItem
+                            key={item.post_id}
+                            post_id={item.post_id}
+                            post_title={item.post_title}
+                            create_at={item.create_at}
+                        />
+                    );
                 })}
             </NewPostList>
         </Container>

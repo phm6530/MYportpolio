@@ -3,7 +3,7 @@ import MainNavs from 'features/Main/MainNavs';
 import ShootingStar from 'features/common/Animation/ShootingStar';
 import { Grid } from 'component/ui/Grid';
 import styled, { keyframes } from 'styled-components';
-import BlogNewPostList from 'features/Blog/BlogNewPostList';
+import BlogNewPostList from 'features/Blog/BlogNewPostList/BlogNewPostList';
 
 const infiniteBgAni = keyframes`
   0% {

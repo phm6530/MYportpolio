@@ -1,15 +1,13 @@
 import { PageGrid } from 'component/ui/Grid';
-import BannerCommon from 'component/ui/BannerCommon';
 import DashBoard from 'component/ui/DashBoard';
-import DashBoardTitle from 'component/ui/DashBoardTitle';
 
 import { BoardWrapper } from 'features/Blog/BlogCommonStyle.js';
 import { Tab } from 'features/Blog/BlogCommonStyle.js';
 
-import BlogTab from 'features/Blog/BlogTab.js/index.js';
+import BlogTab from '../../features/Blog/BlogTab.js/BlogTab';
 import BlogRoutes from 'Route/BlogRoutes';
 
-import BlogNewPostList from 'features/Blog/BlogNewPostList';
+import BlogNewPostList from 'features/Blog/BlogNewPostList/BlogNewPostList';
 import Motion from 'component/animations/Motion';
 
 const Blog = () => {

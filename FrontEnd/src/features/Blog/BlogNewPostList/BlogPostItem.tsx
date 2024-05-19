@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import { format } from 'date-fns';
+import styled from 'styled-components';
 
 const ItemWrap = styled.div`
     cursor: pointer;
@@ -24,11 +24,18 @@ const ItemPostDate = styled.div`
     opacity: 0.5;
     font-size: 11px;
 `;
+type PostItemProps = {
+    post_id: string;
+    post_title: string;
+    create_at: Date;
+};
 
-const PostItem = ({ props }) => {
-    const { post_id, post_title, create_at } = props;
+const PostItem: React.FC<PostItemProps> = ({
+    post_id,
+    post_title,
+    create_at,
+}) => {
     const navigate = useNavigate();
-
     return (
         <ItemWrap onClick={() => navigate(`${post_id}`)}>
             <ItemPostTitle>{post_title}</ItemPostTitle>
@@ -36,5 +43,4 @@ const PostItem = ({ props }) => {
         </ItemWrap>
     );
 };
-
 export default PostItem;
