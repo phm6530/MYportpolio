@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { authAction } from '../../../store/appSlice';
+import { authActions } from 'store/appSlice';
 import { Button } from '../../ui/Button';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
@@ -143,7 +143,7 @@ export default function LoginForm() {
             toast.success('로그인 되었습니다.');
 
             // 로그인 상태 업데이트
-            dispatch(authAction.login());
+            dispatch(authActions.login());
             // dispatch(alertThunk('로그인 되었습니다.', 1));
         },
     });

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { CircularProgress } from '@mui/material';
+
 const SpinnerStyle = styled.div`
     display: flex;
     align-items: center;
@@ -13,7 +14,7 @@ const SpinnerStyle = styled.div`
     }
 `;
 
-const SpinnerLoading = () => {
+const SpinnerLoading = (): JSX.Element => {
     return (
         <SpinnerStyle>
             <CircularProgress color="secondary" />

@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 // 클라이언트 체크
 const useAuthCheck = () => {
-    const { login } = useSelector(state => state.authSlice);
+    const { login } = useSelector(state => state.auth);
     const throttle = useRef(false);
 
     const checkHandler = () => {

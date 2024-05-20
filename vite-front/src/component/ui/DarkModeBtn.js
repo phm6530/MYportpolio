@@ -2,8 +2,8 @@ import styled, { keyframes } from 'styled-components';
 import { LuSunDim } from 'react-icons/lu';
 import { IoMoon } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
-import { darkModeAction } from 'store/appSlice';
-import { useEffect, useState } from 'react';
+import { darkModeActions } from 'store/appSlice';
+import { useEffect } from 'react';
 
 const DarkmodeButton = styled.div`
     border-radius: 1em;
@@ -67,7 +67,7 @@ const DarkModeIcon = styled.div`
 `;
 
 export default function DarkModeBtn() {
-    const { darkMode } = useSelector(state => state.darkModeSlice);
+    const { darkMode } = useSelector(state => state.darkMode);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -75,7 +75,7 @@ export default function DarkModeBtn() {
     }, [darkMode]);
 
     const modeHandler = () => {
-        dispatch(darkModeAction.toggleMode());
+        dispatch(darkModeActions.toggleMode());
     };
 
     return (

@@ -10,8 +10,8 @@ import { fetchAddSchedule } from 'services/ScheduleService';
 import alertThunk from 'store/alertTrunk';
 import { useDispatch } from 'react-redux';
 import { useAuthCheck } from 'hooks/useAuthCheck';
-import { useEffect, useRef } from 'react';
-import SubTitle from 'component/ui/Subtitle';
+import { useRef } from 'react';
+// import { SubTitle } from 'component/ui/Subtitle';
 
 const { useForm, FormProvider } = ReactHookForm;
 const { useMutation, useQueryClient } = ReactQuery;

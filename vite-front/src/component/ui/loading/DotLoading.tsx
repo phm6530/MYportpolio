@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ReactDom from 'react-dom';
+import ReactDOM from 'react-dom';
 
 const LoadingWrap = styled.div`
     position: fixed;
@@ -53,7 +53,12 @@ const LoadingWrap = styled.div`
         }
     }
 `;
-const LoadingComponent = ({ Message }) => {
+
+interface MessageProps {
+    Message: string;
+}
+
+const LoadingComponent: React.FC<MessageProps> = ({ Message }) => {
     return (
         <LoadingWrap>
             <span>{Message}</span>
@@ -66,9 +71,14 @@ const LoadingComponent = ({ Message }) => {
     );
 };
 
-export default function DotLoading({ Message }) {
-    return ReactDom.createPortal(
+const DotLoading: React.FC<MessageProps> = ({ Message }) => {
+    const alertRoot = document.getElementById('alert-root');
+    if (!alertRoot) return null;
+
+    return ReactDOM.createPortal(
         <LoadingComponent Message={Message} />,
-        document.getElementById('alert-root'),
+        alertRoot,
     );
-}
+};
+
+export default DotLoading;

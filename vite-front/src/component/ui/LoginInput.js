@@ -2,7 +2,7 @@ import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 
 export default function LoginInput(props) {
-    const isAuth = useSelector(state => state.authSlice.login);
+    const isAuth = useSelector(state => state.auth.login);
     const { type, dataType, holder, setFormData, FormData } = props;
 
     const onChangehandler = useCallback(

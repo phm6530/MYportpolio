@@ -12,7 +12,7 @@ const Backdrop = () => {
 
 export default function Popup({ closePopup, type, children }) {
     const [animationState, setAniamtionState] = useState(false);
-    const isAuth = useSelector(state => state.authSlice.login);
+    const isAuth = useSelector(state => state.auth.login);
     // console.log(type);
 
     // 닫기 & CLose 애니메이션

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import FadeinComponent from 'FadeinComponent';
 import ProjectItem from 'features/project/ProjectItem';
-import SubTitle from 'component/ui/Subtitle';
+import { SubTitle } from 'component/ui/Subtitle';
 
 import { useEffect, useState } from 'react';
 import { projectFetch } from 'services/projectService';
@@ -10,7 +10,7 @@ import CateGoryButton from 'component/ui/CateGoryButton';
 import { ReactQuery, ReactRouteDom } from 'lib/lib';
 import SkeletonPost from 'component/ui/loading/Skeleton';
 import SearchForm from 'component/ui/SearchForm';
-import ShootingStar from 'features/common/Animation/ShootingStar';
+// import ShootingStar from 'features/common/Animation/ShootingStar';
 
 const { useLocation, useSearchParams } = ReactRouteDom;
 const { useQuery } = ReactQuery;

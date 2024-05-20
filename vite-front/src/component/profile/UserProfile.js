@@ -78,7 +78,7 @@ const ProfileLocation = styled.div`
 `;
 
 export default function UserProfile() {
-    const { login } = useSelector(state => state.authSlice);
+    const { login } = useSelector(state => state.auth);
     // console.log(login);
 
     return (

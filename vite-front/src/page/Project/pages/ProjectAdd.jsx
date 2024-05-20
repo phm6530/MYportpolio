@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import * as Yup from 'yup';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -9,7 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import CustumDatePicker from 'component/editor/CustumDatePicker';
 
-import SubTitle from 'component/ui/Subtitle';
+import { SubTitle } from 'component/ui/Subtitle';
 import EditorInput from 'component/editor/EditorInput';
 import { addProjectFetch, projectEdit } from 'services/projectService';
 import styled from 'styled-components';
@@ -255,7 +255,7 @@ export default function ProjectAdd() {
                             name="projectDescription"
                             control={control}
                             render={({ field }) => {
-                                const { ref, ...restField } = field; // `ref`를 제외하고 나머지 필드를 추출
+                                const { ref: _, ...restField } = field; // `ref`를 제외하고 나머지 필드를 추출
                                 return (
                                     <QuillEditor
                                         {...restField} // `ref`를 제외한 나머지 프로퍼티 전달

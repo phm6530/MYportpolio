@@ -40,7 +40,7 @@ const FormStyle = styled.form`
 `;
 
 export default function BoardCommentForm() {
-    const { login } = useSelector(state => state.authSlice);
+    const { login } = useSelector(state => state.auth);
 
     // Comment Add Hook
     const { mutate: addMutate } = useCommentAdd();

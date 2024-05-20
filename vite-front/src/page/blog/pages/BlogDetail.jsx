@@ -14,8 +14,6 @@ import PostRelatedList from 'features/Blog/PostRelatedList';
 import styled from 'styled-components';
 import SummaryData from 'features/component/SummaryDate';
 
-import FadeinComponent from 'FadeinComponent';
-
 const PostTitle = styled.div`
     font-size: 2rem;
     padding: 1rem 0;

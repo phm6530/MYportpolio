@@ -1,4 +1,4 @@
-import SubTitle from 'component/ui/Subtitle';
+import { SubTitle } from 'component/ui/Subtitle';
 import styled from 'styled-components';
 import CateGoryButton from 'component/ui/CateGoryButton';
 const HeaderStyle = styled.div`

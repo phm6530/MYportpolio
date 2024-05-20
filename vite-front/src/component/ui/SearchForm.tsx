@@ -45,11 +45,11 @@ const Select = styled.select`
     }
 `;
 
-export default function SearchForm() {
+export default function SearchForm(): JSX.Element {
     const [searchParams, setSearchParams] = useSearchParams();
-    const ref = useRef();
+    const ref = useRef<HTMLInputElement>(null);
 
-    const searchProject = e => {
+    const searchProject = (e: React.FormEvent) => {
         e.preventDefault();
         const newSearchParams = new URLSearchParams(searchParams);
 
@@ -60,7 +60,6 @@ export default function SearchForm() {
             newSearchParams.delete('search');
             newSearchParams.delete('page');
         }
-        // URLSearchParams 인스턴스를 string으로 변환하여 setSearchParams에 전달
         setSearchParams(newSearchParams.toString());
     };
 

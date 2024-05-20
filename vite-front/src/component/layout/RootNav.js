@@ -43,8 +43,8 @@ const Header = styled.header`
 `;
 
 export default function RootNav() {
-    const { view } = useSelector(state => state.alertSlice);
-    const { login } = useSelector(state => state.authSlice);
+    const { view } = useSelector(state => state.alert);
+    const { login } = useSelector(state => state.auth);
     const { pathname } = useLocation();
     const [loginModal, setLoginModal] = useState(false);
     const [active, setActive] = useState(pathname);

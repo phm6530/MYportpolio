@@ -30,7 +30,6 @@ const PostRelatedList = () => {
                     <SubCategory>관련 포스트</SubCategory>
                     <ListWrapper>
                         {relatedList.map(item => {
-                            console.log(item);
                             return (
                                 <RelatedItem key={item.post_id} props={item} />
                             );

@@ -3,8 +3,8 @@ import { FlexRow } from 'component/CommonStyle';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { format } from 'date-fns';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useDispatch, useSelector } from 'react-redux';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useSelector } from 'react-redux';
 import { useAuthCheck } from 'hooks/useAuthCheck';
 import { fetchTimerStart, fetchTimerEnd } from 'services/tastTimerService';
 import StopWatch from '../component/StopWatch';
@@ -137,7 +137,7 @@ const Today = styled.div`
 
 const ScheduleTimer = () => {
     const [timerData, setTimerData] = useState(null);
-    const { user } = useSelector(state => state.authSlice);
+    const { user } = useSelector(state => state.auth);
     const { checkHandler } = useAuthCheck();
     const [touched, setTouched] = useState();
     const { data, isLoading, getWebsoketTimer } = useTimer();

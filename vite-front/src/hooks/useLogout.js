@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { authAction } from 'store/appSlice';
+import { authActions } from 'store/appSlice';
 import alertThunk from 'store/alertTrunk';
 import { fetchLogout } from 'services/authService';
 import { toast } from 'react-toastify';
@@ -13,7 +13,7 @@ const useLogout = () => {
             console.log(result);
 
             localStorage.removeItem('token');
-            dispatch(authAction.logOut());
+            dispatch(authActions.logOut());
             toast.info('로그아웃 되었습니다');
             // dispatch(alertThunk('로그아웃 되었습니다.', 1));
         } catch (error) {

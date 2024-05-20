@@ -116,7 +116,7 @@ const ReplyBubble = styled.div`
 `;
 
 const BoardComment = forwardRef((props, ref) => {
-    const { login } = useSelector(state => state.authSlice);
+    const { login } = useSelector(state => state.auth);
     const [modal, setModal] = useState(false);
     const { item, selectIdx, setSelectIdx, lastPageIdx, role } = props;
     const { mutate } = useCommentDelete();

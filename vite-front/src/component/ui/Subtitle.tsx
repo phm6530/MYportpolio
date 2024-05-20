@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 const SubTitleStyle = styled.div`
@@ -31,10 +32,21 @@ const SubTitleStyle = styled.div`
 
 const BigSubTitleStyle = styled.div``;
 
-export default function SubTitle({ className, children }) {
-    return <SubTitleStyle className={className}>{children}</SubTitleStyle>;
+interface SubTitleProps {
+    className?: string;
+    children: React.ReactNode;
 }
 
-export function BigSubTitle({ children }) {
+interface BigSubTitleProps {
+    children: React.ReactNode;
+}
+
+const SubTitle: React.FC<SubTitleProps> = ({ className, children }) => {
+    return <SubTitleStyle className={className}>{children}</SubTitleStyle>;
+};
+
+function BigSubTitle({ children }: BigSubTitleProps): React.ReactElement {
     return <BigSubTitleStyle>{children}</BigSubTitleStyle>;
 }
+
+export { BigSubTitle, SubTitle };

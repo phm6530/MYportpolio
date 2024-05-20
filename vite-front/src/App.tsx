@@ -22,7 +22,7 @@ import { queryClient } from 'react-query/queryClient';
 import { QueryClientProvider } from '@tanstack/react-query';
 import useAddTransition from 'hooks/useAddTransition';
 
-function App() {
+function App(): JSX.Element {
     // 초기 다크모드 트랜지션효과 방지
     useAddTransition();
     return (
@@ -42,7 +42,6 @@ function App() {
                         </ThemeProvider>
                     </ThemeWrapper>
                 </QueryClientProvider>
-                ,
             </Provider>
         </>
     );

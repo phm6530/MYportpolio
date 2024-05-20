@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import BlogTabDetail from './BlogTabDetail';
-import { useEffect, useRef, useState } from 'react';
 import useQueryString from '../hooks/useQueryString';
+import useBlogCategory from '../hooks/useBlogCategory';
+
+import { useEffect, useRef, useState } from 'react';
 import { LuMinus } from 'react-icons/lu';
 import { GoPlus } from 'react-icons/go';
-import useBlogCategory from '../hooks/useBlogCategory';
 
 const ListWrapper = styled.div`
     overflow: hidden;
@@ -36,11 +37,11 @@ const LeftAlign = styled.div`
     cursor: pointer;
 `;
 
-const AccodianTab = ({ list, open, idx, category }) => {
+const AccodianTab = ({ list, idx, category }) => {
     const [view, setView] = useState(true);
     const [height, setHeight] = useState(0);
     const { navigateHandler } = useQueryString('blog');
-    const ref = useRef();
+    const ref = useRef<HTMLInputElement>(null);
 
     const ToggleBtn = category => {
         if (category === 'All') {
@@ -107,7 +108,6 @@ const BlogTab = () => {
                     <AccodianTab
                         list={categories[category]}
                         category={category}
-                        open={idx === 1}
                         idx={idx}
                         key={idx}
                     />

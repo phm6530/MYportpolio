@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
+import { SubTitle } from 'component/ui/Subtitle';
 
-import SubTitle from 'component/ui/Subtitle';
 import useBlog from 'features/Blog/hooks/useBlog';
 import BlogContents from 'features/Blog/BlogContents';
 import SearchForm from 'component/ui/SearchForm';
@@ -9,12 +9,12 @@ import NonData from 'component/NonData';
 import Paging from 'component/Paging';
 import AddPostBtn from 'features/common/Post/AddPostBtn';
 
-const BlogPage = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
+const BlogPage = (): JSX.Element => {
+    const [searchParams] = useSearchParams();
     const { data, isLoading } = useBlog();
 
-    const item = searchParams.get('item') || 'All';
-    const search = searchParams.get('search') || 'all';
+    const item: string = searchParams.get('item') || 'All';
+    const search: string = searchParams.get('search') || 'all';
 
     return (
         <>
@@ -26,7 +26,7 @@ const BlogPage = () => {
             </SubTitle>
 
             {/* Search */}
-            <SearchForm setSearchParams={setSearchParams} />
+            <SearchForm />
 
             {isLoading ? (
                 <SpinnerLoading />

@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import alertThunk from '../../../store/alertTrunk';
 import ErrorBubble from 'component/error/ErrorBubble';
-import SubTitle from '../../../component/ui/Subtitle';
+import { SubTitle } from '@features/CommonStyles';
 import { Button } from '../../../component/ui/Button';
 import { FaCheck } from 'react-icons/fa';
 import DotLoading from 'component/ui/loading/DotLoading';
