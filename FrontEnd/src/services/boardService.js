@@ -30,7 +30,6 @@ const addReply = async formData => {
 const fetchReply = async page => {
     const targetIdx = page || 0;
     const Url = `${ENDPOINT_URL}/Board/${targetIdx}`;
-
     const result = await executeWithHandling(() => axios.get(Url));
     return result;
 };

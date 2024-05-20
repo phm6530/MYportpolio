@@ -24,8 +24,9 @@ const ItemPostDate = styled.div`
     opacity: 0.5;
     font-size: 11px;
 `;
+
 type PostItemProps = {
-    post_id: string;
+    post_id: number;
     post_title: string;
     create_at: Date;
 };

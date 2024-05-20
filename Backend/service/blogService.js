@@ -130,7 +130,6 @@ const postUpdate = async (conn, body, postId) => {
 
 //rending Data
 const renderingData = async (conn, req) => {
-    console.log('호출됨?');
     const page = parseInt(req.params.page, 10); // 페이지
     const category = req.query.category.toLocaleLowerCase(); //category
     const item = req.query.item === 'null' ? null : req.query.item; // subCategory

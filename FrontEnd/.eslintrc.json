@@ -59,5 +59,8 @@
         ],
         "@typescript-eslint/no-this-alias": "error",
         "react/prop-types": "off"
+    },
+    "globals": {
+        "JSX": true
     }
 }
