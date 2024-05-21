@@ -1,5 +1,51 @@
 import axios from 'axios';
 import { ENDPOINT_URL } from 'constants/apiUrl';
+import {
+    BlogMainContentsProps,
+    BlogPostRelated,
+    ApiResData,
+} from '@features/Blog/BlogTypes';
+
+async function executeHandler<T>(cb: () => Promise<{ data: T }>): Promise<T> {
+    try {
+        const { data } = await cb();
+        return data;
+    } catch (error) {
+        if (error instanceof Error) {
+            throw new Error(error.message);
+        } else {
+            throw new Error('알 수 없는 오류');
+        }
+    }
+}
+
+//관련 포스팅
+const fetchPostRelated = async (postId: string): Promise<BlogPostRelated[]> => {
+    const { resData } = await executeHandler<ApiResData<BlogPostRelated[]>>(
+        () => axios.get(`${ENDPOINT_URL}/blog/posts/${postId}/related`),
+    );
+    return resData;
+};
+
+// 전체 리스트
+const fetchBlogPageData = async (
+    item: string,
+    category: string,
+    page: number = 1,
+    search: string = '',
+): Promise<BlogMainContentsProps> => {
+    const queryParams = new URLSearchParams({
+        category,
+        item,
+        search,
+    }).toString();
+
+    const url = `${ENDPOINT_URL}/blog/posts/${page}?${queryParams}`;
+    const result = await executeHandler<BlogMainContentsProps>(async () =>
+        axios.get(url),
+    );
+    return result;
+};
 
 const blogloadImage = async ({ category, key, formData }) => {
     for (const [key, value] of formData.entries()) {
@@ -50,7 +96,7 @@ const fetchBlogCategory = async () => {
     }
 
     const { resData } = await response.json();
-    return { resData };
+    return resData;
 };
 
 const blogPostDetail = async key => {
@@ -87,36 +133,6 @@ const fetchNewPostlist = async () => {
     } catch (error) {
         throw new Error(error.message);
     }
-};
-
-const fetchPostRelated = async postId => {
-    console.log(postId);
-    try {
-        const result = await axios.get(
-            `${ENDPOINT_URL}/blog/posts/${postId}/related`,
-        );
-        return result;
-    } catch (error) {
-        throw new Error(error.message);
-    }
-};
-
-// 전체 리스트
-const fetchBlogPageData = async (item, category, page = 1, search) => {
-    const queryParams = new URLSearchParams({
-        category,
-        item,
-        search,
-    }).toString();
-    const response = await fetch(
-        `http://localhost:8080/blog/posts/${page}?${queryParams}`,
-    );
-
-    if (!response.ok) {
-        const errorMessage = await response.json();
-        throw new Error(errorMessage.message);
-    }
-    return response.json();
 };
 
 export {

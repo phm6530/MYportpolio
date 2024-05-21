@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import useQueryString from '../hooks/useQueryString';
 import { useSearchParams } from 'react-router-dom';
+import { BlogCategoryDetail } from '@features/Blog/BlogTypes';
 
-const CategoryList = styled.div`
+const CategoryList = styled.div<{ $select: boolean }>`
     height: 2.4rem;
     font-size: 14px;
 
@@ -36,11 +37,22 @@ const NewIcon = styled.span`
     font-weight: bold;
 `;
 
-const BlogTablDetail = ({ category, item, cnt, new: newPost }) => {
+interface BlogTabDetailProps extends BlogCategoryDetail {
+    category: string;
+    item: string;
+}
+
+const BlogTabDetail: React.FC<BlogTabDetailProps> = ({
+    category,
+    item,
+    post_count: cnt,
+    post_new: newPost,
+}) => {
     const { navigateHandler } = useQueryString('blog');
     const [params] = useSearchParams();
-    const itemParams = params.get('item');
-    const categoryParams = params.get('category');
+
+    const itemParams: string | null = params.get('item');
+    const categoryParams: string | null = params.get('category');
 
     return (
         <>
@@ -59,4 +71,4 @@ const BlogTablDetail = ({ category, item, cnt, new: newPost }) => {
     );
 };
 
-export default BlogTablDetail;
+export default BlogTabDetail;

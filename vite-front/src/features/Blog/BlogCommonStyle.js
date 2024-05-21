@@ -3,9 +3,6 @@ import styled from 'styled-components';
 const Tab = styled.div`
     margin-right: 3rem;
     padding-right: 2rem;
-    /* border-right: 1px solid var(--borer-line-color); */
-    /* border-right: 1px solid; */
-    /* box-shadow: 30px 0px 15px rgb(0 0 0 / 4%); */
 `;
 
 const Contents = styled.div`

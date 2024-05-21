@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import Thumbnail from 'component/ui/Thumbnail';
+
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
-import { HashTag } from 'component/CommonStyle';
+import { BlogPostRelated } from '@features/Blog/BlogTypes';
 
 const Container = styled.div`
     display: flex;
@@ -29,9 +30,13 @@ const ThumbnailCustom = styled(Thumbnail)`
     border-radius: 2px;
 `;
 
-const RelatedItem = ({ props }) => {
+const PostRelatedItem: React.FC<BlogPostRelated> = ({
+    post_id,
+    post_title,
+    create_at,
+    thumnail_url,
+}) => {
     const navigate = useNavigate();
-    const { post_id, post_title, create_at, thumnail_url } = props;
     return (
         <Container onClick={() => navigate(`/blog/${post_id}`)}>
             <ThumbnailCustom img={thumnail_url} />
@@ -44,4 +49,4 @@ const RelatedItem = ({ props }) => {
     );
 };
 
-export default RelatedItem;
+export default PostRelatedItem;

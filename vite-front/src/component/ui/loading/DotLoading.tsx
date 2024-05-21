@@ -55,7 +55,7 @@ const LoadingWrap = styled.div`
 `;
 
 interface MessageProps {
-    Message: string;
+    Message?: string;
 }
 
 const LoadingComponent: React.FC<MessageProps> = ({ Message }) => {

@@ -1,5 +1,5 @@
 import React from 'react'; // React를 가져오는 것을 잊지 마세요
-import useBlogNewPostList from 'hooks/useBlogNewPostLIst'; // 경로의 대소문자 확인
+import useBlogNewPostList from '@features/Blog/hooks/useBlogNewPostLIst'; // 경로의 대소문자 확인
 import styled from 'styled-components';
 import PostItem from './BlogPostItem';
 
@@ -26,7 +26,7 @@ const BlogNewPostList: React.FC = (): JSX.Element => {
     const { data } = useBlogNewPostList();
     const listData: ListDataType[] = data?.data.resData || [];
 
-    console.log(data);
+    // console.log(data);
 
     return (
         <Container>

@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 type MotionChildren = ReactNode;
 
 interface MotionProps {
-    className: string;
+    className?: string;
     children: MotionChildren;
     delay?: number;
 }

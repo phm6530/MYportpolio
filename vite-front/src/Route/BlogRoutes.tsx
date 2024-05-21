@@ -12,7 +12,7 @@ const MotionStyle = styled(Motion.FadeInOut)`
     flex: 1;
 `;
 
-const BlogRoutes = () => {
+const BlogRoutes = (): JSX.Element => {
     const location = useLocation();
     const AuthenticatedBlodAdd = withAuth(BlogAdd, '/blog');
 

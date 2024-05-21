@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import useBlogPostRelated from '../hooks/useBlogPostRelated';
 import styled from 'styled-components';
-import RelatedItem from './RelatedItem';
+import PostRelatedItem from '@features/Blog/PostRelatedList/PostRelatedItem';
 
 const RelatedPostsContainer = styled.div``;
 
@@ -19,9 +19,11 @@ const SubCategory = styled.div`
 
 const PostRelatedList = () => {
     const { key: postId } = useParams();
-    const { data } = useBlogPostRelated(postId);
+    const { data } = useBlogPostRelated(postId ?? '');
 
-    const relatedList = data?.data.resData || [];
+    const relatedList = data || [];
+
+    console.log(data);
 
     return (
         <>
@@ -30,8 +32,20 @@ const PostRelatedList = () => {
                     <SubCategory>관련 포스트</SubCategory>
                     <ListWrapper>
                         {relatedList.map(item => {
+                            const {
+                                post_id,
+                                post_title,
+                                create_at,
+                                thumnail_url,
+                            } = item;
                             return (
-                                <RelatedItem key={item.post_id} props={item} />
+                                <PostRelatedItem
+                                    key={item.post_id}
+                                    post_id={post_id}
+                                    post_title={post_title}
+                                    create_at={create_at}
+                                    thumnail_url={thumnail_url}
+                                />
                             );
                         })}
                     </ListWrapper>

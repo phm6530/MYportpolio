@@ -1,8 +1,10 @@
 import styled from 'styled-components';
-import BlogItem from './BlogItem';
+import BlogContentsItem from '@features/Blog/BlogContents/BlogContentsItem';
 import { AnimatePresence } from 'framer-motion';
-import Motion from 'component/animations/Motion';
 import { useLocation } from 'react-router-dom';
+import { BlogMainContentsItemProps } from '@features/Blog/BlogTypes';
+
+import Motion from 'component/animations/Motion';
 
 const Contents = styled.div`
     flex-direction: column;
@@ -15,15 +17,20 @@ const Contents = styled.div`
     flex-wrap: wrap;
 `;
 
-const BlogContents = ({ data = [] }) => {
+const BlogContents: React.FC<{ data: BlogMainContentsItemProps[] }> = ({
+    data,
+}) => {
     const location = useLocation();
+    console.log(data);
 
     return (
         <AnimatePresence mode="wait">
             <Motion.FadeInOut key={location.search}>
                 <Contents>
                     {data.map((item, idx) => {
-                        return <BlogItem item={item} key={'test' + idx} />;
+                        return (
+                            <BlogContentsItem item={item} key={'test' + idx} />
+                        );
                     })}
                 </Contents>
             </Motion.FadeInOut>

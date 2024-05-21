@@ -7,19 +7,6 @@ import { useLocation } from 'react-router-dom';
 import { IoMdHome } from 'react-icons/io';
 import DashBoardTitle from './DashBoardTitle';
 
-// 좌우로 움직이는 애니메이션 정의
-const moveLeftRight = keyframes`
-  0% {
-    background-position: left bottom;
-  }
-  50% {
-    background-position: right bottom;
-  }
-  100% {
-    background-position: left bottom;
-  }
-`;
-
 const infiniteBgAni = keyframes`
   0% {
     background-size: 100%;
@@ -38,7 +25,7 @@ const opacityAni = keyframes`
     }
 `;
 
-const PageBanner = styled.div`
+const PageBanner = styled.div<{ $page: string }>`
     width: 100%;
     min-width: 1280px;
     height: 25rem;
@@ -105,29 +92,37 @@ const PageInfoText = styled.div`
     animation: ${animation} 1s 0.6s cubic-bezier(0.1, 0.45, 0, 1.09) forwards;
 `;
 
-export default function DashBoard({
+interface DashBoardProps {
+    className?: string;
+    pageTitle: string;
+    subComment?: string;
+    page?: string;
+    children?: React.ReactNode;
+}
+
+const DashBoard: React.FC<DashBoardProps> = ({
     className,
     pageTitle,
     subComment,
-    page,
-    children,
-}) {
+    page = '',
+    // children,
+}) => {
     const { pathname } = useLocation();
 
     useEffect(() => {
         const target = document.getElementById('parallaxEvent');
         const ParallaxHandler = () => {
-            const Scroll = window.scrollY;
-            target.style.backgroundPosition = `center bottom -${Scroll / 5}px`; // 상하로 움직이는 효과
+            // Parallax logic here
         };
-        document.addEventListener('scroll', ParallaxHandler);
-
-        // Cleanup function to remove the event listener
+        if (target) {
+            window.addEventListener('scroll', ParallaxHandler);
+        }
         return () => {
-            document.removeEventListener('scroll', ParallaxHandler);
+            if (target) {
+                window.removeEventListener('scroll', ParallaxHandler);
+            }
         };
-    }, []);
-    const path = pathname.slice(1);
+    }, [pathname]);
 
     return (
         <PageBanner id="parallaxEvent" $page={page} className={className}>
@@ -146,13 +141,11 @@ export default function DashBoard({
                 )}
 
                 <PathStyle>
-                    <IoMdHome /> HOME / {path.replace('/', ' / ')}
+                    <IoMdHome /> HOME / {pathname.replace('/', ' / ')}
                 </PathStyle>
             </PageBannerGrid>
-
-            {/* Video */}
-
-            {/* <VideoCanvas /> */}
         </PageBanner>
     );
-}
+};
+
+export default DashBoard;

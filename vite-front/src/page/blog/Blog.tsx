@@ -10,7 +10,7 @@ import BlogRoutes from 'Route/BlogRoutes';
 import BlogNewPostList from 'features/Blog/BlogNewPostList/BlogNewPostList';
 import Motion from 'component/animations/Motion';
 
-const Blog = () => {
+const Blog = (): JSX.Element => {
     return (
         <>
             <DashBoard

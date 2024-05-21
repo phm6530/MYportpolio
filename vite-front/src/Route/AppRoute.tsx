@@ -1,6 +1,7 @@
-import Motion from 'component/animations/Motion';
 import { AnimatePresence } from 'framer-motion';
 import { useLocation, Route, Routes } from 'react-router-dom';
+
+import Motion from 'component/animations/Motion';
 
 import Home from 'page/Home';
 import MySchedule from 'page/MySchedule/MySchedule';
@@ -11,7 +12,7 @@ import NotfoundPage from 'component/error/NotfoundPage';
 import Blog from 'page/blog/Blog';
 import Project from 'page/Project';
 
-const AppRoute = () => {
+const AppRoute = (): JSX.Element => {
     const location = useLocation();
     const pageKey = location.pathname.split('/')[1] || 'home';
 
@@ -23,35 +24,22 @@ const AppRoute = () => {
         { path: '/contact', Component: <Contact /> },
         { path: '/blog/*', Component: <Blog /> },
         { path: '/test', Component: <InfiniteScrollTest /> },
-        { path: '/*', Component: <NotfoundPage /> },
+        { path: '/*', Component: <NotfoundPage redirectPath={'/'} /> },
     ];
-
-    // useEffect(() => {
-    //     const scrollTop = setTimeout(() => {
-    //         window.scrollTo(0, 0);
-    //     }, 500);
-
-    //     return () => {
-    //         clearTimeout(scrollTop);
-    //     };
-    // }, [location]);
 
     return (
         <>
             <AnimatePresence mode="wait">
                 <Routes location={location} key={pageKey}>
-                    {paths.map(path => {
+                    {paths.map(({ path, Component }) => {
                         return (
                             <Route
-                                path={path.path}
-                                key={path.path}
-                                element={
-                                    <Motion.Page>{path.Component}</Motion.Page>
-                                }
+                                key={path}
+                                path={path}
+                                element={<Motion.Page>{Component}</Motion.Page>}
                             />
                         );
                     })}
-                    ;
                 </Routes>
             </AnimatePresence>
         </>

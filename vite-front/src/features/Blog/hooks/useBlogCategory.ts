@@ -1,14 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { queryKey } from 'services/queryKey';
 import { fetchBlogCategory } from 'services/blogService';
+import { type BlogCategoryResponse } from '@features/Blog/BlogTypes';
 
 const useBlogCategory = () => {
-    const { data, isLoading, isError } = useQuery({
+    return useQuery<BlogCategoryResponse, Error>({
         queryKey: [queryKey.blogCategory],
         queryFn: fetchBlogCategory,
     });
-
-    return { data, isLoading, isError };
 };
 
 export default useBlogCategory;

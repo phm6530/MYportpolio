@@ -3,7 +3,7 @@ import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
 import { SubTitle } from 'component/ui/Subtitle';
 
 import useBlog from 'features/Blog/hooks/useBlog';
-import BlogContents from 'features/Blog/BlogContents';
+import BlogContents from '@features/Blog/BlogContents/BlogContents';
 import SearchForm from 'component/ui/SearchForm';
 import NonData from 'component/NonData';
 import Paging from 'component/Paging';
@@ -30,9 +30,9 @@ const BlogPage = (): JSX.Element => {
 
             {isLoading ? (
                 <SpinnerLoading />
-            ) : data && data.resData.length > 0 ? (
+            ) : data && data?.resData.length > 0 ? (
                 <>
-                    <BlogContents data={data.resData} />
+                    <BlogContents data={data?.resData} />
                     <Paging paging={data.paging} />
                 </>
             ) : (

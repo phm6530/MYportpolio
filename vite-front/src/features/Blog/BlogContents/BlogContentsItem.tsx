@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Fadein from 'FadeinComponent';
 import Thumbnail from 'component/ui/Thumbnail';
-// import { HashTag } from 'component/CommonStyle';
-import SummaryData from '@features/component/SummaryDate';
+import SummaryData from 'features/component/SummaryDate';
+import { BlogMainContentsItemProps } from '@features/Blog/BlogTypes';
 
 const ProjectFadeinStyle = styled(Fadein)`
     /* margin-bottom: 1.5rem; */
@@ -50,23 +50,13 @@ const CreateDate = styled(SummaryData)`
     font-size: 12px;
     opacity: 0.7;
 `;
-// const HasTagCustom = styled(HashTag)`
-//     background: #4131b3;
-//     font-weight: normal;
-//     top: 10px;
-//     left: 10px;
-//     font-size: 10px;
-//     border-radius: 1rem;
-//     border: 2px solid rgba(255, 255, 255, 0.1);
-//     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-//     color: #fff;
-//     margin-bottom: 0;
-// `;
 const CustomThumNail = styled(Thumbnail)`
     width: 30%;
 `;
 
-const BlogContentsItem = ({ item }): JSX.Element => {
+const BlogContentsItem: React.FC<{ item: BlogMainContentsItemProps }> = ({
+    item,
+}) => {
     const { post_id, thumnail, post_title, description, date, subcategory } =
         item;
     const navigate = useNavigate();

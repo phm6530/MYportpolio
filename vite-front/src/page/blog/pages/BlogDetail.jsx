@@ -9,7 +9,7 @@ import NotfoundPage from 'component/error/NotfoundPage';
 
 import BlogDetailDeleteBtn from 'features/Blog/BlogDetailControls/BlogDetailDeleteBtn';
 import BlogDetailEditBtn from 'features/Blog/BlogDetailControls/BlogDetailEditBtn';
-import PostRelatedList from 'features/Blog/PostRelatedList';
+import PostRelatedList from '@features/Blog/PostRelatedList/PostRelatedList';
 
 import styled from 'styled-components';
 import SummaryData from 'features/component/SummaryDate';

@@ -1,10 +1,10 @@
 import EditorTitle from 'component/editor/EditorTitle';
-import BlogCategory from 'features/Blog/BlogCategory';
+import BlogSelectCategory from '@features/Blog/BlogSelectCategory';
 import { SubTitle } from 'component/ui/Subtitle';
 import TestQuillEditor from 'component/editor/TestQuillEditor';
 
 import { useSelector } from 'react-redux';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Button } from 'component/ui/Button';
 import { useSearchParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -14,10 +14,11 @@ import { useEffect, useState } from 'react';
 import DotLoading from 'component/ui/loading/DotLoading';
 import useBlogPostDetail from 'hooks/useBlogPostDetail';
 import useBlogPostAction from 'hooks/useBlogPostAction';
+import { RootState } from 'store/appSlice';
 
-const BlogAdd = () => {
+const BlogAdd = (): JSX.Element => {
     const [params] = useSearchParams();
-    const auth = useSelector(state => state.authSlice);
+    const userData = useSelector((state: RootState) => state.auth.user);
 
     const postId = params.get('post');
     const editorType = params.get('type');
@@ -37,7 +38,7 @@ const BlogAdd = () => {
             title: '',
             category: '',
             post: '',
-            user: auth.user, //유저정보 담아 보내기
+            user: userData, //유저정보 담아 보내기
         },
     });
 
@@ -50,14 +51,14 @@ const BlogAdd = () => {
                 title: post_title,
                 category: `${category}:${subcategory}`,
                 post: contents,
-                user: auth.user,
+                user: userData,
             });
             setPostKey(imgkey);
         }
-    }, [data, reset, editorType, auth.user]);
+    }, [data, reset, editorType, userData]);
 
-    // Sumit
-    const onSubmitHandler = data => {
+    // Submit
+    const onSubmitHandler: SubmitHandler<FormData> = data => {
         const content = getContnets(data.post);
         const thumNail = content.getImg();
         const description = content.getText();
@@ -77,8 +78,8 @@ const BlogAdd = () => {
 
             {/* 선택 카테고리 */}
             <form onSubmit={handleSubmit(onSubmitHandler)}>
-                <BlogCategory
-                    error={errors?.['category']}
+                <BlogSelectCategory
+                    error={errors.category}
                     register={register('category', {
                         required: '필수항목 입니다.',
                     })}

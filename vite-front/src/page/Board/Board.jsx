@@ -5,8 +5,7 @@ import { RightWrap } from 'features/CommonStyles';
 import BoardCommentForm from 'features/Board/BoardCommentForm';
 
 import DashBoard from '../../component/ui/DashBoard';
-// import DashBoardTitle from '../../component/ui/DashBoardTitle';
-import { SubTitle } from 'features/CommonStyles';
+import { SubTitle } from 'component/ui/Subtitle';
 import UserProfile from 'component/profile/UserProfile';
 import BoardCommentList from 'features/Board/BoardCommentList';
 

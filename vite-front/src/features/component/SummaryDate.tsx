@@ -9,8 +9,18 @@ const PostLastUpdate = styled.span`
         margin-right: 10px;
     }
 `;
+interface SummaryDataProps {
+    className?: string;
+    message?: string;
+    date: Date;
+}
 
-const SummaryData = ({ className, message, date, ...rest }) => {
+const SummaryData: React.FC<SummaryDataProps> = ({
+    className,
+    message,
+    date,
+    ...rest
+}) => {
     return (
         <PostLastUpdate className={className} {...rest}>
             {message && <span>{message}</span>}

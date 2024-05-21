@@ -41,7 +41,11 @@ const Page = styled.div`
     }
 `;
 
-const NotfoundPage = ({ redirectPath }) => {
+interface NotFoundPageProps {
+    redirectPath: string;
+}
+
+const NotfoundPage: React.FC<NotFoundPageProps> = ({ redirectPath }) => {
     const navigate = useNavigate();
     return (
         <Page>
