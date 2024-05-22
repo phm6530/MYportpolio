@@ -7,16 +7,16 @@ import { Provider } from 'react-redux';
 import store from 'store/appSlice';
 
 // layOut
-import RootNav from 'component/layout/RootNav';
-import Footer from 'component/layout/Footer';
-import ThemeWrapper from 'wrappers/ThemeWrapper';
-import { GlobalStyle } from 'style/theme';
+import RootNav from 'layout/RootNav';
+import Footer from 'layout/Footer';
+import ThemeWrapper from 'style/ThemeWrapper';
+import { GlobalStyle } from 'style/CssinJsTheme';
 
 import { ThemeProvider } from '@mui/material';
-import theme from 'utils/theme';
+import MuiTheme from 'style/MuiTheme';
 
 import { ToastContainer } from 'react-toastify';
-import { toastConfig } from 'utils/toast';
+import { toastConfig } from 'config/toast';
 
 import { queryClient } from 'react-query/queryClient';
 import { QueryClientProvider } from '@tanstack/react-query';
@@ -31,7 +31,7 @@ function App(): JSX.Element {
             <Provider store={store}>
                 <QueryClientProvider client={queryClient}>
                     <ThemeWrapper>
-                        <ThemeProvider theme={theme}>
+                        <ThemeProvider theme={MuiTheme}>
                             <GlobalStyle />
                             <BrowserRouter>
                                 <RootNav />

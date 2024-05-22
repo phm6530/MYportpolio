@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import { SpinnerLoading } from 'component/ui/loading/SpinnerLoading';
+import { SpinnerLoading } from 'component/loading/SpinnerLoading';
 import { SubTitle } from 'component/ui/Subtitle';
 
 import useBlog from 'features/Blog/hooks/useBlog';
@@ -7,7 +7,7 @@ import BlogContents from '@features/Blog/BlogContents/BlogContents';
 import SearchForm from 'component/ui/SearchForm';
 import NonData from 'component/NonData';
 import Paging from 'component/Paging';
-import AddPostBtn from 'features/common/Post/AddPostBtn';
+import PostAddBtn from 'component/ui/PostAddBtn';
 
 const BlogPage = (): JSX.Element => {
     const [searchParams] = useSearchParams();
@@ -21,7 +21,7 @@ const BlogPage = (): JSX.Element => {
             <SubTitle>
                 <div className="subText">
                     <span className="point">{item}</span>
-                    <AddPostBtn />
+                    <PostAddBtn />
                 </div>
             </SubTitle>
 

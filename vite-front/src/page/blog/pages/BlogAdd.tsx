@@ -1,5 +1,5 @@
 import EditorTitle from 'component/editor/EditorTitle';
-import BlogSelectCategory from '@features/Blog/BlogSelectCategory';
+import BlogSelectCategory from '@features/Blog/BlogselectCategory/BlogSelectCategory';
 import { SubTitle } from 'component/ui/Subtitle';
 import TestQuillEditor from 'component/editor/TestQuillEditor';
 
@@ -8,12 +8,14 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Button } from 'component/ui/Button';
 import { useSearchParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { getContnets } from 'features/Blog/BlogUtil';
+import { EditorGetPreview } from 'component/editor/EditorGetPreview';
 import { useEffect, useState } from 'react';
 
-import DotLoading from 'component/ui/loading/DotLoading';
-import useBlogPostDetail from 'hooks/useBlogPostDetail';
-import useBlogPostAction from 'hooks/useBlogPostAction';
+import DotLoading from 'component/loading/DotLoading';
+import useBlogPostDetail from '@features/Blog/hooks/useBlogPostDetail';
+import useBlogPostAction from '@features/Blog/hooks/useBlogPostAction';
+
+//타입 get
 import { RootState } from 'store/appSlice';
 
 const BlogAdd = (): JSX.Element => {
@@ -59,7 +61,7 @@ const BlogAdd = (): JSX.Element => {
 
     // Submit
     const onSubmitHandler: SubmitHandler<FormData> = data => {
-        const content = getContnets(data.post);
+        const content = EditorGetPreview(data.post);
         const thumNail = content.getImg();
         const description = content.getText();
 

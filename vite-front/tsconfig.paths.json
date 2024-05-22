@@ -2,7 +2,11 @@
     "compilerOptions": {
         "baseUrl": "./src",
         "paths": {
-            "@features/*": ["features/*"]
+            "@features/*": ["features/*"],
+            "@layout/*": ["layout/*"],
+            "@hooks/*": ["hooks/*"],
+            "@page/*": ["page/*"],
+            "@style/*": ["style/*"]
         }
     }
 }

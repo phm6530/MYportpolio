@@ -48,10 +48,6 @@ const fetchBlogPageData = async (
 };
 
 const blogloadImage = async ({ category, key, formData }) => {
-    for (const [key, value] of formData.entries()) {
-        console.log(key, value);
-    }
-
     const response = await fetch(
         `${ENDPOINT_URL}/blog/uploadimg/${category}/${key}`,
         {

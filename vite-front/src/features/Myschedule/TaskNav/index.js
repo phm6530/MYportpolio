@@ -5,11 +5,10 @@ import { TodaySeletor } from 'utils/TodaySeletor';
 import { Button } from 'component/ui/Button';
 import { useSearchParams } from 'react-router-dom';
 import { useState } from 'react';
-import Popup from 'component/popup/Popup';
 import ScheduleDdaySetter from '../component/ScheduleDdaySetter';
 import { format } from 'date-fns';
 import TotalGraph from '../component/TotalGraph';
-import { SubDescription, SubTitle } from 'features/CommonStyles';
+import { SubDescription, SubTitle } from '@style/commonStyle';
 import useModal from 'hooks/useModal';
 
 const ButtonNavWrap = styled.div`

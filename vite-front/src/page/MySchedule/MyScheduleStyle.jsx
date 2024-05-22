@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Grid } from '../../component/ui/Grid';
+import { Grid } from '@layout/Grid';
 
 const ScheduleGrid = styled(Grid)`
     padding-top: 25rem;

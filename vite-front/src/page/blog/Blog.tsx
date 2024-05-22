@@ -1,8 +1,8 @@
-import { PageGrid } from 'component/ui/Grid';
+import { PageGrid } from '@layout/Grid';
 import DashBoard from 'component/ui/DashBoard';
 
-import { BoardWrapper } from 'features/Blog/BlogCommonStyle.js';
-import { Tab } from 'features/Blog/BlogCommonStyle.js';
+import { BoardWrapper } from '@features/Blog/BlogStyle';
+import { Tab } from 'features/Blog/BlogStyle';
 
 import BlogTab from '../../features/Blog/BlogTab.js/BlogTab';
 import BlogRoutes from 'Route/BlogRoutes';

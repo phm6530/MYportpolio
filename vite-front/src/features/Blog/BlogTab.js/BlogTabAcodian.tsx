@@ -2,7 +2,7 @@ import { LuMinus } from 'react-icons/lu';
 import { GoPlus } from 'react-icons/go';
 import styled from 'styled-components';
 import BlogTabDetail from './BlogTabDetail';
-import useQueryString from '../hooks/useQueryString';
+import useQueryString from '../../../hooks/useSearchQueryString';
 import { useEffect, useRef, useState } from 'react';
 import { BlogCategory } from '@features/Blog/BlogTypes';
 

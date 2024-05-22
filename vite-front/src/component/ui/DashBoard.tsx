@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 // import VideoCanvas from '../common/VideoCanvas';
 
-import { PageBannerGrid } from './Grid';
+import { PageBannerGrid } from '@layout/Grid';
 import { useLocation } from 'react-router-dom';
 import { IoMdHome } from 'react-icons/io';
 import DashBoardTitle from './DashBoardTitle';

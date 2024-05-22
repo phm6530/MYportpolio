@@ -1,5 +1,5 @@
 import PrograssBar from '../component/PrograssBar';
-import { FlexColumnDiv } from 'features/CommonStyles';
+import { FlexColumnDiv } from '@style/commonStyle';
 import styled from 'styled-components';
 
 const CustumFlexColumnDiv = styled(FlexColumnDiv)`

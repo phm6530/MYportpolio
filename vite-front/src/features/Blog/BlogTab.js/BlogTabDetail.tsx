@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import useQueryString from '../hooks/useQueryString';
+import useQueryString from '../../../hooks/useSearchQueryString';
 import { useSearchParams } from 'react-router-dom';
 import { BlogCategoryDetail } from '@features/Blog/BlogTypes';
 

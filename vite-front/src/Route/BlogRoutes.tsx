@@ -6,7 +6,7 @@ import { AnimatePresence } from 'framer-motion';
 import Motion from 'component/animations/Motion';
 import BlogAdd from 'page/blog/pages/BlogAdd';
 import BlogPage from 'page/blog/pages/BlogPage';
-import withAuth from 'component/hoc/WithAuth';
+import withAuth from 'hoc/WithAuth';
 
 const MotionStyle = styled(Motion.FadeInOut)`
     flex: 1;

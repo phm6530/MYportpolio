@@ -1,4 +1,4 @@
-import store, { authAction } from '../store/appSlice';
+import store, { authAction } from 'store/appSlice';
 
 // 로그인
 const fetchLogin = async formData => {

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { FaPlus } from 'react-icons/fa6';
-import { SubDepsTitle } from 'features/CommonStyles';
+import { SubDepsTitle } from '@style/commonStyle';
 
 const MarginLeft = styled.div`
     margin-left: auto;
