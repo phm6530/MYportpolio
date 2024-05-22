@@ -1,9 +1,12 @@
 import axios from 'axios';
 import { ENDPOINT_URL } from 'constants/apiUrl';
 import {
-    BlogMainContentsProps,
-    BlogPostRelated,
-    ApiResData,
+    type BlogMainContentsProps,
+    type BlogPostRelated,
+    type BlogCategorylist,
+    type ApiResData,
+    type BlogPostDetailProps,
+    BlogNewPostListProps,
 } from '@features/Blog/BlogTypes';
 
 async function executeHandler<T>(cb: () => Promise<{ data: T }>): Promise<T> {
@@ -18,6 +21,26 @@ async function executeHandler<T>(cb: () => Promise<{ data: T }>): Promise<T> {
         }
     }
 }
+
+//카테고리
+const fetchBlogCategory = async (): Promise<BlogCategorylist> => {
+    const { resData } = await executeHandler<ApiResData<BlogCategorylist>>(
+        () => {
+            return axios.get(`${ENDPOINT_URL}/blog/tab`);
+        },
+    );
+    return resData;
+};
+
+//포스팅 내용
+const blogPostDetail = async (key: string): Promise<BlogPostDetailProps> => {
+    const { resData } = await executeHandler<ApiResData<BlogPostDetailProps>>(
+        () => {
+            return axios.get(`${ENDPOINT_URL}/blog/postdetail/${key}`);
+        },
+    );
+    return resData;
+};
 
 //관련 포스팅
 const fetchPostRelated = async (postId: string): Promise<BlogPostRelated[]> => {
@@ -47,6 +70,13 @@ const fetchBlogPageData = async (
     return result;
 };
 
+//포스팅 삭제
+const deleteBlogPost = async (key: string) => {
+    return executeHandler(() =>
+        axios.delete(`${ENDPOINT_URL}/blog/deletepost/${key}`),
+    );
+};
+
 const blogloadImage = async ({ category, key, formData }) => {
     const response = await fetch(
         `${ENDPOINT_URL}/blog/uploadimg/${category}/${key}`,
@@ -59,7 +89,6 @@ const blogloadImage = async ({ category, key, formData }) => {
         throw new Error('이미지가 업로드 되지 않았습니다.');
     }
     const result = await response.json();
-    console.log(result);
     return result;
 };
 
@@ -84,51 +113,14 @@ const blogPostAction = async (data, pageType, postId) => {
     return result;
 };
 
-const fetchBlogCategory = async () => {
-    const response = await fetch('http://localhost:8080/blog/tab');
-    if (!response.ok) {
-        const errorMessage = await response.json();
-        throw new Error(errorMessage.message);
-    }
-
-    const { resData } = await response.json();
-    return resData;
-};
-
-const blogPostDetail = async key => {
-    console.log('key', key);
-    try {
-        const response = await fetch(`${ENDPOINT_URL}/blog/postdetail/${key}`);
-        const result = await response.json();
-        if (!response.ok) {
-            throw new Error(result.message);
-        }
-        return result;
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
-};
-
-const deleteBlogPost = async key => {
-    const response = await fetch(`${ENDPOINT_URL}/blog/deletepost/${key}`, {
-        method: 'delete',
+const fetchNewPostlist = async (): Promise<BlogNewPostListProps[]> => {
+    const { resData } = await executeHandler<
+        ApiResData<BlogNewPostListProps[]>
+    >(() => {
+        return axios.get(`${ENDPOINT_URL}/blog/posts/newlist`);
     });
-    if (!response.ok) {
-        const errorMessage = await response.json();
-        throw new Error(errorMessage.message);
-    }
-    const result = await response.json();
-    return result;
-};
 
-const fetchNewPostlist = async () => {
-    try {
-        const result = await axios.get(`${ENDPOINT_URL}/blog/posts/newlist`);
-        return result;
-    } catch (error) {
-        throw new Error(error.message);
-    }
+    return resData;
 };
 
 export {

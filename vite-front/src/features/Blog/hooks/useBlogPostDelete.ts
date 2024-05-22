@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { deleteBlogPost } from 'services/blogService';
 import { queryKey } from 'services/queryKey';
 
-const useBlogPostDelete = postKey => {
+const useBlogPostDelete = (postKey: string) => {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
 

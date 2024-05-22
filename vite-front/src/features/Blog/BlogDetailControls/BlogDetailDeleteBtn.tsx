@@ -6,7 +6,7 @@ import useCheckpermission from 'hooks/useAuthServer';
 import useBlogPostDelete from '@features/Blog/hooks/useBlogPostDelete';
 import usePopup from 'hooks/usePopup';
 
-const BlogDetailDeleteBtn = ({ postKey }) => {
+const BlogDetailDeleteBtn: React.FC<{ postKey: string }> = ({ postKey }) => {
     const checkPermission = useCheckpermission();
     const throttle = useRef(false);
 

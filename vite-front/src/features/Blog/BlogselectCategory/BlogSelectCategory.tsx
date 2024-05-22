@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import useBlogCategory from '../hooks/useBlogCategory';
 import { useEffect, useState } from 'react';
 import { InputLabel } from 'component/ui/TextArea';
-import { BlogCategoryResponse } from '@features/Blog/BlogTypes';
+import { BlogCategorylist } from '@features/Blog/BlogTypes';
 import { FieldError, FieldValues, UseFormRegister } from 'react-hook-form';
 
 const Select = styled.select<{ $error: boolean }>`
@@ -30,7 +30,7 @@ const BlogSelectCategory: React.FC<BlogCategoryProps> = ({
 }) => {
     const { data, isLoading } = useBlogCategory();
     const [categories, setCategories] = useState<string[]>([]);
-    const [list, setList] = useState<BlogCategoryResponse>();
+    const [list, setList] = useState<BlogCategorylist>();
 
     useEffect(() => {
         if (!isLoading && data) {
@@ -51,8 +51,6 @@ const BlogSelectCategory: React.FC<BlogCategoryProps> = ({
                     {list &&
                         categories.map((category, idx) => {
                             const categoryData = list[category];
-
-                            console.log(categoryData);
                             if (typeof categoryData === 'object') {
                                 const keys = Object.keys(categoryData);
 

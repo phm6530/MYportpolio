@@ -1,14 +1,14 @@
+import { BlogPostDetailProps } from '@features/Blog/BlogTypes';
 import { useQuery } from '@tanstack/react-query';
 import { blogPostDetail } from 'services/blogService';
 import { queryKey } from 'services/queryKey';
 
-const useBlogPostDetail = key => {
-    const { data, isLoading, isError } = useQuery({
+const useBlogPostDetail = (key: string) => {
+    return useQuery<BlogPostDetailProps>({
         queryKey: [queryKey.blogDetail],
         queryFn: () => blogPostDetail(key),
         enabled: !!key,
     });
-    return { data, isLoading, isError };
 };
 
 export default useBlogPostDetail;

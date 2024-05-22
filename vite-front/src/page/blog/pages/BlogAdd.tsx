@@ -25,7 +25,7 @@ const BlogAdd = (): JSX.Element => {
     const postId = params.get('post');
     const editorType = params.get('type');
 
-    const { data } = useBlogPostDetail(postId);
+    const { data } = useBlogPostDetail(postId ? postId : '');
     const { mutate, isPending } = useBlogPostAction(editorType, postId);
     const [postKey, setPostKey] = useState(() => editorType || uuidv4());
 
@@ -46,16 +46,16 @@ const BlogAdd = (): JSX.Element => {
 
     useEffect(() => {
         // ?type=edit 시 formData에 value 삽입
-        if (editorType === 'modify' && data?.resData) {
-            const { post_title, category, subcategory, contents, imgkey } =
-                data.resData;
+        if (editorType === 'modify' && data) {
+            const { post_title, category, subcategory, contents, imgKey } =
+                data;
             reset({
                 title: post_title,
                 category: `${category}:${subcategory}`,
                 post: contents,
                 user: userData,
             });
-            setPostKey(imgkey);
+            setPostKey(imgKey);
         }
     }, [data, reset, editorType, userData]);
 

@@ -2,35 +2,29 @@ export interface ApiResData<T> {
     resData: T;
 }
 
-// category
-export interface BlogCategoryDetail {
-    post_count: number;
-    post_new: boolean;
-}
-
-export interface BlogCategory {
-    [subcategory: string]: BlogCategoryDetail;
-}
-
-export interface BlogCategoryResponse {
-    All: number;
-    [category: string]: BlogCategory | number;
-}
-
 //blog Summary
-
-type create_at = Date;
+type post_date = Date;
+type post_category = string;
+type post_subcategory = string;
 type post_id = number;
 type post_title = string;
+type imgUrl = string;
+type post_imgKey = string;
+type post_username = string;
+type post_contents = string;
+type post_description = string;
+
 export type thumnail_url = string;
 
+//블로그 관련카테고리 리스트
 export interface BlogPostRelated {
-    create_at: create_at;
+    create_at: post_date;
     post_id: post_id;
     post_title: post_title;
     thumnail_url: thumnail_url;
 }
 
+//메인 콘텐츠 리스트
 export interface BlogMainContentsItemProps {
     post_id: post_id;
     date: Date;
@@ -41,8 +35,56 @@ export interface BlogMainContentsItemProps {
     thumnail: thumnail_url;
 }
 
+//메인 콘텐츠 리스트
 export interface BlogMainContentsProps {
     message: string;
     resData: BlogMainContentsItemProps[];
     paging: number;
+}
+
+//이미지 업로드 타입
+export interface BlogImgUploaderProps {
+    message: string;
+    imgUrl: imgUrl;
+}
+
+//Detail Type
+export interface BlogPostDetailProps {
+    category: post_category;
+    contents: post_contents;
+    create_date: post_date;
+    imgKey: post_imgKey;
+    post_id: post_id;
+    post_title: post_title;
+    subcategory: post_subcategory;
+    update_date: post_date;
+    user: post_username;
+}
+
+// 카테고리 List
+export interface BlogCategoryDetail {
+    post_count: number;
+    post_new: boolean;
+}
+
+export interface BlogCategory {
+    [subcategory: string]: BlogCategoryDetail;
+}
+
+export interface BlogCategorylist {
+    All: number;
+    [category: string]: BlogCategory | number;
+}
+
+export interface BlogCategoryResponse {
+    message: string;
+    resData: BlogCategorylist;
+}
+
+// 블로그 새글 리스트
+export interface BlogNewPostListProps {
+    post_id: post_id;
+    post_title: post_title;
+    post_description: post_description;
+    create_at: post_date;
 }

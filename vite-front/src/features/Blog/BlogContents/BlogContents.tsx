@@ -21,7 +21,6 @@ const BlogContents: React.FC<{ data: BlogMainContentsItemProps[] }> = ({
     data,
 }) => {
     const location = useLocation();
-    console.log(data);
 
     return (
         <AnimatePresence mode="wait">

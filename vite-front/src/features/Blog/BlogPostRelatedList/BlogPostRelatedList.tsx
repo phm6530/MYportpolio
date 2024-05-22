@@ -23,8 +23,6 @@ const BlogPostRelatedList = () => {
 
     const relatedList = data || [];
 
-    console.log(data);
-
     return (
         <>
             {relatedList.length !== 0 && (

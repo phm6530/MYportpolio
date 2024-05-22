@@ -34,7 +34,6 @@ export default function InfiniteScrollTest() {
                 return nextPage.nextPage || undefined;
             },
         });
-    console.log(data);
 
     useEffect(() => {
         const lastRef = ref?.current;

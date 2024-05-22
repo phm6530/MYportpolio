@@ -4,12 +4,13 @@ import { toast } from 'react-toastify';
 import { blogPostAction } from 'services/blogService';
 import { queryKey } from 'services/queryKey';
 
-const useBlogPostAction = (pageType, postId) => {
+const useBlogPostAction = (pageType: string, postId: string) => {
     const navigate = useNavigate();
     const queryClient = useQueryClient();
 
-    const { mutate, isPending } = useMutation({
+    return useMutation({
         mutationFn: data => blogPostAction(data, pageType, postId),
+
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: [queryKey.blogCategory],
@@ -18,12 +19,11 @@ const useBlogPostAction = (pageType, postId) => {
             queryClient.invalidateQueries({
                 queryKey: [queryKey.blogNewPostLIst],
             });
+
             toast.success('블로그 글이 포스팅되었습니다.');
             navigate('/blog?category=All');
         },
     });
-
-    return { mutate, isPending };
 };
 
 export default useBlogPostAction;

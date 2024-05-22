@@ -32,7 +32,7 @@ const BlogPage = (): JSX.Element => {
                 <SpinnerLoading />
             ) : data && data?.resData.length > 0 ? (
                 <>
-                    <BlogContents data={data?.resData} />
+                    <BlogContents data={data.resData} />
                     <Paging paging={data.paging} />
                 </>
             ) : (

@@ -67,7 +67,7 @@ const BlogDetail = () => {
     const { key } = useParams();
     const navigate = useNavigate();
 
-    const { data, isLoading, isError } = useBlogPostDetail(key);
+    const { data, isLoading, isError } = useBlogPostDetail(key ? key : '');
 
     if (isLoading) {
         return (
@@ -85,34 +85,25 @@ const BlogDetail = () => {
         );
     }
 
-    const {
-        post_title,
-        user,
-        category,
-        subcategory,
-        create_date,
-        update_date,
-    } = data?.resData || {};
-
     return (
         <>
-            {data && (
+            {data && key && (
                 <div>
                     {/* Editor View header */}
                     <PostDetailHeader>
                         <CateGroy>
-                            {category} / {subcategory}
+                            {data.category} / {data.subcategory}
                         </CateGroy>
 
-                        <PostTitle>{post_title}</PostTitle>
+                        <PostTitle>{data.post_title}</PostTitle>
 
                         <PostInfo>
                             <UserPictrue>
                                 <img src="/img/me.jpg" alt="" />
                             </UserPictrue>
-                            {user}
+                            {data.user}
 
-                            <SummaryDataAlign date={create_date} />
+                            <SummaryDataAlign date={data.create_date} />
                             <ControlBtnWrap>
                                 <Button onClick={() => navigate(-1)}>
                                     목록
@@ -127,12 +118,12 @@ const BlogDetail = () => {
 
                     {/* Quill View */}
                     <QuillViewWrapper>
-                        <QuillView contents={data?.resData.contents} />
-                        {update_date && (
+                        <QuillView contents={data.contents} />
+                        {data?.update_date && (
                             <PostTimestamp
                                 style={{ marginTop: '5rem', display: 'block' }}
                                 message={'게시물 최근 수정 일'}
-                                date={update_date}
+                                date={data.update_date}
                             />
                         )}
                     </QuillViewWrapper>

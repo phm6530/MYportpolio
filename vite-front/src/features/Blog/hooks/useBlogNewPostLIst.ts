@@ -1,22 +1,10 @@
-import { useQuery, UseQueryResult } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { queryKey } from 'services/queryKey';
 import { fetchNewPostlist } from 'services/blogService';
+import { BlogNewPostListProps } from '@features/Blog/BlogTypes';
 
-interface BlogPost {
-    post_id: number;
-    post_title: string;
-    post_description: string;
-    create_at: Date;
-}
-
-interface ApiResponse {
-    data: {
-        resData: BlogPost[];
-    };
-}
-
-const useBlogNewPostList = (): UseQueryResult<ApiResponse, Error> => {
-    return useQuery({
+const useBlogNewPostList = () => {
+    return useQuery<BlogNewPostListProps[]>({
         queryKey: [queryKey.blogNewPostLIst],
         queryFn: fetchNewPostlist,
     });

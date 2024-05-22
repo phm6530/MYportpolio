@@ -1,14 +1,12 @@
 import useBlogCategory from '../hooks/useBlogCategory';
 
 import { useEffect, useState } from 'react';
-import { type BlogCategoryResponse } from '@features/Blog/BlogTypes';
+import { type BlogCategorylist } from '@features/Blog/BlogTypes';
 import AccodianTab from '@features/Blog/BlogTab.js/BlogTabAcodian';
 
 const BlogTab = () => {
     const { data, isLoading } = useBlogCategory();
-    const [categories, setCategories] = useState<BlogCategoryResponse | null>(
-        null,
-    );
+    const [categories, setCategories] = useState<BlogCategorylist | null>(null);
 
     useEffect(() => {
         if (!isLoading && data) {
