@@ -14,7 +14,7 @@ type post_username = string;
 type post_contents = string;
 type post_description = string;
 
-export type thumnail_url = string;
+export type thumnail_url = string | null;
 
 //블로그 관련카테고리 리스트
 export interface BlogPostRelated {
@@ -53,7 +53,7 @@ export interface BlogPostDetailProps {
     category: post_category;
     contents: post_contents;
     create_date: post_date;
-    imgKey: post_imgKey;
+    imgkey: post_imgKey;
     post_id: post_id;
     post_title: post_title;
     subcategory: post_subcategory;
@@ -87,4 +87,19 @@ export interface BlogNewPostListProps {
     post_title: post_title;
     post_description: post_description;
     create_at: post_date;
+}
+
+export interface BlogAddorEditProps {
+    title: post_title;
+    category: post_category;
+    post: post_contents;
+}
+
+// Add or Edit 요청
+export interface BlogPostRequestProps {
+    category: post_category;
+    description: post_description | undefined;
+    key: post_imgKey;
+    thumNail: thumnail_url;
+    user: object;
 }

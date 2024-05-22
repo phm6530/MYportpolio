@@ -5,7 +5,7 @@ import useBlogCategory from '../hooks/useBlogCategory';
 import { useEffect, useState } from 'react';
 import { InputLabel } from 'component/ui/TextArea';
 import { BlogCategorylist } from '@features/Blog/BlogTypes';
-import { FieldError, FieldValues, UseFormRegister } from 'react-hook-form';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
 const Select = styled.select<{ $error: boolean }>`
     background: var(--color-background-input);
@@ -21,7 +21,7 @@ const Option = styled.option``;
 
 interface BlogCategoryProps {
     error?: FieldError;
-    register: UseFormRegister<FieldValues>;
+    register: UseFormRegisterReturn;
 }
 
 const BlogSelectCategory: React.FC<BlogCategoryProps> = ({

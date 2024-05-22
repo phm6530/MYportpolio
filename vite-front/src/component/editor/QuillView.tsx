@@ -12,10 +12,12 @@ const QuillContainer = styled.div`
     }
 `;
 
-const QuillView = ({ contents }) => {
-    const renderHTML = quillHTML => {
+const QuillView: React.FC<{ contents: string }> = ({ contents }) => {
+    const renderHTML = (quillHTML: string): { __html: string } => {
         return { __html: quillHTML };
     };
+
+    console.log(contents);
 
     return (
         <>

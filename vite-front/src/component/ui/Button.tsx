@@ -2,6 +2,12 @@ import styled from 'styled-components';
 import { IoMdArrowForward } from 'react-icons/io';
 import { MdUpload } from 'react-icons/md';
 
+interface ButtonProps {
+    style?: React.CSSProperties;
+    children: React.ReactNode;
+    disabled?: boolean;
+}
+
 const Type = ({ children, ...props }) => {
     return (
         <button className="btn-borderStyle" {...props}>
@@ -10,7 +16,7 @@ const Type = ({ children, ...props }) => {
     );
 };
 
-const Submit = ({ children, disabled, ...props }) => {
+const Submit: React.FC<ButtonProps> = ({ children, disabled, ...props }) => {
     return (
         <button className="btn-mainSubmit" disabled={disabled} {...props}>
             {children}
@@ -105,7 +111,7 @@ const SubmitButton = ({ children, active, ...props }) => {
     );
 };
 
-export function Button({ children }) {
+export function Button({ children }: ButtonProps) {
     return <button>{children}</button>;
 }
 

@@ -57,6 +57,7 @@
                 "endOfLine": "auto"
             }
         ],
+        "no-unused-vars": ["error", { "varsIgnorePattern": "^_" }],
         "@typescript-eslint/no-this-alias": "error",
         "react/prop-types": "off"
     },

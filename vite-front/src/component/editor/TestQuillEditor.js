@@ -1,6 +1,5 @@
 import ReactQuill from 'react-quill';
 import 'quill/dist/quill.snow.css';
-import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 import { useMemo, useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';

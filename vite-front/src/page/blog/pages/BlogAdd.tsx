@@ -17,17 +17,26 @@ import useBlogPostAction from '@features/Blog/hooks/useBlogPostAction';
 
 //타입 get
 import { RootState } from 'store/appSlice';
+import {
+    BlogAddorEditProps,
+    BlogPostRequestProps,
+} from '@features/Blog/BlogTypes';
 
+interface FormValue extends BlogAddorEditProps {
+    user: object;
+}
 const BlogAdd = (): JSX.Element => {
     const [params] = useSearchParams();
     const userData = useSelector((state: RootState) => state.auth.user);
 
-    const postId = params.get('post');
-    const editorType = params.get('type');
+    const postId = params.get('post') || '';
+    const editorType = params.get('type') || '';
 
-    const { data } = useBlogPostDetail(postId ? postId : '');
+    const { data } = useBlogPostDetail(postId);
     const { mutate, isPending } = useBlogPostAction(editorType, postId);
     const [postKey, setPostKey] = useState(() => editorType || uuidv4());
+
+    console.log(data);
 
     const {
         register,
@@ -35,7 +44,7 @@ const BlogAdd = (): JSX.Element => {
         control,
         reset,
         formState: { errors },
-    } = useForm({
+    } = useForm<FormValue>({
         defaultValues: {
             title: '',
             category: '',
@@ -47,7 +56,7 @@ const BlogAdd = (): JSX.Element => {
     useEffect(() => {
         // ?type=edit 시 formData에 value 삽입
         if (editorType === 'modify' && data) {
-            const { post_title, category, subcategory, contents, imgKey } =
+            const { post_title, category, subcategory, contents, imgkey } =
                 data;
             reset({
                 title: post_title,
@@ -55,17 +64,23 @@ const BlogAdd = (): JSX.Element => {
                 post: contents,
                 user: userData,
             });
-            setPostKey(imgKey);
+            setPostKey(imgkey);
         }
     }, [data, reset, editorType, userData]);
 
     // Submit
-    const onSubmitHandler: SubmitHandler<FormData> = data => {
+    const onSubmitHandler: SubmitHandler<FormValue> = data => {
         const content = EditorGetPreview(data.post);
         const thumNail = content.getImg();
         const description = content.getText();
 
-        const requestData = { ...data, key: postKey, thumNail, description };
+        const requestData: BlogPostRequestProps = {
+            ...data,
+            key: postKey,
+            thumNail,
+            description,
+        };
+
         mutate(requestData);
     };
 
@@ -103,7 +118,8 @@ const BlogAdd = (): JSX.Element => {
                         name="post"
                         control={control}
                         render={({ field }) => {
-                            const { ref: _, ...restField } = field; // `ref`를 제외하고 나머지 필드를 추출
+                            const { ref, ...restField } = field;
+                            void ref;
                             return (
                                 <TestQuillEditor
                                     postKey={postKey}
