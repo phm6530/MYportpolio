@@ -56,7 +56,7 @@ const ReactQuillStyle = styled(ReactQuill)`
 `;
 
 const TestQuillEditor = ({ postKey, ...props }) => {
-    const quillRef = useRef();
+    const quillRef = useRef<HTMLDivElement>(null);
 
     const { mutateAsync } = useMutation({
         mutationFn: blogloadImage,

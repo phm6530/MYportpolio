@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 const UserIconViewer = styled.div`
     margin-right: 10px;

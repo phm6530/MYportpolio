@@ -1,5 +1,4 @@
 import styled, { css, keyframes } from 'styled-components';
-
 const onPopup = keyframes`
     from{
         opacity: 0;
@@ -51,7 +50,7 @@ const PopupStyle = styled.div`
     }
 `;
 
-const PopupWrap = styled.div`
+const PopupWrap = styled.div<{ $close: boolean }>`
     padding: 20px;
     border-radius: 1em;
     background: var(--color-popup-background);

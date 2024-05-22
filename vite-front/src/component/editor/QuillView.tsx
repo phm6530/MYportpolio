@@ -17,8 +17,6 @@ const QuillView: React.FC<{ contents: string }> = ({ contents }) => {
         return { __html: quillHTML };
     };
 
-    console.log(contents);
-
     return (
         <>
             <QuillContainer className="ql-container ql-snow">

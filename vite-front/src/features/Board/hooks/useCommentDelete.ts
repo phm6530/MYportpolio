@@ -5,7 +5,7 @@ import { deleteFetch } from 'services/boardService';
 
 const useCommentDelete = () => {
     const { mutate } = useMutation({
-        mutationFn: formData => deleteFetch(formData),
+        mutationFn: (board_key: string) => deleteFetch(board_key),
         onSuccess: () => {
             toast.info('댓글이 삭제되었습니다.');
             queryClient.invalidateQueries({ queryKey: ['board'] });

@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import { Button } from './Button';
 
-const BtnStyle = styled.button``;
-
 const ConfirmStyle = styled.div`
     text-align: center;
     p {
@@ -15,7 +13,12 @@ const ConfirmStyle = styled.div`
     }
 `;
 
-export default function Confirm({ message, confirm }) {
+interface ConfirmProps {
+    message: string;
+    confirm: () => void;
+}
+
+export default function Confirm({ message, confirm }: ConfirmProps) {
     return (
         <ConfirmStyle>
             <p>

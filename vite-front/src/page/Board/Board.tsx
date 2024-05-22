@@ -1,13 +1,13 @@
 import styled from 'styled-components';
+
 import { PageGrid } from '@layout/Grid';
 import { RightWrap } from '@style/commonStyle';
-
-import BoardCommentForm from 'features/Board/BoardCommentForm';
-
-import DashBoard from '../../component/ui/DashBoard';
 import { SubTitle } from 'component/ui/Subtitle';
+
+import BoardCommentForm from '@features/Board/BoardCommentForm/BoardCommentForm';
+import DashBoard from '../../component/ui/DashBoard';
 import UserProfile from 'component/profile/UserProfile';
-import BoardCommentList from 'features/Board/BoardCommentList';
+import BoardCommentList from '@features/Board/BoardCommentList/BoardCommentList';
 
 const PageText = styled.div`
     word-break: keep-all;
@@ -30,7 +30,7 @@ const BoardDashBoard = styled.div`
     }
 `;
 
-export default function Board() {
+export default function Board(): JSX.Element {
     return (
         <>
             {/* Header */}

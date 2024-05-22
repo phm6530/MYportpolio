@@ -1,5 +1,10 @@
 import styled from 'styled-components';
-import { Controller, useFormContext } from 'react-hook-form';
+import {
+    Controller,
+    FieldValues,
+    SubmitHandler,
+    useFormContext,
+} from 'react-hook-form';
 
 const FormStyle = styled.form`
     box-sizing: border-box;
@@ -22,7 +27,7 @@ const ButtonSTyle = styled.button`
 export default function CommentDelete({ mutate, board_key, setSelectIdx }) {
     const { handleSubmit, reset } = useFormContext();
 
-    const onSubmitHandler = async data => {
+    const onSubmitHandler: SubmitHandler<FieldValues> = async data => {
         const password = data.password;
         const formData = {
             reply_password: password,

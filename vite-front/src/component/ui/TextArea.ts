@@ -1,7 +1,9 @@
 import styled, { css } from 'styled-components';
-
+interface CustomProps {
+    $error?: boolean;
+}
 // 공통 스타일 컴포넌트
-const commonStyle = css`
+const commonStyle = css<CustomProps>`
     padding: 5px 10px;
     border-radius: 0.5em;
 
@@ -14,11 +16,11 @@ const commonStyle = css`
     }
 `;
 
-const InputStyle = styled.input`
+const InputStyle = styled.input<CustomProps>`
     ${commonStyle}
 `;
 
-const TextAreaStyle = styled.textarea`
+const TextAreaStyle = styled.textarea<CustomProps>`
     ${commonStyle}
 `;
 

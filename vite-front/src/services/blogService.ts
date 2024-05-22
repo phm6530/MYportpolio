@@ -107,6 +107,7 @@ const blogPostAction = async (data, pageType, postId) => {
     });
 
     const result = await response.json();
+
     if (!response.ok) {
         throw new Error(result.message);
     }

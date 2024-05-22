@@ -3,6 +3,7 @@ import { InputStyle, TextAreaStyle } from 'component/ui/TextArea';
 
 import styled from 'styled-components';
 import ErrorBubble from 'component/error/ErrorBubble';
+import { FieldError } from 'react-hook-form';
 
 const FormInputDiv = styled.div`
     border-radius: 10px;
@@ -31,23 +32,38 @@ const FormInputDiv = styled.div`
         margin-bottom: 1px;
     }
 `;
-const BoardCommentInput = forwardRef((fields, ref) => {
-    const { isAuth, label, error, ...props } = fields;
-
+interface BoardCommentInputProps {
+    label: string;
+    error?: FieldError;
+    type?: string;
+    name: string;
+    placeholder?: string;
+    disabled?: boolean;
+    isAuth?: boolean;
+}
+const BoardCommentInput = forwardRef<
+    HTMLInputElement | HTMLDivElement,
+    BoardCommentInputProps
+>(({ label, error, type, isAuth, name, ...rest }, ref) => {
+    console.log(error);
     return (
         <>
             <FormInputDiv>
                 <span>{label}</span>
-                {fields.type === 'textarea' ? (
-                    <TextAreaStyle $error={error} {...props} />
+                {type === 'textarea' ? (
+                    <TextAreaStyle
+                        ref={ref as React.Ref<HTMLTextAreaElement>}
+                        $error={!!error}
+                        {...rest}
+                    />
                 ) : (
                     <InputStyle
-                        $error={error}
-                        ref={ref}
-                        type={fields.name === 'password' ? 'password' : 'text'}
+                        ref={ref as React.Ref<HTMLInputElement>}
+                        $error={!!error}
+                        type={name === 'password' ? 'password' : 'text'}
                         autoComplete="off"
                         disabled={isAuth}
-                        {...props}
+                        {...rest}
                     />
                 )}
                 {error && <ErrorBubble>{error.message}</ErrorBubble>}

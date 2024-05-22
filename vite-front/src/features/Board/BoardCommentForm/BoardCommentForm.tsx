@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 const { useLocation } = ReactRouteDom;
 
-import { Controller } from 'react-hook-form';
+import { Controller, SubmitHandler } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -14,11 +14,13 @@ import { yupResolver } from '@hookform/resolvers/yup'; // Yup + form hook 연동
 import { useForm } from 'react-hook-form';
 
 import useCommentAdd from '../hooks/useCommentAdd';
-import BoardCrector from '../BoardCrector';
-import CrectorView from '../BoardCrector/CrectorView';
-import { randomCrector } from '../BoardUtils/randomCrector';
+import BoardCrector from '@features/Board/BoardCrector/BoardCrector';
+import CrectorView from '@features/Board/BoardCrector/BoardCrectorView';
+
+import { randomCrector } from '@features/Board/BoardUtils/randomCrector';
 import { useEffect } from 'react';
-import { yupSchema } from '../BoardUtils/YupSchema';
+import { yupSchema } from '@features/Board/BoardUtils/YupSchema';
+import { RootState } from 'store/appSlice';
 
 const BoardReplyStyle = styled.div`
     border-radius: 1em 1em 0 0;
@@ -40,7 +42,7 @@ const FormStyle = styled.form`
 `;
 
 export default function BoardCommentForm() {
-    const { login } = useSelector(state => state.auth);
+    const { login } = useSelector((state: RootState) => state.auth);
 
     // Comment Add Hook
     const { mutate: addMutate } = useCommentAdd();
@@ -77,7 +79,10 @@ export default function BoardCommentForm() {
     }, [login, reset, getValues]);
 
     // submit
-    const onSubmitHandlr = async ({ contents, userName, ...data }) => {
+    const onSubmitHandlr: SubmitHandler<{
+        contents: string;
+        userName: string;
+    }> = async ({ contents, userName, ...data }) => {
         // 욕설 필터링
         if (!findForBadword(contents)) return;
 
@@ -131,7 +136,7 @@ export default function BoardCommentForm() {
                                 isAuth={login}
                                 placeholder={'이름을 입력해주세요.'}
                                 type={'text'}
-                                error={errors[{ ...field }.name]}
+                                error={errors.userName}
                             />
                         )}
                     />
@@ -147,7 +152,7 @@ export default function BoardCommentForm() {
                                     placeholder={
                                         '4자 이상의 비밀번호를 입력해주세요.'
                                     }
-                                    error={errors[{ ...field }.name]}
+                                    error={errors?.password}
                                 />
                             )}
                         />
@@ -161,7 +166,7 @@ export default function BoardCommentForm() {
                                 label="댓글"
                                 type={'textarea'}
                                 placeholder={'남기실 댓글 내용을 입력해주세요!'}
-                                error={errors[{ ...field }.name]}
+                                error={errors?.contents}
                             />
                         )}
                     />

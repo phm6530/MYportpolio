@@ -6,6 +6,7 @@
             "@layout/*": ["layout/*"],
             "@hooks/*": ["hooks/*"],
             "@page/*": ["page/*"],
+            "@board/*": ["board/*"],
             "@style/*": ["style/*"]
         }
     }

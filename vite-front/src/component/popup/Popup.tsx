@@ -1,18 +1,21 @@
-import classes from './Popup.module.css';
 import ReactDOM from 'react-dom';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { PopupWrap, PopupStyle } from './PopupStyle';
 import { useSelector } from 'react-redux';
 
-// background
-const Backdrop = () => {
-    return <div className={classes.backdrop}></div>;
-};
+import PopupBackDrop from 'component/popup/PopupBackDrop';
+import { RootState } from 'store/appSlice';
 
-export default function Popup({ closePopup, type, children }) {
+interface PopupProps {
+    closePopup: () => void;
+    type?: string;
+    children: React.ReactElement;
+}
+
+export default function Popup({ closePopup, type, children }: PopupProps) {
     const [animationState, setAniamtionState] = useState(false);
-    const isAuth = useSelector(state => state.auth.login);
+    const isAuth = useSelector((state: RootState) => state.auth.login);
     // console.log(type);
 
     // 닫기 & CLose 애니메이션
@@ -36,8 +39,8 @@ export default function Popup({ closePopup, type, children }) {
     return (
         <>
             {ReactDOM.createPortal(
-                <Backdrop />,
-                document.getElementById('backdrop-root'),
+                <PopupBackDrop />,
+                document.getElementById('backdrop-root')!,
             )}
 
             {ReactDOM.createPortal(
@@ -51,7 +54,7 @@ export default function Popup({ closePopup, type, children }) {
                         </button>
                     </PopupWrap>
                 </PopupStyle>,
-                document.getElementById('modal-root'),
+                document.getElementById('modal-root')!,
             )}
         </>
     );
