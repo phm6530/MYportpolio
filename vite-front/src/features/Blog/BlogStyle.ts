@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const Tab = styled.div`
     margin-right: 3rem;
     padding-right: 2rem;
+    width: 16rem;
 `;
 
 const Contents = styled.div`

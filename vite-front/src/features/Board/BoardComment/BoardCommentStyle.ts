@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const ReplyPicture = styled.div<{ $picture: string }>`
     ${props => `background :url(/img/board/${props.$picture}.jpg)`};
@@ -10,6 +10,7 @@ export const ReplyUserName = styled.div`
     display: flex;
     align-items: center;
     font-size: 14px;
+    color: #333;
     svg {
         font-size: 12px;
         margin-left: 0.4rem;
@@ -17,10 +18,14 @@ export const ReplyUserName = styled.div`
     }
 `;
 
-export const ReplyWrap = styled.div`
-    margin-bottom: 3px;
-    /* border-radius: 1em; */
+export const ReplyWrap = styled.div<{ $admin?: boolean }>`
+    ${({ $admin }) =>
+        $admin &&
+        css`
+            flex-direction: row-reverse;
+        `}
 
+    margin-bottom: 3px;
     margin: 0 1rem;
     border-radius: 1em;
     margin-bottom: 10px;
@@ -44,13 +49,15 @@ export const ReplyWrap = styled.div`
         justify-content: space-between;
     }
     .replyDate {
-        font-size: 13px;
-        opacity: 0.7;
+        font-size: 12px;
+        opacity: 0.4;
+        color: #333;
     }
     .replyDescription {
         margin-bottom: 10px;
         margin-top: 5px;
         font-size: 14px;
+        color: #333;
         word-break: break-all;
         white-space: pre-line;
     }
@@ -61,29 +68,34 @@ export const ReplyBubble = styled.div<{ $admin: boolean }>`
     padding: 10px 15px;
     border-radius: 0.5em;
     position: relative;
-    /* width: calc(100% - 70px); */
-    /* Rectangle 869 */
-    background: #3d3d3d;
     min-width: 40%;
-    background: linear-gradient(180deg, #323a59 0%, #556976 100%);
-    background: linear-gradient(180deg, #3d3a56 0%, #5a5576 100%);
-    /* background: ${({ $admin }) => ($admin ? '#FFEB33' : '#fff')}; */
     box-shadow: 2px 2px 3px rgb(0 0 0 / 15%);
-    border: 1px solid rgb(0 0 0 / 8%);
-    border: 2px solid #4c466b;
+    flex-direction: row-reverse;
+    ${({ $admin }) =>
+        $admin
+            ? css`
+                  background: #fedf7c;
+                  border: 2px solid #e6bb49;
+                  margin-right: 1rem;
+              `
+            : css`
+                  background: #caeaf9;
+                  border: 2px solid #a9cff1;
+              `};
 
     &::before {
         content: '';
         display: block;
         position: absolute;
-        left: -20px;
+        left: ${({ $admin }) => ($admin ? 'calc(100% - 2px)' : '-25px')};
         top: 15px;
         width: 0;
         height: 0;
         border-bottom: 5px solid transparent;
         border-top: 5px solid transparent;
-        border-left: 10px solid #433f5c;
+        border-left: 15px solid
+            ${({ $admin }) => ($admin ? '#fedf7c' : '#caeaf9')};
         border-right: 10px solid transparent;
-        transform: rotate(180deg);
+        transform: ${({ $admin }) => !$admin && 'rotate(180deg)'};
     }
 `;

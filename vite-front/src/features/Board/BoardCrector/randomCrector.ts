@@ -1,4 +1,4 @@
-const randomCrector = login => {
+const randomCrector = (login: boolean): string => {
     const personIcon = [...Array(6)].map((_, idx) => `person_${idx + 1}`);
     const randomUserIcon = login
         ? 'adminPicture'

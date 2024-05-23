@@ -8,7 +8,7 @@ import {
 
 const FormStyle = styled.form`
     box-sizing: border-box;
-    border: 2px solid red;
+    border: 2px solid #56565663;
     border-radius: 5em;
     overflow: hidden;
 

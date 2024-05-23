@@ -3,7 +3,7 @@ import Thumbnail from 'component/ui/Thumbnail';
 
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
-import { BlogPostRelated } from '@features/Blog/BlogTypes';
+import { BlogPostRelated } from '@type/BlogTypes';
 
 const Container = styled.div`
     display: flex;

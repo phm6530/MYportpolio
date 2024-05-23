@@ -1,4 +1,4 @@
-import { BlogPostDetailProps } from '@features/Blog/BlogTypes';
+import { BlogPostDetailProps } from '@type/BlogTypes';
 import { useQuery } from '@tanstack/react-query';
 import { blogPostDetail } from 'services/blogService';
 import { queryKey } from 'services/queryKey';

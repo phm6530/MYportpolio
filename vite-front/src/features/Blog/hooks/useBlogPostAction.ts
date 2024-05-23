@@ -1,4 +1,4 @@
-import { BlogPostRequestProps } from '@features/Blog/BlogTypes';
+import { BlogPostRequestProps } from '@type/BlogTypes';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';

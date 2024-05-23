@@ -70,10 +70,13 @@ const BoardCommentList = (): JSX.Element => {
     return (
         <BoardReplyWrap>
             {/* 오늘 댓글 + 전체댓글  */}
-            <BoardCommentStatus
-                todayReply={infinityData?.pages[0].todayReply}
-                total={infinityData?.pages[0].counter}
-            />
+
+            {infinityData && (
+                <BoardCommentStatus
+                    todayReply={infinityData.pages[0].todayReply}
+                    total={infinityData.pages[0].counter}
+                />
+            )}
             {/* 뿌리기 */}
             {infinityData?.pages.map((page, idx) => {
                 const lastPage = idx === infinityData.pages.length - 1;

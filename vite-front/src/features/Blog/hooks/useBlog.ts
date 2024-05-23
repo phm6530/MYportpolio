@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import { queryKey } from 'services/queryKey';
 import { fetchBlogPageData } from 'services/blogService';
-import { BlogMainContentsProps } from '@features/Blog/BlogTypes';
+import { BlogMainContentsProps } from '@type/BlogTypes';
 
 const useBlog = () => {
     const [params] = useSearchParams();

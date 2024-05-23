@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { queryKey } from 'services/queryKey';
 import { fetchBlogCategory } from 'services/blogService';
-import { BlogCategorylist } from '@features/Blog/BlogTypes';
+import { BlogCategorylist } from '@type/BlogTypes';
 
 const useBlogCategory = () => {
     return useQuery<BlogCategorylist, Error>({

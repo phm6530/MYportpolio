@@ -1,7 +1,7 @@
 import useBlogCategory from '../hooks/useBlogCategory';
 
 import { useEffect, useState } from 'react';
-import { type BlogCategorylist } from '@features/Blog/BlogTypes';
+import { type BlogCategorylist } from '@type/BlogTypes';
 import AccodianTab from '@features/Blog/BlogTab.js/BlogTabAcodian';
 
 const BlogTab = () => {

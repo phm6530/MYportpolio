@@ -7,7 +7,7 @@ import {
     type ApiResData,
     type BlogPostDetailProps,
     BlogNewPostListProps,
-} from '@features/Blog/BlogTypes';
+} from '@style/types/BlogTypes';
 
 async function executeHandler<T>(cb: () => Promise<{ data: T }>): Promise<T> {
     try {

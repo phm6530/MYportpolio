@@ -19,7 +19,9 @@ export const FirstDayStyle = styled.div<{ $first: boolean }>`
     &:after {
         content: '';
         flex-grow: 1;
-        border-bottom: 1px solid var(--borer-line-color);
+        color: var(--borer-line-color);
+        opacity: 0.4;
+        border-bottom: 1px solid;
         width: 50%;
         margin-left: 2rem;
     }

@@ -5,13 +5,14 @@ import { forwardRef } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { RootState } from 'store/appSlice';
+
 // icon
 import { DeleteIcon } from 'component/icon/Icon';
 import { FaCircleCheck } from 'react-icons/fa6';
 import { useSelector } from 'react-redux';
 
-import CommentDelete from '../BoardCommentControl/CommentDelete';
-import useCommentDelete from '../hooks/useCommentDelete';
+import CommentDelete from '@features/Board/BoardCommentControl/CommentDelete';
+import useCommentDelete from '@features/Board/hooks/useCommentDelete';
 
 import {
     ReplyWrap,
@@ -19,8 +20,11 @@ import {
     ReplyBubble,
     ReplyUserName,
 } from '@features/Board/BoardComment/BoardCommentStyle';
-import { BoardCommentItemProps } from '@features/Board/BoardTypes';
+
 import usePopup from '@hooks/usePopup';
+
+import { type BoardCommentItemProps } from '@type/BoardTypes';
+import { userRole } from '@type/CommonTypes';
 
 const HoverStyle = ({
     className,
@@ -77,19 +81,19 @@ const BoardComment = forwardRef<HTMLDivElement, BoardCommentProps>(
             <>
                 <PopupComponent event={() => mutate(board_key)} />
 
-                <ReplyWrap ref={ref}>
+                <ReplyWrap ref={ref} $admin={role === userRole.Admin}>
                     <ReplyPicture
                         $picture={user_icon}
                         className="replyPicture"
                     />
 
-                    <ReplyBubble $admin={role === 'admin'}>
+                    <ReplyBubble $admin={role === userRole.Admin}>
                         <div className="replyHeader">
                             <ReplyUserName>
                                 {user_name}{' '}
-                                {role === 'admin' && <FaCircleCheck />}
+                                {role === userRole.Admin && <FaCircleCheck />}
                             </ReplyUserName>
-                            {(role === 'admin' && !login) || (
+                            {(role === userRole.Admin && !login) || (
                                 <div className="replyDelete">
                                     {!selectIdx && (
                                         <button

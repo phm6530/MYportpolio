@@ -1,29 +1,7 @@
-import { BoardInfinityResponse } from '@features/Board/BoardTypes';
+import { BoardInfinityResponse } from 'types/boardTypes';
 import axios from 'axios';
 import { ENDPOINT_URL } from 'constants/apiUrl';
-
-//추상화
-const executeWithHandling = async cb => {
-    try {
-        const result = await cb();
-        return result?.data;
-    } catch (error) {
-        throw new Error(error.message);
-    }
-};
-
-async function executeHandling<T>(cb: () => Promise<{ data: T }>): Promise<T> {
-    try {
-        const { data } = await cb();
-        return data;
-    } catch (error) {
-        if (error instanceof Error) {
-            throw new Error(error.message);
-        } else {
-            throw new Error('알 수 없는 오류 ');
-        }
-    }
-}
+import { requestHandler } from 'utils/apiUtils';
 
 // 초기 데이터 + 페이징
 const fetchReply = async (
@@ -31,10 +9,9 @@ const fetchReply = async (
 ): Promise<BoardInfinityResponse> => {
     const targetIdx = page || 0;
     const Url = `${ENDPOINT_URL}/Board/${targetIdx}`;
-    const tes = await executeHandling<BoardInfinityResponse>(() =>
+    const tes = await requestHandler<BoardInfinityResponse>(() =>
         axios.get(Url),
     );
-    console.log(tes);
     return tes;
 };
 
@@ -54,13 +31,11 @@ const deleteFetch = async (board_key: string) => {
         Authorization: token ? `Bearer ${token}` : '',
         'Content-Type': 'application/json',
     };
-    return executeHandling(() => {
-        return axios.post(Url, requestFormData, { headers });
-    });
+    return requestHandler(() => axios.post(Url, requestFormData, { headers }));
 };
 
 // reply Submit 로직
-const addReply = async formData => {
+const addReply = async (formData: object) => {
     const token = localStorage.getItem('token');
     const Url = `${ENDPOINT_URL}/Board/reply${token ? '/auth' : ''}`;
 
@@ -69,7 +44,7 @@ const addReply = async formData => {
         Authorization: token ? `Bearer ${token}` : '',
     };
 
-    return executeHandling(() => axios.post(Url, formData, { headers }));
+    return requestHandler(() => axios.post(Url, formData, { headers }));
 };
 
 export { addReply, fetchReply, deleteFetch };

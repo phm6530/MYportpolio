@@ -3,7 +3,7 @@ import styled from 'styled-components';
 // icon
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 // import { HashTag } from 'component/CommonStyle';
-import { thumnail_url } from '@features/Blog/BlogTypes';
+import { thumnail_url } from '@style/types/BlogTypes';
 
 const ThumbNailContainer = styled.div<{ $backImg?: string; $badge?: string }>`
     width: 100%;
@@ -18,7 +18,7 @@ const ThumbNailContainer = styled.div<{ $backImg?: string; $badge?: string }>`
     background-position: center;
     overflow: hidden;
     border-radius: 0.3rem;
-    border: 1px solid var(--borer-line-color);
+    /* border: 1px solid var(--borer-line-color); */
 
     background-image: ${({ $backImg }) =>
         `url(${$backImg || '/img/blog/noimg.png'})`};

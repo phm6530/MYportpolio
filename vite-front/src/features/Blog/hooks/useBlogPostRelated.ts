@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { queryKey } from 'services/queryKey';
 import { fetchPostRelated } from 'services/blogService';
-import { BlogPostRelated } from '@features/Blog/BlogTypes';
+import { BlogPostRelated } from '@type/BlogTypes';
 
 const useBlogPostRelated = (postId: string) => {
     return useQuery<BlogPostRelated[]>({

@@ -1,4 +1,4 @@
-import { BoardInfinityResponse } from '@features/Board/BoardTypes';
+import { BoardInfinityResponse } from 'types/boardTypes';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { fetchReply } from 'services/boardService';
 import { queryKey } from 'services/queryKey';

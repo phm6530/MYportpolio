@@ -20,7 +20,7 @@ import { RootState } from 'store/appSlice';
 import {
     BlogAddorEditProps,
     BlogPostRequestProps,
-} from '@features/Blog/BlogTypes';
+} from '@style/types/BlogTypes';
 
 interface FormValue extends BlogAddorEditProps {
     user: object;

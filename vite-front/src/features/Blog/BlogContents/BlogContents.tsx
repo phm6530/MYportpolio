@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import BlogContentsItem from '@features/Blog/BlogContents/BlogContentsItem';
 import { AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
-import { BlogMainContentsItemProps } from '@features/Blog/BlogTypes';
+import { BlogMainContentsItemProps } from '@type/BlogTypes';
 
 import Motion from 'component/animations/Motion';
 

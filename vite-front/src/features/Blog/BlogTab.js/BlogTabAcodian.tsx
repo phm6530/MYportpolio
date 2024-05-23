@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import BlogTabDetail from './BlogTabDetail';
 import useQueryString from '../../../hooks/useSearchQueryString';
 import { useEffect, useRef, useState } from 'react';
-import { BlogCategory } from '@features/Blog/BlogTypes';
+import { BlogCategory } from '@type/BlogTypes';
 
 const ListWrapper = styled.div<ListWrapperProps>`
     overflow: hidden;

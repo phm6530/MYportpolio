@@ -23,7 +23,15 @@ const CurruntReplyState = styled.div`
     }
 `;
 
-export default function BoardCommentStatus({ todayReply, total }) {
+interface BoardCommentStatus {
+    todayReply: number;
+    total: number;
+}
+
+export default function BoardCommentStatus({
+    todayReply,
+    total,
+}: BoardCommentStatus) {
     return (
         <CurruntReplyState>
             <div className="currentReply">

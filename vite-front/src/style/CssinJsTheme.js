@@ -47,8 +47,12 @@ export const GlobalStyle = createGlobalStyle`
     /* tab or list hover color */
     --background-field-border-color : ${({ theme }) => theme.listBackground};
     --background-disable--input : ${({ theme }) => theme.background_disable_input};
-
   }
+
+
+
+
+  
 
   body {
     color: var(--color-text);
@@ -99,7 +103,7 @@ export const lightTheme = {
     tagBackground: 'rgb(226 226 226 / 32%)',
 
     btnBackground: '#212b35',
-    listBackground: 'rgb(255 255 255 / 10%)',
+    listBackground: 'rgb(238 238 238 / 15%)',
 
     listColor: 'rgba(61, 71, 81, 0.3)',
 
@@ -109,7 +113,7 @@ export const lightTheme = {
     gradiendtTitle: 'linear-gradient(to left, #7264ef, #7264ef, #dd8efc)',
     gradiendSubTitle: 'linear-gradient(to left, #a35d5d, #6a5f86, #5262a8)',
     // border line Style
-    borderColor: 'rgb(0 0 0 / 16%)',
+    borderColor: 'rgb(0 0 0 / 10%)',
 
     div_BoxShaodw: '50px 50px 55px rgba(0, 0, 0, 0.1)',
     background_disable_input: '#ededed',
@@ -149,7 +153,7 @@ export const darkTheme = {
     gradiendSubTitle: 'linear-gradient(to left, #64c7ef, #a9a5cc, #8e9bfc)',
 
     // border line Style
-    borderColor: 'rgba(61 71 81 / 72%)',
+    borderColor: 'rgb(98 114 129 / 72%)',
     div_BoxShaodw: '0 0px 40px rgba(0, 0, 0, 0.4)',
     background_disable_input: '#0000004f',
 

@@ -17,9 +17,9 @@ import useCommentAdd from '../hooks/useCommentAdd';
 import BoardCrector from '@features/Board/BoardCrector/BoardCrector';
 import CrectorView from '@features/Board/BoardCrector/BoardCrectorView';
 
-import { randomCrector } from '@features/Board/BoardUtils/randomCrector';
+import { randomCrector } from '@features/Board/BoardCrector/randomCrector';
 import { useEffect } from 'react';
-import { yupSchema } from '@features/Board/BoardUtils/YupSchema';
+import { yupSchema } from '@features/Board/BoardCommentForm/YupSchema';
 import { RootState } from 'store/appSlice';
 
 const BoardReplyStyle = styled.div`
@@ -94,6 +94,8 @@ export default function BoardCommentForm() {
             page: new URLSearchParams(location.search).get('page') || 1,
         };
 
+        console.log(formData);
+
         // 요청
         addMutate(formData);
 
@@ -105,10 +107,13 @@ export default function BoardCommentForm() {
         });
     };
 
+    console.log(typeof watch('userIcon'));
+
     return (
         <BoardReplyStyle>
             {/* 캐릭터 뷰 */}
-            <CrectorView watch={watch} />
+            {login && <CrectorView watchIcon={watch('userIcon')} />}
+
             <FormStyle method="POST" onSubmit={handleSubmit(onSubmitHandlr)}>
                 {/* 캐릭터 영역 */}
                 {!login && (
@@ -117,9 +122,9 @@ export default function BoardCommentForm() {
                         control={control}
                         render={({ field }) => (
                             <BoardCrector
-                                getValues={getValues}
-                                reset={reset}
-                                {...field}
+                                value={field.value}
+                                onChange={field.onChange}
+                                name="userIcon"
                             />
                         )}
                     />

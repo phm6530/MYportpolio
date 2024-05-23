@@ -29,7 +29,8 @@ const FormInputDiv = styled.div`
         font-weight: bold;
         width: 80px;
         margin-left: 5px;
-        margin-bottom: 1px;
+        margin-bottom: 4px;
+        margin-top: 0.2rem;
     }
 `;
 interface BoardCommentInputProps {
@@ -45,7 +46,6 @@ const BoardCommentInput = forwardRef<
     HTMLInputElement | HTMLDivElement,
     BoardCommentInputProps
 >(({ label, error, type, isAuth, name, ...rest }, ref) => {
-    console.log(error);
     return (
         <>
             <FormInputDiv>

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Fadein from 'FadeinComponent';
 import Thumbnail from 'component/ui/Thumbnail';
 import SummaryData from 'component/ui/PostTimestamp';
-import { BlogMainContentsItemProps } from '@features/Blog/BlogTypes';
+import { BlogMainContentsItemProps } from '@type/BlogTypes';
 
 const ProjectFadeinStyle = styled(Fadein)`
     /* margin-bottom: 1.5rem; */

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import useQueryString from '../../../hooks/useSearchQueryString';
 import { useSearchParams } from 'react-router-dom';
-import { BlogCategoryDetail } from '@features/Blog/BlogTypes';
+import { BlogCategoryDetail } from '@type/BlogTypes';
 
 const CategoryList = styled.div<{ $select: boolean }>`
     height: 2.4rem;

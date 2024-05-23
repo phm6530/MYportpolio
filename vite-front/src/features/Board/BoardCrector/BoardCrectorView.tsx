@@ -25,16 +25,13 @@ const UserIconViewer = styled.div`
     }
 `;
 
-const CrectorView = ({ watch }) => {
-    const selectIcon = `/img/board/${watch('userIcon')}.jpg`;
+const CrectorView: React.FC<{ watchIcon: string }> = ({ watchIcon }) => {
+    const selectIcon: string = `/img/board/${watchIcon}.jpg`;
     return (
         <UserIconViewer>
             <div className="ImgArea">
                 <img src={selectIcon} alt="Pictureasa" />
             </div>
-            {/* {login || (
-                <button onClick={() => setChangeCrector(true)}>You</button>
-            )} */}
         </UserIconViewer>
     );
 };

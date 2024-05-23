@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import { findForBadword } from 'utils/wordingFilters';
 
-const yupSchema = login =>
+const yupSchema = (login: boolean) =>
     Yup.object({
         userIcon: Yup.string().required('필수항목 입니다.'),
         userName: Yup.string()

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import useBlogCategory from '../hooks/useBlogCategory';
 import { useEffect, useState } from 'react';
 import { InputLabel } from 'component/ui/TextArea';
-import { BlogCategorylist } from '@features/Blog/BlogTypes';
+import { BlogCategorylist } from '@type/BlogTypes';
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
 const Select = styled.select<{ $error: boolean }>`
