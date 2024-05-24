@@ -13,12 +13,13 @@ const path = require('path');
 global.appRoot = path.resolve(__dirname); // 전역 root 경로 설정
 
 // page
-const boardRouter = require('./page/notcie'); // Board
+const boardRouter = require('./page/board'); // Board
 const blogRouter = require('./page/blog'); // Blog
 const projectRouter = require('./page/project'); //프로젝트
 const scheduleRouter = require('./page/schedule'); //스케줄
+const contactRouter = require('./page/contact'); // 메일보내기
+
 const authRouter = require('./page/authRouter'); //login logout 로직
-const mailModuleRouter = require('./page/mailModule'); // 메일보내기
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -30,7 +31,7 @@ app.use('/board', boardRouter);
 app.use('/blog', blogRouter);
 app.use('/project', projectRouter);
 app.use('/schedule', scheduleRouter(wss));
-app.use('/mailModule', mailModuleRouter);
+app.use('/contact', contactRouter);
 
 // 이미지 라우터
 app.use('/uploads', express.static(path.join(global.appRoot, 'uploads')));

@@ -3,6 +3,7 @@ const { NotFoundError } = require('./error');
 //sign = JWT 생성 //verify = JWT 검증
 
 require('dotenv').config(); //.env 파일 읽기
+const bcrypt = require('bcrypt');
 
 //Token 검증 로직
 const verify = (req, res, next) => {
@@ -31,8 +32,19 @@ const createToken = (id, role, admin_name) => {
     }
 };
 
-// 인증 확인 로직
-exports.verify = verify;
+// 비밀번호 해싱
+const passwordHashing = async (passowrd) => {
+    // console.log(passowrd);
+    try {
+        const hashPassword = await bcrypt.hash(passowrd, 10);
+        return hashPassword;
+    } catch (error) {
+        throw new Error('비밀번호 hash 실패');
+    }
+};
 
-// 토큰발급
-exports.createToken = createToken;
+module.exports = {
+    passwordHashing,
+    verify,
+    createToken,
+};

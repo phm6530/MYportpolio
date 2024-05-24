@@ -1,5 +1,4 @@
 const joi = require('joi');
-const { verify } = require('./auth');
 
 // 댓글 유효성검사
 const validation_Reply = (req, res, next) => {
