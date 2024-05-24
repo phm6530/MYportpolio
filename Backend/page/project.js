@@ -5,55 +5,15 @@ const path = require('path');
 
 const { NotFoundError } = require('../util/error'); //에러 인스턴스
 const fs = require('fs');
-
-const util = require('util');
-const db = require('../util/config'); //DB 연결
-db.query = util.promisify(db.query); //DB 프로미스 생성
-
+const { runTransaction } = require('../util/dbUtil');
+const projectController = require('../Controller/projectController');
 router.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// 문자열 배열로 변경 24-3-11 추가
-const transformtoArr = (targetArr, keys) => {
-    const ChangeResponse = targetArr.map((obj) => {
-        const newObj = { ...obj };
-        keys.forEach((key) => {
-            if (typeof newObj[key] === 'string') {
-                newObj[key] = newObj[key].split(',');
-            } else {
-                newObj[key] = [];
-            }
-        });
-        // console.log(newObj);
-        return newObj;
-    });
-    return ChangeResponse;
-};
+// Project리스트
+router.get('/', projectController.fetchProjectList);
 
-// 초기 로더 데이터
-router.get('/', async (req, res, next) => {
-    console.log('초기로더');
-    try {
-        // DB 연결 확립
-        const connection = await db.getConnection();
-
-        // 쿼리 실행
-        const [rows] = await connection.query('SELECT * FROM project ORDER BY id DESC');
-
-        // 연결 해제
-        connection.release();
-
-        // 데이터 변환
-        const responseSkillArr = transformtoArr(rows, ['skill', 'hashtag']);
-
-        // 응답 전송
-        res.status(200).json({
-            resData: responseSkillArr,
-        });
-    } catch (error) {
-        const err = new NotFoundError(error.message);
-        next(err);
-    }
-});
+//single은 img만 딱 검사가능함
+router.get('/:key', projectController.fetchProjectDetail);
 
 // Project Insert
 const insertQuery = async ({ project_description, ...project }, conn) => {
@@ -233,74 +193,16 @@ router.delete('/delete/:key', async (req, res, next) => {
     });
 });
 
-const storage = multer.diskStorage({
-    destination: (req, _, next) => {
-        const key = req.params.key;
-        const type = req.query.type;
-        console.log('gg');
-
-        // console.log('type :::::::::::::::::::::::::::::::: ', type);
-        const uploadPath = path.join(__dirname, `uploads/${key}/`); // 안전한 경로 구성
-        if (!fs.existsSync(uploadPath)) {
-            // 폴더가 존재하지 않는 경우
-            fs.mkdirSync(uploadPath, { recursive: true }); // 폴더 생성
-        }
-        next(null, uploadPath);
-    },
-    filename: (req, file, next) => {
-        const key = req.params.key;
-        const type = req.query.type;
-
-        // console.log('type :::::::::::::::::::::::::::::::: ', type);
-        const date = new Date();
-        const dateString = date.toISOString().replace(/:/g, '').replace(/-/g, '').replace('T', '').replace(/\..+/, '');
-
-        // 파일의 원본 이름에서 확장자 추출
-        const ext = path.extname(file.originalname);
-        // 새 파일명 구성 (원하는 형식으로 파일명 변경 가능)
-        const newFilename = `${key}_${dateString}${ext}`; // 예시: 'newFileName_20230315123000.jpg'
-        file.url = `${key}/${newFilename}`;
-        next(null, newFilename);
-    },
-});
-
-const upload = multer({ storage: storage });
-
-router.post('/imgUploader/:key', upload.single('img'), async (req, res, next) => {
-    const { url } = req.file;
-    try {
-        const imgUrl = `project/uploads/${url}`;
-        return res.json({ message: 'success', fileUrl: imgUrl });
-    } catch (error) {
-        const err = new NotFoundError(error.message);
-        next(err);
-    }
-});
-
-//single은 img만 딱 검사가능함
-
-router.get('/:key', async (req, res, next) => {
-    const param = req.params.key;
-    console.log(param);
-    try {
-        const connection = await db.getConnection();
-        const sql = `
-            select * from project as a inner join project_description as b on a.project_key = b.project_key where a.project_key = ?;
-        `;
-        const [rows] = await connection.query(sql, [param]);
-        console.log(rows[0]);
-
-        if (!rows || rows.length === 0) {
-            const err = new NotFoundError('이미 삭제된 게시물이거나 잘못된 접근입니다.');
-            next(err);
-        }
-        connection.release();
-        res.status(200).json({ message: 'success', result: rows[0] });
-    } catch (error) {
-        const err = new NotFoundError(error.message);
-        next(err);
-    }
-});
+// router.post('/imgUploader/:key', upload.single('img'), async (req, res, next) => {
+//     const { url } = req.file;
+//     try {
+//         const imgUrl = `project/uploads/${url}`;
+//         return res.json({ message: 'success', fileUrl: imgUrl });
+//     } catch (error) {
+//         const err = new NotFoundError(error.message);
+//         next(err);
+//     }
+// });
 
 router.post('/addproject', async (req, res, next) => {
     const conn = await db.getConnection();

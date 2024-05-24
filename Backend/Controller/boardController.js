@@ -1,5 +1,5 @@
 const { NotFoundError } = require('../util/error');
-const { runTransaction } = require('../service/databaseService');
+const { runTransaction } = require('../util/dbUtil');
 const { serviceInifnityReplyData, serviceReplyCreate, serviceReplyDelete } = require('../service/boardService');
 
 //인피니티 스크롤 로직 nextPage 꼭 리턴해줘야함 useInfinity 때문

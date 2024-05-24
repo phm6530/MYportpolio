@@ -23,7 +23,7 @@ const blogStorage = multer.diskStorage({
     // 파일경로 설정
     destination: (req, _, cb) => {
         const key = req.params.key;
-        console.log(key);
+
         // uploads 파일 안에 category, subCategory 구성함
         const uploadPath = path.join(global.appRoot, 'uploads', 'blog', key);
         if (!fs.existsSync(uploadPath)) {

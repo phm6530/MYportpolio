@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const { verify, createToken } = require('../util/auth'); // 검증
-const { isValidAdmin } = require('../util/util');
+const { isValidAdmin } = require('../util/auth');
 
 const db = require('../util/config');
-const { compare } = require('bcrypt');
 
 const loginState = async (id) => {
     const sql = `update admin_user set state = 1 where id = ?`;

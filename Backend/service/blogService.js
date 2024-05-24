@@ -1,28 +1,10 @@
 require('dotenv').config();
-const { DUMMY_DATA } = require('../DUMMY_DATA');
-
 const { pageCalculator } = require('../featrues/common/paging');
-const { query } = require('../util/configg');
-
-const parametersAuth = (category, itemParam) => {
-    const validCategories = new Set(DUMMY_DATA.map((item) => item.cateGory.toLowerCase()));
-    const cateGoryList = ['react', 'next', 'scss', 'css', 'etc'];
-
-    // 입력 파라미터의 존재 여부 확인
-    if (category !== 'all' && !validCategories.has(category.toLowerCase())) {
-        throw new Error(`없는 카테고리 같네요..: ${category}`);
-    }
-
-    if (itemParam && !cateGoryList.includes(itemParam.toLocaleLowerCase())) {
-        throw new Error(`없는 카테고리 같네요..: ${itemParam}`);
-    }
-};
+const blogModel = require('../models/blogModel');
 
 const getBlogPosts = async (data, page, category, itemParam, searchParam) => {
     const { firstIdx, lastIdx } = pageCalculator(page);
 
-    // const filterData = queryStringFilter(data, category, itemParam);
-    // const resultData = searchParam ? searchFilter(filterData, searchParam) : filterData;
     return {
         data: resultData.slice(firstIdx, lastIdx),
         paging: Math.ceil(resultData.length / 10),
@@ -31,7 +13,6 @@ const getBlogPosts = async (data, page, category, itemParam, searchParam) => {
 
 const postInsert = async (conn, body, id) => {
     const { title, category, post, user, key, thumNail, description } = body;
-    console.log(body);
     const [mainCategory, subCategory] = category.split(':');
 
     const sqlGetCategoryId = 'SELECT category_id FROM blog_categories WHERE category_name = ?;';
@@ -207,39 +188,17 @@ const renderingData = async (conn, req) => {
     return result;
 };
 
+// tabService
 const blogtabService = async (conn) => {
-    //arr
+    // 모델 호출
+    const tabModel = blogModel.blogTabModel(conn);
+
     let categoryList = {};
-    const [allCount] = await conn.query(`select count(*) as cnt from blog_metadata`);
-    categoryList['All'] = allCount[0].cnt;
 
-    let sql = `
-                SELECT
-                bc.category_name AS category,
-                sc.subcategory_name,
-                (
-                    SELECT COUNT(*)
-                    FROM blog_metadata p
-                    WHERE p.subcategory_id = sc.subcategory_id
-                ) AS post_count,
-                (
-                    CASE
-                        WHEN EXISTS (
-                            SELECT 1
-                            FROM blog_metadata p
-                            WHERE p.subcategory_id = sc.subcategory_id
-                            AND p.create_at >= CURRENT_DATE - INTERVAL 2 DAY
-                        ) THEN 1
-                        ELSE 0
-                    END
-                ) AS new
-            FROM
-                blog_categories bc
-            LEFT JOIN
-                blog_subcategories sc ON bc.category_id = sc.fk_category_id
-        `;
+    const allCount = await tabModel.getAllPostCount();
+    categoryList['All'] = allCount.cnt;
 
-    const [response] = await conn.query(sql);
+    const response = await tabModel.getPostCategories();
 
     response.forEach((item) => {
         const { category, subcategory_name, post_count, new: post_new } = item;
@@ -251,35 +210,13 @@ const blogtabService = async (conn) => {
             post_new: post_new !== 0 ? true : false,
         };
     });
-
     return categoryList;
 };
 
-const getDetail = async (conn, key) => {
-    const sql_postDetail = `
-            select 
-            bm.post_id as post_id ,  
-            bm.post_title as post_title,
-            bm.create_at as create_date, 
-            bm.create_user as user,
-            bp.contents as contents,
-            bc.category_name as category,
-            bs.subcategory_name as subcategory,
-            bp.contents_key as imgkey,
-            bm.update_at as update_date
-            from 
-                blog_metadata bm 
-            join 
-                blog_post bp on bm.post_id = bp.post_id
-            join 
-                blog_categories bc on bm.category_id = bc.category_id
-            join
-                blog_subcategories bs on bm.subcategory_id = bs.subcategory_id
-            where bm.post_id = ?;
-    `;
-
-    const [row] = await conn.query(sql_postDetail, [key]);
-
+// 디테일
+const getBlogDetail = async (conn, key) => {
+    const detailModel = blogModel.blogDetailModel(conn);
+    const row = await detailModel.getDetail(key);
     if (row.length === 0) {
         throw new Error('삭제되었거나 없는 게시물입니다.');
     }
@@ -291,6 +228,6 @@ module.exports = {
     postInsert,
     renderingData,
     blogtabService,
-    getDetail,
+    getBlogDetail,
     postUpdate,
 };

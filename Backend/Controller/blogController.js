@@ -1,6 +1,6 @@
 const { NotFoundError } = require('../util/error');
-const { postInsert, postUpdate, renderingData, blogtabService, getDetail } = require('../service/blogService');
-const { runTransaction, getConn } = require('../service/databaseService');
+const { postInsert, postUpdate, renderingData, blogtabService, getBlogDetail } = require('../service/blogService');
+const { runTransaction, getConn } = require('../util/dbUtil');
 
 // 동적 탭
 const fetchCategoryList = async (_, res, next) => {
@@ -63,7 +63,7 @@ const fetchPostDetail = async (req, res, next) => {
         const postKey = req.params;
         // console.log(postKey.key);
         const result = await runTransaction(async (conn) => {
-            const postResult = await getDetail(conn, postKey.key);
+            const postResult = await getBlogDetail(conn, postKey.key);
             return postResult;
         });
 
