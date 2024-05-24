@@ -1,8 +1,6 @@
-import { NavPageObject } from 'constants/pageConstacts';
-import { useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-const Button = styled.button`
+export const Button = styled.button`
     border-radius: 10px;
     background: #373737;
     font-size: 30px;
@@ -16,7 +14,7 @@ const Button = styled.button`
     }
 `;
 
-const MainNavsContainer = styled.div`
+export const MainNavsContainer = styled.div`
     margin-top: 1rem;
 `;
 
@@ -40,7 +38,7 @@ const GradientStyle = css`
     }
 `;
 
-const BtnGradient = styled.div`
+export const BtnGradient = styled.div<{ $check: boolean }>`
     display: inline-block;
     padding: 3px;
     border-radius: 0.7rem;
@@ -52,34 +50,3 @@ const BtnGradient = styled.div`
         ${GradientStyle}
     }
 `;
-
-const HomeNavBtn = ({ idx, path, pathName }) => {
-    const navigate = useNavigate();
-
-    return (
-        <BtnGradient $check={idx === 0}>
-            <Button onClick={() => navigate(path)}>
-                <span>{pathName}</span>
-            </Button>
-        </BtnGradient>
-    );
-};
-
-const MainNavs = () => {
-    return (
-        <MainNavsContainer>
-            {NavPageObject.map((e, idx) => {
-                return (
-                    <HomeNavBtn
-                        key={e.path}
-                        idx={idx}
-                        path={e.path}
-                        pathName={e.pathName}
-                    />
-                );
-            })}
-        </MainNavsContainer>
-    );
-};
-
-export default MainNavs;

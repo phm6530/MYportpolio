@@ -4,7 +4,6 @@ const useQueryString = (path: string) => {
     const navigate = useNavigate();
 
     const navigateHandler = (params: { [param: string]: string | number }) => {
-        console.log(params);
         const query = Object.keys(params)
             .map(
                 key =>

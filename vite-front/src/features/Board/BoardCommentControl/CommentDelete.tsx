@@ -24,12 +24,25 @@ const ButtonSTyle = styled.button`
     padding: 2px 5px;
 `;
 
-export default function CommentDelete({ mutate, board_key, setSelectIdx }) {
+interface deleteData {
+    board_key: string;
+    reply_password?: string; //인증된 사용자의 경우 노필요
+}
+
+export default function CommentDelete({
+    mutate,
+    board_key,
+    setSelectIdx,
+}: {
+    mutate: (data: deleteData) => void;
+    board_key: string;
+    setSelectIdx: React.Dispatch<React.SetStateAction<string | null>>;
+}) {
     const { handleSubmit, reset } = useFormContext();
 
     const onSubmitHandler: SubmitHandler<FieldValues> = async data => {
         const password = data.password;
-        const formData = {
+        const formData: deleteData = {
             reply_password: password,
             board_key: board_key,
         };

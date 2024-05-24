@@ -6,6 +6,7 @@ interface ButtonProps {
     style?: React.CSSProperties;
     children: React.ReactNode;
     disabled?: boolean;
+    active?: boolean;
 }
 
 const Type = ({ children, ...props }) => {
@@ -93,7 +94,7 @@ const UploadButton = ({ children, ...props }) => {
     );
 };
 
-const BtnSubmitStyle = styled.button`
+const BtnSubmitStyle = styled.button<{ $active?: boolean }>`
     ${props =>
         props.$active &&
         `            
@@ -103,7 +104,7 @@ const BtnSubmitStyle = styled.button`
     border: 1px solid var(--borer-line-color);
 `;
 
-const SubmitButton = ({ children, active, ...props }) => {
+const SubmitButton = ({ children, active, ...props }: ButtonProps) => {
     return (
         <BtnSubmitStyle className="btn-submit" $active={active} {...props}>
             {children}

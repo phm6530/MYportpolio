@@ -157,5 +157,5 @@ export const darkTheme = {
     div_BoxShaodw: '0 0px 40px rgba(0, 0, 0, 0.4)',
     background_disable_input: '#0000004f',
 
-    border_picture_color: '#222732',
+    border_picture_color: '#515867',
 };

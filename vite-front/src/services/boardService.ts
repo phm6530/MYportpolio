@@ -1,4 +1,4 @@
-import { BoardInfinityResponse } from 'types/boardTypes';
+import { BoardInfinityResponse } from '@type/BoardTypes';
 import axios from 'axios';
 import { ENDPOINT_URL } from 'constants/apiUrl';
 import { requestHandler } from 'utils/apiUtils';
@@ -15,15 +15,17 @@ const fetchReply = async (
     return tes;
 };
 
+interface deleteData {
+    board_key: string;
+}
+
 //댓글 삭제로직
-const deleteFetch = async (board_key: string) => {
+const deleteFetch = async (data: deleteData) => {
     const token = localStorage.getItem('token');
     const Url = `${ENDPOINT_URL}/board/reply/delete`;
 
-    console.log(board_key);
-
     const requestFormData = {
-        board_key,
+        ...data,
         auth: Boolean(token),
     };
 
@@ -31,6 +33,7 @@ const deleteFetch = async (board_key: string) => {
         Authorization: token ? `Bearer ${token}` : '',
         'Content-Type': 'application/json',
     };
+
     return requestHandler(() => axios.post(Url, requestFormData, { headers }));
 };
 

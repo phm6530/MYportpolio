@@ -46,7 +46,7 @@ const ContactButton = styled.div`
     }
 `;
 
-export default function ContactButtons() {
+export default function ContactButtons(): JSX.Element {
     return (
         <>
             <ButtonWrap>

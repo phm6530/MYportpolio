@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { RootState } from 'store/appSlice';
 
 // icon
-import { DeleteIcon } from 'component/icon/Icon';
+import { TiDelete } from 'react-icons/ti';
 import { FaCircleCheck } from 'react-icons/fa6';
 import { useSelector } from 'react-redux';
 
@@ -37,10 +37,14 @@ const HoverStyle = ({
 };
 
 const HoverStyled = styled(HoverStyle)`
+    svg {
+        color: #1d1d1d;
+        opacity: 0.5;
+    }
     &:hover {
         // 아이콘에 대한 호버 스타일 정의
         svg {
-            fill: rgb(97 124 163); // 예: #ff0000
+            opacity: 1;
         }
     }
 `;
@@ -79,7 +83,7 @@ const BoardComment = forwardRef<HTMLDivElement, BoardCommentProps>(
 
         return (
             <>
-                <PopupComponent event={() => mutate(board_key)} />
+                <PopupComponent event={() => mutate({ board_key })} />
 
                 <ReplyWrap ref={ref} $admin={role === userRole.Admin}>
                     <ReplyPicture
@@ -102,10 +106,7 @@ const BoardComment = forwardRef<HTMLDivElement, BoardCommentProps>(
                                             }
                                         >
                                             <HoverStyled>
-                                                <DeleteIcon
-                                                    size="20"
-                                                    color="#cdcdcd"
-                                                />
+                                                <TiDelete size={20} />
                                             </HoverStyled>
                                         </button>
                                     )}

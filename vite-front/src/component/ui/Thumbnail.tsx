@@ -3,9 +3,12 @@ import styled from 'styled-components';
 // icon
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 // import { HashTag } from 'component/CommonStyle';
-import { thumnail_url } from '@style/types/BlogTypes';
+import { thumnail_url } from '@type/BlogTypes';
 
-const ThumbNailContainer = styled.div<{ $backImg?: string; $badge?: string }>`
+const ThumbNailContainer = styled.div<{
+    $backImg: string | null;
+    $badge?: string;
+}>`
     width: 100%;
     height: 10.6rem;
     position: relative;
@@ -55,19 +58,6 @@ const ViewIconAnimation = styled.div`
         transition: all 0.3s 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
     }
 `;
-
-// const HasTagCustom = styled(HashTag)`
-//     position: absolute;
-//     background: #4131b3;
-//     font-weight: normal;
-//     top: 10px;
-//     left: 10px;
-//     font-size: 10px;
-//     border-radius: 1rem;
-//     border: 2px solid rgba(255, 255, 255, 0.1);
-//     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-//     color: #fff;
-// `;
 
 interface thumbNailProps {
     className?: string;

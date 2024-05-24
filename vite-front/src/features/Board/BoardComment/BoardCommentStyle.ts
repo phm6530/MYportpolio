@@ -19,12 +19,6 @@ export const ReplyUserName = styled.div`
 `;
 
 export const ReplyWrap = styled.div<{ $admin?: boolean }>`
-    ${({ $admin }) =>
-        $admin &&
-        css`
-            flex-direction: row-reverse;
-        `}
-
     margin-bottom: 3px;
     margin: 0 1rem;
     border-radius: 1em;
@@ -68,9 +62,9 @@ export const ReplyBubble = styled.div<{ $admin: boolean }>`
     padding: 10px 15px;
     border-radius: 0.5em;
     position: relative;
-    min-width: 40%;
+    /* min-width: 40%; */
     box-shadow: 2px 2px 3px rgb(0 0 0 / 15%);
-    flex-direction: row-reverse;
+    max-width: calc(100% - 85px);
     ${({ $admin }) =>
         $admin
             ? css`
@@ -87,7 +81,7 @@ export const ReplyBubble = styled.div<{ $admin: boolean }>`
         content: '';
         display: block;
         position: absolute;
-        left: ${({ $admin }) => ($admin ? 'calc(100% - 2px)' : '-25px')};
+        left: -25px;
         top: 15px;
         width: 0;
         height: 0;
@@ -96,6 +90,6 @@ export const ReplyBubble = styled.div<{ $admin: boolean }>`
         border-left: 15px solid
             ${({ $admin }) => ($admin ? '#fedf7c' : '#caeaf9')};
         border-right: 10px solid transparent;
-        transform: ${({ $admin }) => !$admin && 'rotate(180deg)'};
+        transform: rotate(180deg);
     }
 `;

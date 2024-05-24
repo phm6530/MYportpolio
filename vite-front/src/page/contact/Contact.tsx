@@ -1,9 +1,8 @@
 import DashBoard from 'component/ui/DashBoard';
 import { PageGrid } from '@layout/Grid';
-// import BannerCommon from 'component/ui/BannerCommon';
 import styled from 'styled-components';
-import MailComponent from './component/MailComponent';
-import CommonNav from '../common/CommonNav';
+import MailComponent from '@features/contact/MailComponent';
+import ContactAboutme from '@features/contact/ContactAboutme';
 
 const ContentsWrap = styled.div`
     display: flex;
@@ -11,13 +10,13 @@ const ContentsWrap = styled.div`
     width: 100%;
 `;
 
-export default function Contact() {
+export default function Contact(): JSX.Element {
     return (
         <>
             <DashBoard pageTitle={'CONTACT'} />
             <PageGrid>
                 <ContentsWrap>
-                    <CommonNav />
+                    <ContactAboutme />
                     <MailComponent />
                 </ContentsWrap>
             </PageGrid>

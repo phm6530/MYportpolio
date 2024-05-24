@@ -2,7 +2,7 @@ import styled, { keyframes } from 'styled-components';
 import { LuSunDim } from 'react-icons/lu';
 import { IoMoon } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
-import { darkModeActions } from 'store/appSlice';
+import { RootState, darkModeActions } from 'store/appSlice';
 import { useEffect } from 'react';
 
 const DarkmodeButton = styled.div`
@@ -25,14 +25,6 @@ const DarkmodeButton = styled.div`
     &:active {
         box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.8);
     }
-
-    ${props =>
-        props.$darkMode &&
-        `
-        background:#fff;
-        color:#000; 
-        box-shadow: 0px 5px 15px rgb(255 255 255 / 15%);
-    `}
 `;
 const IconAnimation = keyframes`
     from{
@@ -45,7 +37,7 @@ const IconAnimation = keyframes`
     }
 `;
 
-const DarkModeIcon = styled.div`
+const DarkModeIcon = styled.div<{ $darkMode: boolean }>`
     width: 24px;
     height: 24px;
     background: red;
@@ -67,11 +59,14 @@ const DarkModeIcon = styled.div`
 `;
 
 export default function DarkModeBtn() {
-    const { darkMode } = useSelector(state => state.darkMode);
+    const { darkMode } = useSelector((state: RootState) => state.darkMode);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        localStorage.setItem('darkMode', darkMode);
+        if (typeof darkMode === 'boolean') {
+            //로컬은 불리언으로 못넣음 문자열로 해야됨
+            localStorage.setItem('darkMode', darkMode.toString());
+        }
     }, [darkMode]);
 
     const modeHandler = () => {

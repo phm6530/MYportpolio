@@ -7,7 +7,6 @@ export const FirstDayStyle = styled.div<{ $first: boolean }>`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 50px;
     span {
         font-size: 14px;
         display: inline-block;

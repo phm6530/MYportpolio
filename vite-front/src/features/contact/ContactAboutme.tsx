@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ContactButtons from '../contact/component/ContactButtons';
+import ContactButtons from './ContactButtons';
 
 const LeftComponent = styled.div`
     position: sticky;
@@ -21,7 +21,7 @@ const PageSubText = styled.div`
     }
 `;
 
-export default function CommonNav() {
+export default function ContactAboutme(): JSX.Element {
     return (
         <LeftComponent>
             <PageSubText>
