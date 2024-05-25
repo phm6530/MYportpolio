@@ -2,13 +2,12 @@ const { NotFoundError } = require('../util/error');
 const { postInsert, postUpdate, renderingData, blogtabService, getBlogDetail } = require('../service/blogService');
 const { runTransaction, getConn } = require('../util/dbUtil');
 
-// 동적 탭
-const fetchCategoryList = async (_, res, next) => {
+// 동적 카테고리 탭
+const handleCategory = async (_, res, next) => {
     try {
         const categoryList = await runTransaction(async (conn) => {
             return blogtabService(conn);
         });
-
         res.json({ message: 'success', resData: categoryList });
     } catch (error) {
         console.log(error);
@@ -18,7 +17,7 @@ const fetchCategoryList = async (_, res, next) => {
 };
 
 // 초기랜딩 + paging
-const fetchBlogPosts = async (req, res, next) => {
+const handleViewPostList = async (req, res, next) => {
     try {
         const { data, paging } = await runTransaction(async (conn) => {
             return renderingData(conn, req);
@@ -30,26 +29,14 @@ const fetchBlogPosts = async (req, res, next) => {
     }
 };
 
-//blog post img 업로더
-const postImageUploader = async (req, res, next) => {
-    console.log('실행');
-    try {
-        const file = req.file;
-        res.json({ message: 'success', imgUrl: file.url });
-    } catch (err) {
-        next(err);
-    }
-};
-
 //post
-const createBlogPost = async (req, res, next) => {
+const handleCreatePost = async (req, res, next) => {
     try {
         const body = req.body;
-        const result = await runTransaction(async (conn) => {
+        await runTransaction(async (conn) => {
             const postResult = await postInsert(conn, body);
             return postResult;
         });
-
         res.status(200).json({ message: 'success' });
     } catch (error) {
         console.log(error.message);
@@ -58,10 +45,9 @@ const createBlogPost = async (req, res, next) => {
 };
 
 //post
-const fetchPostDetail = async (req, res, next) => {
+const handlelViewPost = async (req, res, next) => {
     try {
         const postKey = req.params;
-        // console.log(postKey.key);
         const result = await runTransaction(async (conn) => {
             const postResult = await getBlogDetail(conn, postKey.key);
             return postResult;
@@ -75,7 +61,7 @@ const fetchPostDetail = async (req, res, next) => {
 };
 
 //postDelete
-const deletePostDetail = async (req, res, next) => {
+const HandleDeletePost = async (req, res, next) => {
     try {
         const result = await getConn(async (conn) => {
             const key = req.params.key;
@@ -94,7 +80,7 @@ const deletePostDetail = async (req, res, next) => {
     }
 };
 
-const patchPostDetail = async (req, res, next) => {
+const handleUpdatePost = async (req, res, next) => {
     try {
         const id = req.params.id;
         const body = req.body;
@@ -111,7 +97,7 @@ const patchPostDetail = async (req, res, next) => {
     }
 };
 
-const fetchNewpostList = async (_, res, next) => {
+const HandleNewPostList = async (_, res, next) => {
     try {
         const result = await getConn(async (conn) => {
             const sql_getNewpost = `
@@ -133,7 +119,7 @@ const fetchNewpostList = async (_, res, next) => {
     }
 };
 
-const fetchPostRelated = async (req, res, next) => {
+const handlePostRelated = async (req, res, next) => {
     try {
         const postId = req.params.id;
 
@@ -168,13 +154,12 @@ const fetchPostRelated = async (req, res, next) => {
 };
 
 module.exports = {
-    fetchCategoryList,
-    fetchBlogPosts,
-    postImageUploader,
-    createBlogPost,
-    fetchPostDetail,
-    deletePostDetail,
-    patchPostDetail,
-    fetchNewpostList,
-    fetchPostRelated,
+    handleCategory,
+    handleViewPostList,
+    handleCreatePost,
+    handlelViewPost,
+    HandleDeletePost,
+    handleUpdatePost,
+    HandleNewPostList,
+    handlePostRelated,
 };

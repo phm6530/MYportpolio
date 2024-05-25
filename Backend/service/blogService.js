@@ -1,15 +1,5 @@
 require('dotenv').config();
-const { pageCalculator } = require('../featrues/common/paging');
 const blogModel = require('../models/blogModel');
-
-const getBlogPosts = async (data, page, category, itemParam, searchParam) => {
-    const { firstIdx, lastIdx } = pageCalculator(page);
-
-    return {
-        data: resultData.slice(firstIdx, lastIdx),
-        paging: Math.ceil(resultData.length / 10),
-    };
-};
 
 const postInsert = async (conn, body, id) => {
     const { title, category, post, user, key, thumNail, description } = body;
@@ -111,8 +101,10 @@ const postUpdate = async (conn, body, postId) => {
 
 //rending Data
 const renderingData = async (conn, req) => {
+    const renderModel = blogModel.renderingDataModel(conn);
+
     const page = parseInt(req.params.page, 10); // 페이지
-    const category = req.query.category.toLocaleLowerCase(); //category
+    const category = req.query.category.toLocaleLowerCase(); // category
     const item = req.query.item === 'null' ? null : req.query.item; // subCategory
     const search = req.query.search === 'null' ? null : req.query.search;
 
@@ -123,7 +115,7 @@ const renderingData = async (conn, req) => {
     // 쿼리 파라미터
     const baseParams = [];
 
-    //baseSQL
+    // baseSQL
     let baseQuery = `        
         from 
             blog_metadata bm 
@@ -139,56 +131,35 @@ const renderingData = async (conn, req) => {
 
     // 카테고리 필터
     if (category !== 'all') {
-        baseQuery += 'AND bc.category_name = ? AND bs.subcategory_name = ?';
+        baseQuery += ' AND bc.category_name = ? AND bs.subcategory_name = ?';
         baseParams.push(category, item);
     }
 
     // 검색 필터
-    if (!!search) {
-        baseQuery += `AND bm.post_title like ?`;
+    if (search) {
+        baseQuery += ' AND bm.post_title like ?';
         baseParams.push(`%${search}%`);
     }
 
-    //처음 + 마지막 인덱스 계산
-    const idxCalculator = (curPage, listCnt) => {
-        return (curPage - 1) * listCnt;
-    };
-
-    const reqSql_getlistCount = `
-        select count(*) as cnt ${baseQuery}
-    `;
-    const reqSql_getPostlist = `
-        select 
-        bm.post_id as post_id , 
-        bm.post_title as post_title , 
-        bm.post_description as description , 
-        bm.create_at as date , 
-        bt.thumnail_url as thumnail ,
-        bc.category_name as category ,
-        bs.subcategory_name as subcategory
-        ${baseQuery}
-        ORDER BY post_id DESC limit ? offset ?
-    `;
+    // 처음 + 마지막 인덱스 계산
+    const idxCalculator = (curPage, listCnt) => (curPage - 1) * listCnt;
 
     const limit = 9;
     const offset_idx = idxCalculator(page, limit);
 
-    const [cnt] = await conn.query(reqSql_getlistCount, baseParams);
-    const [rows] = await conn.query(reqSql_getPostlist, [...baseParams, limit, offset_idx]);
+    const count = await renderModel.getCount(baseQuery, baseParams);
+    const postList = await renderModel.getPostList(baseQuery, baseParams, limit, offset_idx);
 
     // 전체페이지
-    const getPaging = (cnt, limit) => {
-        const pages = cnt / limit;
-        return Math.ceil(pages);
-    };
+    const getPaging = (cnt, limit) => Math.ceil(cnt / limit);
 
-    const paging = getPaging(cnt[0].cnt, limit);
+    const paging = getPaging(count, limit);
 
-    const result = { data: rows, paging };
+    const result = { data: postList, paging };
     return result;
 };
 
-// tabService
+// 블로그 탭
 const blogtabService = async (conn) => {
     // 모델 호출
     const tabModel = blogModel.blogTabModel(conn);
@@ -210,6 +181,7 @@ const blogtabService = async (conn) => {
             post_new: post_new !== 0 ? true : false,
         };
     });
+
     return categoryList;
 };
 
@@ -224,7 +196,6 @@ const getBlogDetail = async (conn, key) => {
 };
 
 module.exports = {
-    getBlogPosts,
     postInsert,
     renderingData,
     blogtabService,

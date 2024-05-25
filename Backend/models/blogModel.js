@@ -1,3 +1,4 @@
+//블로그 탭 모델
 const blogTabModel = (conn) => {
     return {
         getAllPostCount: async () => {
@@ -37,6 +38,35 @@ const blogTabModel = (conn) => {
     };
 };
 
+//블로그 post list + Paging
+const renderingDataModel = (conn) => {
+    return {
+        getCount: async (baseQuery, baseParams) => {
+            const query = `select count(*) as cnt ${baseQuery}`;
+            const [rows] = await conn.query(query, baseParams);
+            return rows[0].cnt;
+        },
+
+        getPostList: async (baseQuery, baseParams, limit, offset) => {
+            const query = `
+                select 
+                    bm.post_id as post_id , 
+                    bm.post_title as post_title , 
+                    bm.post_description as description , 
+                    bm.create_at as date , 
+                    bt.thumnail_url as thumnail ,
+                    bc.category_name as category ,
+                    bs.subcategory_name as subcategory
+                ${baseQuery}
+                ORDER BY post_id DESC limit ? offset ?
+            `;
+            const [rows] = await conn.query(query, [...baseParams, limit, offset]);
+            return rows;
+        },
+    };
+};
+
+//블로그 post 디테일 모델
 const blogDetailModel = (conn) => {
     return {
         getDetail: async (key) => {
@@ -72,4 +102,5 @@ const blogDetailModel = (conn) => {
 module.exports = {
     blogTabModel,
     blogDetailModel,
+    renderingDataModel,
 };

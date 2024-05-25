@@ -1,55 +1,29 @@
-const { todayKoreaTime } = require('../util/timeUtil');
 const jwt = require('jsonwebtoken');
 const { compare } = require('bcrypt');
 const { passwordHashing } = require('../util/auth');
-
-// 갯수 세기
-const getTotalCommentCounter = async (conn) => {
-    const count_sql = `select count(*) as cnt from board`;
-    const [count_result] = await conn.query(count_sql);
-    return count_result[0].cnt;
-};
+const boardController = require('../models/boardModel');
 
 // 댓글 인피니티 스크롤
 const serviceInifnityReplyData = async (req, conn) => {
     const idx = +req.params.idx;
     const LIMIT = 10;
+    const boardModel = boardController.InfinityReplyDataModel(conn);
 
-    //초기단락 및 10개씩 가져옴
-    const sql = `
-        select 
-            idx, user_icon, user_name, contents, board_key, date, role
-        from 
-            board 
-        order by 
-            idx desc limit ? offset ?
-        `;
-    const [response_database] = await conn.query(sql, [LIMIT, idx * LIMIT]);
-
-    // 오늘 남긴 댓글 갯수
-    const todayReplysql = `
-        SELECT 
-            COUNT(*) AS cnt
-        FROM 
-            board
-        WHERE 
-            DATE(date) = ?
-    `;
-
-    const today = todayKoreaTime();
-    const [todayRepley_response] = await conn.query(todayReplysql, [today]);
+    //[model] 초기단락 및 10개씩 가져옴
+    const responseBoardList = await boardModel.getBoardList(LIMIT, idx);
+    const [todayRepley_response] = await boardModel.getTodayCommentCounter(conn);
 
     let counter = null;
     // 첫 페이지 요청 시에만 전체 카운트 전송
     if (idx === 0) {
-        counter = await getTotalCommentCounter(conn);
+        counter = await boardModel.getTotalCommentCounter(conn);
     }
 
-    const nextPage = response_database.length === LIMIT ? idx + 1 : null;
-    return { todayRepley_response, counter, response_database, nextPage };
+    const nextPage = responseBoardList.length === LIMIT ? idx + 1 : null;
+    return { todayRepley_response, counter, response_database: responseBoardList, nextPage };
 };
 
-// 댓글 등록 서비스로직
+// 댓글 등록 서비스
 const serviceReplyCreate = async (reqData, requestRoleType, conn) => {
     const { userIcon, userName, contents, idx, password = null } = reqData;
     const limit = 1;

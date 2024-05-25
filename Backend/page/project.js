@@ -1,51 +1,26 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
 const path = require('path');
 
 const { NotFoundError } = require('../util/error'); //에러 인스턴스
-const fs = require('fs');
 const { runTransaction } = require('../util/dbUtil');
+
 const projectController = require('../Controller/projectController');
+
 router.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Project리스트
-router.get('/', projectController.fetchProjectList);
+router.get('/', projectController.handleFetchProjectList);
 
-//single은 img만 딱 검사가능함
-router.get('/:key', projectController.fetchProjectDetail);
+// Project 리스트 Detila
+router.get('/:key', projectController.handleFetchProjectDetail);
+
+// Project 수정 페이지 Fetch
+router.post('/edit/:key', projectController.handleFetchProjectEdit);
+
+router.post('/editProject', projectController.handleEditProject);
 
 // Project Insert
-const insertQuery = async ({ project_description, ...project }, conn) => {
-    try {
-        let sql = `INSERT INTO project (
-            project_key,
-            title,
-            company,
-            skill,
-            hashtag,
-            description,
-            startProject,
-            endProject,
-            project_url,
-            thumbnail
-        ) 
-        VALUES (?, ?, ?, ?, ? , ?, ?, ?, ? , ?)`;
-
-        await conn.query(sql, Object.values(project));
-        // project_Description 테이블에 데이터 삽입
-        sql = `INSERT INTO project_description (
-            project_key,
-            project_description
-        ) 
-        VALUES (?, ?)`;
-        await conn.query(sql, [project.project_key, project_description]);
-    } catch (error) {
-        const err = new NotFoundError(error.message);
-        await conn.rollback();
-        throw err;
-    }
-};
 
 // Project Update
 const updateQuery = async ({ project_key, project_description, ...project }, conn) => {
@@ -115,16 +90,10 @@ const ProjectHandler = async (req, res, endPoint, conn) => {
         thumbnail,
     };
 
-    try {
-        if (endPoint === 'add') {
-            await insertQuery(project, conn);
-        } else {
-            await updateQuery(project, conn);
-        }
-        res.status(200).json({ message: 'Project processed successfully' });
-    } catch (error) {
-        console.error('Database operation failed:', error);
-        res.status(500).json({ message: 'Database operation failed', error: error.message });
+    if (endPoint === 'add') {
+        await insertQuery(project, conn);
+    } else {
+        await updateQuery(project, conn);
     }
 };
 
@@ -141,39 +110,6 @@ router.post('/add', async (req, res, next) => {
     } finally {
         conn.release();
     }
-});
-
-router.post('/editProject', async (req, res, next) => {
-    const conn = await db.getConnection();
-    try {
-        await conn.beginTransaction();
-        const endPoint = 'edit';
-        await ProjectHandler(req, res, endPoint, conn);
-    } catch (error) {
-        const err = new NotFoundError(error.message);
-        await conn.rollback();
-        next(err);
-    } finally {
-        conn.release();
-    }
-});
-
-router.post('/edit', async (req, res, next) => {
-    return runTransaction(async (conn) => {
-        try {
-            const { key } = req.body;
-            const sql = `select * from project as a inner join 
-        project_description as b on a.project_key = b.project_key where a.project_key =?
-        `;
-            const [response] = await conn.query(sql, [key]);
-            console.log(response);
-
-            res.status(200).json({ resData: response[0] || [] });
-        } catch (error) {
-            const err = new NotFoundError(error.message);
-            next(err);
-        }
-    });
 });
 
 router.delete('/delete/:key', async (req, res, next) => {
