@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 const useKey = () => {
     const [params] = useSearchParams();
-    const [key, setKey] = useState(null);
+    const [key, setKey] = useState<string>('');
 
     useEffect(() => {
         let currentKey = params.get('key');

@@ -9,11 +9,8 @@ const useUserDecoded = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!token) {
-            return;
-        }
+        if (!token) return;
 
-        // console.log(jwtDecode(token));
         const { id, role, name } = jwtDecode(token);
         dispatch(authActions.setUserData({ id, access: role, name }));
     }, [isAuth, token, dispatch]);

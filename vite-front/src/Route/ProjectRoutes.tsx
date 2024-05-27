@@ -1,11 +1,11 @@
 import WithRedirect from 'hoc/WithRedirect';
-import ProjectDetail from 'page/Project/pages/ProjectDetail';
-import ProjectAdd from 'page/Project/pages/ProjectAdd';
+import ProjectListDetail from '@features/project/ProjectDetail';
+import ProjectEditor from '@features/project/ProjectEditor/ProjectEditor';
 import Motion from 'component/animations/Motion';
 import withAuth from 'hoc/WithAuth';
 
 import styled from 'styled-components';
-import ProjectIndex from 'page/Project/pages/ProjectIndex';
+import ProjectList from '@features/project/ProjectList';
 
 import { AnimatePresence } from 'framer-motion';
 import { Route, Routes, useLocation } from 'react-router-dom';
@@ -16,22 +16,23 @@ const FlexMotion = styled(Motion.FadeInOut)`
 
 const ProjectRoutes = () => {
     const location = useLocation();
-    const AthencatedProjectAdd = withAuth(ProjectAdd, '/project');
+    const AthencatedProjectEditor = withAuth(ProjectEditor, '/project');
 
     const paths = [
-        { path: '/', index: true, Component: <ProjectIndex /> },
+        { path: '/', index: true, Component: <ProjectList /> },
+
         {
-            path: ':key',
+            path: 'add',
+            Component: <AthencatedProjectEditor />,
+        },
+        {
+            path: '/:key',
             Component: (
                 <WithRedirect
-                    Component={ProjectDetail}
+                    Component={ProjectListDetail}
                     redirectPath={'/project'}
                 />
             ),
-        },
-        {
-            path: 'add',
-            Component: <AthencatedProjectAdd />,
         },
     ];
 

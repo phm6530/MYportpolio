@@ -31,14 +31,15 @@ const EditorUploader = ({
     watch,
 }) => {
     const thumNail = watch('thumbnail');
+
     const fileHandler = async e => {
         const ImgFile = e.target.files[0];
-
         if (!ImgFile) {
             return;
         }
 
         const imgSize = ImgFile.size / 1024 / 1024;
+
         if (imgSize.toFixed(2) > 5) {
             alert(`${imgSize} 는 너무 크네요.. 5mb이하만 가능합니다. `);
             return;
@@ -49,9 +50,10 @@ const EditorUploader = ({
         }
         try {
             const formData = new FormData();
-            formData.append('img', ImgFile);
-            const { fileUrl } = await uploadImage(formData, projectKey);
-            setValue('thumbnail', fileUrl, { shouldValidate: true });
+            formData.append('image', ImgFile);
+
+            const { imgUrl } = await uploadImage(formData, projectKey);
+            setValue('thumbnail', imgUrl, { shouldValidate: true });
         } catch (error) {
             toast.error(error.message);
         }

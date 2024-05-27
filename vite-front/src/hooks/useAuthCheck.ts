@@ -1,10 +1,11 @@
 import { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { RootState } from 'store/appSlice';
 
 // 클라이언트 체크
 const useAuthCheck = () => {
-    const { login } = useSelector(state => state.auth);
+    const { login } = useSelector((state: RootState) => state.auth);
     const throttle = useRef(false);
 
     const checkHandler = () => {

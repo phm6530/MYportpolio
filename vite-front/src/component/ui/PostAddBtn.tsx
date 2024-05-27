@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useAuthCheck } from 'hooks/useAuthCheck';
 
-const PostAddBtn = () => {
+const PostAddBtn = (): JSX.Element => {
     const navigate = useNavigate();
     const { checkHandler } = useAuthCheck();
 

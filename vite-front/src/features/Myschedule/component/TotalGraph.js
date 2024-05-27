@@ -1,8 +1,6 @@
 import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { gsap } from 'gsap';
-import { filterByDate } from './filterByOrder';
-import { TodaySeletor } from 'utils/TodaySeletor';
 import { PercentCalculator } from 'utils/Calculator';
 
 const Wrap = styled.div`

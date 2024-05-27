@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { ENDPOINT_URL } from 'constants/apiUrl';
 import {
-    type BlogMainContentsProps,
-    type BlogPostRelated,
-    type BlogCategorylist,
-    type ApiResData,
-    type BlogPostDetailProps,
+    BlogMainContentsProps,
+    BlogPostRelated,
+    BlogCategorylist,
+    ApiResData,
+    BlogPostDetailProps,
     BlogNewPostListProps,
-} from '@style/types/BlogTypes';
+} from '@type/BlogTypes';
 
 async function executeHandler<T>(cb: () => Promise<{ data: T }>): Promise<T> {
     try {
@@ -78,8 +78,11 @@ const deleteBlogPost = async (key: string) => {
 };
 
 const blogloadImage = async ({ category, key, formData }) => {
+    for (const [formKey, value] of formData.entries()) {
+        console.log(formKey, value);
+    }
     const response = await fetch(
-        `${ENDPOINT_URL}/blog/uploadimg/${category}/${key}`,
+        `${ENDPOINT_URL}/blog/uploadimg/${category}/${key}?page=blog`,
         {
             method: 'POST',
             body: formData,

@@ -1,6 +1,9 @@
 const uploadImage = async (img, projectKey) => {
+    for (const [formKey, value] of img.entries()) {
+        console.log(formKey, value);
+    }
     const response = await fetch(
-        `http://localhost:8080/project/imgUploader/${projectKey}`,
+        `http://localhost:8080/project/uploadimg/${projectKey}?page=project`,
         {
             method: 'POST',
             body: img,

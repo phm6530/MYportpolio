@@ -1,5 +1,3 @@
-import store, { authAction } from 'store/appSlice';
-
 // 로그인
 const fetchLogin = async formData => {
     const response = await fetch('http://localhost:8080/login', {
@@ -55,9 +53,6 @@ const tokenCheck = async () => {
         const errorMessage = await response.json();
         throw new Error(errorMessage.message);
     }
-    // store.dispatch(authAction.complete());
-    // console.log('datat ::::', data);
-    // data를 사용하거나 반환
     return response.json();
 };
 

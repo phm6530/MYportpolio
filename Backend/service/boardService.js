@@ -27,6 +27,7 @@ const serviceInifnityReplyData = async (req, conn) => {
 const serviceReplyCreate = async (reqData, requestRoleType, conn) => {
     const { userIcon, userName, contents, idx, password = null } = reqData;
     const limit = 1;
+    const boardModel = boardController.InfinityReplyDataModel(conn);
 
     let hashedPassword = undefined;
     let role = 0;
@@ -49,7 +50,7 @@ const serviceReplyCreate = async (reqData, requestRoleType, conn) => {
                 FROM board ORDER BY idx DESC LIMIT ?`;
 
     const [rows] = await conn.query(res_sql, [limit]);
-    const count = await getTotalCommentCounter(conn);
+    const count = await boardModel.getTotalCommentCounter(conn);
     return { count, rows };
 };
 

@@ -1,127 +1,29 @@
 import 'quill/dist/quill.snow.css';
-import styled from 'styled-components';
-import useProjectActions from 'hooks/useProjectActions';
 
-import { ProjectWrapStyle } from 'features/project/ProjectListStyled';
 import { useNavigate } from 'react-router-dom';
-import { FaListUl } from 'react-icons/fa6';
-import { FaTrashAlt } from 'react-icons/fa';
-import { MdModeEdit } from 'react-icons/md';
+
 import { HiMiniLink } from 'react-icons/hi2';
 import { Button } from 'component/ui/Button';
-import { useAuthCheck } from 'hooks/useAuthCheck';
 import { HashTag } from '@style/commonStyle';
 import QuillView from 'component/editor/QuillView';
-import usePopup from 'hooks/usePopup';
+import ProjectDetailControlsWrap from '@features/project/ProjectDetailControls/ProjectDetailControlsWrap';
+import {
+    ProjectThumbNail,
+    CustumStyle,
+    ProjectSummary,
+    ProjectViewFooter,
+    HashtagArea,
+    SKill,
+} from '@features/project/ProjectDetailStyle';
+import { ProjectDetailProps } from '@type/ProjectTypes';
 
-const SKill = styled.span`
-    display: inline-block;
-    color: #555969;
-    border-radius: 18px;
-    padding: 0.3rem 0.9rem;
-    font-size: 14px;
-    font-weight: bold;
-    margin-right: 0.6rem;
-    color: rgb(120 141 170);
-    background-color: rgb(235, 244, 255);
-
-    ${props =>
-        props.$url &&
-        `
-            color: #3963a7;
-            text-decoration: underline;
-            cursor: pointer;        
-            display: inline-flex;
-            &:hover{
-                    color: #0d68fb;
-            }
-        `}
-`;
-
-const CustumStyle = styled(ProjectWrapStyle)`
-    padding: 4rem;
-`;
-
-const ButtonArea = styled.div`
-    button {
-        font-size: 14px;
-        font-weight: normal;
-        padding: 0.2rem;
-        border-radius: 4px;
-        margin-left: 5px;
-    }
-`;
-
-const ProjectSummary = styled.div`
-    margin: 0 1rem;
-    margin-bottom: 1rem;
-    width: 100%;
-    .title {
-        font-size: 1.5rem;
-        font-weight: bold;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-    }
-    .company {
-        font-size: 0.8rem;
-        opacity: 0.6;
-        color: rgba(107 114 128);
-        padding-bottom: 2rem;
-        margin-bottom: 2rem;
-    }
-    .date,
-    .skill {
-        margin-bottom: 2rem;
-    }
-    .summary_type {
-        font-size: 0.9rem;
-        font-weight: bold;
-        .project_date {
-            font-weight: normal;
-        }
-        .summary_titie {
-            display: flex;
-            margin-bottom: 0.5rem;
-            font-size: 16px;
-        }
-        span {
-            align-items: center;
-
-            svg {
-                margin-right: 10px;
-                position: relative;
-            }
-        }
-
-        flex-direction: column;
-    }
-`;
-
-const HashtagArea = styled.div`
-    margin-bottom: 2rem;
-`;
-
-const ProjectThumbNail = styled.div`
-    overflow: hidden;
-    border-radius: 2rem;
-    width: 100%;
-    max-width: 600px;
-    margin-bottom: 1rem;
-`;
-
-const ProjectViewFooter = styled.div`
-    font-size: 0.8rem;
-    margin-bottom: 2rem;
-`;
-
-function ProjectDetail({ result }) {
-    const { checkHandler } = useAuthCheck();
-    const { mutateAsync } = useProjectActions('project');
-    const { showPopup, PopupComponent } = usePopup();
+const ProjectDetail: React.FC<{ result: ProjectDetailProps }> = ({
+    result,
+}) => {
     const navigate = useNavigate();
+
     const {
-        project_key,
+        project_key: projectKey,
         title,
         company,
         skill,
@@ -133,52 +35,21 @@ function ProjectDetail({ result }) {
         thumbnail,
     } = result;
 
-    const skillArr = skill.split(',');
-    const HashTagArr = hashtag.split(',');
-
-    console.log('랜더');
-    const projectView = url => {
+    const projectView = (url: string) => {
         window.open(url, '_blank');
-    };
-
-    const updateHandler = key => {
-        if (!checkHandler()) {
-            return;
-        }
-        navigate(`/project/add?type=edit&key=${key}`);
-    };
-
-    const deleteHandler = () => {
-        if (!checkHandler()) return;
-        showPopup('ㄹㄹ');
     };
 
     return (
         <>
-            <PopupComponent
-                message={title}
-                event={() => mutateAsync(project_key)}
-            />
-
             <CustumStyle>
                 <ProjectSummary>
                     <div className="title">
                         {title}
-
-                        <ButtonArea>
-                            <button onClick={() => navigate('/project')}>
-                                <FaListUl />
-                            </button>
-                            <button onClick={() => updateHandler(project_key)}>
-                                <MdModeEdit />
-                            </button>
-                            <button onClick={deleteHandler}>
-                                <FaTrashAlt />
-                            </button>
-                        </ButtonArea>
+                        {/* 버튼 wrapper */}
+                        <ProjectDetailControlsWrap projectKey={projectKey} />
                     </div>
                     <HashtagArea>
-                        {HashTagArr.map((e, idx) => {
+                        {hashtag.map((e: string, idx: number) => {
                             return (
                                 <HashTag
                                     className="hashTag"
@@ -200,7 +71,6 @@ function ProjectDetail({ result }) {
                     않으며, 오직 공개된 작업물만을 게시합니다.
                 </ProjectViewFooter>
                 <ProjectSummary>
-                    {/* <SummaryTitle>WORK SUMMARY</SummaryTitle> */}
                     <div className="date">
                         <span className="summary_type">
                             <span className="summary_titie">
@@ -232,7 +102,7 @@ function ProjectDetail({ result }) {
                         <span className="summary_type">
                             <span className="summary_titie">Use Skill</span>
 
-                            {skillArr.map((e, idx) => {
+                            {skill.map((e: string, idx: number) => {
                                 return <SKill key={idx}>{e}</SKill>;
                             })}
                         </span>
@@ -266,6 +136,6 @@ function ProjectDetail({ result }) {
             </CustumStyle>
         </>
     );
-}
+};
 
 export default ProjectDetail;

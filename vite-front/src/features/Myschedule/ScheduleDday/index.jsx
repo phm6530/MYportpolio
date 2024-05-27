@@ -1,21 +1,5 @@
 import styled from 'styled-components';
-// import { Swiper, SwiperSlide } from 'swiper/react';/
 import { MdCancel } from 'component/icon/Icon';
-// import {
-//     Navigation,
-//     Pagination,
-//     Scrollbar,
-//     FreeMode,
-//     Autoplay,
-//     EffectCreative,
-// } from 'swiper/modules';
-// Swiper modules 활성화
-
-// Import Swiper styles
-// import 'swiper/css';
-// import 'swiper/css/navigation';
-// import 'swiper/css/pagination';
-// import 'swiper/css/scrollbar';
 
 import { useAuthCheck } from 'hooks/useAuthCheck';
 import { fetchDeleteSchedule } from 'services/ScheduleService';
@@ -105,10 +89,6 @@ const DdayTask = ({ task }) => {
     const dayDifference = (currentDate - taskDate) / (1000 * 3600 * 24);
     const count = Math.ceil(dayDifference);
 
-    // console.log(currentDate);
-    // console.log(taskDate);
-
-    // console.log(work);
     const { mutate: deleteMutate } = useExcuteMutation(
         fetchDeleteSchedule,
         ['Schedule'],

@@ -61,7 +61,6 @@ const TaskNav = ({ listData = {}, selectDay, setSelectDay }) => {
 
     const { showModalHandler, ModalComponent } = useModal();
 
-    const [dDayForm, setDdayForm] = useState(false);
     const [, setSeachParam] = useSearchParams();
 
     const todayButton = () => {

@@ -47,7 +47,11 @@ const addReply = async (formData: object) => {
         Authorization: token ? `Bearer ${token}` : '',
     };
 
-    return requestHandler(() => axios.post(Url, formData, { headers }));
+    const result = await requestHandler(() =>
+        axios.post(Url, formData, { headers }),
+    );
+    console.log(result);
+    return result;
 };
 
 export { addReply, fetchReply, deleteFetch };

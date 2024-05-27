@@ -1,12 +1,7 @@
 import styled, { css } from 'styled-components';
 import FadeinComponent from 'FadeinComponent';
 
-// icon
-import { useNavigate } from 'react-router-dom';
-import { FaMagnifyingGlass } from 'react-icons/fa6';
-import { HashTag } from '@style/commonStyle';
-
-const ProjectFadeinStyle = styled(FadeinComponent)`
+export const ProjectFadeinStyle = styled(FadeinComponent)`
     margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
     display: flex;
@@ -16,6 +11,7 @@ const ProjectFadeinStyle = styled(FadeinComponent)`
     align-items: start;
     cursor: pointer;
     margin-right: 2rem;
+
     &:nth-child(3n + 2) {
         margin-right: 0rem;
     }
@@ -40,7 +36,7 @@ const ProjectFadeinStyle = styled(FadeinComponent)`
     }
 `;
 
-const ProjectImgArea = styled.div`
+export const ProjectImgArea = styled.div<{ $backImg: string }>`
     width: 100%;
     height: 10.6rem;
     position: relative;
@@ -57,14 +53,13 @@ const ProjectImgArea = styled.div`
         `}
 `;
 
-const ProjectCompany = styled.div`
+export const ProjectCompany = styled.div`
     font-size: 12px;
     margin-bottom: 3px;
-    color: rgba(113 113 122);
+    color: rgba(113, 113, 122);
     display: none;
 `;
-
-const ProjectDescription = styled.div`
+export const ProjectDescription = styled.div`
     font-size: 14px;
     white-space: pre-line;
     margin-bottom: 7px;
@@ -73,16 +68,7 @@ const ProjectDescription = styled.div`
     word-break: keep-all;
 `;
 
-const ContentsWrap = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    /* padding: 1rem 0.5rem 0.5rem 3rem; */
-    /* width: 65%; */
-    flex-grow: 1;
-`;
-
-const ViewIconAnimation = styled.div`
+export const ViewIconAnimation = styled.div`
     width: 100%;
     height: 100%;
     position: absolute;
@@ -103,7 +89,8 @@ const ViewIconAnimation = styled.div`
         transition: all 0.3s 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
     }
 `;
-const ProjectItemHeaderStyle = styled.div`
+
+export const ProjectItemHeaderStyle = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
@@ -122,47 +109,9 @@ const ProjectItemHeaderStyle = styled.div`
     color: ${({ theme }) => theme.textColor};
 `;
 
-export default function ProjectItem({ project }) {
-    const { thumbnail, company, hashtag, description, project_key } = project;
-    const navigate = useNavigate();
-
-    return (
-        <>
-            <ProjectFadeinStyle onClick={() => navigate(`${project_key}`)}>
-                <ProjectImgArea
-                    $backImg={`http://localhost:8080/${thumbnail}`}
-                    className="projectItemImg"
-                >
-                    <ViewIconAnimation className="aniTarget">
-                        <FaMagnifyingGlass />
-                    </ViewIconAnimation>
-
-                    {/* <img src={} alt={title} /> */}
-                </ProjectImgArea>
-
-                <ContentsWrap>
-                    {/* Header */}
-                    <ProjectCompany>{company}</ProjectCompany>
-
-                    <ProjectItemHeaderStyle>
-                        {project.title}
-                    </ProjectItemHeaderStyle>
-
-                    {/* Company */}
-                    <ProjectDescription>{description}</ProjectDescription>
-                    <div>
-                        {hashtag &&
-                            hashtag.map((e, idx) => (
-                                <HashTag
-                                    className="hashTag"
-                                    key={`hash-${idx}`}
-                                >
-                                    # {e}
-                                </HashTag>
-                            ))}
-                    </div>
-                </ContentsWrap>
-            </ProjectFadeinStyle>
-        </>
-    );
-}
+export const ProjectItemWrap = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-grow: 1;
+`;

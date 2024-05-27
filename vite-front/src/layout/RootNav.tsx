@@ -17,6 +17,7 @@ import TopButton from 'component/ui/TopButton';
 import useUserDecoded from 'hooks/useUserDecoded';
 
 import { NavPageObject } from 'constants/pageConstacts';
+import { RootState } from 'store/appSlice';
 
 // Nav 선택
 const Link = ({ children, className, ...prop }) => {
@@ -43,8 +44,8 @@ const Header = styled.header`
 `;
 
 export default function RootNav() {
-    const { view } = useSelector(state => state.alert);
-    const { login } = useSelector(state => state.auth);
+    const { view } = useSelector((state: RootState) => state.alert);
+    const { login } = useSelector((state: RootState) => state.auth);
     const { pathname } = useLocation();
     const [loginModal, setLoginModal] = useState(false);
     const [active, setActive] = useState(pathname);

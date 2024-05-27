@@ -4,6 +4,6 @@ import { ENDPOINT_URL } from 'constants/apiUrl';
 import { mailFormProperty } from '@type/contactTypes';
 
 export const fetchMailHandler = async (mailData: mailFormProperty) => {
-    const url = `${ENDPOINT_URL}/mailModule`;
+    const url = `${ENDPOINT_URL}/contact`;
     return requestHandler(() => axios.post(url, mailData));
 };

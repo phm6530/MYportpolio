@@ -1,4 +1,5 @@
 const { NotFoundError } = require('../util/error');
+const projectModel = require('../models/projectModel');
 
 const transformtoArr = (targetArr, keys) => {
     const ChangeResponse = targetArr.map((obj) => {
@@ -33,54 +34,22 @@ const getProjectDetail = async (req, next, conn) => {
         const err = new NotFoundError('이미 삭제된 게시물이거나 잘못된 접근입니다.');
         next(err);
     }
-    return rows[0];
+    const result = transformtoArr(rows, ['skill', 'hashtag']);
+
+    return result[0];
 };
 
 // 프로젝트 수정 타겟 데이터 get
 const getProjectEditDetail = async (req, conn) => {
+    const model = projectModel.fetchEditProjectModel(conn);
     const key = req.params.key;
-    const sql = `
-        select * from 
-            project as a 
-        inner join 
-            project_description as b on a.project_key = b.project_key 
-        where a.project_key =?
-`;
-    const [response] = await conn.query(sql, [key]);
-    return response;
+    return model.fetchEditRequest(key);
 };
 
-const updateQuery = async ({ project_key, project_description, ...project }, conn) => {
-    // project 테이블 업데이트 쿼리
-    let sql = `UPDATE project SET 
-            project_key = ?,
-            title = ?, 
-            company = ?, 
-            skill = ?, 
-            hashtag = ?,
-            description = ?, 
-            startProject = ?, 
-            endProject = ?, 
-            project_url = ?,
-            thumbnail = ?
-            WHERE project_key = ?`;
-
-    const test = Object.values({ project_key, ...project });
-    test.push(project_key);
-
-    // project_key를 마지막에 넣어 WHERE 조건에 사용
-    await conn.query(sql, test);
-
-    // project_Description 테이블에 데이터 삽입
-    sql = `update project_description set 
-            project_key = ?,
-            project_description = ? where project_key = ? `;
-    await conn.query(sql, [project_key, project_description, project_key]);
-};
-
+// 프로젝트 수정 or 생성
 const actionProjectDetail = async (req, conn) => {
-    const endPoint = 'edit'; //파라미터 받을거임
-
+    const actionModel = projectModel.projectActionModel(conn);
+    const pageType = req.query.type; //페이지 쿼리스트링으로 분기
     const data = req.body;
 
     const project = {
@@ -97,11 +66,9 @@ const actionProjectDetail = async (req, conn) => {
         thumbnail: data.thumbnail,
     };
 
-    if (endPoint === 'add') {
-        await insertQuery(project, conn);
-    } else {
-        await updateQuery(project, conn);
-    }
+    await actionModel.projectAction(project, pageType);
+    await actionModel.projectActionDescription(project, pageType);
+    // project_Description 테이블에 데이터 삽입
 };
 
 module.exports = {

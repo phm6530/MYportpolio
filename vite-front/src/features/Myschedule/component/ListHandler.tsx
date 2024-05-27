@@ -7,8 +7,6 @@ import { MdCancel } from 'component/icon/Icon';
 
 import { Checkbox, Button as Btn, useTheme } from '@mui/material';
 
-import { MdModeEdit } from 'react-icons/md';
-
 import {
     fetchEditSchedule,
     fetchDeleteSchedule,

@@ -1,8 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
-
-import * as Yup from 'yup';
 import 'react-datepicker/dist/react-datepicker.css';
-
 import { yupResolver } from '@hookform/resolvers/yup';
 
 // Quill 에디터
@@ -11,16 +8,13 @@ import CustumDatePicker from 'component/editor/CustumDatePicker';
 
 import { SubTitle } from 'component/ui/Subtitle';
 import EditorInput from 'component/editor/EditorInput';
-import { addProjectFetch, projectEdit } from 'services/projectService';
 import styled from 'styled-components';
 import { Button } from 'component/ui/Button';
+import schema from './schema';
 
 import EditorAddHash from 'component/editor/EditorAddHash';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { PROJECT_STACK } from 'constants/pageConstacts';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { queryKey } from 'services/queryKey';
-import { toast } from 'react-toastify';
 
 import EditorChecklist from 'component/editor/EditorChecklist';
 import EditorTextArea from 'component/editor/EditorTextArea';
@@ -28,6 +22,8 @@ import EditorUploader from 'component/editor/EditorUploader';
 import QuillEditor from 'component/editor/QuillEditor';
 import CustomToolbar from 'component/editor/QuillCustumToolbar';
 import useKey from 'hooks/useKey';
+import useEditorFetchDetail from '@features/project/hooks/useEditorFetchDetail';
+import useEditorAction from '@features/project/hooks/useEditorAction';
 
 const AdminProjectStyle = styled.div`
     background: var(--background-color-box);
@@ -44,34 +40,11 @@ const ButtonWrap = styled.div`
     display: flex;
 `;
 
-const schema = Yup.object().shape({
-    title: Yup.string().required('필수 입력란 입니다.'),
-    skill: Yup.array().min(1, '한개 이상의 stack을 등록해주세요'),
-    company: Yup.string().required('필수 입력란 입니다.'),
-    hashtag: Yup.array().min(1, '한 개 이상의 해시태그를 등록해주세요.'),
-    projectUrl: Yup.string()
-        .required('필수 입력란 입니다.')
-        .url('Url 형식으로 입력해주세요. 예)https://sitename.com'),
-    startDate: Yup.date()
-        .max(Yup.ref('endDate'), '시작일은 종료일보다 빨라야 합니다.')
-        .required('시작일을 입력해주세요'),
-    thumbnail: Yup.string().required('프로젝트 썸네일을 첨부해주세요.'),
-    endDate: Yup.date()
-        .min(Yup.ref('startDate'), '종료일은 시작일 이후로 설정해주세요')
-        .required('종료일을 입력해주세요'),
-    description: Yup.string()
-        .required('필수 입력란 입니다.')
-        .min(6, '6글자 이상써주세요..'),
-    projectDescription: Yup.string().required('필수 입력란 입니다.'),
-});
-
-export default function ProjectAdd() {
+export default function ProjectEditor() {
     const navigate = useNavigate();
     const [Params] = useSearchParams();
-
     const { key: projectKey } = useKey();
-
-    const Type = Params.get('type');
+    const pageType = Params.get('type') || null;
 
     const initalFormValue = {
         title: '',
@@ -100,28 +73,10 @@ export default function ProjectAdd() {
     });
 
     const ref = useRef();
+    const { data } = useEditorFetchDetail(projectKey, pageType);
+    const { mutate } = useEditorAction(pageType);
 
-    const { data } = useQuery({
-        queryKey: [queryKey.projectAdd],
-        queryFn: () => projectEdit(projectKey),
-    });
-
-    const { mutate } = useMutation({
-        mutationFn: data =>
-            addProjectFetch(
-                Type === 'edit' ? data : { ...data, idx: projectKey },
-                Type,
-            ),
-        onSuccess: () => {
-            toast.success(
-                Type !== 'edit'
-                    ? '프로젝트가 등록되었습니다.'
-                    : '프로젝트가 수정되었습니다.',
-                true,
-            );
-            navigate('/project');
-        },
-    });
+    console.log('data::::::::::::::::::::::::', data);
 
     const mapDataToForm = useCallback(data => {
         if (!data) return null; // 데이터가 없으면 null 반환
@@ -148,11 +103,11 @@ export default function ProjectAdd() {
     useEffect(() => {
         if (data) {
             console.log('Data loaded: ', data);
-            if (Type === 'edit') {
+            if (pageType === 'edit') {
                 reset(mapDataToForm(data));
             }
         }
-    }, [data, Type]);
+    }, [data, pageType]);
 
     const cancelEvent = () => {
         navigate(-1);
