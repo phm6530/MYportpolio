@@ -21,6 +21,7 @@ import {
     BlogAddorEditProps,
     BlogPostRequestProps,
 } from '@style/types/BlogTypes';
+import { ENDPOINT_URL } from 'constants/apiUrl';
 
 interface FormValue extends BlogAddorEditProps {
     user: object;
@@ -35,8 +36,6 @@ const BlogAdd = (): JSX.Element => {
     const { data } = useBlogPostDetail(postId);
     const { mutate, isPending } = useBlogPostAction(editorType, postId);
     const [postKey, setPostKey] = useState(() => editorType || uuidv4());
-
-    console.log(data);
 
     const {
         register,
@@ -73,9 +72,11 @@ const BlogAdd = (): JSX.Element => {
         const content = EditorGetPreview(data.post);
         const thumNail = content.getImg();
         const description = content.getText();
+        const post = content.getPost();
 
         const requestData: BlogPostRequestProps = {
             ...data,
+            post,
             key: postKey,
             thumNail,
             description,

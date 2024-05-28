@@ -4,6 +4,7 @@ import Thumbnail from 'component/ui/Thumbnail';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { BlogPostRelated } from '@type/BlogTypes';
+import { ENDPOINT_URL } from 'constants/apiUrl';
 
 const Container = styled.div`
     display: flex;
@@ -39,7 +40,7 @@ const BlogPostRelatedItem: React.FC<BlogPostRelated> = ({
     const navigate = useNavigate();
     return (
         <Container onClick={() => navigate(`/blog/${post_id}`)}>
-            <ThumbnailCustom img={thumnail_url} />
+            <ThumbnailCustom img={`${ENDPOINT_URL}/${thumnail_url}`} />
             <Summary>
                 <div className="title">{post_title}</div>
 

@@ -5,6 +5,7 @@ import Fadein from 'FadeinComponent';
 import Thumbnail from 'component/ui/Thumbnail';
 import SummaryData from 'component/ui/PostTimestamp';
 import { BlogMainContentsItemProps } from '@type/BlogTypes';
+import { ENDPOINT_URL } from 'constants/apiUrl';
 
 const ProjectFadeinStyle = styled(Fadein)`
     /* margin-bottom: 1.5rem; */
@@ -60,10 +61,14 @@ const BlogContentsItem: React.FC<{ item: BlogMainContentsItemProps }> = ({
     const { post_id, thumnail, post_title, description, date, subcategory } =
         item;
     const navigate = useNavigate();
+
     return (
         <ProjectFadeinStyle onClick={() => navigate(`${post_id}`)}>
             {/* 썸네일  */}
-            <CustomThumNail img={thumnail} badge={subcategory} />
+            <CustomThumNail
+                img={`${ENDPOINT_URL}/${thumnail}`} //이미지 썸네일 엔드포인트
+                badge={subcategory}
+            />
             <ContentsWrap>
                 {/* Header */}
 

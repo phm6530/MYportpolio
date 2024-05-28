@@ -50,7 +50,11 @@ const EditorUploader = ({
         }
         try {
             const formData = new FormData();
-            formData.append('image', ImgFile);
+            const newFileName = ImgFile.name.replace(/[^\w.-]/g, '_');
+            console.log(newFileName);
+
+            formData.append('image', ImgFile, newFileName); // 'img' 필드에 파일 추가
+            // formData.append('image', ImgFile);
 
             const { imgUrl } = await uploadImage(formData, projectKey);
             setValue('thumbnail', imgUrl, { shouldValidate: true });

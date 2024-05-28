@@ -15,25 +15,24 @@ import {
     HashtagArea,
     SKill,
 } from '@features/project/ProjectDetailStyle';
-import { ProjectDetailProps } from '@type/ProjectTypes';
+import { ProjectPostProps } from '@type/ProjectTypes';
+import { ENDPOINT_URL } from 'constants/apiUrl';
 
-const ProjectDetail: React.FC<ProjectDetailProps> = props => {
+const ProjectDetail: React.FC<ProjectPostProps> = props => {
     const navigate = useNavigate();
 
     const {
-        project_key: projectKey,
+        projectKey,
         title,
         company,
         skill,
         hashtag,
-        startProject,
-        project_url,
-        endProject,
-        project_description,
+        startDate,
+        projectUrl,
+        endDate,
+        projectDescription,
         thumbnail,
     } = props;
-
-    console.log(props);
 
     const projectView = (url: string) => {
         window.open(url, '_blank');
@@ -45,8 +44,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = props => {
                 <ProjectSummary>
                     <div className="title">
                         {title}
+
                         {/* 버튼 wrapper */}
-                        <ProjectDetailControlsWrap projectKey={projectKey} />
+                        {projectKey && (
+                            <ProjectDetailControlsWrap
+                                projectKey={projectKey}
+                            />
+                        )}
                     </div>
                     <HashtagArea>
                         {hashtag.map((e: string, idx: number) => {
@@ -60,10 +64,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = props => {
                     </HashtagArea>
                 </ProjectSummary>
                 <ProjectThumbNail>
-                    <img
-                        src={`http://localhost:8080/${thumbnail}`}
-                        alt={title}
-                    />
+                    <img src={`${ENDPOINT_URL}/${thumbnail}`} alt={title} />
                 </ProjectThumbNail>
                 <ProjectViewFooter>
                     ※ 본 게시물은 상업적 목적이 아닌 포트폴리오 목적으로만
@@ -93,7 +94,8 @@ const ProjectDetail: React.FC<ProjectDetailProps> = props => {
 
                             <div className="project_date">
                                 <SKill>
-                                    {startProject} ~ {endProject}
+                                    {startDate?.toString()} ~{' '}
+                                    {endDate?.toString()}
                                 </SKill>
                             </div>
                         </span>
@@ -116,11 +118,11 @@ const ProjectDetail: React.FC<ProjectDetailProps> = props => {
 
                             <div
                                 className="project_date"
-                                onClick={() => projectView(project_url)}
+                                onClick={() => projectView(projectUrl)}
                             >
                                 <SKill $url={true}>
                                     <HiMiniLink />
-                                    {project_url}
+                                    {projectUrl}
                                 </SKill>
                             </div>
                         </span>
@@ -128,7 +130,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = props => {
                 </ProjectSummary>
 
                 {/* quill-view */}
-                <QuillView contents={project_description} />
+                <QuillView contents={projectDescription} />
 
                 <Button.Type onClick={() => navigate('/project')}>
                     목록으로

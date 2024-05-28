@@ -9,10 +9,10 @@ import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 
 import 'highlight.js/styles/atom-one-dark.min.css';
+import { ENDPOINT_URL } from 'constants/apiUrl';
 const EditorStyle = styled.div`
     /* padding: 2rem 0; */
 `;
-const Toolbar = styled.div``;
 
 const ReactQuillStyle = styled(ReactQuill)`
     /* background: var(--color-background-input); */
@@ -82,9 +82,12 @@ const TestQuillEditor = ({ postKey, ...props }) => {
                 key: postKey,
                 formData,
             });
-            console.log('result:::', result);
 
-            editor.insertEmbed(range.index, 'image', `${result.imgUrl}`);
+            editor.insertEmbed(
+                range.index,
+                'image',
+                `${ENDPOINT_URL}/${result.imgUrl}`,
+            );
             editor.insertText(range.index + 1, '\n'); //뒤로 한칸가서 엔터 치기
             editor.setSelection(range.index + 2, 0); //마우커서는 엔터 뒤로
         }

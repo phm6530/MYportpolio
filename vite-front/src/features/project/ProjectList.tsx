@@ -62,7 +62,6 @@ export default function ProjectList(): JSX.Element {
                     <>
                         {data.length === 0 && '등록된 프로젝트가 없습니다..'}
                         {ProjectArr.map(project => {
-                            console.log(project);
                             return (
                                 <ProjectListItem
                                     project={project}

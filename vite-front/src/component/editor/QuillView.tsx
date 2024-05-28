@@ -1,3 +1,4 @@
+import { ENDPOINT_URL } from 'constants/apiUrl';
 import styled from 'styled-components';
 
 const QuillContainer = styled.div`
@@ -17,13 +18,19 @@ const QuillView: React.FC<{ contents: string }> = ({ contents }) => {
         return { __html: quillHTML };
     };
 
+    const originalDomain = 'uploads/';
+    const updatedContents = contents.replaceAll(
+        originalDomain,
+        `${ENDPOINT_URL}/uploads/`,
+    );
+
     return (
         <>
             <QuillContainer className="ql-container ql-snow">
                 <div
                     id="quill_Editor"
                     className="ql-editor"
-                    dangerouslySetInnerHTML={renderHTML(contents)}
+                    dangerouslySetInnerHTML={renderHTML(updatedContents)}
                 ></div>
             </QuillContainer>
         </>
