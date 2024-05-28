@@ -28,6 +28,7 @@ const blogStorage = multer.diskStorage({
 
         // uploads 파일 안에 category, subCategory 구성함
         const uploadPath = path.join(global.appRoot, 'uploads', page, key);
+        console.log(uploadPath);
 
         if (!fs.existsSync(uploadPath)) {
             // 폴더가 존재하지 않는 경우 폴더생성
@@ -49,7 +50,7 @@ const blogStorage = multer.diskStorage({
         const [originName, ext] = file.originalname.split('.');
 
         const newFilename = `${originName}_${dateString}.${ext}`;
-        file.url = `${process.env.END_POINT}/uploads/${page}/${key}/${newFilename}`;
+        file.url = `uploads/${page}/${key}/${newFilename}`;
 
         cb(null, newFilename);
     },

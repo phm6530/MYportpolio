@@ -17,33 +17,23 @@ const fetchEditProjectModel = (conn) => {
 const projectActionModel = (conn) => {
     return {
         projectAction: (
-            {
-                project_key,
-                title,
-                company,
-                skill,
-                hashtag,
-                description,
-                startProject,
-                endProject,
-                project_url,
-                thumbnail,
-            }, //디스크립션은 필요없음
+            { projectKey, title, company, skill, hashtag, description, startDate, endDate, projectUrl, thumbnail }, //디스크립션은 필요없음
             pageType, // 페이지 타입
         ) => {
             let sql = '';
             const params = [
-                project_key,
+                projectKey,
                 title,
                 company,
                 skill,
                 hashtag,
                 description,
-                startProject,
-                endProject,
-                project_url,
+                startDate,
+                endDate,
+                projectUrl,
                 thumbnail,
             ];
+            // console.log(params);
             if (pageType === 'add') {
                 sql = `
                     INSERT INTO 
@@ -54,8 +44,8 @@ const projectActionModel = (conn) => {
                         skill,
                         hashtag ,
                         description,
-                        startProject,
-                        endProject,
+                        start_date,
+                        end_date,
                         project_url, 
                         thumbnail
                     )
@@ -72,21 +62,21 @@ const projectActionModel = (conn) => {
                         skill = ?, 
                         hashtag = ?,
                         description = ?, 
-                        startProject = ?, 
-                        endProject = ?, 
+                        start_date = ?, 
+                        end_date = ?, 
                         project_url = ?,
                         thumbnail = ?
                     WHERE 
                         project_key = ?
                 `;
-                params.push(project_key);
+                params.push(projectKey);
             }
 
             return conn.query(sql, params);
         },
-        projectActionDescription: ({ project_key, project_description, ...project }, pageType) => {
+        projectActionDescription: ({ projectKey, projectDescription, ...project }, pageType) => {
             let sql = '';
-            const params = [project_key, project_description];
+            const params = [projectKey, projectDescription];
             if (pageType === 'add') {
                 sql = `
                     INSERT INTO project_description (project_key, project_description)
@@ -96,7 +86,7 @@ const projectActionModel = (conn) => {
                 sql = `update project_description set 
                 project_key = ?,
                 project_description = ? where project_key = ? `;
-                params.push(project_key);
+                params.push(projectKey);
             }
             return conn.query(sql, params);
         },

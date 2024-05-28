@@ -6,8 +6,6 @@ const projectController = require('../Controller/projectController');
 const utilRouter = require('./utilRouter');
 const { blogUpload } = require('../config/fileUploadConfig');
 
-router.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
 // Project리스트
 router.get('/', projectController.handleFetchProjectList);
 

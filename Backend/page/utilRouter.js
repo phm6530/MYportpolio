@@ -3,6 +3,7 @@ const { NotFoundError } = require('../util/error');
 //blog post img 업로더
 const handleImgUploader = async (req, res, next) => {
     console.log('동작!');
+
     try {
         const file = req.file;
         res.json({ message: 'success', imgUrl: file.url });
