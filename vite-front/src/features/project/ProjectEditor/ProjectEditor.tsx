@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 // Quill 에디터
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import CustumDatePicker from 'component/editor/CustumDatePicker';
 
 import { SubTitle } from 'component/ui/Subtitle';
@@ -24,6 +24,7 @@ import CustomToolbar from 'component/editor/QuillCustumToolbar';
 import useKey from 'hooks/useKey';
 import useEditorFetchDetail from '@features/project/hooks/useEditorFetchDetail';
 import useEditorAction from '@features/project/hooks/useEditorAction';
+import { ProjectDetailProps } from '@type/ProjectTypes';
 
 const AdminProjectStyle = styled.div`
     background: var(--background-color-box);
@@ -46,15 +47,21 @@ export default function ProjectEditor() {
     const { key: projectKey } = useKey();
     const pageType = Params.get('type') || null;
 
-    const initalFormValue = {
-        title: '',
-        skill: [],
-        projectUrl: '',
-        hashtag: [],
-        description: '',
-        projectDescription: '',
-        thumbnail: '',
-    };
+    const initalFormValue: ProjectDetailProps = useMemo(
+        () => ({
+            title: '',
+            company: '',
+            skill: [],
+            hashtag: [],
+            projectUrl: '',
+            startDate: null,
+            endDate: null,
+            thumbnail: '',
+            description: '',
+            projectDescription: '',
+        }),
+        [],
+    );
 
     const {
         register,
@@ -64,61 +71,60 @@ export default function ProjectEditor() {
         getValues,
         reset,
         trigger,
-        setError,
         formState: { errors },
         control,
-    } = useForm({
-        resolver: yupResolver(schema),
+    } = useForm<ProjectDetailProps>({
+        /* eslint-disable @typescript-eslint/no-explicit-any */
+        resolver: yupResolver(schema) as any, //초기값 null때문에 요것만 any 허용
         defaultValues: initalFormValue,
     });
 
-    const ref = useRef();
     const { data } = useEditorFetchDetail(projectKey, pageType);
-    const { mutate } = useEditorAction(pageType);
+    const { mutate } = useEditorAction(pageType, projectKey);
 
-    console.log('data::::::::::::::::::::::::', data);
-
-    const mapDataToForm = useCallback(data => {
+    const mapDataToForm = useCallback((data: ProjectDetailProps) => {
         if (!data) return null; // 데이터가 없으면 null 반환
-
-        const parseDate = dateString => {
-            const date = new Date(dateString);
-            return isNaN(date) ? new Date() : date; // 유효하지 않은 날짜는 오늘 날짜로 대체
-        };
+        const {
+            title,
+            company,
+            description,
+            projectUrl,
+            skill,
+            hashtag,
+            startDate,
+            endDate,
+            projectDescription,
+            thumbnail,
+        } = data;
         return {
-            idx: data.project_key,
-            title: data.title,
-            company: data.company,
-            description: data.description,
-            projectUrl: data.project_url,
-            skill: data.skill ? data.skill.split(',') : [],
-            hashtag: data.hashtag ? data.hashtag.split(',') : [],
-            startDate: parseDate(data.startProject),
-            endDate: parseDate(data.endProject),
-            projectDescription: data.project_description,
-            thumbnail: data.thumbnail,
+            title,
+            company,
+            description,
+            projectUrl,
+            skill,
+            hashtag,
+            startDate,
+            endDate,
+            projectDescription,
+            thumbnail,
         };
     }, []);
 
     useEffect(() => {
-        if (data) {
-            console.log('Data loaded: ', data);
-            if (pageType === 'edit') {
-                reset(mapDataToForm(data));
-            }
+        if (data && pageType === 'edit') {
+            const formData = mapDataToForm(data) || initalFormValue;
+            reset(formData);
         }
-    }, [data, pageType]);
+    }, [data, pageType, reset, mapDataToForm, initalFormValue]);
 
     const cancelEvent = () => {
         navigate(-1);
     };
 
-    const onSubmitHandler = useCallback(
-        async data => {
-            mutate(data);
-        },
-        [mutate],
-    );
+    const onSubmitHandler: SubmitHandler<ProjectDetailProps> = data => {
+        console.log(data);
+        mutate(data);
+    };
 
     return (
         <AdminProjectStyle>
@@ -127,7 +133,6 @@ export default function ProjectEditor() {
             <FormStyle onSubmit={handleSubmit(onSubmitHandler)}>
                 <EditorInput
                     label="프로젝트 명"
-                    type="text"
                     placeholder="프로젝트 명을 입력해주세요."
                     error={errors}
                     value="title"
@@ -137,7 +142,6 @@ export default function ProjectEditor() {
                 {/* 의뢰기간 */}
                 <EditorInput
                     label="프로젝트 의뢰기관"
-                    type="text"
                     placeholder="프로젝트 의뢰 기간을 입력해주세요."
                     error={errors}
                     value="company"
@@ -155,7 +159,7 @@ export default function ProjectEditor() {
 
                 <EditorChecklist
                     label="프로젝트 기술스택"
-                    error={errors}
+                    error={errors?.skill}
                     value="skill"
                     list={PROJECT_STACK}
                     register={register}
@@ -164,15 +168,11 @@ export default function ProjectEditor() {
 
                 {/* 해시태그 */}
                 <EditorAddHash
-                    label={'해시태그'}
-                    placeholder="해시태그 추가"
-                    ref={ref}
-                    error={errors}
-                    control={control}
-                    value="hashtag"
-                    setError={setError}
-                    trigger={trigger}
                     getValues={getValues}
+                    error={errors}
+                    setValue={setValue}
+                    trigger={trigger}
+                    label="hashtag"
                 />
 
                 {/* 썸네일  */}
@@ -187,7 +187,6 @@ export default function ProjectEditor() {
 
                 <EditorInput
                     label="Site Url"
-                    type="text"
                     placeholder="URL을 입력해주세요"
                     error={errors}
                     value="projectUrl"
@@ -196,9 +195,9 @@ export default function ProjectEditor() {
 
                 <EditorTextArea
                     label="Contents"
+                    value="description"
                     placeholder="썸네일 설명을 기재해주세요."
                     error={errors}
-                    value="description"
                     register={register}
                 />
 
@@ -210,7 +209,8 @@ export default function ProjectEditor() {
                             name="projectDescription"
                             control={control}
                             render={({ field }) => {
-                                const { ref: _, ...restField } = field; // `ref`를 제외하고 나머지 필드를 추출
+                                const { ref, ...restField } = field;
+                                void ref; // `ref`를 제외하고 나머지 필드를 추출
                                 return (
                                     <QuillEditor
                                         {...restField} // `ref`를 제외한 나머지 프로퍼티 전달

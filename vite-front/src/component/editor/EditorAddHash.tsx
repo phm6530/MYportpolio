@@ -1,12 +1,19 @@
 import styled from 'styled-components';
 import InputErrorMessage from 'component/error/InputErrorMessage';
 import { InputLabel, InputStyle } from 'component/ui/TextArea';
-import { forwardRef } from 'react';
-import { useFieldArray } from 'react-hook-form';
+
 import { MdCancel } from 'react-icons/md';
 import { HashTag } from '@style/commonStyle';
 import { Button } from '@mui/material';
 import { Wrapper } from './EditorStyle';
+import { useRef } from 'react';
+import {
+    FieldErrors,
+    UseFormGetValues,
+    UseFormSetValue,
+    UseFormTrigger,
+} from 'react-hook-form';
+import { ProjectDetailProps } from '@type/ProjectTypes';
 
 const CustomInputWrap = styled(InputStyle)`
     flex-grow: 1;
@@ -29,82 +36,74 @@ const HashtagWrap = styled.div`
     min-height: 30px;
 `;
 
-const EditorAddHash = forwardRef(
-    (
-        {
-            label,
-            placeholder,
-            error,
-            value,
-            control,
-            setError,
-            trigger,
-            getValues,
-        },
-        ref,
-    ) => {
-        const { fields, append, remove } = useFieldArray({
-            control,
-            name: value,
-        });
+interface EditorAddHashprops {
+    setValue: UseFormSetValue<ProjectDetailProps>;
+    getValues: UseFormGetValues<ProjectDetailProps>;
+    trigger: UseFormTrigger<ProjectDetailProps>;
+    error?: FieldErrors<ProjectDetailProps>;
+    label: keyof ProjectDetailProps;
+}
 
-        const addHashtag = e => {
-            e.preventDefault();
+const EditorAddHash: React.FC<EditorAddHashprops> = ({
+    getValues,
+    setValue,
+    trigger,
+    error,
+    label,
+}) => {
+    const valueRef = useRef<HTMLInputElement>(null);
+    const prevArr = getValues(label) as string[];
 
-            const newValue = ref.current.value;
-            if (!newValue) {
-                setError(value, {
-                    type: 'custom',
-                    message: '해시태그를 입력해주세요.',
-                });
-                return;
-            }
+    // hashTag
+    const addHashTag = () => {
+        if (valueRef.current) {
+            const newArr = [...prevArr, valueRef.current.value];
+            setValue(label, newArr);
+            valueRef.current.value = '';
+        }
+        trigger(label); // 유효성검사
+    };
 
-            if (newValue && !fields.some(field => field.value === newValue)) {
-                append(newValue);
-                trigger(value);
-                ref.current.value = '';
-            }
-        };
+    const removeHashtag = (index: number) => {
+        const newArr = prevArr.filter((_, idx) => idx !== index);
+        setValue(label, newArr);
+        trigger(label); // 유효성검사
+    };
 
-        return (
-            <>
-                <Wrapper>
-                    <InputLabel>{label}</InputLabel>
+    const arr = getValues(label) as string[];
+    const fieldError = error ? error[label] : undefined;
+    const errorMessage = fieldError ? fieldError.message : undefined;
 
-                    <InputWrap>
-                        <CustomInputWrap ref={ref} placeholder={placeholder} />
+    return (
+        <>
+            <Wrapper>
+                <InputLabel>해시태그</InputLabel>
 
-                        <Button variant="outlined" onClick={addHashtag}>
-                            Add
-                        </Button>
-                    </InputWrap>
-
-                    {error && error[value] && (
-                        <InputErrorMessage>
-                            {error[value]?.message}
-                        </InputErrorMessage>
-                    )}
-
-                    <HashtagWrap>
-                        {getValues(value).map((field, index) => {
-                            return (
-                                <HashTag key={`hash${index}`}>
-                                    {field}
-                                    <button
-                                        type="button"
-                                        onClick={() => remove(index)}
-                                    >
-                                        <MdCancel />
-                                    </button>
-                                </HashTag>
-                            );
-                        })}
-                    </HashtagWrap>
-                </Wrapper>
-            </>
-        );
-    },
-);
+                <InputWrap>
+                    <CustomInputWrap ref={valueRef} />
+                    <Button onClick={() => addHashTag()}>+ Add</Button>
+                </InputWrap>
+                {errorMessage && (
+                    <InputErrorMessage>{errorMessage}</InputErrorMessage>
+                )}
+                <HashtagWrap>
+                    {arr.map((hashTag: string, index: number) => {
+                        return (
+                            <HashTag key={`hash${index}`}>
+                                {hashTag}
+                                <button
+                                    type="button"
+                                    onClick={() => removeHashtag(index)}
+                                >
+                                    <MdCancel />
+                                </button>
+                            </HashTag>
+                        );
+                    })}
+                </HashtagWrap>
+            </Wrapper>
+        </>
+    );
+};
 
 export default EditorAddHash;

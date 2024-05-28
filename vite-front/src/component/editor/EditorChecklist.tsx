@@ -2,6 +2,13 @@ import { InputLabel } from 'component/ui/TextArea';
 import InputErrorMessage from 'component/error/InputErrorMessage';
 import { Wrapper } from './EditorStyle';
 import styled from 'styled-components';
+import { ProjectDetailProps } from '@type/ProjectTypes';
+import {
+    FieldError,
+    Merge,
+    UseFormGetValues,
+    UseFormRegister,
+} from 'react-hook-form';
 
 const ProjectSkillWrap = styled.div`
     display: flex;
@@ -30,7 +37,16 @@ const CheckStyle = styled.label`
     border: 1px solid rgba(48, 56, 64, 0.5);
 `;
 
-const EditorChecklist = ({
+interface EditorChecklistProps {
+    label: string;
+    error?: FieldError | Merge<FieldError, (FieldError | undefined)[]>; //배열은 merge로 처리
+    value: keyof ProjectDetailProps;
+    list: string[];
+    register: UseFormRegister<ProjectDetailProps>;
+    getValues: UseFormGetValues<ProjectDetailProps>;
+}
+
+const EditorChecklist: React.FC<EditorChecklistProps> = ({
     label,
     error,
     value,
@@ -38,9 +54,11 @@ const EditorChecklist = ({
     register,
     getValues,
 }) => {
-    const isCheck = checkValue => {
+    const isCheck = (checkValue: string) => {
         const values = getValues(value) || []; // 기본값을 빈 배열로 설정
-        return values.some(skill => skill === checkValue);
+        if (Array.isArray(values)) {
+            return values.some((skill: string) => skill === checkValue);
+        }
     };
 
     return (
@@ -49,25 +67,22 @@ const EditorChecklist = ({
                 <InputLabel>{label}</InputLabel>
             </div>
             <ProjectSkillWrap>
-                {list.map((item, idx) => {
+                {list.map((item: string, idx: number) => {
                     return (
                         <CheckStyle key={idx}>
                             <input
                                 type="checkbox"
                                 key={item}
-                                label={item}
                                 value={item}
-                                onChange={() => isCheck(item)}
                                 {...register(value)}
+                                onChange={() => isCheck(item)}
                             />
                             {item}
                         </CheckStyle>
                     );
                 })}
-                {error && error[value] && (
-                    <InputErrorMessage>
-                        {error[value]?.message}
-                    </InputErrorMessage>
+                {error && (
+                    <InputErrorMessage>{error.message}</InputErrorMessage>
                 )}
             </ProjectSkillWrap>
         </Wrapper>

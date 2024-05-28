@@ -61,12 +61,15 @@ export default function ProjectList(): JSX.Element {
                 {!isLoading ? (
                     <>
                         {data.length === 0 && '등록된 프로젝트가 없습니다..'}
-                        {ProjectArr.map(project => (
-                            <ProjectListItem
-                                project={project}
-                                key={project.project_key + SeachValue}
-                            />
-                        ))}
+                        {ProjectArr.map(project => {
+                            console.log(project);
+                            return (
+                                <ProjectListItem
+                                    project={project}
+                                    key={project.projectKey! + SeachValue}
+                                />
+                            );
+                        })}
                     </>
                 ) : (
                     <>

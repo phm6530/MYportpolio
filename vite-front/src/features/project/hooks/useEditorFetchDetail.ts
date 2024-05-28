@@ -3,7 +3,6 @@ import { projectEdit } from 'services/projectService';
 import { queryKey } from 'services/queryKey';
 
 const useEditorFetchDetail = (projectKey: string, pageType: string | null) => {
-    console.log(!!pageType);
     return useQuery({
         queryKey: [queryKey.projectAdd],
         queryFn: () => projectEdit(projectKey),

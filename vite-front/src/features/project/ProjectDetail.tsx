@@ -17,9 +17,7 @@ import {
 } from '@features/project/ProjectDetailStyle';
 import { ProjectDetailProps } from '@type/ProjectTypes';
 
-const ProjectDetail: React.FC<{ result: ProjectDetailProps }> = ({
-    result,
-}) => {
+const ProjectDetail: React.FC<ProjectDetailProps> = props => {
     const navigate = useNavigate();
 
     const {
@@ -33,7 +31,9 @@ const ProjectDetail: React.FC<{ result: ProjectDetailProps }> = ({
         endProject,
         project_description,
         thumbnail,
-    } = result;
+    } = props;
+
+    console.log(props);
 
     const projectView = (url: string) => {
         window.open(url, '_blank');

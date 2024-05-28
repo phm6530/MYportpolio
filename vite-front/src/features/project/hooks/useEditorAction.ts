@@ -1,17 +1,18 @@
 import { useMutation } from '@tanstack/react-query';
+import { ProjectDetailProps, ProjectPostProps } from '@type/ProjectTypes';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { projectAction } from 'services/projectService';
 
-const useEditorAction = (pageType: string | null) => {
+const useEditorAction = (
+    pageType: string | null,
+    projectKey: string | null,
+) => {
     const navigate = useNavigate();
-    return useMutation({
-        mutationFn: data => {
-            console.log('data:', data);
-            return projectAction(
-                pageType === 'edit' ? data : { ...data, idx: projectKey },
-                pageType,
-            );
+    return useMutation<void, unknown, ProjectDetailProps>({
+        mutationFn: async (data: ProjectDetailProps) => {
+            const payload: ProjectPostProps = { ...data, projectKey };
+            return projectAction(payload, pageType);
         },
         onSuccess: () => {
             toast.success(

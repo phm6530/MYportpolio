@@ -1,21 +1,36 @@
 import styled from 'styled-components';
+import InputErrorMessage from 'component/error/InputErrorMessage';
 import { InputStyle, InputLabel } from 'component/ui/TextArea';
 import { Wrapper } from './EditorStyle';
-import InputErrorMessage from 'component/error/InputErrorMessage';
+import { ProjectDetailProps } from '@type/ProjectTypes';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-const CustomInputWrap = styled(InputStyle)`
+const CustomInputWrap = styled(InputStyle)<{ $error?: string }>`
     flex-grow: 1;
     ${props => props.$error && 'border: 1px solid red'}
 `;
 
-const EditorInput = ({ label, type, placeholder, error, value, register }) => {
+interface EditorInputProps {
+    label: string;
+    placeholder: string;
+    error: FieldErrors<ProjectDetailProps>;
+    value: keyof ProjectDetailProps;
+    register: UseFormRegister<ProjectDetailProps>;
+}
+
+const EditorInput: React.FC<EditorInputProps> = ({
+    label,
+    placeholder,
+    error,
+    value,
+    register,
+}) => {
     return (
         <>
             <Wrapper>
                 <InputLabel>{label}</InputLabel>
                 <CustomInputWrap
                     $error={error[value]?.message}
-                    type={type}
                     placeholder={placeholder}
                     {...register(value)}
                 />

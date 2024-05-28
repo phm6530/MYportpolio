@@ -12,17 +12,17 @@ import {
     ProjectItemWrap,
 } from '@features/project/ProjectListItemStyle';
 
-import { ProjectDetailProps } from '@type/ProjectTypes';
+import { ProjectPostProps } from '@type/ProjectTypes';
 
-const ProjectListItem: React.FC<{ project: ProjectDetailProps }> = ({
+const ProjectListItem: React.FC<{ project: ProjectPostProps }> = ({
     project,
 }) => {
-    const { thumbnail, company, hashtag, description, project_key } = project;
+    const { thumbnail, company, hashtag, description, projectKey } = project;
     const navigate = useNavigate();
 
     return (
         <>
-            <ProjectFadeinStyle onClick={() => navigate(`${project_key}`)}>
+            <ProjectFadeinStyle onClick={() => navigate(`${projectKey}`)}>
                 <ProjectImgArea
                     $backImg={`http://localhost:8080/${thumbnail}`}
                     className="projectItemImg"

@@ -1,15 +1,25 @@
 import styled from 'styled-components';
-import { InputStyle, InputLabel, TextAreaStyle } from 'component/ui/TextArea';
+import { InputLabel, TextAreaStyle } from 'component/ui/TextArea';
 import { Wrapper } from './EditorStyle';
 import InputErrorMessage from 'component/error/InputErrorMessage';
+import React from 'react';
+import { ProjectDetailProps } from '@type/ProjectTypes';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-const CustumTextAreaStyle = styled(TextAreaStyle)`
+const CustumTextAreaStyle = styled(TextAreaStyle)<{ $error?: string }>`
     flex-grow: 1;
 `;
 
-const EditorTextArea = ({
+interface EditorTextAreaProps {
+    label: string;
+    placeholder: string;
+    value: keyof ProjectDetailProps;
+    error: FieldErrors<ProjectDetailProps>;
+    register: UseFormRegister<ProjectDetailProps>;
+}
+
+const EditorTextArea: React.FC<EditorTextAreaProps> = ({
     label,
-    type,
     placeholder,
     error,
     value,
@@ -21,7 +31,6 @@ const EditorTextArea = ({
                 <InputLabel>{label}</InputLabel>
                 <CustumTextAreaStyle
                     $error={error[value]?.message}
-                    type={type}
                     placeholder={placeholder}
                     {...register(value)}
                 />

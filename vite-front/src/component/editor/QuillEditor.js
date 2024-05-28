@@ -31,7 +31,6 @@ const ReactQuillStyle = styled(ReactQuill)`
 `;
 
 const QuillEditor = ({ PROJECT_KEY, ...props }) => {
-    console.log({ ...props });
     const quillRef = useRef();
     const dispatch = useDispatch();
 

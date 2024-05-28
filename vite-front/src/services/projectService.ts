@@ -1,14 +1,17 @@
 import axios from 'axios';
 import { requestHandler } from 'utils/apiUtils';
 import { ENDPOINT_URL } from 'constants/apiUrl';
-import { ProjectDetailProps } from '@type/ProjectTypes';
+import { ProjectDetailProps, ProjectPostProps } from '@type/ProjectTypes';
 
 interface ApiResData<T> {
     resData: T;
 }
 
 // Insert or Update하기
-export const projectAction = async (formData, Type) => {
+export const projectAction = async (
+    formData: ProjectPostProps,
+    Type: string | null,
+): Promise<void> => {
     const url = `${ENDPOINT_URL}/project/action?type=${Type === 'edit' ? 'edit' : 'add'}`;
     await requestHandler(() => axios.post(url, formData));
 };
@@ -22,17 +25,6 @@ export const projectFetch = async (): Promise<ProjectDetailProps[]> => {
     return resData;
 };
 
-// Detail
-export const fetchDetail = async key => {
-    const response = await fetch(`${ENDPOINT_URL}/project/${key}`);
-    if (!response.ok) {
-        const errorResponse = await response.json();
-        throw new Error(errorResponse.message);
-    }
-    const result = await response.json();
-    return result;
-};
-
 // 초기 edit 매핑
 export const projectEdit = async (
     projectKey: string,
@@ -41,21 +33,20 @@ export const projectEdit = async (
     const { resData } = await requestHandler<ApiResData<ProjectDetailProps>>(
         () => axios.get(url),
     );
-
     return resData;
 };
 
-//삭제
+// Detail
+export const fetchDetail = async (key: string): Promise<ProjectPostProps> => {
+    const url = `${ENDPOINT_URL}/project/${key}`;
+    const { resData } = await requestHandler<ApiResData<ProjectPostProps>>(() =>
+        axios.get(url),
+    );
+    return resData;
+};
+
+// Delete
 export const projectDelete = async (key: string) => {
-    const response = await fetch(`${ENDPOINT_URL}/project/delete/${key}`, {
-        method: 'delete',
-    });
-    if (!response.ok) {
-        const errorResult = await response.json();
-        throw new Error(
-            errorResult.message || '정상적으로 처리 되지 않았습니다.',
-        );
-    }
-    const result = await response.json();
-    return result;
+    const url = `${ENDPOINT_URL}/project/delete/${key}`;
+    return requestHandler(() => axios.delete(url));
 };
