@@ -57,14 +57,14 @@ const Component = styled.div<{ $visible: boolean; $position?: string }>`
         }
     }}
 `;
-interface FadeinComponentProps {
+interface FadeInAnimationProps {
     board?: string;
     position?: string;
     children?: React.ReactNode;
     onClick?: () => void;
 }
 
-const FadeinComponent: React.FC<FadeinComponentProps> = ({
+const FadeInAnimation: React.FC<FadeInAnimationProps> = ({
     position,
     children,
     onClick,
@@ -105,4 +105,4 @@ const FadeinComponent: React.FC<FadeinComponentProps> = ({
     );
 };
 
-export default FadeinComponent;
+export default FadeInAnimation;

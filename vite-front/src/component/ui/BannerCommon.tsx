@@ -16,11 +16,18 @@ const PagePoint = styled.div`
     }
 `;
 
-const BannerPoint = ({ className, children }) => {
+const BannerPoint: React.FC<{
+    className: string;
+    children: React.ReactNode;
+}> = ({ className, children }) => {
     return <PagePoint className={className}>{children}</PagePoint>;
 };
 
-export default function BannerCommon({ children }) {
+export default function BannerCommon({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
     return <>{children}</>;
 }
 

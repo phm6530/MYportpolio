@@ -72,7 +72,7 @@ const AnimationSection = styled.section`
     }
 `;
 
-const ShootingStar = () => {
+const ShootingStar = (): JSX.Element => {
     useEffect(() => {
         const spans = document.querySelectorAll('span');
 

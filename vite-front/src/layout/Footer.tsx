@@ -60,7 +60,7 @@ const FooterList = styled.div`
     }
 `;
 
-const Link = url => {
+const Link = (url: string) => {
     window.open(url, '_blank');
 };
 

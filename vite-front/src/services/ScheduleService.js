@@ -1,6 +1,5 @@
 // 초기데이터 로더
 const scheduleFetch = async (Year, Month) => {
-    // console.log('실행해라 !!!!!!!!!!!!!!!!!!!!!!!');
     try {
         const response = await fetch(
             `http://localhost:8080/schedule?Year=${Year}&month=${Month}`,
@@ -16,7 +15,6 @@ const scheduleFetch = async (Year, Month) => {
 };
 
 const scheduleWeekorDay = async (Year, Month) => {
-    // console.log('실행해라 !!!!!!!!!!!!!!!!!!!!!!!');
     try {
         const response = await fetch(
             `http://localhost:8080/schedule?Year=${Year}&month=${Month}`,
@@ -45,7 +43,6 @@ const fetchAddSchedule = async formData => {
         throw new Error(errorResponse.message);
     }
     const result = await response.json();
-    console.log(result);
     return result;
 };
 

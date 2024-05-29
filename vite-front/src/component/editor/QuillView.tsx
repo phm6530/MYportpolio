@@ -1,4 +1,5 @@
-import { ENDPOINT_URL } from 'constants/apiUrl';
+import { transImgSrc } from 'component/editor/EditorGetPreview';
+
 import styled from 'styled-components';
 
 const QuillContainer = styled.div`
@@ -17,12 +18,7 @@ const QuillView: React.FC<{ contents: string }> = ({ contents }) => {
     const renderHTML = (quillHTML: string): { __html: string } => {
         return { __html: quillHTML };
     };
-
-    const originalDomain = 'uploads/';
-    const updatedContents = contents.replaceAll(
-        originalDomain,
-        `${ENDPOINT_URL}/uploads/`,
-    );
+    const updatedContents = transImgSrc(contents);
 
     return (
         <>

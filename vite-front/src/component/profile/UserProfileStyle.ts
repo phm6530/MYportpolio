@@ -1,8 +1,6 @@
 import styled from 'styled-components';
-import { RiMapPin2Fill } from 'react-icons/ri';
-import { useSelector } from 'react-redux';
 
-const ProfileCard = styled.div`
+export const ProfileCard = styled.div`
     border-radius: 1em;
     margin-bottom: 3rem;
     background: var(--color-background);
@@ -20,7 +18,7 @@ const ProfileCard = styled.div`
     align-items: center;
     text-align: center;
 `;
-const ProfilePicture = styled.div`
+export const ProfilePicture = styled.div<{ $isOnline: boolean }>`
     width: 4.5rem;
     border-radius: 100%;
 
@@ -49,15 +47,15 @@ const ProfilePicture = styled.div`
             props.$isOnline ? 'rgb(51 156 73)' : 'rgb(127 127 127)'};
     }
 `;
-const ProfileInfo = styled.div``;
-const JobTitle = styled.div`
+export const ProfileInfo = styled.div``;
+export const JobTitle = styled.div`
     font-size: 0.8rem;
 
     color: red;
     color: #7f8fae;
 `;
 
-const ProfileName = styled.div`
+export const ProfileName = styled.div`
     font-weight: bold;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -65,7 +63,7 @@ const ProfileName = styled.div`
     letter-spacing: -1px;
 `;
 
-const ProfileLocation = styled.div`
+export const ProfileLocation = styled.div`
     display: flex;
     align-items: center;
     font-size: 14px;
@@ -76,25 +74,3 @@ const ProfileLocation = styled.div`
         margin-right: 10px;
     }
 `;
-
-export default function UserProfile() {
-    const { login } = useSelector(state => state.auth);
-    // console.log(login);
-
-    return (
-        <ProfileCard>
-            <ProfilePicture $isOnline={login}>
-                <img src="/img/me.jpg" alt="IT's ME" />
-            </ProfilePicture>
-
-            <ProfileInfo>
-                <ProfileName>Park, Hyun Min</ProfileName>
-                <ProfileLocation>
-                    <RiMapPin2Fill /> 경기도 하남시 거주
-                </ProfileLocation>
-                <JobTitle>Web Publisher</JobTitle>
-                <JobTitle>Front Developer</JobTitle>
-            </ProfileInfo>
-        </ProfileCard>
-    );
-}

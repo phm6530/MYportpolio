@@ -7,24 +7,13 @@ import {
     ApiResData,
     BlogPostDetailProps,
     BlogNewPostListProps,
+    BlogPostRequestProps,
 } from '@type/BlogTypes';
-
-async function executeHandler<T>(cb: () => Promise<{ data: T }>): Promise<T> {
-    try {
-        const { data } = await cb();
-        return data;
-    } catch (error) {
-        if (error instanceof Error) {
-            throw new Error(error.message);
-        } else {
-            throw new Error('알 수 없는 오류');
-        }
-    }
-}
+import { requestHandler } from 'utils/apiUtils';
 
 //카테고리
 const fetchBlogCategory = async (): Promise<BlogCategorylist> => {
-    const { resData } = await executeHandler<ApiResData<BlogCategorylist>>(
+    const { resData } = await requestHandler<ApiResData<BlogCategorylist>>(
         () => {
             return axios.get(`${ENDPOINT_URL}/blog/tab`);
         },
@@ -34,7 +23,7 @@ const fetchBlogCategory = async (): Promise<BlogCategorylist> => {
 
 //포스팅 내용
 const blogPostDetail = async (key: string): Promise<BlogPostDetailProps> => {
-    const { resData } = await executeHandler<ApiResData<BlogPostDetailProps>>(
+    const { resData } = await requestHandler<ApiResData<BlogPostDetailProps>>(
         () => {
             return axios.get(`${ENDPOINT_URL}/blog/postdetail/${key}`);
         },
@@ -44,7 +33,7 @@ const blogPostDetail = async (key: string): Promise<BlogPostDetailProps> => {
 
 //관련 포스팅
 const fetchPostRelated = async (postId: string): Promise<BlogPostRelated[]> => {
-    const { resData } = await executeHandler<ApiResData<BlogPostRelated[]>>(
+    const { resData } = await requestHandler<ApiResData<BlogPostRelated[]>>(
         () => axios.get(`${ENDPOINT_URL}/blog/posts/${postId}/related`),
     );
     return resData;
@@ -64,7 +53,7 @@ const fetchBlogPageData = async (
     }).toString();
 
     const url = `${ENDPOINT_URL}/blog/posts/${page}?${queryParams}`;
-    const result = await executeHandler<BlogMainContentsProps>(async () =>
+    const result = await requestHandler<BlogMainContentsProps>(async () =>
         axios.get(url),
     );
     return result;
@@ -72,53 +61,35 @@ const fetchBlogPageData = async (
 
 //포스팅 삭제
 const deleteBlogPost = async (key: string) => {
-    return executeHandler(() =>
+    return requestHandler(() =>
         axios.delete(`${ENDPOINT_URL}/blog/deletepost/${key}`),
     );
 };
 
-const blogloadImage = async ({ category, key, formData }) => {
-    for (const [formKey, value] of formData.entries()) {
-        console.log(formKey, value);
-    }
-    const response = await fetch(
-        `${ENDPOINT_URL}/blog/uploadimg/${category}/${key}?page=blog`,
-        {
-            method: 'POST',
-            body: formData,
-        },
-    );
-    if (!response.ok) {
-        throw new Error('이미지가 업로드 되지 않았습니다.');
-    }
-    const result = await response.json();
-    return result;
-};
-
-const blogPostAction = async (data, pageType, postId) => {
+const blogPostAction = async (
+    data: BlogPostRequestProps,
+    pageType: string,
+    postId: string,
+): Promise<void> => {
     //페이지 타입
     const isModify = pageType === 'modify';
     const url = `${ENDPOINT_URL}/blog/${isModify ? `modify/${postId}` : 'post'}`;
     const method = isModify ? 'PATCH' : 'POST';
 
-    const response = await fetch(url, {
-        method: method,
-        headers: {
-            'ConTent-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    });
-
-    const result = await response.json();
-
-    if (!response.ok) {
-        throw new Error(result.message);
-    }
-    return result;
+    await requestHandler(async () =>
+        axios({
+            url: url,
+            method: method,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: data,
+        }),
+    );
 };
 
 const fetchNewPostlist = async (): Promise<BlogNewPostListProps[]> => {
-    const { resData } = await executeHandler<
+    const { resData } = await requestHandler<
         ApiResData<BlogNewPostListProps[]>
     >(() => {
         return axios.get(`${ENDPOINT_URL}/blog/posts/newlist`);
@@ -128,7 +99,6 @@ const fetchNewPostlist = async (): Promise<BlogNewPostListProps[]> => {
 };
 
 export {
-    blogloadImage,
     blogPostAction,
     fetchBlogCategory,
     blogPostDetail,

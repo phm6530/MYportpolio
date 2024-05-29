@@ -8,11 +8,9 @@ const useKey = () => {
 
     useEffect(() => {
         let currentKey = params.get('key');
-
         if (!currentKey) {
             currentKey = uuidv4();
         }
-
         setKey(currentKey);
     }, [params]);
 

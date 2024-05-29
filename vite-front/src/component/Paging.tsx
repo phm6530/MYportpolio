@@ -13,15 +13,18 @@ const StyledPagination = styled(Pagination)`
     }
 `;
 
-const Paging = ({ paging }) => {
+const Paging: React.FC<{ paging: number }> = ({ paging }) => {
     const navigate = useNavigate();
     const [param] = useSearchParams();
     const pageParam = param.get('page') || 1;
 
-    const handleChange = (_, value) => {
+    const setPageQueryString = (
+        _: React.ChangeEvent<unknown>,
+        value: number,
+    ): void => {
         const searchParams = new URLSearchParams(location.search);
-        searchParams.set('page', value);
-        navigate(`?${searchParams.toString()}`);
+        searchParams.set('page', value.toString());
+        navigate(`?${searchParams}`);
     };
 
     return (
@@ -29,7 +32,7 @@ const Paging = ({ paging }) => {
             <StyledPagination
                 count={paging}
                 page={+pageParam}
-                onChange={handleChange}
+                onChange={setPageQueryString}
             />
         </Stack>
     );

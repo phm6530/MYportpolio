@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useLogout from 'hooks/useLogout';
+import useLogout from '@features/auth/hooks/useLogout';
 
 import styled from 'styled-components';
 
@@ -12,7 +12,7 @@ import Popup from 'component/popup/Popup';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 import DarkModeBtn from 'component/ui/DarkModeBtn';
-import LoginForm from 'component/popup/LoginForm';
+import LoginForm from '@features/auth/LoginForm';
 import TopButton from 'component/ui/TopButton';
 import useUserDecoded from 'hooks/useUserDecoded';
 
@@ -20,16 +20,27 @@ import { NavPageObject } from 'constants/pageConstacts';
 import { RootState } from 'store/appSlice';
 
 // Nav 선택
-const Link = ({ children, className, ...prop }) => {
+interface LinkProps {
+    children: React.ReactNode;
+    className?: string;
+    onClick?: () => void;
+}
+
+const Link: React.FC<LinkProps> = ({
+    children,
+    className,
+    onClick,
+    ...prop
+}) => {
     return (
-        <li className={className} {...prop}>
+        <li className={className} onClick={onClick} {...prop}>
             {children}
         </li>
     );
 };
 
 //css in js  초기랜더링 > 훅실행 > 스타일 생성
-const List = styled(Link)`
+const List = styled(Link)<{ $active?: boolean }>`
     transition: color 0.4s cubic-bezier(0, 0.88, 0, 1.03);
     color: var(--color-white);
 `;
@@ -49,21 +60,10 @@ export default function RootNav() {
     const { pathname } = useLocation();
     const [loginModal, setLoginModal] = useState(false);
     const [active, setActive] = useState(pathname);
-    const logout = useLogout();
+    const { mutateAsync } = useLogout();
 
     useUserDecoded(); //사용자정보
-
     const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     const Top = setTimeout(() => {
-    //         window.scrollTo(0, 0);
-    //     }, 290);
-    //     return () => {
-    //         clearTimeout(Top);
-    //     };
-    // }, [location.pathname]);
-
     const openLoginPopup = () => setLoginModal(true);
 
     return (
@@ -102,7 +102,7 @@ export default function RootNav() {
                                 }
                                 return (
                                     <List
-                                        to={e.path}
+                                        // to={e.path}
                                         key={idx}
                                         $active={active === e.path}
                                         onClick={() => {
@@ -120,7 +120,11 @@ export default function RootNav() {
                             {!login && (
                                 <List onClick={openLoginPopup}>로그인</List>
                             )}
-                            {login && <List onClick={logout}>로그아웃</List>}
+                            {login && (
+                                <List onClick={() => mutateAsync()}>
+                                    로그아웃
+                                </List>
+                            )}
                         </ul>
                     </nav>
                 </div>

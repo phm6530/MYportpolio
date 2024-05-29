@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import FadeinComponent from 'FadeinComponent';
+import FadeInAnimation from 'component/animations/FadeInAnimation';
 
-export const NoSeachingData = styled(FadeinComponent)`
+export const NoSeachingData = styled(FadeInAnimation)`
     text-align: center;
     height: 300px;
     width: 100%;

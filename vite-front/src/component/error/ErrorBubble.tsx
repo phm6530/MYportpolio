@@ -41,6 +41,7 @@ const ErrorStyle = styled.div`
     }
 `;
 
-export default function ErrorBubble({ children }) {
+const ErrorBubble: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return <ErrorStyle>{children}</ErrorStyle>;
-}
+};
+export default ErrorBubble;

@@ -30,32 +30,23 @@ const TopButtonStyle = styled.div`
     }
     animation: ${enabledAni} 0.5s ease forwards;
 `;
-function debounce(func, wait) {
-    let timeout;
-    return function () {
-        // "this"와 "arguments"에 대한 명시적 참조를 제거합니다.
-        clearTimeout(timeout);
-        // 화살표 함수는 상위 스코프의 "this"를 사용합니다.
-        timeout = setTimeout(() => {
-            func.apply(this, arguments);
-        }, wait);
-    };
-}
-export default function TopButton() {
+
+const TopButton = (): JSX.Element => {
     const [show, setShow] = useState(false);
+
     const TopButtonHadnler = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' }); // 스크롤을 부드럽게
     };
 
     useEffect(() => {
-        const heightFunc = debounce(() => {
+        const heightFunc = () => {
             const target = window.scrollY;
             if (target > 500) {
                 setShow(true);
             } else {
                 setShow(false);
             }
-        }, 500); // 100ms 디바운싱 시간
+        };
 
         window.addEventListener('scroll', heightFunc);
         return () => {
@@ -66,10 +57,12 @@ export default function TopButton() {
     return (
         <>
             {show && (
-                <TopButtonStyle $show={show} onClick={() => TopButtonHadnler()}>
+                <TopButtonStyle onClick={() => TopButtonHadnler()}>
                     <GoMoveToTop />
                 </TopButtonStyle>
             )}
         </>
     );
-}
+};
+
+export default TopButton;

@@ -12,7 +12,7 @@ const BackdropStyle = styled.div`
     left: 0;
 `;
 
-const BackDrop = () => {
+const BackDrop = (): JSX.Element => {
     return <BackdropStyle />;
 };
 

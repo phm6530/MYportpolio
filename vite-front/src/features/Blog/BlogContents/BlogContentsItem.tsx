@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
-import Fadein from 'FadeinComponent';
+import FadeInAnimation from 'component/animations/FadeInAnimation';
 import Thumbnail from 'component/ui/Thumbnail';
 import SummaryData from 'component/ui/PostTimestamp';
 import { BlogMainContentsItemProps } from '@type/BlogTypes';
 import { ENDPOINT_URL } from 'constants/apiUrl';
 
-const ProjectFadeinStyle = styled(Fadein)`
+const ProjectFadeinStyle = styled(FadeInAnimation)`
     /* margin-bottom: 1.5rem; */
     padding-bottom: 2.5rem;
     display: flex;
@@ -44,7 +44,7 @@ const ContentsWrap = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 70%;
+    width: calc(70% - 3rem);
 `;
 
 const CreateDate = styled(SummaryData)`

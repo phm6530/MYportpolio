@@ -99,6 +99,7 @@ export interface BlogAddorEditProps {
 export interface BlogPostRequestProps {
     category: post_category;
     description: post_description | undefined;
+    post: post_contents;
     key: post_imgKey;
     thumNail: thumnail_url;
     user: object;

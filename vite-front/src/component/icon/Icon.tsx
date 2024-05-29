@@ -2,7 +2,6 @@
 import { IoPersonCircleSharp } from 'react-icons/io5';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { TiDelete } from 'react-icons/ti';
-import { HiMiniQuestionMarkCircle } from 'react-icons/hi2';
 import { IoChatbubbleEllipsesOutline } from 'react-icons/io5';
 import { RxQuestionMarkCircled } from 'react-icons/rx';
 import { MdCancel } from 'react-icons/md';

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -18,13 +18,16 @@ import { PROJECT_STACK } from 'constants/pageConstacts';
 
 import EditorChecklist from 'component/editor/EditorChecklist';
 import EditorTextArea from 'component/editor/EditorTextArea';
-import EditorUploader from 'component/editor/EditorUploader';
-import QuillEditor from 'component/editor/QuillEditor';
-import CustomToolbar from 'component/editor/QuillCustumToolbar';
+import ProjectThumbnailUploader from '@features/project/ProjectEditor/ProjectThumbnailUploader';
 import useKey from 'hooks/useKey';
 import useEditorFetchDetail from '@features/project/hooks/useEditorFetchDetail';
 import useEditorAction from '@features/project/hooks/useEditorAction';
 import { ProjectDetailProps } from '@type/ProjectTypes';
+import TestQuillEditor from 'component/editor/TestQuillEditor';
+import {
+    EditorGetPreview,
+    transImgSrc,
+} from 'component/editor/EditorGetPreview';
 
 const AdminProjectStyle = styled.div`
     background: var(--background-color-box);
@@ -82,48 +85,29 @@ export default function ProjectEditor() {
     const { data } = useEditorFetchDetail(projectKey, pageType);
     const { mutate } = useEditorAction(pageType, projectKey);
 
-    const mapDataToForm = useCallback((data: ProjectDetailProps) => {
-        if (!data) return null; // 데이터가 없으면 null 반환
-        const {
-            title,
-            company,
-            description,
-            projectUrl,
-            skill,
-            hashtag,
-            startDate,
-            endDate,
-            projectDescription,
-            thumbnail,
-        } = data;
-        return {
-            title,
-            company,
-            description,
-            projectUrl,
-            skill,
-            hashtag,
-            startDate,
-            endDate,
-            projectDescription,
-            thumbnail,
-        };
-    }, []);
-
     useEffect(() => {
         if (data && pageType === 'edit') {
-            const formData = mapDataToForm(data) || initalFormValue;
+            const updatedData = {
+                ...data,
+                projectDescription: transImgSrc(data.projectDescription),
+            };
+            const formData = updatedData || initalFormValue;
             reset(formData);
         }
-    }, [data, pageType, reset, mapDataToForm, initalFormValue]);
+    }, [data, pageType, reset, initalFormValue]);
 
     const cancelEvent = () => {
         navigate(-1);
     };
 
     const onSubmitHandler: SubmitHandler<ProjectDetailProps> = data => {
-        console.log(data);
-        mutate(data);
+        const getItem = EditorGetPreview(data.projectDescription);
+        const newProjectDescription = getItem.getPost();
+        const updatedData = {
+            ...data,
+            projectDescription: newProjectDescription,
+        };
+        mutate(updatedData);
     };
 
     return (
@@ -176,10 +160,9 @@ export default function ProjectEditor() {
                 />
 
                 {/* 썸네일  */}
-                <EditorUploader
+                <ProjectThumbnailUploader
                     label="thumbnail"
-                    value="thumbnail"
-                    error={errors}
+                    error={errors.thumbnail}
                     projectKey={projectKey}
                     setValue={setValue}
                     watch={watch}
@@ -202,7 +185,7 @@ export default function ProjectEditor() {
                 />
 
                 {/* Quill Editor */}
-                <CustomToolbar />
+                {/* <CustomToolbar /> */}
                 {projectKey && (
                     <>
                         <Controller
@@ -212,9 +195,10 @@ export default function ProjectEditor() {
                                 const { ref, ...restField } = field;
                                 void ref; // `ref`를 제외하고 나머지 필드를 추출
                                 return (
-                                    <QuillEditor
+                                    <TestQuillEditor
                                         {...restField} // `ref`를 제외한 나머지 프로퍼티 전달
-                                        PROJECT_KEY={projectKey}
+                                        page={'project'}
+                                        postKey={projectKey}
                                     />
                                 );
                             }}
@@ -229,9 +213,7 @@ export default function ProjectEditor() {
 
                 <ButtonWrap>
                     <Button.Submit>등록</Button.Submit>
-                    <Button.Cancle type="button" onClick={cancelEvent}>
-                        취소
-                    </Button.Cancle>
+                    <Button.Cancle onClick={cancelEvent}>취소</Button.Cancle>
                 </ButtonWrap>
             </FormStyle>
         </AdminProjectStyle>

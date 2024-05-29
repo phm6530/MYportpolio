@@ -3,13 +3,13 @@ import 'quill/dist/quill.snow.css';
 import styled from 'styled-components';
 import { useMemo, useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { blogloadImage } from 'services/blogService';
 import { toast } from 'react-toastify';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 
 import 'highlight.js/styles/atom-one-dark.min.css';
 import { ENDPOINT_URL } from 'constants/apiUrl';
+import { uploadContentsImg } from 'services/uploadService';
 const EditorStyle = styled.div`
     /* padding: 2rem 0; */
 `;
@@ -55,11 +55,11 @@ const ReactQuillStyle = styled(ReactQuill)`
     }
 `;
 
-const TestQuillEditor = ({ postKey, ...props }) => {
+const TestQuillEditor = ({ postKey, page, ...props }) => {
     const quillRef = useRef<HTMLDivElement>(null);
 
     const { mutateAsync } = useMutation({
-        mutationFn: blogloadImage,
+        mutationFn: uploadContentsImg,
         onSuccess: () => {
             toast.success('업로드됨');
         },
@@ -77,10 +77,11 @@ const TestQuillEditor = ({ postKey, ...props }) => {
         //커서위치 가져옴
         const range = editor.getSelection();
         if (range) {
+            console.log('postKey:::', postKey);
             const result = await mutateAsync({
-                test: 'test',
                 key: postKey,
                 formData,
+                page,
             });
 
             editor.insertEmbed(

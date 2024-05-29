@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import BoardComment from '@features/Board/BoardComment/BoardComment';
 
-import FadeinComponent from 'FadeinComponent';
+import FadeInAnimation from 'component/animations/FadeInAnimation';
 import BoardCommentStatus from '@features/Board/BoardCommentStatus/BoardCommentStatus';
 import useCommentInfinity from 'features/Board/hooks/useCommentInfinity';
 import { SpinnerLoading } from 'component/loading/SpinnerLoading';
@@ -98,7 +98,7 @@ const BoardCommentList = (): JSX.Element => {
                                     <span>{format(date, 'yyyy. MM. dd')}</span>
                                 </FirstDayStyle>
                             )}
-                            <FadeinComponent>
+                            <FadeInAnimation>
                                 <BoardComment
                                     ref={lastItem ? ref : null}
                                     item={item}
@@ -106,7 +106,7 @@ const BoardCommentList = (): JSX.Element => {
                                     selectIdx={selectIdx === item.board_key}
                                     setSelectIdx={setSelectIdx}
                                 />
-                            </FadeinComponent>
+                            </FadeInAnimation>
                         </div>
                     );
                 });

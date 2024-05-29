@@ -68,7 +68,6 @@ const TaskPage = props => {
     const navigate = useNavigate();
 
     const handleMonthChange = date => {
-        console.log('date :::::::::::', date);
         const dateFormat = format(date, 'yyyy-MM').split('-');
         navigate(`${pathname}?year=${dateFormat[0]}&month=${+dateFormat[1]}`);
     };

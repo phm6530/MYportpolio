@@ -5,7 +5,7 @@ import BackDrop from 'component/popup/Backdrop';
 
 const useModal = () => {
     const [modalShow, setModalShow] = useState(false);
-    const [contents, setContents] = useState(null);
+    const [contents, setContents] = useState<React.ReactElement | null>(null);
     const [animationTrigger, setAnimationTrigger] = useState(false);
 
     const closePopup = () => {
@@ -25,7 +25,7 @@ const useModal = () => {
             <>
                 {ReactDOM.createPortal(
                     <BackDrop />,
-                    document.getElementById('backdrop-root'),
+                    document.getElementById('backdrop-root')!,
                 )}
                 {ReactDOM.createPortal(
                     <PopupStyle>
@@ -36,15 +36,15 @@ const useModal = () => {
                             </button>
                         </PopupWrap>
                     </PopupStyle>,
-                    document.getElementById('modal-root'),
+                    document.getElementById('modal-root')!,
                 )}
             </>
         );
     };
 
-    const showModalHandler = component => {
+    const showModalHandler = (Component: React.ReactElement) => {
         setModalShow(true);
-        setContents(component);
+        setContents(Component);
     };
 
     return {

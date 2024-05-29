@@ -1,42 +1,27 @@
+import { LoginResponseProps } from '@type/AuthTypes';
+import axios from 'axios';
+import { ENDPOINT_URL } from 'constants/apiUrl';
+import { requestHandler } from 'utils/apiUtils';
+
 // 로그인
-const fetchLogin = async formData => {
-    const response = await fetch('http://localhost:8080/login', {
-        method: 'POST',
-        headers: {
-            'ConTent-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-    });
-    const resultData = await response.json();
-
-    if (!response.ok) {
-        throw new Error(resultData.message);
-    }
-
-    if (!resultData.Auth || resultData.token === undefined) {
-        throw new Error(resultData.message || '서버 오류');
-    }
-    return resultData;
+const fetchLogin = async (loginData: {
+    user_id: string;
+    user_password: string;
+}): Promise<LoginResponseProps> => {
+    const url = `${ENDPOINT_URL}/login`;
+    const result = await requestHandler<LoginResponseProps>(() =>
+        axios.post(url, loginData),
+    );
+    return result;
 };
 
 //로그아웃
-const fetchLogout = async token => {
-    try {
-        const response = await fetch('http://localhost:8080/logout', {
-            method: 'POST',
-            headers: {
-                Authorization: `Bearer ${token}`,
-                // 'Content-Type': 'application/json'
-            },
-        });
-        if (!response.ok) {
-            // const errorResponse = await response.json();
-            throw new Error('에러!');
-        }
-        return response.json();
-    } catch (error) {
-        throw new Error(error.message || '서버에 문제가 있습니다.');
-    }
+const fetchLogout = async (token: string) => {
+    const url = `${ENDPOINT_URL}/logout`;
+    const headers = {
+        Authorization: `Bearer ${token}`,
+    };
+    requestHandler(() => axios.post(url, { headers }));
 };
 
 // 토큰체크

@@ -17,10 +17,7 @@ import useBlogPostAction from '@features/Blog/hooks/useBlogPostAction';
 
 //타입 get
 import { RootState } from 'store/appSlice';
-import {
-    BlogAddorEditProps,
-    BlogPostRequestProps,
-} from '@style/types/BlogTypes';
+import { BlogAddorEditProps, BlogPostRequestProps } from '@type/BlogTypes';
 import { ENDPOINT_URL } from 'constants/apiUrl';
 
 interface FormValue extends BlogAddorEditProps {
@@ -35,7 +32,7 @@ const BlogAdd = (): JSX.Element => {
 
     const { data } = useBlogPostDetail(postId);
     const { mutate, isPending } = useBlogPostAction(editorType, postId);
-    const [postKey, setPostKey] = useState(() => editorType || uuidv4());
+    const [postKey, setPostKey] = useState<string>(uuidv4());
 
     const {
         register,
@@ -53,17 +50,28 @@ const BlogAdd = (): JSX.Element => {
     });
 
     useEffect(() => {
-        // ?type=edit 시 formData에 value 삽입
-        if (editorType === 'modify' && data) {
-            const { post_title, category, subcategory, contents, imgkey } =
-                data;
-            reset({
-                title: post_title,
-                category: `${category}:${subcategory}`,
-                post: contents,
-                user: userData,
-            });
-            setPostKey(imgkey);
+        // ?type=modify 시 formData에 value 삽입
+        if (editorType === 'modify') {
+            if (data) {
+                const { post_title, category, subcategory, contents, imgkey } =
+                    data;
+                const originalDomain = 'uploads/';
+                const updatedContents = contents.replaceAll(
+                    originalDomain,
+                    `${ENDPOINT_URL}/uploads/`,
+                );
+
+                reset({
+                    title: post_title,
+                    category: `${category}:${subcategory}`,
+                    post: updatedContents,
+                    user: userData,
+                });
+
+                setPostKey(imgkey); // 서버에서 받아온 imgKey 설정
+            }
+        } else {
+            setPostKey(uuidv4()); // 새 UUID 생성
         }
     }, [data, reset, editorType, userData]);
 
@@ -109,7 +117,7 @@ const BlogAdd = (): JSX.Element => {
                 {/* quill 에디터 */}
                 <EditorTitle
                     placeholder="제목을 입력해주세요"
-                    error={errors?.['title']}
+                    error={errors.title}
                     register={register('title', {
                         required: '필수항목 입니다.',
                     })}
@@ -124,6 +132,7 @@ const BlogAdd = (): JSX.Element => {
                             return (
                                 <TestQuillEditor
                                     postKey={postKey}
+                                    page={'blog'}
                                     {...restField} // `ref`를 제외한 나머지 프로퍼티 전달
                                     // PROJECT_KEY={projectKey}
                                 />

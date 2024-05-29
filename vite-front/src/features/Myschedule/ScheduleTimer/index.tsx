@@ -216,7 +216,6 @@ const ScheduleTimer = () => {
             setTouched(true);
             trigger('category');
             const category = getValues('category');
-            console.log(category);
             if (!category) return;
 
             if (!checkHandler('타이머')) return;

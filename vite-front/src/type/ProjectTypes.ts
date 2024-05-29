@@ -20,3 +20,7 @@ export interface ProjectDetailProps {
 export interface ProjectPostProps extends ProjectDetailProps {
     projectKey?: string | null;
 }
+export interface UploadThumbnailResponseProps {
+    message: string;
+    imgUrl: string;
+}

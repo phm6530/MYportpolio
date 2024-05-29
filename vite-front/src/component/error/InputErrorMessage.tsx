@@ -8,7 +8,9 @@ const ErrorMessage = styled.div`
     opacity: 0.8;
 `;
 
-const InputErrorMessage = ({ children }) => {
+const InputErrorMessage: React.FC<{ children: React.ReactNode }> = ({
+    children,
+}) => {
     return <ErrorMessage>{children}</ErrorMessage>;
 };
 

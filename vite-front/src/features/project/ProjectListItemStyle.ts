@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
-import FadeinComponent from 'FadeinComponent';
+import FadeInAnimation from 'component/animations/FadeInAnimation';
 
-export const ProjectFadeinStyle = styled(FadeinComponent)`
+export const ProjectFadeinStyle = styled(FadeInAnimation)`
     margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
     display: flex;

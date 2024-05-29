@@ -50,7 +50,6 @@ const addReply = async (formData: object) => {
     const result = await requestHandler(() =>
         axios.post(Url, formData, { headers }),
     );
-    console.log(result);
     return result;
 };
 

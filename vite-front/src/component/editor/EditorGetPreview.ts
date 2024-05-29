@@ -1,4 +1,4 @@
-import { ENDPOINT_URL } from 'constants/apiUrl';
+import { ENDPOINT_URL, IMG_UPLOAD_PATH } from 'constants/apiUrl';
 
 // 썸네일 + 간략한설명 추출
 const EditorGetPreview = (post: string) => {
@@ -11,7 +11,7 @@ const EditorGetPreview = (post: string) => {
             if (imgSelect) {
                 const selectThumbNail = imgSelect.getAttribute('src');
                 if (selectThumbNail) {
-                    return selectThumbNail.replace(`${ENDPOINT_URL}/`, '');
+                    return selectThumbNail.replaceAll(`${ENDPOINT_URL}/`, '');
                 }
                 return null;
             }
@@ -30,7 +30,7 @@ const EditorGetPreview = (post: string) => {
                 if (src) {
                     img.setAttribute(
                         'src',
-                        src.replace(`${ENDPOINT_URL}/`, ''),
+                        src.replaceAll(`${ENDPOINT_URL}/`, ''),
                     );
                 }
             });
@@ -39,4 +39,13 @@ const EditorGetPreview = (post: string) => {
     };
 };
 
-export { EditorGetPreview };
+const transImgSrc = (contents: string) => {
+    const originalDomain = 'uploads/';
+    const updatedContents = contents.replaceAll(
+        originalDomain,
+        `${ENDPOINT_URL}/${IMG_UPLOAD_PATH}/`,
+    );
+    return updatedContents;
+};
+
+export { EditorGetPreview, transImgSrc };

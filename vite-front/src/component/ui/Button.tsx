@@ -7,9 +7,10 @@ interface ButtonProps {
     children: React.ReactNode;
     disabled?: boolean;
     active?: boolean;
+    onClick?: () => void;
 }
 
-const Type = ({ children, ...props }) => {
+const Type: React.FC<ButtonProps> = ({ children, ...props }) => {
     return (
         <button className="btn-borderStyle" {...props}>
             {children}
@@ -28,7 +29,7 @@ const Submit: React.FC<ButtonProps> = ({ children, disabled, ...props }) => {
     );
 };
 
-const Cancle = ({ children, ...props }) => {
+const Cancle: React.FC<ButtonProps> = ({ children, ...props }) => {
     return (
         <button
             className="cancelButton"
@@ -43,7 +44,7 @@ const Cancle = ({ children, ...props }) => {
     );
 };
 
-const ForsquareBtn = ({ children, ...props }) => {
+const ForsquareBtn: React.FC<ButtonProps> = ({ children, ...props }) => {
     return (
         <button className="btn-scheduleControl" {...props}>
             {children}
@@ -60,7 +61,7 @@ const Popup = () => {
     );
 };
 
-const ConfirmButton = ({ children, ...props }) => {
+const ConfirmButton: React.FC<ButtonProps> = ({ children, ...props }) => {
     return (
         <button className="btn-confirm" {...props}>
             {children}
@@ -85,7 +86,11 @@ const UploadBtn = styled.label`
     }
 `;
 
-const UploadButton = ({ children, ...props }) => {
+interface UploadButtnProps extends ButtonProps {
+    htmlFor: string;
+}
+
+const UploadButton: React.FC<UploadButtnProps> = ({ children, ...props }) => {
     return (
         <UploadBtn {...props}>
             {children}
@@ -104,7 +109,11 @@ const BtnSubmitStyle = styled.button<{ $active?: boolean }>`
     border: 1px solid var(--borer-line-color);
 `;
 
-const SubmitButton = ({ children, active, ...props }: ButtonProps) => {
+const SubmitButton: React.FC<ButtonProps> = ({
+    children,
+    active,
+    ...props
+}) => {
     return (
         <BtnSubmitStyle className="btn-submit" $active={active} {...props}>
             {children}

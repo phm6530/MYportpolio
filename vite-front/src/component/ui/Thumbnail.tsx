@@ -61,16 +61,18 @@ const ViewIconAnimation = styled.div`
 
 interface thumbNailProps {
     className?: string;
-    img: thumnail_url;
+    img: thumnail_url | null;
     badge?: string;
 }
 
 const Thumbnail: React.FC<thumbNailProps> = ({ className, img, badge }) => {
+    const isNullImage = img && img.includes('/null') ? null : img;
+
     return (
         <>
             <ThumbNailContainer
                 className={className}
-                $backImg={img}
+                $backImg={isNullImage}
                 $badge={badge}
             >
                 {/* <HasTagCustom>{badge}</HasTagCustom> */}

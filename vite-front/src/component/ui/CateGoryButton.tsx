@@ -8,13 +8,15 @@ const CateGoryArea = styled.div`
     margin-top: 1.5rem;
 `;
 
-export default function CateGoryButton({ CateGory, type }) {
+const CateGoryButton: React.FC<{ CateGory: string[]; type: string }> = ({
+    CateGory,
+    type,
+}) => {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const [param] = useSearchParams();
 
     const pathName = () => {
-        // console.log(path);
         const arr = pathname.split('/');
         const lastIdx = arr.length - 1;
         if (arr.length <= 2) {
@@ -24,7 +26,7 @@ export default function CateGoryButton({ CateGory, type }) {
     };
 
     // path
-    const ParameterNav = path => {
+    const ParameterNav = (path: string) => {
         const arrPath = pathname.split('/');
         if (arrPath.length <= 2) {
             arrPath.push(path);
@@ -39,14 +41,14 @@ export default function CateGoryButton({ CateGory, type }) {
 
     return (
         <CateGoryArea>
-            {CateGory.map(e => (
+            {CateGory.map((e: string) => (
                 <Button.SubmitButton
                     key={`key-${e}`}
-                    $active={
+                    active={
                         e ===
                         (pageType
                             ? param.get('search') || CateGory[0]
-                            : pathName(e) || CateGory[0])
+                            : pathName() || CateGory[0])
                     }
                     onClick={() =>
                         navigate(
@@ -61,4 +63,6 @@ export default function CateGoryButton({ CateGory, type }) {
             ))}
         </CateGoryArea>
     );
-}
+};
+
+export default CateGoryButton;
