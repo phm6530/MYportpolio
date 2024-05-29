@@ -21,6 +21,6 @@ router.delete('/deletepost/:key', BlogController.HandleDeletePost);
 router.patch('/modify/:id', BlogController.handleUpdatePost);
 
 // post 이미지 업로더
-router.post('/uploadimg/:category/:key', blogUpload.single('image'), utilRouter.handleImgUploader);
+router.post('/uploadimg/:key', blogUpload.single('image'), utilRouter.handleImgUploader);
 
 module.exports = router;

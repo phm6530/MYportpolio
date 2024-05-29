@@ -10,7 +10,6 @@ const handleCategory = async (_, res, next) => {
         });
         res.json({ message: 'success', resData: categoryList });
     } catch (error) {
-        console.log(error);
         const err = new NotFoundError(error.message);
         next(err);
     }
@@ -24,7 +23,6 @@ const handleViewPostList = async (req, res, next) => {
         });
         res.json({ message: 'success', resData: data, paging });
     } catch (error) {
-        console.log(error);
         next(new NotFoundError(error.message));
     }
 };
@@ -39,7 +37,6 @@ const handleCreatePost = async (req, res, next) => {
         });
         res.status(200).json({ message: 'success' });
     } catch (error) {
-        console.log(error.message);
         next(new NotFoundError(error.message));
     }
 };
@@ -55,7 +52,6 @@ const handlelViewPost = async (req, res, next) => {
 
         res.status(200).json({ message: 'success', resData: result });
     } catch (error) {
-        console.log(error.message);
         next(new NotFoundError(error.message));
     }
 };
@@ -92,7 +88,6 @@ const handleUpdatePost = async (req, res, next) => {
 
         res.status(200).json({ message: 'success', resData: result });
     } catch (error) {
-        console.log(error.message);
         next(new NotFoundError(error.message));
     }
 };
