@@ -6,6 +6,7 @@ import { tokenCheck } from 'services/authService';
 import { queryKey } from 'services/queryKey';
 import { authActions } from 'store/appSlice';
 import { RootState } from 'store/appSlice';
+import { useAuthStorage } from '@features/auth/useAuthStorage';
 
 // 컴포넌트 props의 타입을 제네릭으로 받을 수 있게 정의
 const withAuth = <P extends object>(
@@ -16,6 +17,7 @@ const withAuth = <P extends object>(
         const isAuth = useSelector((state: RootState) => state.auth.login);
         const navigate = useNavigate();
         const dispatch = useDispatch();
+        const storageHelper = useAuthStorage();
 
         const { data, isError } = useQuery({
             queryKey: [queryKey.auth],
@@ -24,11 +26,11 @@ const withAuth = <P extends object>(
 
         useEffect(() => {
             if (!isAuth || isError) {
-                localStorage.removeItem('token');
+                storageHelper.removeUserData();
                 dispatch(authActions.logOut());
                 navigate(redirectPath);
             }
-        }, [isAuth, isError, navigate, dispatch]);
+        }, [isAuth, isError, navigate, dispatch, storageHelper]);
 
         // Component에 props를 그대로 전달
         return data?.Auth ? <Component {...props} /> : null;

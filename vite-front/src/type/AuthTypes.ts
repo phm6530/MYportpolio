@@ -8,3 +8,9 @@ export interface LoginResponseProps {
     token: string;
     Auth: boolean;
 }
+
+export interface userData {
+    id: string;
+    access: string;
+    name: string;
+}

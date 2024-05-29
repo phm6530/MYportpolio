@@ -1,4 +1,4 @@
-import { NavPageObject } from 'constants/pageConstacts';
+import { NAVPAGE_OBJECT } from 'constants/routePath';
 import { useNavigate } from 'react-router-dom';
 import {
     BtnGradient,
@@ -29,7 +29,7 @@ const HomeNavBtn = ({
 const MainNavs = () => {
     return (
         <MainNavsContainer>
-            {NavPageObject.map((e, idx) => {
+            {NAVPAGE_OBJECT.map((e, idx) => {
                 return (
                     <HomeNavBtn
                         key={e.path}

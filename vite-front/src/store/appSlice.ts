@@ -7,6 +7,9 @@ interface User {
     name: string | null;
 }
 
+const userFromStorage = localStorage.getItem('user');
+const test = userFromStorage ? JSON.parse(userFromStorage) : null;
+
 const initialUserData: User = { id: null, access: null, name: null };
 
 // AuthState 인터페이스 정의
@@ -19,7 +22,7 @@ interface AuthState {
 const initialAuthState: AuthState = {
     login: Boolean(localStorage.getItem('token')),
     loading: null,
-    user: initialUserData,
+    user: test || initialUserData,
 };
 
 // 로그인 상태 Slice 생성

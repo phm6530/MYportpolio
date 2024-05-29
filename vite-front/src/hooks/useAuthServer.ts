@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, authActions } from 'store/appSlice';
 import { toast } from 'react-toastify';
 import { useRef } from 'react';
+import { useAuthStorage } from '@features/auth/useAuthStorage';
 
 // 서버 + 클라 체크
 const useCheckPermission = () => {
     const { login } = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch();
+    const storageHelper = useAuthStorage();
     const throttle = useRef<boolean>(false);
 
     const { mutateAsync } = useMutation({
@@ -26,7 +28,7 @@ const useCheckPermission = () => {
             const result = await mutateAsync();
             return result;
         } catch (error) {
-            localStorage.removeItem('token');
+            storageHelper.removeUserData();
             dispatch(authActions.logOut());
 
             return false;

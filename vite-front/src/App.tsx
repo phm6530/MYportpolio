@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import store from 'store/appSlice';
 
 // layOut
-import RootNav from 'layout/RootNav';
 import Footer from 'layout/Footer';
 import ThemeWrapper from 'style/ThemeWrapper';
 import { GlobalStyle } from 'style/CssinJsTheme';
@@ -34,7 +33,6 @@ function App(): JSX.Element {
                         <ThemeProvider theme={MuiTheme}>
                             <GlobalStyle />
                             <BrowserRouter>
-                                <RootNav />
                                 <AppRoute />
                                 <Footer />
                             </BrowserRouter>

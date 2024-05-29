@@ -14,10 +14,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import DarkModeBtn from 'component/ui/DarkModeBtn';
 import LoginForm from '@features/auth/LoginForm';
 import TopButton from 'component/ui/TopButton';
-import useUserDecoded from 'hooks/useUserDecoded';
 
-import { NavPageObject } from 'constants/pageConstacts';
 import { RootState } from 'store/appSlice';
+import { NAVPAGE_OBJECT } from 'constants/routePath';
 
 // Nav 선택
 interface LinkProps {
@@ -62,7 +61,6 @@ export default function RootNav() {
     const [active, setActive] = useState(pathname);
     const { mutateAsync } = useLogout();
 
-    useUserDecoded(); //사용자정보
     const navigate = useNavigate();
     const openLoginPopup = () => setLoginModal(true);
 
@@ -86,7 +84,7 @@ export default function RootNav() {
 
                         {/* Nav */}
                         <ul>
-                            {NavPageObject.map((e, idx) => {
+                            {NAVPAGE_OBJECT.map((e, idx) => {
                                 // console.log(e.p);
                                 if (e.AuthPage) {
                                     return (

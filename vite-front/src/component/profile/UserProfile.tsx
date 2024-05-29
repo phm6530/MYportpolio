@@ -12,7 +12,6 @@ import {
 
 export default function UserProfile() {
     const { login } = useSelector((state: RootState) => state.auth);
-    // console.log(login);
 
     return (
         <ProfileCard>
