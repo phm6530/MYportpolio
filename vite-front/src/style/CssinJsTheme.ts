@@ -47,11 +47,16 @@ export const GlobalStyle = createGlobalStyle`
     /* tab or list hover color */
     --background-field-border-color : ${({ theme }) => theme.listBackground};
     --background-disable--input : ${({ theme }) => theme.background_disable_input};
+
+    /* Nav */
+    --Nav-Background-color : ${({ theme }) => theme.navBackground};
+    --Nav-color : ${({ theme }) => theme.navColor};
+    --Nav-navBorder : ${({ theme }) => theme.navBorder};
   }
 
 
 
-
+  
   
 
   body {
@@ -119,6 +124,11 @@ export const lightTheme = {
     background_disable_input: '#ededed',
 
     border_picture_color: '#fff',
+
+    //navTheme
+    navBackground: '#fff',
+    navColor: '#333',
+    navBorder: '1px solid rgb(158 158 158 / 10%)',
 };
 
 export const darkTheme = {
@@ -158,4 +168,9 @@ export const darkTheme = {
     background_disable_input: '#0000004f',
 
     border_picture_color: '#515867',
+
+    //Nav Theme
+    navBackground: '#191e22',
+    navColor: '#fff',
+    navBorder: '1px solid rgb(158 158 158 / 10%)',
 };

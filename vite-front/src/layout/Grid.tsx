@@ -10,7 +10,7 @@ const CenteredGrid = styled.div`
 const BannerCenteredGrid = styled.div`
     width: 1280px;
     margin: 0 auto;
-    padding-top: 12.5rem;
+    padding-top: 10.5rem;
     position: relative;
 `;
 
@@ -24,7 +24,6 @@ const LayoutSpacer = styled.div`
     width: 100%;
     justify-content: space-between;
     display: flex;
-    margin-top: -2rem;
 `;
 
 const BannerSpacer = styled.div`

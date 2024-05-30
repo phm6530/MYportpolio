@@ -28,12 +28,12 @@ const opacityAni = keyframes`
 const PageBanner = styled.div<{ $page: string }>`
     width: 100%;
     min-width: 1280px;
-    height: 29rem;
+    height: 25rem;
     overflow: hidden;
     position: relative;
     z-index: -1;
     background-image: url('/img/main.jpg');
-    background-position: center bottom;
+    background-position: center -698px;
     background-size: cover;
     animation: ${infiniteBgAni} 10s cubic-bezier(0.2, 0.56, 0.38, 0.41) infinite
         forwards alternate;

@@ -15,7 +15,7 @@ const Blog = (): JSX.Element => {
         <>
             <DashBoard
                 pageTitle={'Blog'}
-                subComment={'"퍼블리셔와 개발자 사이 그어딘가"'}
+                // subComment={'"퍼블리셔와 개발자 사이 그어딘가"'}
             />
             <Motion.FadeUp>
                 <PageGrid>

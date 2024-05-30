@@ -3,8 +3,9 @@ import { LuSunDim } from 'react-icons/lu';
 import { IoMoon } from 'react-icons/io5';
 
 import useStore from 'store/zustandStore';
+import useScrollY from '@hooks/useScrollY';
 
-const DarkmodeButton = styled.div`
+const DarkmodeButton = styled.div<{ $scrollOver: boolean }>`
     border-radius: 1em;
     background: transparent;
     border: 0;
@@ -36,10 +37,9 @@ const IconAnimation = keyframes`
     }
 `;
 
-const DarkModeIcon = styled.div<{ $darkMode: boolean }>`
+const DarkModeIcon = styled.div<{ $darkMode: boolean; $scrollOver: boolean }>`
     width: 24px;
     height: 24px;
-    background: red;
     position: absolute;
     left: 3px;
     display: flex;
@@ -47,27 +47,40 @@ const DarkModeIcon = styled.div<{ $darkMode: boolean }>`
     border-radius: 5em;
     transition: all 0.3s ease;
     align-items: center;
+
     svg {
         animation: ${IconAnimation} 0.3s ease;
+        ${({ $scrollOver, $darkMode }) => {
+            if ($scrollOver && !$darkMode) {
+                return 'color : #4e4e4e';
+            }
+        }}
     }
 
     ${props =>
         props.$darkMode
             ? ` left:calc(100% - 27px);  background: #5b5b5b;`
             : `background: #ffffff4a; color: #fff;`}
+
+    ${({ $scrollOver, $darkMode }) => {
+        if ($scrollOver && !$darkMode) {
+            return 'background : #dddddd';
+        }
+    }}
 `;
 
 export default function DarkModeBtn() {
     const darkMode = useStore(state => state.darkMode);
     const darkmodeToggle = useStore(state => state.darkmodeToggle);
+    const { scrollOver } = useScrollY(300);
 
     const modeHandler = () => {
         darkmodeToggle();
     };
 
     return (
-        <DarkmodeButton onClick={() => modeHandler()}>
-            <DarkModeIcon $darkMode={darkMode}>
+        <DarkmodeButton $scrollOver={scrollOver} onClick={() => modeHandler()}>
+            <DarkModeIcon $darkMode={darkMode} $scrollOver={scrollOver}>
                 {darkMode ? <IoMoon size={'15'} /> : <LuSunDim size={'20'} />}
             </DarkModeIcon>
         </DarkmodeButton>

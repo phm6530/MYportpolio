@@ -1,5 +1,5 @@
-import { LoginResponseProps } from '@type/AuthTypes';
 import axios from 'axios';
+import { LoginResponseProps } from '@type/AuthTypes';
 import { ENDPOINT_URL } from 'constants/apiUrl';
 import { requestHandler } from 'utils/apiUtils';
 
@@ -21,24 +21,22 @@ const fetchLogout = async (token: string) => {
     const headers = {
         Authorization: `Bearer ${token}`,
     };
-    requestHandler(() => axios.post(url, { headers }));
+    await requestHandler(() => axios.post(url, { headers }));
 };
 
 // 토큰체크
 const tokenCheck = async () => {
-    const token = localStorage.getItem('token');
-    const response = await fetch(`http://localhost:8080/auth`, {
-        method: 'POST',
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
+    const token: string | null = localStorage.getItem('token');
 
-    if (!response.ok) {
-        const errorMessage = await response.json();
-        throw new Error(errorMessage.message);
+    if (!token) {
+        throw new Error('권한이 없습니다.');
     }
-    return response.json();
+
+    const headers = {
+        Authorization: `Bearer ${token}`,
+    };
+    const url = `${ENDPOINT_URL}/auth`;
+    return requestHandler(() => axios.post(url, {}, { headers }));
 };
 
 export { tokenCheck, fetchLogout, fetchLogin };

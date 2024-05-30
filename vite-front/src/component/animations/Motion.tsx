@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 type MotionChildren = ReactNode;
 
@@ -48,6 +48,9 @@ export const FadeInOut: React.FC<MotionProps> = ({ className, children }) => {
 };
 
 export const Page: React.FC<MotionProps> = ({ className, children }) => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     return (
         <motion.div
             className={className}

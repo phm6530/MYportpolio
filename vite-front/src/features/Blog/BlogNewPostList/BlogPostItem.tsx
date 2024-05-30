@@ -38,7 +38,7 @@ const PostItem: React.FC<PostItemProps> = ({
 }) => {
     const navigate = useNavigate();
     return (
-        <ItemWrap onClick={() => navigate(`${post_id}`)}>
+        <ItemWrap onClick={() => navigate(`/blog/${post_id}`)}>
             <ItemPostTitle>{post_title}</ItemPostTitle>
             <ItemPostDate>{format(create_at, 'yyyy-MM-dd')}</ItemPostDate>
         </ItemWrap>

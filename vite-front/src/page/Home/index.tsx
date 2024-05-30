@@ -1,5 +1,5 @@
 import DashBoardTitle from 'component/ui/DashBoardTitle';
-import MainNavs from 'features/Main/MainNavs';
+// import MainNavs from 'features/Main/MainNavs';
 import ShootingStar from 'component/animations/ShootingStar';
 import { Grid } from 'layout/Grid';
 import styled, { keyframes } from 'styled-components';
@@ -25,9 +25,9 @@ const opacityAni = keyframes`
 
 const HomeContainer = styled.div`
     position: relative;
-    padding-top: 220px;
-    padding-bottom: 10rem;
-    height: 100vh;
+    padding-top: 13rem;
+    padding-bottom: 5rem;
+    /* height: 100vh; */
     overflow: hidden;
     background-image: url('/img/main.jpg');
     background-position: center bottom;
@@ -39,7 +39,7 @@ const HomeContainer = styled.div`
         position: absolute;
         left: 0;
         top: 0;
-        height: 100vh;
+        height: 100%;
         width: 100%;
         background: linear-gradient(
             to right,
@@ -122,8 +122,10 @@ const Home = () => {
                     배운 모든 것을 기록하고 공유하는 것을 좋아합니다. 공유의
                     중요성을 잘 알기에 항상 새기고 실천하려고 노력합니다
                 </CareerGoal>
+
                 <BlogNewPostList />
-                <MainNavs />
+
+                {/* <MainNavs /> */}
                 {/* <DashBoardTitle>
                     <b>FRONTEND DEVELOPER</b>
                 </DashBoardTitle> */}

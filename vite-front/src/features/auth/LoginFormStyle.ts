@@ -68,11 +68,11 @@ export const LabelWrap = styled.div<{ $error?: boolean }>`
     align-items: center;
     border-radius: 5px;
     overflow: hidden;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--borer-line-color);
     position: relative;
     svg {
         margin-left: 10px;
-        opacity: 0.5;
+        opacity: 0.8;
     }
     ${props => props.$error && `border : 1px solid #ff0000ad;`}
 `;

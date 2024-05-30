@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import useLogout from '@features/auth/hooks/useLogout';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 // Component
-
 import Popup from 'component/popup/Popup';
 
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -14,6 +13,7 @@ import TopButton from 'component/ui/TopButton';
 
 import { NAVPAGE_OBJECT } from 'constants/routePath';
 import useStore from 'store/zustandStore';
+import useScrollY from '@hooks/useScrollY';
 
 // Nav 선택
 interface LinkProps {
@@ -36,27 +36,56 @@ const Link: React.FC<LinkProps> = ({
 };
 
 //css in js  초기랜더링 > 훅실행 > 스타일 생성
-const List = styled(Link)<{ $active?: boolean }>`
-    transition: color 0.4s cubic-bezier(0, 0.88, 0, 1.03);
-    color: var(--color-white);
+
+interface ListProps {
+    $active?: boolean;
+    $scrollOver?: boolean;
+    $darkMode?: boolean;
+    $path?: boolean;
+}
+
+const List = styled(Link)<ListProps>`
+    color: ${({ $scrollOver, $darkMode, $path }) => {
+        console.log('$path', !$path);
+        if (!$path) {
+            if ($scrollOver) {
+                return 'var(--Nav-color)';
+            } else if (!$scrollOver && !$darkMode) {
+                return '#fff';
+            }
+        } else {
+            return '#fff';
+        }
+    }};
+    transition: color 1s ease;
 `;
 
-const Header = styled.header`
+const Header = styled.header<{ $scrollOver: boolean; $path: boolean }>`
     position: fixed;
     z-index: 10;
     width: 100%;
-    /* background: #ffffff14; */
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: var(--Nav-navBorder);
+    font-family: 'Pretendard-Regular';
+    ${({ $scrollOver, $path }) =>
+        $scrollOver &&
+        !$path &&
+        css`
+            background: var(--Nav-Background-color);
+        `};
+    transition: background 1s cubic-bezier(0, 0.88, 0, 1.03);
 `;
 
 export default function RootNav() {
-    // const { view } = useSelector((state: RootState) => state.alert);
     const login = useStore(state => state.userAuth.login);
+    const darkMode = useStore(state => state.darkMode);
     const { pathname } = useLocation();
-    const [loginModal, setLoginModal] = useState(false);
+    const [loginModal, setLoginModal] = useState<boolean>(false);
     const [active, setActive] = useState(pathname);
+    const { scrollOver } = useScrollY(300);
     const { mutateAsync } = useLogout();
+
+    const location = useLocation();
 
     const navigate = useNavigate();
     const openLoginPopup = () => setLoginModal(true);
@@ -67,49 +96,37 @@ export default function RootNav() {
             <TopButton />
 
             {/* Alert */}
-            {/* {view && <Alert />} */}
             {loginModal && (
                 <Popup type={'Login'} closePopup={() => setLoginModal(false)}>
                     <LoginForm />
                 </Popup>
             )}
 
-            <Header>
+            <Header $scrollOver={scrollOver} $path={location.pathname === '/'}>
                 <div className="wrap">
                     <nav>
                         <DarkModeBtn />
 
                         {/* Nav */}
                         <ul>
-                            {NAVPAGE_OBJECT.map((e, idx) => {
-                                // console.log(e.p);
-                                if (e.AuthPage) {
-                                    return (
-                                        login && (
-                                            <List
-                                                key={idx}
-                                                $active={active === e.path}
-                                            >
-                                                {e.pathName}
-                                            </List>
-                                        )
-                                    );
-                                }
-                                return (
-                                    <List
-                                        // to={e.path}
-                                        key={idx}
-                                        $active={active === e.path}
-                                        onClick={() => {
-                                            // ChangePageHandler(e.path);
+                            {NAVPAGE_OBJECT.map((e, idx) => (
+                                <List
+                                    key={idx}
+                                    $active={active === e.path}
+                                    $scrollOver={scrollOver}
+                                    $darkMode={darkMode}
+                                    $path={location.pathname === '/'}
+                                    onClick={() => {
+                                        if (!e.AuthPage || login) {
+                                            // AuthPage가 필요하면 로그인 확인
                                             setActive(e.path);
                                             navigate(e.path);
-                                        }}
-                                    >
-                                        {e.pathName}
-                                    </List>
-                                );
-                            })}
+                                        }
+                                    }}
+                                >
+                                    {e.pathName}
+                                </List>
+                            ))}
 
                             {/* login Component */}
                             {!login && (
