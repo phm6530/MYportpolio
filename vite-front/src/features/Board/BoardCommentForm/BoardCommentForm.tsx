@@ -2,7 +2,6 @@ import styled from 'styled-components';
 const { useLocation } = ReactRouteDom;
 
 import { Controller, SubmitHandler } from 'react-hook-form';
-import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
 import { findForBadword, scriptReplace } from 'utils/wordingFilters';
@@ -20,7 +19,7 @@ import CrectorView from '@features/Board/BoardCrector/BoardCrectorView';
 import { randomCrector } from '@features/Board/BoardCrector/randomCrector';
 import { useEffect } from 'react';
 import { yupSchema } from '@features/Board/BoardCommentForm/YupSchema';
-import { RootState } from 'store/appSlice';
+import useStore from 'store/zustandStore';
 
 const BoardReplyStyle = styled.div`
     border-radius: 1em 1em 0 0;
@@ -42,8 +41,7 @@ const FormStyle = styled.form`
 `;
 
 export default function BoardCommentForm() {
-    const { login } = useSelector((state: RootState) => state.auth);
-
+    const login = useStore(state => state.userAuth.login);
     // Comment Add Hook
     const { mutate: addMutate } = useCommentAdd();
     const location = useLocation();

@@ -1,11 +1,12 @@
 import { jwtDecode } from 'jwt-decode';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, authActions } from 'store/appSlice';
+import { useDispatch } from 'react-redux';
+import { authActions } from 'store/appSlice';
 import { useAuthStorage } from '@features/auth/useAuthStorage';
+import useStore from 'store/zustandStore';
 
 const useUserDecoded = (): void => {
-    const isAuth = useSelector((state: RootState) => state.auth);
+    const isAuth = useStore(state => state.userAuth.login);
     const token = localStorage.getItem('token');
     const dispatch = useDispatch();
     const storageHelper = useAuthStorage();

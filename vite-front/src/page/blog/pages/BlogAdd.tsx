@@ -3,7 +3,6 @@ import BlogSelectCategory from '@features/Blog/BlogselectCategory/BlogSelectCate
 import { SubTitle } from 'component/ui/Subtitle';
 import TestQuillEditor from 'component/editor/TestQuillEditor';
 
-import { useSelector } from 'react-redux';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Button } from 'component/ui/Button';
 import { useSearchParams } from 'react-router-dom';
@@ -16,16 +15,16 @@ import useBlogPostDetail from '@features/Blog/hooks/useBlogPostDetail';
 import useBlogPostAction from '@features/Blog/hooks/useBlogPostAction';
 
 //타입 get
-import { RootState } from 'store/appSlice';
 import { BlogAddorEditProps, BlogPostRequestProps } from '@type/BlogTypes';
 import { ENDPOINT_URL } from 'constants/apiUrl';
+import useStore from 'store/zustandStore';
 
 interface FormValue extends BlogAddorEditProps {
     user: object;
 }
 const BlogAdd = (): JSX.Element => {
     const [params] = useSearchParams();
-    const userData = useSelector((state: RootState) => state.auth.user);
+    const userData = useStore(state => state.userAuth.user);
 
     const postId = params.get('post') || '';
     const editorType = params.get('type') || '';

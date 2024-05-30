@@ -1,14 +1,12 @@
-import { useDispatch } from 'react-redux';
-import { authActions } from 'store/appSlice';
 import { fetchLogout } from 'services/authService';
 import { toast } from 'react-toastify';
 import { useMutation } from '@tanstack/react-query';
-import { useAuthStorage } from '@features/auth/useAuthStorage';
+import useStore from 'store/zustandStore';
 
 const useLogout = () => {
-    const dispatch = useDispatch();
     const token = localStorage.getItem('token');
-    const storageHelper = useAuthStorage();
+    const logout = useStore(state => state.userAuthLogout);
+
     return useMutation({
         mutationFn: () => {
             if (token !== null) {
@@ -18,8 +16,7 @@ const useLogout = () => {
             }
         },
         onSuccess: () => {
-            dispatch(authActions.logOut());
-            storageHelper.removeUserData();
+            logout();
             toast.info('로그아웃 되었습니다');
         },
     });

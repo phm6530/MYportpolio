@@ -1,11 +1,9 @@
 import ReactDOM from 'react-dom';
 import React, { useCallback, useEffect, useState } from 'react';
-
 import { PopupWrap, PopupStyle } from './PopupStyle';
-import { useSelector } from 'react-redux';
 
 import PopupBackDrop from 'component/popup/PopupBackDrop';
-import { RootState } from 'store/appSlice';
+import useStore from 'store/zustandStore';
 
 interface PopupProps {
     closePopup: () => void;
@@ -15,7 +13,8 @@ interface PopupProps {
 
 export default function Popup({ closePopup, type, children }: PopupProps) {
     const [animationState, setAniamtionState] = useState(false);
-    const isAuth = useSelector((state: RootState) => state.auth.login);
+
+    const isAuth = useStore(state => state.userAuth.login);
     // console.log(type);
 
     // 닫기 & CLose 애니메이션

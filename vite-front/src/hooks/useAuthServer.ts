@@ -1,15 +1,16 @@
 import { tokenCheck } from 'services/authService';
 import { useMutation } from '@tanstack/react-query';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, authActions } from 'store/appSlice';
 import { toast } from 'react-toastify';
 import { useRef } from 'react';
 import { useAuthStorage } from '@features/auth/useAuthStorage';
+import useStore from 'store/zustandStore';
 
 // 서버 + 클라 체크
 const useCheckPermission = () => {
-    const { login } = useSelector((state: RootState) => state.auth);
-    const dispatch = useDispatch();
+    const { logout, auth } = useStore(state => ({
+        logout: state.userAuthLogout,
+        auth: state.userAuth.login,
+    }));
     const storageHelper = useAuthStorage();
     const throttle = useRef<boolean>(false);
 
@@ -21,7 +22,7 @@ const useCheckPermission = () => {
         if (throttle.current) return;
         throttle.current = true;
         try {
-            if (!login) {
+            if (!auth) {
                 toast.error('로그인을 해주세요');
                 return false;
             }
@@ -29,7 +30,7 @@ const useCheckPermission = () => {
             return result;
         } catch (error) {
             storageHelper.removeUserData();
-            dispatch(authActions.logOut());
+            logout();
 
             return false;
         } finally {

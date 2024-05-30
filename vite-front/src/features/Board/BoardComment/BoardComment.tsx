@@ -4,12 +4,10 @@ import * as Yup from 'yup';
 import { forwardRef } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { RootState } from 'store/appSlice';
 
 // icon
 import { TiDelete } from 'react-icons/ti';
 import { FaCircleCheck } from 'react-icons/fa6';
-import { useSelector } from 'react-redux';
 
 import CommentDelete from '@features/Board/BoardCommentControl/CommentDelete';
 import useCommentDelete from '@features/Board/hooks/useCommentDelete';
@@ -25,6 +23,7 @@ import usePopup from '@hooks/usePopup';
 
 import { type BoardCommentItemProps } from '@type/BoardTypes';
 import { userRole } from '@type/CommonTypes';
+import useStore from 'store/zustandStore';
 
 const HoverStyle = ({
     className,
@@ -58,7 +57,7 @@ interface BoardCommentProps {
 
 const BoardComment = forwardRef<HTMLDivElement, BoardCommentProps>(
     ({ item, role, selectIdx, setSelectIdx }, ref) => {
-        const { login } = useSelector((state: RootState) => state.auth);
+        const login = useStore(state => state.userAuth.login);
         const { mutate } = useCommentDelete();
         const { showPopup, PopupComponent } = usePopup();
 

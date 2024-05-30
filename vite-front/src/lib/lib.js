@@ -13,7 +13,6 @@ import {
     QueryClient,
     QueryClientProvider,
 } from '@tanstack/react-query';
-import { useDispatch, useSelector } from 'react-redux';
 import {
     useSearchParams,
     useNavigate,
@@ -33,7 +32,6 @@ export const ReactQuery = {
     QueryClient,
     QueryClientProvider,
 };
-export const ReactRedux = { useDispatch, useSelector };
 export const ReactRouteDom = {
     useSearchParams,
     useNavigate,

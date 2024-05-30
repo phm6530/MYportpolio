@@ -1,11 +1,10 @@
 import { useRef } from 'react';
-import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { RootState } from 'store/appSlice';
+import useStore from 'store/zustandStore';
 
 // 클라이언트 체크
 const useAuthCheck = () => {
-    const { login } = useSelector((state: RootState) => state.auth);
+    const login = useStore(state => state.userAuth.login);
     const throttle = useRef(false);
 
     const checkHandler = () => {
@@ -17,6 +16,7 @@ const useAuthCheck = () => {
         setTimeout(() => {
             throttle.current = false;
         }, 1000);
+        console.log(login);
         return login ? true : false;
     };
 

@@ -1,15 +1,14 @@
 import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from 'style/CssinJsTheme';
-import { useSelector } from 'react-redux';
 import { ReactNode } from 'react';
-import { RootState } from 'store/appSlice';
+import useStore from 'store/zustandStore';
 
 interface ThemeWrapperProps {
     children: ReactNode;
 }
 
 const ThemeWrapper: React.FC<ThemeWrapperProps> = ({ children }) => {
-    const darkMode = useSelector((state: RootState) => state.darkMode.darkMode);
+    const darkMode = useStore(state => state.darkMode);
 
     return (
         <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>

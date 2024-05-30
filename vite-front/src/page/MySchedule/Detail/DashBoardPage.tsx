@@ -19,6 +19,8 @@ const DashBoardPage = props => {
 
     const today = TodaySeletor();
 
+    console.log(props);
+
     return (
         <>
             <FlexRow>

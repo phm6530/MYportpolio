@@ -3,7 +3,7 @@ import DashBoard from '../../component/ui/DashBoard';
 import BannerCommon from 'component/ui/BannerCommon';
 import DashBoardTitle from 'component/ui/DashBoardTitle';
 
-import { ReactQuery, ReactRedux, ReactRouteDom } from 'lib/lib';
+import { ReactQuery, ReactRouteDom } from 'lib/lib';
 import { useEffect, useState } from 'react';
 
 import { scheduleFetch } from 'services/ScheduleService';
@@ -22,7 +22,6 @@ import { SpinnerLoading } from 'component/loading/SpinnerLoading';
 
 // lib
 const { useQuery } = ReactQuery;
-const { useDispatch } = ReactRedux;
 const { useSearchParams } = ReactRouteDom;
 
 const CustumlexColumnDiv = styled(FlexColumnDiv)`
@@ -44,7 +43,6 @@ export default function MySchedule() {
     //FetchData
     const [listData, setListData] = useState();
     const [DdayArr, setDdayArr] = useState();
-    const dispatch = useDispatch();
 
     const queryClient = useQueryClient();
 
@@ -77,7 +75,7 @@ export default function MySchedule() {
             setListData(data.restResponseData);
             setDdayArr(data.D_Day);
         }
-    }, [isSuccess, isError, data, error, dispatch]);
+    }, [isSuccess, isError, data, error]);
 
     return (
         <>

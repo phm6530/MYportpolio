@@ -1,9 +1,8 @@
 import styled, { keyframes } from 'styled-components';
 import { LuSunDim } from 'react-icons/lu';
 import { IoMoon } from 'react-icons/io5';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState, darkModeActions } from 'store/appSlice';
-import { useEffect } from 'react';
+
+import useStore from 'store/zustandStore';
 
 const DarkmodeButton = styled.div`
     border-radius: 1em;
@@ -59,24 +58,17 @@ const DarkModeIcon = styled.div<{ $darkMode: boolean }>`
 `;
 
 export default function DarkModeBtn() {
-    const { darkMode } = useSelector((state: RootState) => state.darkMode);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (typeof darkMode === 'boolean') {
-            //로컬은 불리언으로 못넣음 문자열로 해야됨
-            localStorage.setItem('darkMode', darkMode.toString());
-        }
-    }, [darkMode]);
+    const darkMode = useStore(state => state.darkMode);
+    const darkmodeToggle = useStore(state => state.darkmodeToggle);
 
     const modeHandler = () => {
-        dispatch(darkModeActions.toggleMode());
+        darkmodeToggle();
     };
 
     return (
         <DarkmodeButton onClick={() => modeHandler()}>
             <DarkModeIcon $darkMode={darkMode}>
-                {darkMode ? <LuSunDim size={'20'} /> : <IoMoon size={'15'} />}
+                {darkMode ? <IoMoon size={'15'} /> : <LuSunDim size={'20'} />}
             </DarkModeIcon>
         </DarkmodeButton>
     );

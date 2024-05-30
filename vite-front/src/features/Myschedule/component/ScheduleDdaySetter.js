@@ -7,8 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { InputStyle } from 'component/ui/TextArea';
 
 import { fetchAddSchedule } from 'services/ScheduleService';
-import alertThunk from 'store/alertTrunk';
-import { useDispatch } from 'react-redux';
+
 import { useAuthCheck } from 'hooks/useAuthCheck';
 import { useRef } from 'react';
 // import { SubTitle } from 'component/ui/Subtitle';
@@ -30,8 +29,7 @@ const DdayInputStyle = styled(InputStyle)`
 `;
 
 const ScheduleDdaySetter = () => {
-    const dispatch = useDispatch();
-    const { checkHandle } = useAuthCheck();
+    const { checkHandler } = useAuthCheck();
     const childRef = useRef();
 
     const {
@@ -60,8 +58,9 @@ const ScheduleDdaySetter = () => {
             important: 2,
             category: data.category,
         };
-        if (!checkHandle('D-day 설정')) return;
+        if (!checkHandler()) return;
         // console.log(formData);
+        console.log('됨?');
         mutate(formData);
     };
 
@@ -73,12 +72,12 @@ const ScheduleDdaySetter = () => {
         onSuccess: () => {
             // console.log(data);
             queryClient.invalidateQueries('Schedule');
-            dispatch(alertThunk('D-Day 등록하였습니다.', 1));
+            // dispatch(alertThunk('D-Day 등록하였습니다.', 1));
             reset();
             childRef.current.reset(); // 하위 Date  상태 초기화
         },
         onError: error => {
-            dispatch(alertThunk(error.message, 0));
+            // dispatch(alertThunk(error.message, 0));
         },
     });
 

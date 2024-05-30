@@ -115,26 +115,6 @@ const modalSlice = createSlice({
     },
 });
 
-// DarkMode 인터페이스 정의
-interface DarkModeState {
-    darkMode: boolean;
-}
-
-const initialDarkModeState: DarkModeState = {
-    darkMode: localStorage.getItem('darkMode') === 'true',
-};
-
-// DarkMode Slice 생성
-const darkModeSlice = createSlice({
-    name: 'darkMode',
-    initialState: initialDarkModeState,
-    reducers: {
-        toggleMode(state) {
-            state.darkMode = !state.darkMode;
-        },
-    },
-});
-
 export type RootState = ReturnType<typeof store.getState>;
 
 // 스토어
@@ -142,13 +122,13 @@ const store = configureStore({
     reducer: {
         auth: authSlice.reducer,
         alert: alertSlice.reducer,
-        modal: modalSlice.reducer,
-        darkMode: darkModeSlice.reducer,
+        // modal: modalSlice.reducer,
+        // darkMode: darkModeSlice.reducer,
     },
 });
 
 export const authActions = authSlice.actions;
 export const alertActions = alertSlice.actions;
-export const modalActions = modalSlice.actions;
-export const darkModeActions = darkModeSlice.actions;
+// export const modalActions = modalSlice.actions;
+// export const darkModeActions = darkModeSlice.actions;
 export default store;

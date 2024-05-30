@@ -7,7 +7,6 @@ import HookformRadio from '../component/HookformRadio';
 
 import { format } from 'date-fns';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useSelector } from 'react-redux';
 import { useAuthCheck } from 'hooks/useAuthCheck';
 import { fetchTimerStart, fetchTimerEnd } from 'services/tastTimerService';
 
@@ -22,11 +21,12 @@ import {
 } from '@features/Myschedule/ScheduleTimer/ScheduleTimerStyle';
 
 import useTimer from 'hooks/useTimer';
-import { RootState } from 'store/appSlice';
+import useStore from 'store/zustandStore';
 
 const ScheduleTimer = () => {
     const [timerData, setTimerData] = useState(null);
-    const { user } = useSelector((state: RootState) => state.auth);
+    const { user } = useStore(state => state.userAuth);
+
     const { checkHandler } = useAuthCheck();
     const [touched, setTouched] = useState<boolean>();
     const { data, isLoading, getWebsoketTimer } = useTimer();

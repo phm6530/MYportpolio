@@ -1,6 +1,5 @@
 import { RiMapPin2Fill } from 'react-icons/ri';
-import { useSelector } from 'react-redux';
-import { RootState } from 'store/appSlice';
+
 import {
     ProfileCard,
     ProfilePicture,
@@ -9,9 +8,10 @@ import {
     ProfileLocation,
     JobTitle,
 } from 'component/profile/UserProfileStyle';
+import useStore from 'store/zustandStore';
 
 export default function UserProfile() {
-    const { login } = useSelector((state: RootState) => state.auth);
+    const login = useStore(state => state.userAuth.login);
 
     return (
         <ProfileCard>

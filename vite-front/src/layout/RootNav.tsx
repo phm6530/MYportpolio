@@ -3,11 +3,8 @@ import useLogout from '@features/auth/hooks/useLogout';
 
 import styled from 'styled-components';
 
-// redux
-import { useSelector } from 'react-redux';
-
 // Component
-import Alert from 'component/alert/Alert';
+
 import Popup from 'component/popup/Popup';
 
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -15,8 +12,8 @@ import DarkModeBtn from 'component/ui/DarkModeBtn';
 import LoginForm from '@features/auth/LoginForm';
 import TopButton from 'component/ui/TopButton';
 
-import { RootState } from 'store/appSlice';
 import { NAVPAGE_OBJECT } from 'constants/routePath';
+import useStore from 'store/zustandStore';
 
 // Nav 선택
 interface LinkProps {
@@ -54,8 +51,8 @@ const Header = styled.header`
 `;
 
 export default function RootNav() {
-    const { view } = useSelector((state: RootState) => state.alert);
-    const { login } = useSelector((state: RootState) => state.auth);
+    // const { view } = useSelector((state: RootState) => state.alert);
+    const login = useStore(state => state.userAuth.login);
     const { pathname } = useLocation();
     const [loginModal, setLoginModal] = useState(false);
     const [active, setActive] = useState(pathname);
@@ -70,7 +67,7 @@ export default function RootNav() {
             <TopButton />
 
             {/* Alert */}
-            {view && <Alert />}
+            {/* {view && <Alert />} */}
             {loginModal && (
                 <Popup type={'Login'} closePopup={() => setLoginModal(false)}>
                     <LoginForm />

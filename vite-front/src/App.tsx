@@ -3,8 +3,6 @@ import { BrowserRouter } from 'react-router-dom';
 import AppRoute from 'Route/AppRoute';
 
 // redux
-import { Provider } from 'react-redux';
-import store from 'store/appSlice';
 
 // layOut
 import Footer from 'layout/Footer';
@@ -27,20 +25,19 @@ function App(): JSX.Element {
     return (
         <>
             {/* redux */}
-            <Provider store={store}>
-                <QueryClientProvider client={queryClient}>
-                    <ThemeWrapper>
-                        <ThemeProvider theme={MuiTheme}>
-                            <GlobalStyle />
-                            <BrowserRouter>
-                                <AppRoute />
-                                <Footer />
-                            </BrowserRouter>
-                            <ToastContainer {...toastConfig} />
-                        </ThemeProvider>
-                    </ThemeWrapper>
-                </QueryClientProvider>
-            </Provider>
+
+            <QueryClientProvider client={queryClient}>
+                <ThemeWrapper>
+                    <ThemeProvider theme={MuiTheme}>
+                        <GlobalStyle />
+                        <BrowserRouter>
+                            <AppRoute />
+                            <Footer />
+                        </BrowserRouter>
+                        <ToastContainer {...toastConfig} />
+                    </ThemeProvider>
+                </ThemeWrapper>
+            </QueryClientProvider>
         </>
     );
 }
