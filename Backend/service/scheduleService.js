@@ -37,6 +37,20 @@ const updateScheduleData = async (req, conn) => {
     return conn.query(sql, [work, schedule_key]);
 };
 
+// 스케줄 생성
+const createScheduleData = (req, conn) => {
+    const { schedule_date, work, category, schedule_key, important } = req.body;
+    const sql = `insert into schedules(schedule_date , work , category,  schedule_key , important) value(?,?,?,?,?)`;
+
+    return conn.query(sql, [schedule_date, work, category, schedule_key, important]);
+};
+
+const deleteScheduleData = (req, conn) => {
+    const { schedule_key } = req.body;
+    const sql = `delete from schedules where schedule_key = ?`;
+    return conn.query(sql, [schedule_key]);
+};
+
 // 지금 타이머 상태 가져오기
 const getMyStatusTime = async (conn) => {
     const sql = `select * from tasktimer where playing = 1;`;
@@ -70,6 +84,7 @@ const getMyStatusTime = async (conn) => {
     return { categoryDailyTotals, newObj };
 };
 
+// timer Start
 const createTimerStart = (req, conn) => {
     const { startTime, category, id, name } = req.body;
     const playing = 1;
@@ -81,9 +96,31 @@ const createTimerStart = (req, conn) => {
     return conn.query(sql, [category, startTime, id, playing]);
 };
 
+// 타이머 stop
+const updateTimerEnd = (req, conn) => {
+    const { endTime } = req.body;
+    const playing = 0;
+    const sql = `
+        UPDATE tasktimer 
+        SET playing = ?, end_time = ? 
+        WHERE playing = 1;
+        `;
+    return conn.query(sql, [playing, endTime]);
+};
+
+const toggleTastkComplete = (req, conn) => {
+    const { schedule_key } = req.body;
+    const sql = `update schedules set complete = Not complete where schedule_key = ?`;
+    return conn.query(sql, [schedule_key]);
+};
+
 module.exports = {
     getScheduleData,
     updateScheduleData,
     getMyStatusTime,
     createTimerStart,
+    createScheduleData,
+    updateTimerEnd,
+    deleteScheduleData,
+    toggleTastkComplete,
 };

@@ -24,6 +24,7 @@ const LayoutSpacer = styled.div`
     width: 100%;
     justify-content: space-between;
     display: flex;
+    margin-top: -2rem;
 `;
 
 const BannerSpacer = styled.div`
@@ -37,7 +38,7 @@ const PageCenteredGrid = styled(CenteredGrid)`
     justify-content: space-between;
 `;
 
-const Grid = ({ children }: { children: React.ReactElement }) => {
+const Grid = ({ children }: { children: React.ReactNode }) => {
     return (
         <CenteredGrid>
             <MainSpacer>{children}</MainSpacer>
@@ -53,7 +54,7 @@ const PageGrid = ({ children }: { children: React.ReactElement }) => {
     );
 };
 
-const PageBannerGrid = ({ children }: { children: React.ReactElement }) => {
+const PageBannerGrid = ({ children }: { children: React.ReactNode }) => {
     return (
         <BannerCenteredGrid>
             <BannerSpacer>{children}</BannerSpacer>

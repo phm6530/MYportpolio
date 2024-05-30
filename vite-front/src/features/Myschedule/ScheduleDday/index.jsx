@@ -7,12 +7,6 @@ import useExcuteMutation from 'hooks/useExcuteMutation';
 import usePopup from 'hooks/usePopup';
 import { format } from 'date-fns';
 
-// const SwiperStyle = styled(Swiper)`
-//     background: #ffffff;
-//     box-shadow: 7px 8px 42.7px rgba(199, 198, 217, 0.19);
-//     border-radius: 19px;
-// `;
-
 const SummeryStyle = styled.div`
     border-radius: 1em;
 `;

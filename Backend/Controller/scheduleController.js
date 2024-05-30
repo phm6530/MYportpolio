@@ -2,6 +2,7 @@ const { NotFoundError } = require('../util/error');
 const { runTransaction } = require('../util/dbUtil');
 const scheduleService = require('../service/scheduleService');
 
+// 초기 데이터 컨트롤러
 const handleGetScheduleData = async (req, res, next) => {
     try {
         const { restResponseData, DdayArr } = await runTransaction(async (conn) => {
@@ -14,13 +15,11 @@ const handleGetScheduleData = async (req, res, next) => {
     }
 };
 
+// 스케줄 생성
 const handleCreateSchedule = async (req, res, next) => {
     try {
         const response = await runTransaction((conn) => {
-            const { schedule_date, work, category, schedule_key, important } = req.body;
-            const sql = `insert into schedules(schedule_date , work , category,  schedule_key , important) value(?,?,?,?,?)`;
-
-            return conn.query(sql, [schedule_date, work, category, schedule_key, important]);
+            return scheduleService.createScheduleData(req, conn);
         });
         res.json({ message: 'success', databaseInsert: response.affectedRows });
     } catch (error) {
@@ -29,6 +28,7 @@ const handleCreateSchedule = async (req, res, next) => {
     }
 };
 
+// 스케줄 업데이트
 const handlePatchSchedule = async (req, res, next) => {
     try {
         const response = await runTransaction((conn) => {
@@ -41,13 +41,11 @@ const handlePatchSchedule = async (req, res, next) => {
     }
 };
 
+// 스케줄 삭제
 const handleDeleteSchedule = async (req, res, next) => {
     try {
         const response = await runTransaction((conn) => {
-            const { schedule_key } = req.body;
-
-            const sql = `delete from schedules where schedule_key = ?`;
-            return conn.query(sql, [schedule_key]);
+            return scheduleService.deleteScheduleData(req, conn);
         });
         res.json({ message: 'success', databaseInsert: response.affectedRows });
     } catch (error) {
@@ -59,9 +57,7 @@ const handleDeleteSchedule = async (req, res, next) => {
 const handleTaskCompleteToggle = async (req, res, next) => {
     try {
         const response = runTransaction((conn) => {
-            const { schedule_key } = req.body;
-            const sql = `update schedules set complete = Not complete where schedule_key = ?`;
-            return conn.query(sql, [schedule_key]);
+            return scheduleService.toggleTastkComplete(req, conn);
         });
         res.json({ message: 'success', databaseInsert: response.affectedRows });
     } catch (error) {
@@ -98,15 +94,7 @@ const handleTimerstart = async (req, res, next) => {
 const handleTimerend = async (req, res, next) => {
     try {
         const response = await runTransaction((conn) => {
-            const { endTime } = req.body;
-            const playing = 0;
-            const sql = `
-                UPDATE tasktimer 
-                SET playing = ?, end_time = ? 
-                WHERE playing = 1;
-                `;
-
-            return conn.query(sql, [playing, endTime]);
+            return scheduleService.updateTimerEnd(req, conn);
         });
         res.status(200).json({ message: 'success', databaseInsert: response.affectedRows });
     } catch (error) {

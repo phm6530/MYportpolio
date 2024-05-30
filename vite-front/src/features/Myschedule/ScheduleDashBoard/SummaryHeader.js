@@ -1,8 +1,4 @@
-import SelectBox from 'component/ui/SelectBox';
 import styled from 'styled-components';
-import { MdKeyboardArrowRight } from 'react-icons/md';
-import { ReactRouteDom } from 'lib/lib';
-const { useNavigate } = ReactRouteDom;
 
 const SummaryHeaderStyle = styled.div`
     width: 100%;
@@ -23,19 +19,6 @@ const Button = styled.button`
         'font-weight: bold; border: 1px solid rgba(114, 100, 239, .3);'};
 `;
 
-const Link = styled.div`
-    display: inline-flex;
-    align-items: center;
-    color: rgb(29 6 231);
-    font-size: 0.9rem;
-    margin-right: 1rem;
-    cursor: pointer;
-`;
-
-const MarginLeft = styled.div`
-    margin-left: auto;
-`;
-
 const select = ['today', 'Week'];
 
 const SummaryHeader = ({ viewRage, setViewRage }) => {
@@ -53,10 +36,6 @@ const SummaryHeader = ({ viewRage, setViewRage }) => {
                     </Button>
                 );
             })}
-
-            {/* <button>자세히보기</button> */}
-            {/* {selectDays && selectDays.map(e => e)} */}
-            {/* <SelectBox option={select} setViewRage={setViewRage} /> */}
         </SummaryHeaderStyle>
     );
 };

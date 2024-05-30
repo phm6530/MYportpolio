@@ -28,11 +28,11 @@ const opacityAni = keyframes`
 const PageBanner = styled.div<{ $page: string }>`
     width: 100%;
     min-width: 1280px;
-    height: 25rem;
+    height: 29rem;
     overflow: hidden;
     position: relative;
     z-index: -1;
-    background-image: url('/img/8.jpg');
+    background-image: url('/img/main.jpg');
     background-position: center bottom;
     background-size: cover;
     animation: ${infiniteBgAni} 10s cubic-bezier(0.2, 0.56, 0.38, 0.41) infinite
@@ -79,7 +79,7 @@ const animation = keyframes`
 `;
 
 const PageInfoText = styled.div`
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     img {
         margin-right: 10px;
     }
@@ -141,7 +141,7 @@ const DashBoard: React.FC<DashBoardProps> = ({
                 )}
 
                 <PathStyle>
-                    <IoMdHome /> HOME / {pathname.replace('/', ' / ')}
+                    <IoMdHome /> HOME {pathname.replace('/', ' / ')}
                 </PathStyle>
             </PageBannerGrid>
         </PageBanner>

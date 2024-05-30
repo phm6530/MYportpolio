@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { TodaySeletor } from 'utils/TodaySeletor';
 import { Button } from 'component/ui/Button';
 import { useSearchParams } from 'react-router-dom';
-import { useState } from 'react';
 import ScheduleDdaySetter from '../component/ScheduleDdaySetter';
 import { format } from 'date-fns';
 import TotalGraph from '../component/TotalGraph';
