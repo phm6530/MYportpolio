@@ -22,4 +22,7 @@ router.post('/uploadimg/:key', blogUpload.single('image'), utilRouter.handleImgU
 // Project 리스트 Detila
 router.get('/:key', projectController.handleFetchProjectDetail);
 
+// Project Prev, Next Detila List
+router.get('/nextprev/:key', projectController.handleFetchPrevNext);
+
 module.exports = router;

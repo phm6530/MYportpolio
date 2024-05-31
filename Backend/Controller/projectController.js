@@ -17,12 +17,10 @@ const handleFetchProjectList = async (_, res, next) => {
 
 // 프로젝트 리스트 디테일
 const handleFetchProjectDetail = async (req, res, next) => {
-    console.log('호출?');
     try {
         const result = await runTransaction((conn) => {
             return projectService.getProjectDetail(req, next, conn);
         });
-        console.log(result);
         res.status(200).json({ message: 'success', resData: result });
     } catch (error) {
         const err = new NotFoundError(error.message);
@@ -74,10 +72,44 @@ const handleDeleteProject = async (req, res, next) => {
     }
 };
 
+// 다음 이전 데이터 가져오기
+const handleFetchPrevNext = async (req, res, next) => {
+    try {
+        const result = await runTransaction(async (conn) => {
+            const key = req.params.key;
+            const sql = 'select p.id from project as p where project_key = ?';
+            const [id] = await conn.query(sql, [key]);
+            const projectId = id[0].id;
+
+            const getNextPrevSql = `
+            (SELECT id, project_key , thumbnail , description FROM project AS p WHERE id < ? ORDER BY id DESC LIMIT 1 offset 0) union
+            (SELECT id, project_key , thumbnail , description FROM project AS p WHERE id > ? ORDER BY id DESC LIMIT 1 offset 0)
+            `;
+
+            const nextPrevList = await conn.query(getNextPrevSql, [projectId, projectId]);
+            const result = nextPrevList[0].map((e) => {
+                if (projectId > e.id) {
+                    return { ...e, isPage: 'prev' };
+                } else {
+                    return { ...e, isPage: 'next' };
+                }
+            });
+            console.log(result);
+
+            return result;
+        });
+        res.status(200).json({ message: 'success', resData: result });
+    } catch (error) {
+        const err = new NotFoundError(error.message);
+        next(err);
+    }
+};
+
 module.exports = {
     handleFetchProjectList,
     handleFetchProjectDetail,
     handleFetchProjectEdit,
     handleActionProject,
     handleDeleteProject,
+    handleFetchPrevNext,
 };
