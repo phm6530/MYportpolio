@@ -64,11 +64,30 @@ const PageTest = styled.div`
     opacity: 0;
     background: linear-gradient(
         to right,
-        rgb(10 14 15 / 75%),
-        rgb(20 22 32 / 61%),
-        rgb(0 0 0 / 58%)
+        rgb(0 0 0 / 66%),
+        rgb(40 33 27 / 65%),
+        rgb(26 27 32 / 56%)
     );
-    animation: ${opacityAni} 1s 0.3s ease-in-out forwards;
+    background: linear-gradient(
+        to right,
+        rgb(0 0 0 / 89%),
+        rgb(18 9 1 / 73%),
+        rgb(26 27 32 / 56%)
+    );
+
+    box-shadow: linear-gradient(
+        to right,
+        rgb(0 0 0 / 72%),
+        rgb(60 30 30 / 55%),
+        rgb(54 74 107 / 56%)
+    );
+    box-shadow: linear-gradient(
+        to right,
+        rgb(0 0 0 / 66%),
+        rgb(40 33 27 / 65%),
+        rgb(26 27 32 / 56%)
+    );
+    animation: ${opacityAni} 1s ease-in-out forwards;
 `;
 
 const animation = keyframes`
@@ -103,7 +122,11 @@ interface DashBoardProps {
     page?: string;
     children?: React.ReactNode;
 }
-
+// const Division = styled.span`
+//     color: #6e31e1;
+//     font-weight: 400;
+//     font-size: 50px;
+// `;
 const DashBoard: React.FC<DashBoardProps> = ({
     className,
     pageTitle,
@@ -132,7 +155,10 @@ const DashBoard: React.FC<DashBoardProps> = ({
             <ShootingStar />
             <PageTest />
             <PageBannerGrid>
-                <DashBoardTitle>{pageTitle}</DashBoardTitle>
+                <DashBoardTitle>
+                    {pageTitle}
+                    {/* <Division>.me()</Division> */}
+                </DashBoardTitle>
 
                 {subComment && (
                     <PageInfoText>

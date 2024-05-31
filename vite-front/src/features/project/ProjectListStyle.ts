@@ -14,7 +14,7 @@ export const NoSeachingData = styled(FadeInAnimation)`
 export const ProjectListStyle = styled.div`
     flex-direction: row;
     border-radius: 1em;
-    background: var(--color-background);
+    /* background: var(--color-background); */
     flex-grow: 1;
     overflow: hidden;
     padding: 2rem 2rem;

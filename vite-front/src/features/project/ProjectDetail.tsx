@@ -12,11 +12,26 @@ import {
     CustumStyle,
     ProjectSummary,
     ProjectViewFooter,
+    SkillWrapper,
     HashtagArea,
     SKill,
+    SummaryType,
+    SummaryWrapper,
+    SummaryWrap,
+    ProjectTitle,
+    ProjectSkillStyle,
+    ProjectDescription,
 } from '@features/project/ProjectDetailStyle';
 import { ProjectPostProps } from '@type/ProjectTypes';
 import { ENDPOINT_URL } from 'constants/apiUrl';
+import styled from 'styled-components';
+
+import ProjectNextPrevNav from '@features/project/ProjectNextPrevNav';
+const DepsProjectSummary = styled.div`
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+`;
 
 const ProjectDetail: React.FC<ProjectPostProps> = props => {
     const navigate = useNavigate();
@@ -29,6 +44,7 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
         hashtag,
         startDate,
         projectUrl,
+        description,
         endDate,
         projectDescription,
         thumbnail,
@@ -42,7 +58,7 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
         <>
             <CustumStyle>
                 <ProjectSummary>
-                    <div className="title">
+                    <ProjectTitle>
                         {title}
 
                         {/* 버튼 wrapper */}
@@ -51,7 +67,8 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
                                 projectKey={projectKey}
                             />
                         )}
-                    </div>
+                    </ProjectTitle>
+                    <ProjectDescription>{description}</ProjectDescription>
                     <HashtagArea>
                         {hashtag.map((e: string, idx: number) => {
                             return (
@@ -62,35 +79,21 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
                             );
                         })}
                     </HashtagArea>
-                </ProjectSummary>
-                <ProjectThumbNail>
-                    <img src={`${ENDPOINT_URL}/${thumbnail}`} alt={title} />
-                </ProjectThumbNail>
-                <ProjectViewFooter>
-                    ※ 본 게시물은 상업적 목적이 아닌 포트폴리오 목적으로만
-                    사용됩니다. <br></br>아직 공개되지 않은 작업물은 포함하지
-                    않으며, 오직 공개된 작업물만을 게시합니다.
-                </ProjectViewFooter>
-                <ProjectSummary>
-                    <div className="date">
-                        <span className="summary_type">
-                            <span className="summary_titie">
-                                {/* <MdCalendarToday />  */}
-                                Client
-                            </span>
+                </ProjectSummary>{' '}
+                <DepsProjectSummary>
+                    <ProjectThumbNail>
+                        <img src={`${ENDPOINT_URL}/${thumbnail}`} alt={title} />
+                    </ProjectThumbNail>
 
+                    <SummaryWrap>
+                        <SummaryWrapper>
+                            <SummaryType>클라이언트</SummaryType>
                             <div className="project_date">
                                 <SKill>{company}</SKill>
                             </div>
-                        </span>
-                    </div>
-
-                    <div className="date">
-                        <span className="summary_type">
-                            <span className="summary_titie">
-                                {/* <MdCalendarToday />  */}
-                                Project Duration
-                            </span>
+                        </SummaryWrapper>
+                        <SummaryWrapper>
+                            <SummaryType>프로젝트 기간</SummaryType>
 
                             <div className="project_date">
                                 <SKill>
@@ -98,44 +101,54 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
                                     {endDate?.toString()}
                                 </SKill>
                             </div>
-                        </span>
-                    </div>
-                    <div className="skill">
-                        <span className="summary_type">
-                            <span className="summary_titie">Use Skill</span>
-
-                            {skill.map((e: string, idx: number) => {
-                                return <SKill key={idx}>{e}</SKill>;
-                            })}
-                        </span>
-                    </div>
-                    <div className="date">
-                        <span className="summary_type">
-                            <span className="summary_titie">
-                                {/* <MdCalendarToday />  */}
-                                Site Url
-                            </span>
-
+                        </SummaryWrapper>
+                        <SummaryWrapper>
+                            <SummaryType>사용스킬 </SummaryType>
+                            <SkillWrapper>
+                                {skill.map((e: string, idx: number) => {
+                                    // 첫 문자를 대문자로 변환하고 나머지 문자열과 이어붙입니다.
+                                    const fullString =
+                                        e.charAt(0).toUpperCase() + e.slice(1);
+                                    return (
+                                        <ProjectSkillStyle
+                                            $skill={fullString}
+                                            key={idx}
+                                        >
+                                            {fullString}
+                                        </ProjectSkillStyle>
+                                    );
+                                })}
+                            </SkillWrapper>
+                        </SummaryWrapper>
+                        <SummaryWrapper>
+                            <SummaryType>Site Url </SummaryType>
                             <div
                                 className="project_date"
                                 onClick={() => projectView(projectUrl)}
                             >
-                                <SKill $url={true}>
+                                <SKill
+                                    $url={true}
+                                    style={{ alignItems: 'center' }}
+                                >
                                     <HiMiniLink />
                                     {projectUrl}
                                 </SKill>
                             </div>
-                        </span>
-                    </div>
-                </ProjectSummary>
-
+                        </SummaryWrapper>
+                    </SummaryWrap>
+                </DepsProjectSummary>{' '}
                 {/* quill-view */}
-                <QuillView contents={projectDescription} />
-
-                <Button.Type onClick={() => navigate('/project')}>
+                <QuillView contents={projectDescription} />{' '}
+                <Button.Submit onClick={() => navigate('/project')}>
                     목록으로
-                </Button.Type>
-            </CustumStyle>
+                </Button.Submit>{' '}
+            </CustumStyle>{' '}
+            <ProjectViewFooter>
+                ※ 본 게시물은 상업적 목적이 아닌 포트폴리오 목적으로만
+                사용됩니다. 아직 공개되지 않은 작업물은 포함하지 않으며, 오직
+                공개된 작업물만을 게시합니다.
+            </ProjectViewFooter>
+            <ProjectNextPrevNav />
         </>
     );
 };

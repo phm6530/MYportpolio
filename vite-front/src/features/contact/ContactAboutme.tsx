@@ -6,7 +6,7 @@ const LeftComponent = styled.div`
     height: 100%;
     top: 100px;
     width: 20rem;
-    background: ${({ theme }) => theme.backgroundColor};
+    /* background: ${({ theme }) => theme.backgroundColor}; */
     padding: 2rem;
     border-radius: 1rem;
     margin-right: 2rem;

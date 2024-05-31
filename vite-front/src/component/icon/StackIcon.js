@@ -1,9 +1,7 @@
 import styled from 'styled-components';
-import { useContext } from 'react';
-import { DarkMode } from '../../context/DarkModeContext';
 
 const IconStyle = styled.span`
-    font-size: 10px;
+    font-size: 13px;
     /* font-weight: bold; */
     padding: 6px 0;
     display: inline;
@@ -11,7 +9,7 @@ const IconStyle = styled.span`
     border-radius: 4px;
     padding-right: 10px;
     padding-left: 5px;
-    border-radius: 1em;
+    border-radius: 4px;
 
     color: #fff;
     margin: 0 2px;
@@ -25,18 +23,16 @@ const IconStyle = styled.span`
 `;
 
 const Mysql = ({ label }) => {
-    const ctx = useContext(DarkMode);
     return (
-        <IconStyle $darkMode={ctx.darkMode}>
+        <IconStyle>
             {' '}
             <img src="/img/stackIcon/mysql.png" alt={label} /> {label}
         </IconStyle>
     );
 };
 const Scss = ({ label }) => {
-    const ctx = useContext(DarkMode);
     return (
-        <IconStyle $darkMode={ctx.darkMode}>
+        <IconStyle>
             {' '}
             <img src="/img/stackIcon/scss.png" alt={label} /> {label}
         </IconStyle>
@@ -44,9 +40,8 @@ const Scss = ({ label }) => {
 };
 
 const Jquery = ({ label }) => {
-    const ctx = useContext(DarkMode);
     return (
-        <IconStyle $stack={'jquery'} $darkMode={ctx.darkMode}>
+        <IconStyle $stack={'jquery'}>
             {' '}
             <img src="/img/stackIcon/jquery.png" alt={label} /> {label}
         </IconStyle>
@@ -54,9 +49,8 @@ const Jquery = ({ label }) => {
 };
 
 const Html = ({ label }) => {
-    const ctx = useContext(DarkMode);
     return (
-        <IconStyle $stack={'html'} $darkMode={ctx.darkMode}>
+        <IconStyle $stack={'html'}>
             {' '}
             <img src="/img/stackIcon/html.png" alt={label} />
             {label}
@@ -65,9 +59,8 @@ const Html = ({ label }) => {
 };
 
 const Css = ({ label }) => {
-    const ctx = useContext(DarkMode);
     return (
-        <IconStyle $stack={'css'} $darkMode={ctx.darkMode}>
+        <IconStyle $stack={'css'} style={{ backgroundColor: '#1572b6' }}>
             {' '}
             <img src="/img/stackIcon/css.png" alt={label} />
             {label}
@@ -76,18 +69,16 @@ const Css = ({ label }) => {
 };
 
 const Js = ({ label }) => {
-    const ctx = useContext(DarkMode);
     return (
-        <IconStyle $stack={'js'} $darkMode={ctx.darkMode}>
+        <IconStyle $stack={'js'}>
             {' '}
             <img src="/img/stackIcon/js.png" alt={label} /> {label}
         </IconStyle>
     );
 };
 const React = ({ label }) => {
-    const ctx = useContext(DarkMode);
     return (
-        <IconStyle $stack={'react'} $darkMode={ctx.darkMode}>
+        <IconStyle $stack={'react'}>
             {' '}
             <img src="/img/stackIcon/react.png" alt={label} />
             {label}
@@ -96,9 +87,8 @@ const React = ({ label }) => {
 };
 
 const Ts = ({ label, ...props }) => {
-    const ctx = useContext(DarkMode);
     return (
-        <IconStyle {...props} $stack={'react'} $darkMode={ctx.darkMode}>
+        <IconStyle {...props} $stack={'react'}>
             <svg
                 id="Capa_1"
                 enableBackground="new 0 0 0 0"
@@ -130,9 +120,8 @@ const Ts = ({ label, ...props }) => {
 };
 
 const Php = ({ label, ...props }) => {
-    const ctx = useContext(DarkMode);
     return (
-        <IconStyle {...props} $stack={'php'} $darkMode={ctx.darkMode}>
+        <IconStyle {...props} $stack={'php'}>
             <img src="/img/stackIcon/php.png" alt={label} />
             {label}
         </IconStyle>
@@ -140,29 +129,23 @@ const Php = ({ label, ...props }) => {
 };
 
 const Node = ({ className, label }) => {
-    const ctx = useContext(DarkMode);
     return (
-        <IconStyle
-            $stack={'node'}
-            $darkMode={ctx.darkMode}
-            className={className}
-        >
+        <IconStyle $stack={'node'} className={className}>
             <img src="/img/stackIcon/node.png" alt={label} />
             {label}
         </IconStyle>
     );
 };
 const Next = ({ label }) => {
-    const ctx = useContext(DarkMode);
     return (
-        <IconStyle $stack={'Next'} $darkMode={ctx.darkMode}>
+        <IconStyle $stack={'Next'}>
             <img src="/img/stackIcon/next.png" alt={label} />
             {label}
         </IconStyle>
     );
 };
 
-// const StackIcon = ({children}) => {
+// const StackIcon = ({ children }) => {
 //     return <div>{children}</div>;
 // };
 

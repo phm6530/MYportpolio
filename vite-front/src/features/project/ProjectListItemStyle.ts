@@ -21,7 +21,7 @@ export const ProjectFadeinStyle = styled(FadeInAnimation)`
     }
     &:hover {
         .projectItemImg {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
         .aniTarget {
             background: rgba(0, 0, 0, 0.3);
@@ -31,7 +31,7 @@ export const ProjectFadeinStyle = styled(FadeInAnimation)`
             }
         }
         img {
-            transform: scale(1.1);
+            /* transform: scale(1.1); */
         }
     }
 `;
@@ -60,12 +60,15 @@ export const ProjectCompany = styled.div`
     display: none;
 `;
 export const ProjectDescription = styled.div`
-    font-size: 14px;
-    white-space: pre-line;
+    font-size: 13px;
     margin-bottom: 7px;
-    color: ${({ theme }) => theme.descriptionColor};
-    line-height: 1.7rem;
     word-break: keep-all;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--color-description-color);
 `;
 
 export const ViewIconAnimation = styled.div`
@@ -77,6 +80,7 @@ export const ViewIconAnimation = styled.div`
     align-items: center;
     justify-content: center;
     background: rgba(0, 0, 0, 0);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     transition: all 0.5s ease;
     overflow: hidden;
     border-radius: 1rem;

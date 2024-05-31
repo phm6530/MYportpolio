@@ -23,6 +23,7 @@ const BlogPostRelatedList = () => {
 
     const relatedList = data || [];
 
+    console.log('랜더');
     return (
         <>
             {relatedList.length !== 0 && (

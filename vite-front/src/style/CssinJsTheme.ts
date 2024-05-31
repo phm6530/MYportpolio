@@ -179,7 +179,7 @@ export const darkTheme = {
     border_picture_color: '#515867',
 
     //Nav Theme
-    navBackground: '#191e22',
+    navBackground: '#191e2282',
     navColor: '#fff',
     navBorder: '1px solid rgb(158 158 158 / 10%)',
 

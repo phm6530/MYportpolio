@@ -47,6 +47,7 @@ const ViewIconAnimation = styled.div`
     align-items: center;
     justify-content: center;
     background: rgba(0, 0, 0, 0);
+    /* border: 1px solid rgba(0, 0, 0, 0.1); */
     transition: all 0.5s ease;
 
     svg {

@@ -1,10 +1,14 @@
 // button
 .btn-submit {
-    font-size: 12px;
-    padding: 0.4rem 1.4rem;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    margin-right: 0.5rem;
-    border-radius: 2rem;
+    height: 2.4rem;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 3rem;
+    margin: 0.4rem;
+    background: var(--background-category-color);
 }
 
 .btn-upload {

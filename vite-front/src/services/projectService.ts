@@ -50,3 +50,23 @@ export const projectDelete = async (key: string) => {
     const url = `${ENDPOINT_URL}/project/delete/${key}`;
     return requestHandler(() => axios.delete(url));
 };
+
+interface PrevnextList {
+    description: string;
+    id: number;
+    thumbnail: string;
+    project_key: string;
+    isPage: string;
+}
+
+export const fetchProjectNextPrevList = async (
+    key: string,
+): Promise<PrevnextList[]> => {
+    const url = `${ENDPOINT_URL}/project/nextprev/${key}`;
+    const { resData } = await requestHandler<ApiResData<PrevnextList[]>>(
+        async () => {
+            return axios.get(url);
+        },
+    );
+    return resData;
+};

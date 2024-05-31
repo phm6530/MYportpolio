@@ -100,13 +100,14 @@ const UploadButton: React.FC<UploadButtnProps> = ({ children, ...props }) => {
 };
 
 const BtnSubmitStyle = styled.button<{ $active?: boolean }>`
+    background: var(--background-category-color);
     ${props =>
         props.$active &&
         `            
-            background-color: #8B6EF2;
+            background-color: #333;
             color: rgba(255, 255, 255, 1);
     `};
-    border: 1px solid var(--borer-line-color);
+    /* border: 1px solid var(--borer-line-color); */
 `;
 
 const SubmitButton: React.FC<ButtonProps> = ({

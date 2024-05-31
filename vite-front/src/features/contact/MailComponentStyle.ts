@@ -43,7 +43,7 @@ const ani = keyframes`
 export const ContactContents = styled.div`
     opacity: 0;
     flex-grow: 1;
-    background: ${({ theme }) => theme.backgroundColor};
+    /* background: ${({ theme }) => theme.backgroundColor}; */
     padding: 2rem;
     border-radius: 1em;
     display: flex;

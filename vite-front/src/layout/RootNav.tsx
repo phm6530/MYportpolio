@@ -61,24 +61,21 @@ const List = styled(Link)<ListProps>`
     transition: color 1s ease;
 `;
 
-const Header = styled.header<{ $scrollOver: boolean; $path: boolean }>`
+const Header = styled.header<ListProps>`
     position: fixed;
     z-index: 10;
     width: 100%;
     backdrop-filter: blur(5px);
     border-bottom: var(--Nav-navBorder);
     font-family: 'Pretendard-Regular';
-    ${({ $scrollOver, $path }) => {
-        if ($scrollOver && !$path) {
-            return css`
-                background: var(--Nav-Background-color);
-
-                border-bottom: 1px solid rgb(158 158 158 / 30%);
-            `;
-        } else {
-            return css`
-                border-bottom: var(--Nav-navBorder);
-            `;
+    ${({ $scrollOver, $path, $darkMode }) => {
+        if (!$path) {
+            if ($scrollOver && !$darkMode) {
+                return css`
+                    background: var(--Nav-Background-color);
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+                `;
+            }
         }
     }}
     transition: background 1s cubic-bezier(0, 0.88, 0, 1.03);
@@ -100,6 +97,7 @@ const UiStyle = styled.ul`
 export default function RootNav() {
     const login = useStore(state => state.userAuth.login);
     const darkMode = useStore(state => state.darkMode);
+
     const { pathname } = useLocation();
     const [active, setActive] = useState<string>(pathname);
     const [loginModal, setLoginModal] = useState<boolean>(false);
