@@ -16,8 +16,8 @@ export const PageSubText = styled.div`
 export const ProjectWrapStyle = styled.div`
     flex-direction: column;
     border-radius: 1em;
-    background: var(--color-background);
-    border: var(--border--btn-type-1);
+    /* background: var(--color-background); */
+    /* border: var(--border--btn-type-1); */
     flex-grow: 1;
     overflow: hidden;
     padding: 0 2rem;

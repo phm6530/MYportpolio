@@ -21,7 +21,7 @@ export const ProjectFadeinStyle = styled(FadeInAnimation)`
     }
     &:hover {
         .projectItemImg {
-            background-size: 120%;
+            transform: scale(1.1);
         }
         .aniTarget {
             background: rgba(0, 0, 0, 0.3);
@@ -38,17 +38,17 @@ export const ProjectFadeinStyle = styled(FadeInAnimation)`
 
 export const ProjectImgArea = styled.div<{ $backImg: string }>`
     width: 100%;
-    height: 10.6rem;
+    height: 13.6rem;
     position: relative;
     overflow: hidden;
-    border-radius: 0.3rem;
+    border-radius: 1rem;
     transition: all 0.5s ease;
     margin-right: 3rem;
     ${props =>
         props.$backImg &&
         css`
             background-image: url(${props.$backImg});
-            background-size: 110%;
+            background-size: cover;\
             background-position: center center;
         `}
 `;

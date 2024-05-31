@@ -12,7 +12,7 @@ const SubTitleStyle = styled.div`
         line-height: 1.1em;
         font-weight: bold;
         flex-grow: 1;
-        font-family: 'Poppins';
+        font-family: 'Montserrat';
         display: flex;
         margin-bottom: 1rem;
         align-items: center;
@@ -22,6 +22,7 @@ const SubTitleStyle = styled.div`
             color: transparent;
             background-clip: text;
             margin-right: 0.5rem;
+            font-family: 'Montserrat';
         }
     }
     img {

@@ -14,6 +14,9 @@ export const FadeUp: React.FC<MotionProps> = ({
     children,
     delay = 0,
 }) => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     return (
         <motion.div
             className={className}
@@ -31,6 +34,9 @@ export const FadeUp: React.FC<MotionProps> = ({
 };
 
 export const FadeInOut: React.FC<MotionProps> = ({ className, children }) => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     return (
         <motion.div
             className={className}

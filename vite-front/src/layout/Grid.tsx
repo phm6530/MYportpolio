@@ -1,17 +1,21 @@
+import Footer from '@layout/Footer';
 import styled from 'styled-components';
 
 const CenteredGrid = styled.div`
-    width: 1280px;
+    width: 1180px;
     margin: 0 auto;
     position: relative;
+
     z-index: 1;
 `;
 
 const BannerCenteredGrid = styled.div`
-    width: 1280px;
-    margin: 0 auto;
-    padding-top: 10.5rem;
+    padding-top: 12.5rem;
+    padding-bottom: 6rem;
+    margin-left: 4rem;
     position: relative;
+    margin: 0 auto;
+    width: 1180px;
 `;
 
 const MainSpacer = styled.div`
@@ -24,6 +28,7 @@ const LayoutSpacer = styled.div`
     width: 100%;
     justify-content: space-between;
     display: flex;
+    margin: 0 auto;
 `;
 
 const BannerSpacer = styled.div`
@@ -34,7 +39,12 @@ const BannerSpacer = styled.div`
 
 const PageCenteredGrid = styled(CenteredGrid)`
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+`;
+
+const PageWrapperStyle = styled.div`
+    display: flex;
+    flex-direction: column;
 `;
 
 const Grid = ({ children }: { children: React.ReactNode }) => {
@@ -45,10 +55,11 @@ const Grid = ({ children }: { children: React.ReactNode }) => {
     );
 };
 
-const PageGrid = ({ children }: { children: React.ReactElement }) => {
+const PageGrid = ({ children }: { children: React.ReactNode }) => {
     return (
         <PageCenteredGrid>
             <LayoutSpacer>{children}</LayoutSpacer>
+            <Footer />
         </PageCenteredGrid>
     );
 };
@@ -69,6 +80,10 @@ const FooterGrid = ({ children }: { children: React.ReactElement }) => {
     );
 };
 
+const PageWrapper = ({ children }: { children: React.ReactNode }) => {
+    return <PageWrapperStyle>{children}</PageWrapperStyle>;
+};
+
 export {
     Grid,
     FooterGrid,
@@ -76,4 +91,5 @@ export {
     LayoutSpacer,
     PageGrid,
     PageBannerGrid,
+    PageWrapper,
 };

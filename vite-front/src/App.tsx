@@ -5,7 +5,6 @@ import AppRoute from 'Route/AppRoute';
 // redux
 
 // layOut
-import Footer from 'layout/Footer';
 import ThemeWrapper from 'style/ThemeWrapper';
 import { GlobalStyle } from 'style/CssinJsTheme';
 
@@ -32,7 +31,6 @@ function App(): JSX.Element {
                         <GlobalStyle />
                         <BrowserRouter>
                             <AppRoute />
-                            <Footer />
                         </BrowserRouter>
                         <ToastContainer {...toastConfig} />
                     </ThemeProvider>

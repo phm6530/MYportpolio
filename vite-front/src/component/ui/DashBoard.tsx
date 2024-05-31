@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 // import VideoCanvas from '../common/VideoCanvas';
 
@@ -6,6 +6,7 @@ import { PageBannerGrid } from '@layout/Grid';
 import { useLocation } from 'react-router-dom';
 import { IoMdHome } from 'react-icons/io';
 import DashBoardTitle from './DashBoardTitle';
+import ShootingStar from 'component/animations/ShootingStar';
 
 const infiniteBgAni = keyframes`
   0% {
@@ -27,14 +28,17 @@ const opacityAni = keyframes`
 
 const PageBanner = styled.div<{ $page: string }>`
     width: 100%;
-    min-width: 1280px;
-    height: 25rem;
+    /* min-width: 1280px; */
+    /* height: 100vh; */
     overflow: hidden;
     position: relative;
     z-index: -1;
     background-image: url('/img/main.jpg');
-    background-position: center -698px;
+    background-position: center calc(100% + 350px);
     background-size: cover;
+    /* position: sticky; */
+    top: 0;
+    transition: background-position 1s ease;
     animation: ${infiniteBgAni} 10s cubic-bezier(0.2, 0.56, 0.38, 0.41) infinite
         forwards alternate;
 `;
@@ -62,7 +66,7 @@ const PageTest = styled.div`
         to right,
         rgb(10 14 15 / 75%),
         rgb(20 22 32 / 61%),
-        rgb(255 255 255 / 0%)
+        rgb(0 0 0 / 58%)
     );
     animation: ${opacityAni} 1s 0.3s ease-in-out forwards;
 `;
@@ -84,7 +88,7 @@ const PageInfoText = styled.div`
         margin-right: 10px;
     }
     opacity: 0;
-    background: linear-gradient(to left, #64c7ef, #a9a5cc, #8e9bfc);
+    background: linear-gradient(to left, #f0f0f0, #a9a5cc, #8e9bfc);
     color: transparent;
     font-weight: bold;
     background-clip: text;
@@ -94,7 +98,7 @@ const PageInfoText = styled.div`
 
 interface DashBoardProps {
     className?: string;
-    pageTitle: string;
+    pageTitle?: string;
     subComment?: string;
     page?: string;
     children?: React.ReactNode;
@@ -109,23 +113,23 @@ const DashBoard: React.FC<DashBoardProps> = ({
 }) => {
     const { pathname } = useLocation();
 
-    useEffect(() => {
-        const target = document.getElementById('parallaxEvent');
-        const ParallaxHandler = () => {
-            // Parallax logic here
-        };
-        if (target) {
-            window.addEventListener('scroll', ParallaxHandler);
-        }
-        return () => {
-            if (target) {
-                window.removeEventListener('scroll', ParallaxHandler);
-            }
-        };
-    }, [pathname]);
+    // useEffect(() => {
+    //     const target = document.getElementById('parallaxEvent');
+    //     const ParallaxHandler = () => {
+    //         const ScrollBackgroundPosition = window.scrollY / 60;
+    //         if (target) {
+    //             target.style.backgroundPositionY = `${ScrollBackgroundPosition}px`;
+    //         }
+    //     };
+    //     window.addEventListener('scroll', ParallaxHandler);
+    //     return () => {
+    //         window.removeEventListener('scroll', ParallaxHandler);
+    //     };
+    // }, []);
 
     return (
         <PageBanner id="parallaxEvent" $page={page} className={className}>
+            <ShootingStar />
             <PageTest />
             <PageBannerGrid>
                 <DashBoardTitle>{pageTitle}</DashBoardTitle>

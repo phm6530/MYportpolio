@@ -30,8 +30,6 @@ const ProjectListItem: React.FC<{ project: ProjectPostProps }> = ({
                     <ViewIconAnimation className="aniTarget">
                         <FaMagnifyingGlass />
                     </ViewIconAnimation>
-
-                    {/* <img src={} alt={title} /> */}
                 </ProjectImgArea>
 
                 <ProjectItemWrap>

@@ -21,7 +21,7 @@ export const ProjectListStyle = styled.div`
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
-    box-shadow: var(--box-shadow-style);
+    /* box-shadow: var(--box-shadow-style); */
 `;
 
 export const FlexRow = styled.div`

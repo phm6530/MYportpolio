@@ -10,11 +10,15 @@ const CategoryList = styled.div<{ $select: boolean }>`
     cursor: pointer;
     display: flex;
     align-items: center;
+    /* border: 1px solid #354363; */
+    padding: 1rem;
+    border-radius: 3rem;
+    margin: 0.4rem;
     &:hover {
         color: var(--hover-color);
     }
-
-    ${props => props.$select && `color: #7f8fae`}
+    background: var(--background-category-color);
+    ${props => props.$select && `color: #7f8fae`};
 `;
 
 const Cnt = styled.span`
@@ -28,7 +32,6 @@ const NewIcon = styled.span`
     height: 12px;
     font-size: 0.5rem;
     color: #fff;
-    background: red;
     display: inline-flex;
     background: rgb(255 99 99);
     border-radius: 3px;

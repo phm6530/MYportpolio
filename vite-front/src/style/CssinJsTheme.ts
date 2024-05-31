@@ -52,6 +52,11 @@ export const GlobalStyle = createGlobalStyle`
     --Nav-Background-color : ${({ theme }) => theme.navBackground};
     --Nav-color : ${({ theme }) => theme.navColor};
     --Nav-navBorder : ${({ theme }) => theme.navBorder};
+
+
+    /* 카테고리 버튼 */
+    --background-category-color :${({ theme }) => theme.tabButtonColor};
+    --border-darkMode-color :${({ theme }) => theme.boderDarkModeButton};
   }
 
 
@@ -97,7 +102,7 @@ export const lightTheme = {
     searchBackground: '#f7f4f4',
     searchBorder: '1px solid transparent',
 
-    backgroundColorType1: '#eef8ff',
+    backgroundColorType1: '#fff',
 
     inputBackground: '#fcfeff',
 
@@ -112,7 +117,7 @@ export const lightTheme = {
 
     listColor: 'rgba(61, 71, 81, 0.3)',
 
-    btnBorderType1: '1px solid rgb(217 224 232 / 3%)',
+    btnBorderType1: '1px solid rgb(47 59 73 / 5%)',
     toolbarColor: '#444',
 
     gradiendtTitle: 'linear-gradient(to left, #7264ef, #7264ef, #dd8efc)',
@@ -126,9 +131,13 @@ export const lightTheme = {
     border_picture_color: '#fff',
 
     //navTheme
-    navBackground: '#fff',
+    navBackground: '#ffffff80',
     navColor: '#333',
     navBorder: '1px solid rgb(158 158 158 / 10%)',
+
+    // tabBUtton
+    tabButtonColor: '#d6d6d652',
+    boderDarkModeButton: '#bbbbbb4f',
 };
 
 export const darkTheme = {
@@ -163,7 +172,7 @@ export const darkTheme = {
     gradiendSubTitle: 'linear-gradient(to left, #64c7ef, #a9a5cc, #8e9bfc)',
 
     // border line Style
-    borderColor: 'rgb(98 114 129 / 72%)',
+    borderColor: 'rgb(98 114 129 / 19%)',
     div_BoxShaodw: '0 0px 40px rgba(0, 0, 0, 0.4)',
     background_disable_input: '#0000004f',
 
@@ -173,4 +182,8 @@ export const darkTheme = {
     navBackground: '#191e22',
     navColor: '#fff',
     navBorder: '1px solid rgb(158 158 158 / 10%)',
+
+    // tabBUtton
+    tabButtonColor: '#05050552',
+    boderDarkModeButton: '#ffffff2b',
 };

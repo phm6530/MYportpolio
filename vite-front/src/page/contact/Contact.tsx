@@ -1,5 +1,5 @@
 import DashBoard from 'component/ui/DashBoard';
-import { PageGrid } from '@layout/Grid';
+import { PageGrid, PageWrapper } from '@layout/Grid';
 import styled from 'styled-components';
 import MailComponent from '@features/contact/MailComponent';
 import ContactAboutme from '@features/contact/ContactAboutme';
@@ -12,7 +12,7 @@ const ContentsWrap = styled.div`
 
 export default function Contact(): JSX.Element {
     return (
-        <>
+        <PageWrapper>
             <DashBoard pageTitle={'CONTACT'} />
             <PageGrid>
                 <ContentsWrap>
@@ -20,6 +20,6 @@ export default function Contact(): JSX.Element {
                     <MailComponent />
                 </ContentsWrap>
             </PageGrid>
-        </>
+        </PageWrapper>
     );
 }

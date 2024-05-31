@@ -3,6 +3,11 @@ import useBlogCategory from '../hooks/useBlogCategory';
 import { useEffect, useState } from 'react';
 import { type BlogCategorylist } from '@type/BlogTypes';
 import AccodianTab from '@features/Blog/BlogTab.js/BlogTabAcodian';
+import styled from 'styled-components';
+
+const TabWrapper = styled.div`
+    margin-left: 4rem;
+`;
 
 const BlogTab = () => {
     const { data, isLoading } = useBlogCategory();
@@ -15,7 +20,7 @@ const BlogTab = () => {
     }, [data, isLoading]);
 
     return (
-        <>
+        <TabWrapper>
             {categories &&
                 Object.keys(categories).map((category, idx) => (
                     <AccodianTab
@@ -25,7 +30,7 @@ const BlogTab = () => {
                         key={idx}
                     />
                 ))}
-        </>
+        </TabWrapper>
     );
 };
 

@@ -3,7 +3,11 @@ import styled from 'styled-components';
 const Tab = styled.div`
     margin-right: 3rem;
     padding-right: 2rem;
-    width: 16rem;
+    margin-bottom: 3rem;
+    width: 100%;
+    display: flex;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--borer-line-color);
 `;
 
 const Contents = styled.div`
@@ -13,7 +17,7 @@ const Contents = styled.div`
 const BoardWrapper = styled.div`
     height: 100%;
     display: flex;
-
+    flex-direction: column;
     width: 100%;
     transition: all 0.5s ease;
     background: ${({ theme }) => theme.backgroundColor};

@@ -7,7 +7,7 @@ export const ProfileCard = styled.div`
     border: var(--border--btn-type-1);
     box-shadow: var(--box-shadow-style);
     margin-right: 2rem;
-    height: 70vh;
+    /* height: 70vh; */
     padding: 2rem;
     width: 17rem;
     flex-shrink: 0;
@@ -17,6 +17,7 @@ export const ProfileCard = styled.div`
     flex-direction: column;
     align-items: center;
     text-align: center;
+    margin-top: -3rem;
 `;
 export const ProfilePicture = styled.div<{ $isOnline: boolean }>`
     width: 4.5rem;

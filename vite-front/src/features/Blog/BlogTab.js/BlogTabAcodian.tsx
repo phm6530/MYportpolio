@@ -1,23 +1,23 @@
-import { LuMinus } from 'react-icons/lu';
-import { GoPlus } from 'react-icons/go';
+// import { LuMinus } from 'react-icons/lu';
+// import { GoPlus } from 'react-icons/go';
 import styled from 'styled-components';
 import BlogTabDetail from './BlogTabDetail';
 import useQueryString from '../../../hooks/useSearchQueryString';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { BlogCategory } from '@type/BlogTypes';
 
 const ListWrapper = styled.div<ListWrapperProps>`
     overflow: hidden;
     padding-left: 1rem;
-    height: ${props =>
-        props.$first ? 'auto' : props.$view ? `${props.$height + 20}px` : '0'};
     transition: 0.3s ease;
-    border-bottom: 1px solid var(--borer-line-color);
+    display: flex;
+    /* border-bottom: 1px solid var(--borer-line-color); */
 `;
 
 const CateGory = styled.div`
     font-size: 16px;
     padding: 1rem 0;
+    min-width: 50px;
     display: flex;
     align-items: center;
     font-weight: bold;
@@ -35,11 +35,15 @@ const LeftAlign = styled.div`
     align-items: center;
     cursor: pointer;
 `;
+const CategoryWrapper = styled.div`
+    display: flex;
+    align-items: flex-start;
+`;
 
 interface ListWrapperProps {
     $first: boolean;
     $view: boolean;
-    $height: number;
+    // $height: number;
 }
 
 interface AccodianTabProps {
@@ -50,7 +54,7 @@ interface AccodianTabProps {
 
 const AccodianTab: React.FC<AccodianTabProps> = ({ list, idx, category }) => {
     const [view, setView] = useState<boolean>(true);
-    const [height, setHeight] = useState<number>(0);
+    // const [height, setHeight] = useState<number>(0);
     const ref = useRef<HTMLInputElement>(null);
     const { navigateHandler } = useQueryString('blog');
 
@@ -65,14 +69,14 @@ const AccodianTab: React.FC<AccodianTabProps> = ({ list, idx, category }) => {
     const allCnt = idx === 0 && typeof list === 'number' && list;
 
     // 높이계산
-    useEffect(() => {
-        if (ref.current) {
-            setHeight(ref.current.scrollHeight);
-        }
-    }, [view]);
+    // useEffect(() => {
+    //     if (ref.current) {
+    //         setHeight(ref.current.scrollHeight);
+    //     }
+    // }, [view]);
 
     return (
-        <>
+        <CategoryWrapper>
             <CateGory onClick={() => ToggleBtn(category)}>
                 {idx === 0 ? (
                     <LeftAlign>
@@ -81,7 +85,7 @@ const AccodianTab: React.FC<AccodianTabProps> = ({ list, idx, category }) => {
                 ) : (
                     <>{category}</>
                 )}
-                {idx !== 0 ? !view ? <GoPlus /> : <LuMinus /> : undefined}
+                {/* {idx !== 0 ? !view ? <GoPlus /> : <LuMinus /> : undefined} */}
             </CateGory>
 
             {/* 타입가드로 number가 아닐때만 확실하게  */}
@@ -89,7 +93,7 @@ const AccodianTab: React.FC<AccodianTabProps> = ({ list, idx, category }) => {
                 $first={idx === 0}
                 $view={view}
                 ref={ref}
-                $height={height}
+                // $height={height}
             >
                 {typeof list !== 'number' && Object.keys(list).length > 0
                     ? Object.keys(list).map((item, idx) => (
@@ -103,7 +107,7 @@ const AccodianTab: React.FC<AccodianTabProps> = ({ list, idx, category }) => {
                       ))
                     : null}
             </ListWrapper>
-        </>
+        </CategoryWrapper>
     );
 };
 

@@ -17,7 +17,7 @@ const PagePoint = styled.div`
 `;
 
 const BannerPoint: React.FC<{
-    className: string;
+    className?: string;
     children: React.ReactNode;
 }> = ({ className, children }) => {
     return <PagePoint className={className}>{children}</PagePoint>;

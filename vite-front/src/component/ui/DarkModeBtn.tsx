@@ -20,8 +20,9 @@ const DarkmodeButton = styled.div<{ $scrollOver: boolean }>`
     overflow: hidden;
     width: 60px;
     height: 30px;
-    border: 2px solid #ffffff2b;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--border-darkMode-color);
+    /* box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); */
+    margin-right: auto;
     &:active {
         box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.8);
     }

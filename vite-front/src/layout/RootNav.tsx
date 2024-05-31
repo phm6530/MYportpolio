@@ -44,19 +44,20 @@ interface ListProps {
     $path?: boolean;
 }
 
-const List = styled(Link)<ListProps>`
-    color: ${({ $scrollOver, $darkMode, $path }) => {
-        console.log('$path', !$path);
-        if (!$path) {
-            if ($scrollOver) {
-                return 'var(--Nav-color)';
-            } else if (!$scrollOver && !$darkMode) {
-                return '#fff';
-            }
-        } else {
+const ScrollOverColor = ({ $scrollOver, $darkMode, $path }: ListProps) => {
+    if (!$path) {
+        if ($scrollOver) {
+            return 'var(--Nav-color)';
+        } else if (!$scrollOver && !$darkMode) {
             return '#fff';
         }
-    }};
+    }
+    return '#fff';
+};
+
+const List = styled(Link)<ListProps>`
+    color: ${({ $scrollOver, $darkMode, $path }) =>
+        ScrollOverColor({ $scrollOver, $darkMode, $path })};
     transition: color 1s ease;
 `;
 
@@ -64,24 +65,44 @@ const Header = styled.header<{ $scrollOver: boolean; $path: boolean }>`
     position: fixed;
     z-index: 10;
     width: 100%;
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(5px);
     border-bottom: var(--Nav-navBorder);
     font-family: 'Pretendard-Regular';
-    ${({ $scrollOver, $path }) =>
-        $scrollOver &&
-        !$path &&
-        css`
-            background: var(--Nav-Background-color);
-        `};
+    ${({ $scrollOver, $path }) => {
+        if ($scrollOver && !$path) {
+            return css`
+                background: var(--Nav-Background-color);
+
+                border-bottom: 1px solid rgb(158 158 158 / 30%);
+            `;
+        } else {
+            return css`
+                border-bottom: var(--Nav-navBorder);
+            `;
+        }
+    }}
     transition: background 1s cubic-bezier(0, 0.88, 0, 1.03);
+`;
+
+const MyName = styled.div<{ $scrollOver: boolean; $darkMode: boolean }>`
+    color: #fff;
+    font-family: 'Montserrat';
+    font-weight: bold;
+    color: ${({ $scrollOver, $darkMode }) =>
+        ScrollOverColor({ $scrollOver, $darkMode })};
+`;
+
+const UiStyle = styled.ul`
+    display: flex;
+    align-items: center;
 `;
 
 export default function RootNav() {
     const login = useStore(state => state.userAuth.login);
     const darkMode = useStore(state => state.darkMode);
     const { pathname } = useLocation();
+    const [active, setActive] = useState<string>(pathname);
     const [loginModal, setLoginModal] = useState<boolean>(false);
-    const [active, setActive] = useState(pathname);
     const { scrollOver } = useScrollY(300);
     const { mutateAsync } = useLogout();
 
@@ -105,8 +126,14 @@ export default function RootNav() {
             <Header $scrollOver={scrollOver} $path={location.pathname === '/'}>
                 <div className="wrap">
                     <nav>
-                        <DarkModeBtn />
-
+                        {' '}
+                        <MyName
+                            $scrollOver={scrollOver}
+                            $darkMode={darkMode}
+                            onClick={() => navigate('/')}
+                        >
+                            PHM{`'`} Portpolio .
+                        </MyName>
                         {/* Nav */}
                         <ul>
                             {NAVPAGE_OBJECT.map((e, idx) => (
@@ -127,17 +154,30 @@ export default function RootNav() {
                                     {e.pathName}
                                 </List>
                             ))}
-
+                        </ul>
+                        <UiStyle>
+                            <DarkModeBtn />
                             {/* login Component */}
                             {!login && (
-                                <List onClick={openLoginPopup}>로그인</List>
+                                <List
+                                    $scrollOver={scrollOver}
+                                    $darkMode={darkMode}
+                                    onClick={openLoginPopup}
+                                >
+                                    로그인
+                                </List>
                             )}
+
                             {login && (
-                                <List onClick={() => mutateAsync()}>
+                                <List
+                                    $scrollOver={scrollOver}
+                                    $darkMode={darkMode}
+                                    onClick={() => mutateAsync()}
+                                >
                                     로그아웃
                                 </List>
                             )}
-                        </ul>
+                        </UiStyle>
                     </nav>
                 </div>
             </Header>

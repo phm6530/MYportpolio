@@ -52,7 +52,7 @@ const CreateDate = styled(SummaryData)`
     opacity: 0.7;
 `;
 const CustomThumNail = styled(Thumbnail)`
-    width: 30%;
+    width: 25%;
 `;
 
 const BlogContentsItem: React.FC<{ item: BlogMainContentsItemProps }> = ({

@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import React, { ReactNode, useEffect } from 'react';
+import React, { ReactNode } from 'react';
 const animation = keyframes`
     from{
         opacity: 0;
@@ -29,6 +29,7 @@ const DashBoardTitleStyle = styled.div`
     margin-right: 0.5rem;
     opacity: 0;
     font-family: 'Poppins';
+    /* font-family: 'Montserrat'; */
     -webkit-background-clip: text;
     letter-spacing: -4px;
     font-size: 5rem;
@@ -68,17 +69,17 @@ export default function DashBoardTitle({
     className,
     children,
 }: DashBoardTitleProps) {
-    useEffect(() => {
-        const parallax = () => {
-            const target = document.getElementById('dashboardShadow')!;
-            const ScrollHegiht = (window.scrollY + 75) / 3;
-            target.style.bottom = `-${ScrollHegiht}px`;
-        };
-        document.addEventListener('scroll', parallax);
-        return () => {
-            document.removeEventListener('scroll', parallax);
-        };
-    }, []);
+    // useEffect(() => {
+    //     const parallax = () => {
+    //         const target = document.getElementById('dashboardShadow')!;
+    //         const ScrollHegiht = (window.scrollY + 75) / 3;
+    //         target.style.bottom = `-${ScrollHegiht}px`;
+    //     };
+    //     document.addEventListener('scroll', parallax);
+    //     return () => {
+    //         document.removeEventListener('scroll', parallax);
+    //     };
+    // }, []);
 
     return (
         <RelativeContainer>

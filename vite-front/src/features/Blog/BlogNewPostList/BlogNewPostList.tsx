@@ -4,8 +4,6 @@ import PostItem from './BlogPostItem';
 import { useLocation } from 'react-router-dom';
 
 const Container = styled.div<{ $isMain?: boolean }>`
-    margin-top: 2rem;
-
     ${({ $isMain }) => $isMain && 'color: #fff;'}
 `;
 

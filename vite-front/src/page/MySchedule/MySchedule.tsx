@@ -10,7 +10,7 @@ import { scheduleFetch } from 'services/ScheduleService';
 import { TodaySeletor } from 'utils/TodaySeletor';
 
 // styled
-import { PageGrid } from '@layout/Grid';
+import { PageGrid, PageWrapper } from '@layout/Grid';
 
 //그래프
 import { FlexColumnDiv } from '@style/commonStyle';
@@ -35,7 +35,7 @@ const CustumlexColumnDiv = styled(FlexColumnDiv)`
 export default function MySchedule() {
     const today = TodaySeletor(); //오늘날짜 계산
     const [selectDay, setSelectDay] = useState(today());
-    const [param] = useSearchParams(new URL(window.location).searchParams);
+    const [param] = useSearchParams();
 
     const getYear = param.get('year') || today().split('-')[0];
     const getMonth = param.get('month') || today().split('-')[1];
@@ -78,7 +78,7 @@ export default function MySchedule() {
     }, [isSuccess, isError, data, error]);
 
     return (
-        <>
+        <PageWrapper>
             <DashBoard page={'Calendar'}>
                 {/* header */}
                 <BannerCommon.BannerPoint>
@@ -108,6 +108,6 @@ export default function MySchedule() {
                     {isLoading && <SpinnerLoading />}
                 </CustumlexColumnDiv>
             </PageGrid>
-        </>
+        </PageWrapper>
     );
 }
