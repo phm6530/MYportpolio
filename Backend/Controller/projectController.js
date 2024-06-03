@@ -51,6 +51,7 @@ const handleActionProject = async (req, res, next) => {
         res.status(200).json({ message: 'Project processed successfully' });
     } catch (error) {
         const err = new NotFoundError(error.message);
+        console.log(err);
         next(err);
     }
 };
@@ -82,20 +83,34 @@ const handleFetchPrevNext = async (req, res, next) => {
             const projectId = id[0].id;
 
             const getNextPrevSql = `
-            (SELECT id, project_key , thumbnail , description FROM project AS p WHERE id < ? ORDER BY id DESC LIMIT 1 offset 0) union
-            (SELECT id, project_key , thumbnail , description FROM project AS p WHERE id > ? ORDER BY id DESC LIMIT 1 offset 0)
+            (
+                SELECT id, project_key, thumbnail, description, title 
+                FROM project AS p 
+                WHERE id > ? 
+                ORDER BY id ASC 
+                LIMIT 1
+            )
+            UNION
+            (
+                SELECT id, project_key, thumbnail, description, title 
+                FROM project AS p 
+                WHERE id < ? 
+                ORDER BY id DESC 
+                LIMIT 1
+            )
+            
             `;
 
             const nextPrevList = await conn.query(getNextPrevSql, [projectId, projectId]);
             const result = nextPrevList[0].map((e) => {
                 if (projectId > e.id) {
-                    return { ...e, isPage: 'prev' };
-                } else {
                     return { ...e, isPage: 'next' };
+                } else {
+                    return { ...e, isPage: 'prev' };
                 }
             });
-            console.log(result);
 
+            console.log(result);
             return result;
         });
         res.status(200).json({ message: 'success', resData: result });

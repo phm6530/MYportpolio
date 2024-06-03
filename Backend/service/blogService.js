@@ -26,6 +26,8 @@ const postInsert = async (conn, body, id) => {
         subCategory_id[0].subcategory_id,
     ]);
 
+    console.log(meta_result);
+
     const postId = meta_result.insertId;
 
     const sql_contents = `

@@ -7,8 +7,20 @@ const fetchEditProjectModel = (conn) => {
             inner join 
                 project_description as b on a.project_key = b.project_key 
             where a.project_key = ?
-    `;
+        `;
             const [response] = await conn.query(sql, [key]);
+            return response;
+        },
+        fetchEditRole: async (projectId) => {
+            const sql = `
+            select b.role_name as roleName , a.percent as rolePercent , b.role_id as role_id
+            from 
+                project_roles_data a
+            join 
+                project_roles b on a.role_id = b.role_id
+            where project_id = ?;
+            `;
+            const [response] = await conn.query(sql, [projectId]);
             return response;
         },
     };
@@ -16,7 +28,22 @@ const fetchEditProjectModel = (conn) => {
 
 const projectActionModel = (conn) => {
     return {
-        projectAction: (
+        projectRole: async (values, id, pageType) => {
+            console.log(values, id, pageType);
+
+            let sql = '';
+            if (pageType === 'add') {
+                sql = `INSERT INTO project_roles_data (role_id, project_id, percent) VALUES ${values}`;
+                return conn.query(sql);
+            } else {
+                sql = `DELETE FROM project_roles_data WHERE project_id = ?`;
+                await conn.query(sql, [id]);
+                sql = `INSERT INTO project_roles_data (role_id, project_id, percent) VALUES ${values}`;
+
+                return conn.query(sql);
+            }
+        },
+        projectAction: async (
             { projectKey, title, company, skill, hashtag, description, startDate, endDate, projectUrl, thumbnail }, //디스크립션은 필요없음
             pageType, // 페이지 타입
         ) => {
