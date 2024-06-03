@@ -7,7 +7,7 @@ const QuillContainer = styled.div`
     border: 0 !important;
     font-size: 16px; //기존 텍스트 사이즈
     .ql-editor {
-        min-height: 500px !important;
+        min-height: 200px !important;
         padding: 0;
         line-height: 1.8 !important;
         font-family: 'Poppins', 'SUIT-Regular', sans-serif;

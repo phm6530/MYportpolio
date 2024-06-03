@@ -1,6 +1,7 @@
 import { ReactQuery, ReactRouteDom } from 'lib/lib';
 import { ComponentType } from 'react';
 import NotfoundPage from 'component/error/NotfoundPage';
+import { SpinnerLoading } from 'component/loading/SpinnerLoading';
 
 const { useParams } = ReactRouteDom;
 const { useQuery } = ReactQuery;
@@ -9,6 +10,7 @@ interface WithFetchDataReturnProps {
     redirectPath: string;
     queryKeyPrefix: string;
 }
+
 const withFetchData = <P extends object, R extends P>(
     Component: ComponentType<P>,
     fetchFunction: (key: string) => Promise<R>,
@@ -20,17 +22,23 @@ const withFetchData = <P extends object, R extends P>(
     }: WithFetchDataReturnProps & Partial<P>) => {
         const { key } = useParams<{ key: string }>();
 
-        const { data } = useQuery<R>({
+        console.log('실행!');
+        console.count();
+
+        const { data, isLoading } = useQuery<R>({
             queryKey: [queryKeyPrefix, key],
             queryFn: () => fetchFunction(key!),
             enabled: !!key,
+            staleTime: 5 * 60 * 1000,
         });
 
-        return data ? (
-            <Component {...(data as R)} {...(props as P)} />
-        ) : (
-            <NotfoundPage redirectPath={redirectPath} />
-        );
+        if (data && !isLoading) {
+            return <Component {...(data as R)} {...(props as P)} />;
+        } else if (isLoading) {
+            return <SpinnerLoading />;
+        } else {
+            return <NotfoundPage redirectPath={redirectPath} />;
+        }
     };
 };
 

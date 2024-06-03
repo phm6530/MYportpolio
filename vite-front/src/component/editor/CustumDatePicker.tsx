@@ -1,6 +1,6 @@
 import 'react-datepicker/dist/react-datepicker.css';
 import React, { useState } from 'react';
-import { Control, Controller, FieldErrors } from 'react-hook-form';
+import { Controller, FieldErrors, useFormContext } from 'react-hook-form';
 import { Wrapper } from 'component/editor/EditorStyle';
 import { InputLabel } from 'component/ui/TextArea';
 
@@ -56,20 +56,21 @@ const FormWrap = styled.div`
 
 interface CustumDatePickerProps {
     label: string;
-    control: Control<ProjectDetailProps>;
-    errors?: FieldErrors<ProjectDetailProps>;
     startDateName: keyof ProjectDetailProps;
     endDateName: keyof ProjectDetailProps;
 }
 const CustumDatePicker: React.FC<CustumDatePickerProps> = ({
     label,
-    control,
-    errors,
     startDateName,
     endDateName,
 }) => {
     const [startDate, setStartDate] = useState<Date | null>(null);
     const [endDate, setEndDate] = useState<Date | null>(null);
+
+    const {
+        control,
+        formState: { errors },
+    } = useFormContext();
 
     const getErrorMessage = (
         error: FieldErrors<ProjectDetailProps> | undefined,
@@ -81,6 +82,7 @@ const CustumDatePicker: React.FC<CustumDatePickerProps> = ({
         }
         return undefined;
     };
+
     const isValidDateValue = (
         value: unknown,
     ): value is string | number | Date => {

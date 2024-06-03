@@ -4,6 +4,12 @@ export type skillType = string[];
 export type startDate = Date | null;
 export type endDate = Date | null;
 
+export interface projectRoles {
+    role: number;
+    roleName: string;
+    rolePercent: number;
+    role_id?: number;
+}
 export interface ProjectDetailProps {
     title: string;
     skill: skillType;
@@ -15,6 +21,7 @@ export interface ProjectDetailProps {
     thumbnail: string;
     description: string;
     projectDescription: string;
+    projectRoles: projectRoles[];
 }
 
 export interface ProjectPostProps extends ProjectDetailProps {

@@ -57,6 +57,15 @@ export const GlobalStyle = createGlobalStyle`
     /* 카테고리 버튼 */
     --background-category-color :${({ theme }) => theme.tabButtonColor};
     --border-darkMode-color :${({ theme }) => theme.boderDarkModeButton};
+
+
+
+    /* 프로젝트 디테일 */
+    --background-project-summary : ${({ theme }) => theme.ProjectSummaryBackground};
+
+
+    /* 버튼 */
+    --button-solide-type-1 : ${({ theme }) => theme.buttonStyleSolidType_1};
   }
 
 
@@ -138,6 +147,11 @@ export const lightTheme = {
     // tabBUtton
     tabButtonColor: '#d6d6d652',
     boderDarkModeButton: '#bbbbbb4f',
+
+    //project
+    ProjectSummaryBackground: 'rgba(0, 0, 0, 0.02)',
+
+    buttonStyleSolidType_1: '#0000000a;',
 };
 
 export const darkTheme = {
@@ -186,4 +200,7 @@ export const darkTheme = {
     // tabBUtton
     tabButtonColor: '#05050552',
     boderDarkModeButton: '#ffffff2b',
+    ProjectSummaryBackground: 'rgb(37 41 56 / 30%)',
+
+    buttonStyleSolidType_1: '#00000026;',
 };

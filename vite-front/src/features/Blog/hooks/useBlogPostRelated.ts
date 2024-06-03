@@ -8,6 +8,7 @@ const useBlogPostRelated = (postId: string) => {
         queryKey: [queryKey.blogRelated],
         queryFn: () => fetchPostRelated(postId),
         enabled: !!postId,
+        staleTime: 5 * 60 * 1000,
     });
 };
 

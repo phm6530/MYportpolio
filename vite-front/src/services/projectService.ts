@@ -42,6 +42,7 @@ export const fetchDetail = async (key: string): Promise<ProjectPostProps> => {
     const { resData } = await requestHandler<ApiResData<ProjectPostProps>>(() =>
         axios.get(url),
     );
+
     return resData;
 };
 
@@ -57,6 +58,7 @@ interface PrevnextList {
     thumbnail: string;
     project_key: string;
     isPage: string;
+    title: string;
 }
 
 export const fetchProjectNextPrevList = async (

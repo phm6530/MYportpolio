@@ -12,6 +12,8 @@ const CenteredGrid = styled.div`
 const BannerCenteredGrid = styled.div`
     padding-top: 12.5rem;
     padding-bottom: 6rem;
+    /* padding-top: 10.5rem;
+    padding-bottom: 2rem; */
     margin-left: 4rem;
     position: relative;
     margin: 0 auto;

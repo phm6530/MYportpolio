@@ -2,9 +2,7 @@ import 'quill/dist/quill.snow.css';
 
 import { useNavigate } from 'react-router-dom';
 
-import { HiMiniLink } from 'react-icons/hi2';
 import { Button } from 'component/ui/Button';
-import { HashTag } from '@style/commonStyle';
 import QuillView from 'component/editor/QuillView';
 import ProjectDetailControlsWrap from '@features/project/ProjectDetailControls/ProjectDetailControlsWrap';
 import {
@@ -13,7 +11,6 @@ import {
     ProjectSummary,
     ProjectViewFooter,
     SkillWrapper,
-    HashtagArea,
     SKill,
     SummaryType,
     SummaryWrapper,
@@ -27,27 +24,66 @@ import { ENDPOINT_URL } from 'constants/apiUrl';
 import styled from 'styled-components';
 
 import ProjectNextPrevNav from '@features/project/ProjectNextPrevNav';
+import Prograssbar from 'component/ui/Prograssbar';
+import Icon from 'component/icon/Icon';
+import FadeInAnimation from 'component/animations/FadeInAnimation';
 const DepsProjectSummary = styled.div`
     display: flex;
     width: 100%;
     flex-direction: column;
 `;
+const ProgassWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+const Wrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 45%;
+`;
+
+const PrograssTitle = styled.div`
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 0.4rem;
+`;
+
+const ButtonStyle = styled.button`
+    font-size: 14px;
+    background-color: var(--button-solide-type-1);
+    padding: 0.8rem 1.2rem;
+    display: flex;
+    align-items: center;
+    border-radius: 0.9rem;
+`;
+
+const TitlePoint = styled.span`
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 100%;
+    background: rgb(69 70 255);
+    margin-right: auto;
+    margin-bottom: 0.6rem;
+    margin-left: 0.3rem;
+`;
 
 const ProjectDetail: React.FC<ProjectPostProps> = props => {
     const navigate = useNavigate();
-
     const {
         projectKey,
         title,
         company,
         skill,
-        hashtag,
         startDate,
         projectUrl,
         description,
         endDate,
         projectDescription,
         thumbnail,
+        projectRoles,
     } = props;
 
     const projectView = (url: string) => {
@@ -59,9 +95,7 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
             <CustumStyle>
                 <ProjectSummary>
                     <ProjectTitle>
-                        {title}
-
-                        {/* 버튼 wrapper */}
+                        {title} <TitlePoint /> {/* 버튼 wrapper */}
                         {projectKey && (
                             <ProjectDetailControlsWrap
                                 projectKey={projectKey}
@@ -69,7 +103,7 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
                         )}
                     </ProjectTitle>
                     <ProjectDescription>{description}</ProjectDescription>
-                    <HashtagArea>
+                    {/* <HashtagArea>
                         {hashtag.map((e: string, idx: number) => {
                             return (
                                 <HashTag
@@ -78,77 +112,122 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
                                 >{`# ${e}`}</HashTag>
                             );
                         })}
-                    </HashtagArea>
-                </ProjectSummary>{' '}
+                    </HashtagArea> */}
+                </ProjectSummary>
                 <DepsProjectSummary>
-                    <ProjectThumbNail>
-                        <img src={`${ENDPOINT_URL}/${thumbnail}`} alt={title} />
-                    </ProjectThumbNail>
-
                     <SummaryWrap>
-                        <SummaryWrapper>
-                            <SummaryType>클라이언트</SummaryType>
-                            <div className="project_date">
-                                <SKill>{company}</SKill>
-                            </div>
-                        </SummaryWrapper>
-                        <SummaryWrapper>
-                            <SummaryType>프로젝트 기간</SummaryType>
+                        <ProjectThumbNail
+                            $thumbNail={`${ENDPOINT_URL}/${thumbnail}`}
+                        />
 
-                            <div className="project_date">
-                                <SKill>
-                                    {startDate?.toString()} ~{' '}
-                                    {endDate?.toString()}
-                                </SKill>
-                            </div>
-                        </SummaryWrapper>
-                        <SummaryWrapper>
-                            <SummaryType>사용스킬 </SummaryType>
-                            <SkillWrapper>
-                                {skill.map((e: string, idx: number) => {
-                                    // 첫 문자를 대문자로 변환하고 나머지 문자열과 이어붙입니다.
-                                    const fullString =
-                                        e.charAt(0).toUpperCase() + e.slice(1);
+                        <Wrapper>
+                            <SummaryWrapper>
+                                <SummaryType>
+                                    {' '}
+                                    <Icon
+                                        src="/img/project/icon/client.png"
+                                        alt="클라이언트"
+                                    />{' '}
+                                    클라이언트
+                                </SummaryType>
+                                <div className="project_date">
+                                    <SKill>{company}</SKill>
+                                </div>
+                            </SummaryWrapper>
+                            <SummaryWrapper>
+                                <SummaryType>프로젝트 기간</SummaryType>
+
+                                <div className="project_date">
+                                    <SKill>
+                                        {startDate?.toString()} -{' '}
+                                        {endDate?.toString()}
+                                    </SKill>
+                                </div>
+                            </SummaryWrapper>
+                            <SummaryWrapper style={{ width: '100%' }}>
+                                <SummaryType>
+                                    {/* {' '}
+                                    <Icon
+                                        src="/img/project/icon/gear.png"
+                                        alt="skill"
+                                    />{' '} */}
+                                    사용스킬{' '}
+                                </SummaryType>
+
+                                <SkillWrapper>
+                                    {skill.map((e: string, idx: number) => {
+                                        // 첫 문자를 대문자로 변환하고 나머지 문자열과 이어붙입니다.
+                                        const fullString =
+                                            e.charAt(0).toUpperCase() +
+                                            e.slice(1);
+                                        return (
+                                            <ProjectSkillStyle
+                                                $skill={fullString}
+                                                key={idx}
+                                            >
+                                                {fullString}
+                                            </ProjectSkillStyle>
+                                        );
+                                    })}
+                                </SkillWrapper>
+                            </SummaryWrapper>
+
+                            <SummaryWrapper style={{ width: '100%' }}>
+                                <SummaryType>
+                                    {/* <Icon
+                                        src="/img/project/icon/grape.png"
+                                        alt="시계 아이콘1"
+                                    /> */}
+                                    참여도
+                                </SummaryType>
+
+                                {projectRoles.map((e, idx) => {
                                     return (
-                                        <ProjectSkillStyle
-                                            $skill={fullString}
-                                            key={idx}
-                                        >
-                                            {fullString}
-                                        </ProjectSkillStyle>
+                                        <ProgassWrapper key={idx}>
+                                            <PrograssTitle>
+                                                {e.roleName}
+                                            </PrograssTitle>
+                                            <Prograssbar
+                                                percent={e.rolePercent}
+                                                key={idx}
+                                            />
+                                        </ProgassWrapper>
                                     );
                                 })}
-                            </SkillWrapper>
-                        </SummaryWrapper>
-                        <SummaryWrapper>
-                            <SummaryType>Site Url </SummaryType>
-                            <div
-                                className="project_date"
-                                onClick={() => projectView(projectUrl)}
-                            >
-                                <SKill
-                                    $url={true}
-                                    style={{ alignItems: 'center' }}
-                                >
-                                    <HiMiniLink />
+                            </SummaryWrapper>
+                            <SummaryWrapper>
+                                {/* <Src onClick={() => projectView(projectUrl)}>
                                     {projectUrl}
-                                </SKill>
-                            </div>
-                        </SummaryWrapper>
+                                </Src> */}
+                                <ButtonStyle
+                                    onClick={() => projectView(projectUrl)}
+                                >
+                                    <Icon
+                                        src="/img/project/icon/more.png"
+                                        alt="시계 아이콘1"
+                                    />
+                                    자세히 보기
+                                </ButtonStyle>
+                            </SummaryWrapper>
+                        </Wrapper>
                     </SummaryWrap>
                 </DepsProjectSummary>{' '}
-                {/* quill-view */}
-                <QuillView contents={projectDescription} />{' '}
-                <Button.Submit onClick={() => navigate('/project')}>
-                    목록으로
-                </Button.Submit>{' '}
+                {/* quill-view */}+{' '}
+                <FadeInAnimation>
+                    <QuillView contents={projectDescription} />{' '}
+                    <Button.Type onClick={() => navigate('/project')}>
+                        목록으로
+                    </Button.Type>{' '}
+                </FadeInAnimation>
             </CustumStyle>{' '}
-            <ProjectViewFooter>
-                ※ 본 게시물은 상업적 목적이 아닌 포트폴리오 목적으로만
-                사용됩니다. 아직 공개되지 않은 작업물은 포함하지 않으며, 오직
-                공개된 작업물만을 게시합니다.
-            </ProjectViewFooter>
-            <ProjectNextPrevNav />
+            <FadeInAnimation>
+                <ProjectViewFooter>
+                    ※ 본 게시물은 상업적 목적이 아닌 포트폴리오 목적으로만
+                    사용됩니다. 아직 공개되지 않은 작업물은 포함하지 않으며,
+                    오직 공개된 작업물만을 게시합니다.
+                </ProjectViewFooter>
+                <ProjectNextPrevNav />
+            </FadeInAnimation>
         </>
     );
 };

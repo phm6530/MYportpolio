@@ -53,6 +53,10 @@ const schema = Yup.object().shape({
         .required('필수 입력란 입니다.')
         .min(6, '6글자 이상 써주세요.'),
     projectDescription: Yup.string().required('필수 입력란 입니다.'),
+    projectRoles: Yup.array()
+        .of(Yup.object().required('Role 항목은 필수입니다.'))
+        .min(1, '한 개 이상의 Role을 등록해주세요.')
+        .required('한개이상'),
 });
 
 export default schema;

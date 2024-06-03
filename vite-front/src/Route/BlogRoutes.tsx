@@ -16,6 +16,8 @@ const BlogRoutes = (): JSX.Element => {
     const location = useLocation();
     const AuthenticatedBlodAdd = withAuth(BlogAdd, '/blog');
 
+    console.log('blog Route 랜더');
+
     const paths = [
         { path: '/', index: true, Component: <BlogPage /> },
         { path: '/:key', Component: <BlogDetail /> },
@@ -24,10 +26,11 @@ const BlogRoutes = (): JSX.Element => {
             Component: <AuthenticatedBlodAdd />,
         },
     ];
+    console.log(location.pathname);
 
     return (
         <>
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="wait" initial={false}>
                 <Routes location={location} key={location.pathname}>
                     {paths.map(path => {
                         return (

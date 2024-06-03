@@ -14,19 +14,17 @@ export const PageSubText = styled.div`
     }
 `;
 export const SummaryType = styled.div`
-    display: inline-block;
-    font-weight: bold;
+    display: inline-flex;
     font-size: 0.9rem;
-    min-width: 130px;
+    margin-bottom: 0.7rem;
     margin-right: 1rem;
+    align-items: center;
 `;
 
 export const SummaryWrap = styled.div`
     display: flex;
-    flex-direction: column;
     border-bottom: 1px solid var(--borer-line-color);
-    padding: 1rem 0;
-
+    align-items: flex-start;
     margin-bottom: 3rem;
 `;
 
@@ -36,18 +34,18 @@ export const SkillWrapper = styled.div`
 `;
 
 export const SummaryWrapper = styled.div`
-    display: flex;
-    margin-bottom: 1rem;
-    border-right: 1px solid var(--borer-line-color);
-    margin-right: 30px;
-    padding-right: 30px;
-    align-items: center;
+    margin-bottom: 1.5rem;
+    width: 44.5%;
+    align-items: flex-start;
+    /* background: var(--background-project-summary);
+    padding: 1rem 1.3rem; */
+    width: 49%;
+    border-radius: 1rem;
 `;
 
 export const ProjectTitle = styled.div`
     font-size: 2rem;
     padding: 1rem 0;
-    font-weight: bold;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -65,24 +63,28 @@ export const ProjectWrapStyle = styled.div`
     align-items: flex-start;
 `;
 
-export const SKill = styled.span<{ $url?: boolean }>`
+export const Src = styled.div`
+    color: #3963a7;
+    text-decoration: underline;
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    width: 100%;
+    &:hover {
+        color: #0d68fb;
+    }
+`;
+
+export const SKill = styled.span`
     display: inline-block;
     /* color: #555969; */
     border-radius: 18px;
-    font-size: 14px;
+    font-size: 16px;
     margin-right: 13px;
     display: flex;
-    ${props =>
-        props.$url &&
-        `
-            color: #3963a7;
-            text-decoration: underline;
-            cursor: pointer;        
-            display: inline-flex;
-            &:hover{
-                    color: #0d68fb;
-            }
-        `}
+    font-weight: bold;
 `;
 
 export const CustumStyle = styled(ProjectWrapStyle)`
@@ -132,17 +134,26 @@ export const HashtagArea = styled.div`
     padding-bottom: 1rem;
 `;
 
-export const ProjectThumbNail = styled.div`
+export const ProjectThumbNail = styled.div<{ $thumbNail: string }>`
     overflow: hidden;
     border-radius: 2rem;
-    width: 50%;
-    margin-bottom: 1rem;
+    width: 35%;
+    margin-right: 10%;
+    margin-bottom: 3rem;
+    /* margin-left: 5%; */
+    background-position: center center;
+    background-size: cover;
+    background-image: url(${({ $thumbNail }) => $thumbNail});
+    padding-bottom: 30%;
+    border: 5px solid rgb(9 17 24);
 `;
 
 export const ProjectViewFooter = styled.div`
     font-size: 0.8rem;
     margin-bottom: 2rem;
-    opacity: 0.4;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--borer-line-color);
+    opacity: 0.8;
 `;
 
 export const ProjectDescription = styled.div`
@@ -153,10 +164,10 @@ export const ProjectSkillStyle = styled.div<{ $skill: string }>`
     display: inline-block;
     border-radius: 4px;
     padding: 2px 7px;
-    margin-right: 5px;
-
+    margin-right: 10px;
+    border-radius: 0.5rem;
     font-size: 14px;
-    background: #2f383d;
+    background: rgb(69 70 255);
     color: #fff;
     /* ${({ $skill }) => {
         switch ($skill) {

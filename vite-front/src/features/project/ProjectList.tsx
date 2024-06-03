@@ -13,12 +13,13 @@ import {
 } from '@features/project/ProjectListStyle';
 
 import useFetchProjectList from '@features/project/hooks/useFetchProjectList';
+import useStore from 'store/zustandStore';
 
 const { useSearchParams } = ReactRouteDom;
 
 export default function ProjectList(): JSX.Element {
     const { data = [], isLoading, isError } = useFetchProjectList();
-
+    const login = useStore(state => state.userAuth.login);
     const [param] = useSearchParams();
     const SeachValue = param.get('search');
 
@@ -44,7 +45,7 @@ export default function ProjectList(): JSX.Element {
                     </div>
 
                     {/* add Project */}
-                    <PostAddBtn />
+                    {login && <PostAddBtn />}
                 </SubTitle>
                 {/* List */}
                 <FlexRow>

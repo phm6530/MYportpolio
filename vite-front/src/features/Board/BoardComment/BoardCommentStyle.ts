@@ -81,14 +81,13 @@ export const ReplyBubble = styled.div<{ $admin: boolean }>`
         content: '';
         display: block;
         position: absolute;
-        left: -25px;
+        left: -20px;
         top: 15px;
         width: 0;
         height: 0;
         border-bottom: 5px solid transparent;
         border-top: 5px solid transparent;
-        border-left: 15px solid
-            ${({ $admin }) => ($admin ? '#fedf7c' : '#caeaf9')};
+        border-left: 10px solid #caeaf9;
         border-right: 10px solid transparent;
         transform: rotate(180deg);
     }

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useRef } from 'react';
 
 type MotionChildren = ReactNode;
 
@@ -14,9 +14,6 @@ export const FadeUp: React.FC<MotionProps> = ({
     children,
     delay = 0,
 }) => {
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
     return (
         <motion.div
             className={className}
@@ -34,9 +31,6 @@ export const FadeUp: React.FC<MotionProps> = ({
 };
 
 export const FadeInOut: React.FC<MotionProps> = ({ className, children }) => {
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
     return (
         <motion.div
             className={className}
@@ -54,9 +48,7 @@ export const FadeInOut: React.FC<MotionProps> = ({ className, children }) => {
 };
 
 export const Page: React.FC<MotionProps> = ({ className, children }) => {
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+    const scrollYRef = useRef(0);
     return (
         <motion.div
             className={className}
@@ -65,7 +57,10 @@ export const Page: React.FC<MotionProps> = ({ className, children }) => {
             exit={{ opacity: 0 }}
             transition={{
                 duration: 0.3,
-                // 여기에 예시 큐빅 베지어 값을 설정할 수 있습니다.
+            }}
+            onAnimationStart={() => {
+                // 애니메이션 시작 전 스크롤 위치 저장
+                scrollYRef.current = window.scrollY;
             }}
         >
             {children}

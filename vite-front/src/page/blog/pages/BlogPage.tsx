@@ -8,6 +8,7 @@ import SearchForm from 'component/ui/SearchForm';
 import NonData from 'component/NonData';
 import Paging from 'component/Paging';
 import PostAddBtn from 'component/ui/PostAddBtn';
+import useStore from 'store/zustandStore';
 
 const BlogPage = (): JSX.Element => {
     const [searchParams] = useSearchParams();
@@ -16,12 +17,14 @@ const BlogPage = (): JSX.Element => {
     const item: string = searchParams.get('item') || 'All';
     const search: string = searchParams.get('search') || 'all';
 
+    const login = useStore(state => state.userAuth.login);
+
     return (
         <>
             <SubTitle>
                 <div className="subText">
                     <span className="point">{item}</span>
-                    <PostAddBtn />
+                    {login && <PostAddBtn />}
                 </div>
             </SubTitle>
 

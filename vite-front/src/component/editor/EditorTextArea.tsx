@@ -4,40 +4,41 @@ import { Wrapper } from './EditorStyle';
 import InputErrorMessage from 'component/error/InputErrorMessage';
 import React from 'react';
 import { ProjectDetailProps } from '@type/ProjectTypes';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
-const CustumTextAreaStyle = styled(TextAreaStyle)<{ $error?: string }>`
+const CustumTextAreaStyle = styled(TextAreaStyle)<{ $error?: boolean }>`
     flex-grow: 1;
 `;
 
 interface EditorTextAreaProps {
     label: string;
-    placeholder: string;
     value: keyof ProjectDetailProps;
-    error: FieldErrors<ProjectDetailProps>;
-    register: UseFormRegister<ProjectDetailProps>;
+    placeholder: string;
 }
 
 const EditorTextArea: React.FC<EditorTextAreaProps> = ({
     label,
     placeholder,
-    error,
     value,
-    register,
 }) => {
+    const {
+        register,
+        formState: { errors },
+    } = useFormContext();
+
+    const errorMessage = errors[value]?.message;
+
     return (
         <>
             <Wrapper>
                 <InputLabel>{label}</InputLabel>
                 <CustumTextAreaStyle
-                    $error={error[value]?.message}
+                    $error={!!errorMessage}
                     placeholder={placeholder}
                     {...register(value)}
                 />
-                {error && error[value] && (
-                    <InputErrorMessage>
-                        {error[value]?.message}
-                    </InputErrorMessage>
+                {typeof errorMessage === 'string' && (
+                    <InputErrorMessage>{errorMessage}</InputErrorMessage>
                 )}
             </Wrapper>
         </>

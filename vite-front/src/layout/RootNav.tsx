@@ -49,10 +49,9 @@ const ScrollOverColor = ({ $scrollOver, $darkMode, $path }: ListProps) => {
         if ($scrollOver) {
             return 'var(--Nav-color)';
         } else if (!$scrollOver && !$darkMode) {
-            return '#fff';
+            return 'rgb(182, 190, 201)';
         }
     }
-    return '#fff';
 };
 
 const List = styled(Link)<ListProps>`
@@ -65,7 +64,7 @@ const Header = styled.header<ListProps>`
     position: fixed;
     z-index: 10;
     width: 100%;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
     border-bottom: var(--Nav-navBorder);
     font-family: 'Pretendard-Regular';
     ${({ $scrollOver, $path, $darkMode }) => {
@@ -77,12 +76,15 @@ const Header = styled.header<ListProps>`
                 `;
             }
         }
+        return css`
+            color: rgb(182, 190, 201);
+        `;
     }}
     transition: background 1s cubic-bezier(0, 0.88, 0, 1.03);
 `;
 
 const MyName = styled.div<{ $scrollOver: boolean; $darkMode: boolean }>`
-    color: #fff;
+    color: rgb(182, 190, 201);
     font-family: 'Montserrat';
     font-weight: bold;
     color: ${({ $scrollOver, $darkMode }) =>
@@ -101,7 +103,7 @@ export default function RootNav() {
     const { pathname } = useLocation();
     const [active, setActive] = useState<string>(pathname);
     const [loginModal, setLoginModal] = useState<boolean>(false);
-    const { scrollOver } = useScrollY(300);
+    const { scrollOver } = useScrollY(430);
     const { mutateAsync } = useLogout();
 
     const location = useLocation();

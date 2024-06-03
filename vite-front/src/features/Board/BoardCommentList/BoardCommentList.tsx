@@ -23,8 +23,6 @@ const BoardCommentList = (): JSX.Element => {
     const [selectIdx, setSelectIdx] = useState<string | null>(null);
     const ref = useRef<HTMLDivElement>(null);
 
-    console.log(ref);
-
     // 중복제거
     const dateSet = new Set();
 

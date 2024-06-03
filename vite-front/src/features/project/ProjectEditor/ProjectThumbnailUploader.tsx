@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 import InputErrorMessage from 'component/error/InputErrorMessage';
-import { InputLabel } from 'component/ui/TextArea';
 import { Button } from 'component/ui/Button';
-import { FieldError, UseFormSetValue, UseFormWatch } from 'react-hook-form';
-import { ProjectDetailProps } from '@type/ProjectTypes';
+import { useFormContext } from 'react-hook-form';
 import useThumbnailUploader from '@features/project/hooks/useThumbnailUploader';
 
 const UPloadFileName = styled.div`
@@ -29,19 +27,19 @@ const Wrapper = styled.div`
 
 interface ProjectThumbnailUploaderProps {
     label: string;
-    error?: FieldError;
+    value: string;
     projectKey: string;
-    setValue: UseFormSetValue<ProjectDetailProps>;
-    watch: UseFormWatch<ProjectDetailProps>;
 }
 
 const ProjectThumbnailUploader: React.FC<ProjectThumbnailUploaderProps> = ({
-    label,
-    error,
+    value,
     projectKey,
-    setValue,
-    watch,
 }) => {
+    const {
+        watch,
+        setValue,
+        formState: { errors },
+    } = useFormContext();
     const thumNail = watch('thumbnail');
     const { mutateAsync } = useThumbnailUploader();
     const fileFiler = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,14 +64,16 @@ const ProjectThumbnailUploader: React.FC<ProjectThumbnailUploaderProps> = ({
 
         //서버요청
         const { imgUrl } = await mutateAsync({ img: formData, projectKey });
-        setValue('thumbnail', imgUrl, { shouldValidate: true });
+        setValue(value, imgUrl, { shouldValidate: true });
         // shouldValidate = 설정된 값이 true일때 유효성 검사를 진행함.
         // 값이 변경될때도 반영됨
     };
 
+    const errorMessage = errors[value]?.message as string | null;
+
     return (
         <Wrapper>
-            <InputLabel>{label}</InputLabel>
+            {/* <InputLabel>{label}</InputLabel> */}
             <WrapperFlex>
                 <Button.UploadButton htmlFor="input-file">
                     Upload a File
@@ -89,7 +89,9 @@ const ProjectThumbnailUploader: React.FC<ProjectThumbnailUploaderProps> = ({
                 </UPloadFileName>
             </WrapperFlex>
 
-            {error && <InputErrorMessage>{error.message}</InputErrorMessage>}
+            {errorMessage && (
+                <InputErrorMessage>{errorMessage}</InputErrorMessage>
+            )}
         </Wrapper>
     );
 };

@@ -155,7 +155,7 @@ const RenderCell = ({
         return Array.from({ length: 6 - LastDay }, (_, idx) => idx + 1);
     };
 
-    // 랜더
+    //
     const RenderPrevDate = getPrevDayofElement(paramYear, paramMonth);
     const RenderDate = getLastDayOfMonth(paramYear, paramMonth);
     const RenderLastDate = getNextDayofElement(paramYear, paramMonth);

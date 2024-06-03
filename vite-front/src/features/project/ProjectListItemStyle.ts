@@ -2,8 +2,8 @@ import styled, { css } from 'styled-components';
 import FadeInAnimation from 'component/animations/FadeInAnimation';
 
 export const ProjectFadeinStyle = styled(FadeInAnimation)`
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2.5rem;
     display: flex;
     flex-direction: column;
     flex: 0 0 calc(33.333% - 1.34rem);
@@ -38,7 +38,7 @@ export const ProjectFadeinStyle = styled(FadeInAnimation)`
 
 export const ProjectImgArea = styled.div<{ $backImg: string }>`
     width: 100%;
-    height: 13.6rem;
+    height: 16.6rem;
     position: relative;
     overflow: hidden;
     border-radius: 1rem;
@@ -61,7 +61,7 @@ export const ProjectCompany = styled.div`
 `;
 export const ProjectDescription = styled.div`
     font-size: 13px;
-    margin-bottom: 7px;
+    margin-bottom: 10px;
     word-break: keep-all;
     display: -webkit-box;
     -webkit-line-clamp: 2;

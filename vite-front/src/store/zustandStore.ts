@@ -24,7 +24,9 @@ const initialDarkModeState: boolean =
 const getUserdataLocalstorage = () => {
     const userFromStorage = localStorage.getItem('user');
     const test = userFromStorage ? JSON.parse(userFromStorage) : null;
+
     const initialUserData: User = { id: null, access: null, name: null };
+
     return test || initialUserData;
 };
 

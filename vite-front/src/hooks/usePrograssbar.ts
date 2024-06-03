@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
-const usePrograssbar = percent => {
-    const PrograssRef = useRef(null);
+const usePrograssbar = (percent: number) => {
+    const PrograssRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         // GSAP 애니메이션: 숫자 증가

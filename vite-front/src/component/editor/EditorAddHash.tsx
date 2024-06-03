@@ -2,18 +2,14 @@ import styled from 'styled-components';
 import InputErrorMessage from 'component/error/InputErrorMessage';
 import { InputLabel, InputStyle } from 'component/ui/TextArea';
 
-import { MdCancel } from 'react-icons/md';
+// import { MdCancel } from 'react-icons/md';
 import { HashTag } from '@style/commonStyle';
 import { Button } from '@mui/material';
 import { Wrapper } from './EditorStyle';
 import { useRef } from 'react';
-import {
-    FieldErrors,
-    UseFormGetValues,
-    UseFormSetValue,
-    UseFormTrigger,
-} from 'react-hook-form';
 import { ProjectDetailProps } from '@type/ProjectTypes';
+import { useFormContext } from 'react-hook-form';
+import { MdCancel } from 'react-icons/md';
 
 const CustomInputWrap = styled(InputStyle)`
     flex-grow: 1;
@@ -37,47 +33,43 @@ const HashtagWrap = styled.div`
 `;
 
 interface EditorAddHashprops {
-    setValue: UseFormSetValue<ProjectDetailProps>;
-    getValues: UseFormGetValues<ProjectDetailProps>;
-    trigger: UseFormTrigger<ProjectDetailProps>;
-    error?: FieldErrors<ProjectDetailProps>;
-    label: keyof ProjectDetailProps;
+    label: string;
+    value: keyof ProjectDetailProps;
 }
 
-const EditorAddHash: React.FC<EditorAddHashprops> = ({
-    getValues,
-    setValue,
-    trigger,
-    error,
-    label,
-}) => {
+const EditorAddHash: React.FC<EditorAddHashprops> = ({ label, value }) => {
     const valueRef = useRef<HTMLInputElement>(null);
-    const prevArr = getValues(label) as string[];
+    const {
+        getValues,
+        trigger,
+        setValue,
+        formState: { errors },
+    } = useFormContext();
+    const prevArr = getValues(value) as string[];
 
     // hashTag
     const addHashTag = () => {
         if (valueRef.current) {
             const newArr = [...prevArr, valueRef.current.value];
-            setValue(label, newArr);
+            setValue(value, newArr);
             valueRef.current.value = '';
         }
-        trigger(label); // 유효성검사
+        trigger(value); // 유효성검사
     };
 
     const removeHashtag = (index: number) => {
         const newArr = prevArr.filter((_, idx) => idx !== index);
-        setValue(label, newArr);
-        trigger(label); // 유효성검사
+        setValue(value, newArr);
+        trigger(value); // 유효성검사
     };
 
-    const arr = getValues(label) as string[];
-    const fieldError = error ? error[label] : undefined;
-    const errorMessage = fieldError ? fieldError.message : undefined;
+    const arr = getValues(value) as string[];
+    const errorMessage = errors[value]?.message as string | null;
 
     return (
         <>
             <Wrapper>
-                <InputLabel>해시태그</InputLabel>
+                <InputLabel>{label}</InputLabel>
 
                 <InputWrap>
                     <CustomInputWrap ref={valueRef} />
@@ -86,6 +78,7 @@ const EditorAddHash: React.FC<EditorAddHashprops> = ({
                 {errorMessage && (
                     <InputErrorMessage>{errorMessage}</InputErrorMessage>
                 )}
+
                 <HashtagWrap>
                     {arr.map((hashTag: string, index: number) => {
                         return (

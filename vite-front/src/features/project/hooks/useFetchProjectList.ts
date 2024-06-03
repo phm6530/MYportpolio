@@ -13,6 +13,7 @@ const useFetchProjectList = () => {
         queryFn: projectFetch,
         refetchOnWindowFocus: false,
         enabled: isProjectIndex,
+        staleTime: 5 * 60 * 1000,
     });
 };
 

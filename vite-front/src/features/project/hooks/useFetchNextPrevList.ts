@@ -7,6 +7,7 @@ interface PrevnextList {
     thumbnail: string;
     project_key: string;
     isPage: string;
+    title: string;
 }
 const useFetchNextPrevList = () => {
     const { key } = useParams<{ key?: string }>();

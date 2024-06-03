@@ -9,67 +9,7 @@ import { TbDeviceImacSearch } from 'react-icons/tb';
 import { IoFitnessOutline } from 'react-icons/io5';
 import { HiOutlinePencilSquare } from 'react-icons/hi2';
 import { IoIosCheckmarkCircleOutline } from 'react-icons/io';
-// const getBackgroundColor = percent => {
-//     if (percent < 30) return 'red';
-//     else if (percent >= 30 && percent < 60) return 'orange';
-//     else return 'green';
-// };
-
-const PrograssbarStyle = styled.div`
-    width: 100%;
-    height: 10px;
-    border-radius: 1rem;
-    position: relative;
-    background: #eeeeee;
-    border-radius: 5px;
-
-    .bar {
-        border-radius: 1rem;
-        height: 10px;
-        position: absolute;
-        left: 0;
-        width: 0;
-        z-index: 1;
-        background: red;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-        background: linear-gradient(90deg, #b7a9ff 0%, #e594c7 100%);
-        border-radius: 10px;
-    }
-`;
-
-const Percent = styled.div`
-    position: absolute;
-    right: -20px;
-    bottom: calc(100% + 10px);
-    /* Rectangle 459 */
-
-    box-sizing: border-box;
-    ${props => props.$percentZero && 'display: none'};
-
-    color: #fff;
-    background: #3e3866;
-    box-shadow: 4px 4px 12.4px rgba(228, 233, 237, 0.75);
-    border-radius: 14px;
-    width: 45px;
-    text-align: center;
-    font-size: 12px;
-    span {
-        color: #fff;
-        display: inline-block;
-    }
-    .shape {
-        width: 0;
-        height: 0;
-        position: absolute;
-        left: 50%;
-        top: calc(100% + 7px);
-        transform: translate(-50%, -50%);
-        border-top: 10px solid #3e3866; /* 왼쪽 테두리 */
-        border-left: 5px solid transparent; /* 왼쪽 테두리 */
-        border-right: 5px solid transparent; /* 오른쪽 테두리 */
-        border-bottom: 10px solid transparent; /* 아래쪽 테두리 */
-    }
-`;
+import Prograssbar from 'component/ui/Prograssbar';
 
 const CompleteStyle = styled.div`
     color: #4dacd2;
@@ -177,21 +117,7 @@ export default function PrograssBar({ tasks }) {
                         <IoIosCheckmarkCircleOutline />
                     </CompleteStyle>
                 </SubTitleTextStyle>
-
-                <PrograssbarStyle $catecory={tasks[0].category}>
-                    <div
-                        ref={PrograssRef} //프로그래스바 커스텀훅
-                        className="bar"
-                        aria-valuenow={percent}
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                    >
-                        <Percent $percentZero={percent === 0}>
-                            <span ref={textRef}></span>%
-                            <span className="shape"></span>
-                        </Percent>
-                    </div>
-                </PrograssbarStyle>
+                <Prograssbar percent={percent} />
             </FlexGrowColumnDiv>
         </CustumFlexRow>
     );

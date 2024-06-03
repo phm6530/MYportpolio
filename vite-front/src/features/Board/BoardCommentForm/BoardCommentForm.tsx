@@ -105,8 +105,6 @@ export default function BoardCommentForm() {
         });
     };
 
-    console.log(typeof watch('userIcon'));
-
     return (
         <BoardReplyStyle>
             {/* 캐릭터 뷰 */}

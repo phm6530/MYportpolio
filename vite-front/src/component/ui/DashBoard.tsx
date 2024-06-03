@@ -134,7 +134,7 @@ const DashBoard: React.FC<DashBoardProps> = ({
     page = '',
     // children,
 }) => {
-    const { pathname } = useLocation();
+    // const { pathname } = useLocation();
 
     // useEffect(() => {
     //     const target = document.getElementById('parallaxEvent');
@@ -170,9 +170,9 @@ const DashBoard: React.FC<DashBoardProps> = ({
                     </PageInfoText>
                 )}
 
-                <PathStyle>
+                {/* <PathStyle>
                     <IoMdHome /> HOME {pathname.replace('/', ' / ')}
-                </PathStyle>
+                </PathStyle> */}
             </PageBannerGrid>
         </PageBanner>
     );

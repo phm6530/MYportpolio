@@ -21,6 +21,7 @@ import useAddTransition from 'hooks/useAddTransition';
 function App(): JSX.Element {
     // 초기 다크모드 트랜지션효과 방지
     useAddTransition();
+
     return (
         <>
             {/* redux */}

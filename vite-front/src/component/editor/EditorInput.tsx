@@ -3,9 +3,9 @@ import InputErrorMessage from 'component/error/InputErrorMessage';
 import { InputStyle, InputLabel } from 'component/ui/TextArea';
 import { Wrapper } from './EditorStyle';
 import { ProjectDetailProps } from '@type/ProjectTypes';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
-const CustomInputWrap = styled(InputStyle)<{ $error?: string }>`
+const CustomInputWrap = styled(InputStyle)<{ $error?: boolean }>`
     flex-grow: 1;
     ${props => props.$error && 'border: 1px solid red'}
 `;
@@ -13,31 +13,32 @@ const CustomInputWrap = styled(InputStyle)<{ $error?: string }>`
 interface EditorInputProps {
     label: string;
     placeholder: string;
-    error: FieldErrors<ProjectDetailProps>;
     value: keyof ProjectDetailProps;
-    register: UseFormRegister<ProjectDetailProps>;
 }
 
 const EditorInput: React.FC<EditorInputProps> = ({
     label,
     placeholder,
-    error,
     value,
-    register,
 }) => {
+    const {
+        register,
+        formState: { errors },
+    } = useFormContext();
+
+    const errorMessage = errors[value]?.message as string | undefined;
+
     return (
         <>
             <Wrapper>
                 <InputLabel>{label}</InputLabel>
                 <CustomInputWrap
-                    $error={error[value]?.message}
+                    $error={!!errors[value]}
                     placeholder={placeholder}
                     {...register(value)}
                 />
-                {error && error[value] && (
-                    <InputErrorMessage>
-                        {error[value]?.message}
-                    </InputErrorMessage>
+                {errorMessage && ( // 에러 메시지가 존재하면 출력
+                    <InputErrorMessage>{errorMessage}</InputErrorMessage>
                 )}
             </Wrapper>
         </>

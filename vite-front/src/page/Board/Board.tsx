@@ -33,6 +33,7 @@ const BoardDashBoard = styled.div`
 `;
 
 export default function Board(): JSX.Element {
+    console.log('board 랜더');
     return (
         <PageWrapper>
             {/* Header */}

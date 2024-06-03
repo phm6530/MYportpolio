@@ -36,6 +36,7 @@ to {
 
 const Component = styled.div<{ $visible: boolean; $position?: string }>`
     opacity: 0;
+    width: 100%;
     ${props => {
         if (props.$visible) {
             switch (props.$position) {
@@ -51,7 +52,7 @@ const Component = styled.div<{ $visible: boolean; $position?: string }>`
                     `;
                 default:
                     return css`
-                        animation: ${fadeInUp} 1s ease forwards;
+                        animation: ${fadeInUp} 0.5s ease forwards;
                     `;
             }
         }

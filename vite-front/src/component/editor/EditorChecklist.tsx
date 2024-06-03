@@ -3,12 +3,7 @@ import InputErrorMessage from 'component/error/InputErrorMessage';
 import { Wrapper } from './EditorStyle';
 import styled from 'styled-components';
 import { ProjectDetailProps } from '@type/ProjectTypes';
-import {
-    FieldError,
-    Merge,
-    UseFormGetValues,
-    UseFormRegister,
-} from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 const ProjectSkillWrap = styled.div`
     display: flex;
@@ -39,27 +34,21 @@ const CheckStyle = styled.label`
 
 interface EditorChecklistProps {
     label: string;
-    error?: FieldError | Merge<FieldError, (FieldError | undefined)[]>; //배열은 merge로 처리
     value: keyof ProjectDetailProps;
     list: string[];
-    register: UseFormRegister<ProjectDetailProps>;
-    getValues: UseFormGetValues<ProjectDetailProps>;
 }
 
 const EditorChecklist: React.FC<EditorChecklistProps> = ({
     label,
-    error,
     value,
     list,
-    register,
-    getValues,
 }) => {
-    const isCheck = (checkValue: string) => {
-        const values = getValues(value) || []; // 기본값을 빈 배열로 설정
-        if (Array.isArray(values)) {
-            return values.some((skill: string) => skill === checkValue);
-        }
-    };
+    const {
+        register,
+        formState: { errors },
+    } = useFormContext();
+
+    const errorMessage = errors[value]?.message as string | null;
 
     return (
         <Wrapper>
@@ -75,14 +64,14 @@ const EditorChecklist: React.FC<EditorChecklistProps> = ({
                                 key={item}
                                 value={item}
                                 {...register(value)}
-                                onChange={() => isCheck(item)}
+                                // onChange={() => isCheck(item)}
                             />
                             {item}
                         </CheckStyle>
                     );
                 })}
-                {error && (
-                    <InputErrorMessage>{error.message}</InputErrorMessage>
+                {errorMessage && (
+                    <InputErrorMessage>{errorMessage}</InputErrorMessage>
                 )}
             </ProjectSkillWrap>
         </Wrapper>

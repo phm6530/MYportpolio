@@ -17,8 +17,10 @@ const FlexMotion = styled(Motion.FadeInOut)`
 
 const ProjectRoutes = (): JSX.Element => {
     const location = useLocation();
+
     const AthencatedProjectEditor = withAuth(ProjectEditor, '/project');
     const FetchDataComponent = withFetchData(ProjectDetail, fetchDetail);
+
     const paths = [
         { path: '/', index: true, Component: <ProjectList /> },
         {

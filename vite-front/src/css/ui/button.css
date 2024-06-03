@@ -115,10 +115,9 @@
   border-radius: 3rem;
   border: 2px solid transparent;
   font-size: 14px;
-  color: #3912c5;
-  border: 1px solid rgba(184, 168, 242, 0.6);
-  padding: 0.4rem 0.6rem;
-  margin-top: 1.3rem;
+  border: 1px solid;
+  padding: 0.6rem 3.3rem;
+  margin-top: 5.3rem;
 }
 .btn-borderStyle svg {
   margin-left: 0.5rem;
