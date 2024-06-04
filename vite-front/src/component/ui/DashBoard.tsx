@@ -3,8 +3,7 @@ import styled, { keyframes } from 'styled-components';
 // import VideoCanvas from '../common/VideoCanvas';
 
 import { PageBannerGrid } from '@layout/Grid';
-import { useLocation } from 'react-router-dom';
-import { IoMdHome } from 'react-icons/io';
+
 import DashBoardTitle from './DashBoardTitle';
 import ShootingStar from 'component/animations/ShootingStar';
 
@@ -28,7 +27,7 @@ const opacityAni = keyframes`
 
 const PageBanner = styled.div<{ $page: string }>`
     width: 100%;
-    /* min-width: 1280px; */
+    min-width: 1280px;
     /* height: 100vh; */
     overflow: hidden;
     position: relative;
@@ -41,17 +40,6 @@ const PageBanner = styled.div<{ $page: string }>`
     transition: background-position 1s ease;
     animation: ${infiniteBgAni} 10s cubic-bezier(0.2, 0.56, 0.38, 0.41) infinite
         forwards alternate;
-`;
-
-const PathStyle = styled.div`
-    color: #fff;
-    opacity: 0.4;
-    display: flex;
-    font-size: 0.9rem;
-    align-items: center;
-    svg {
-        margin-right: 1rem;
-    }
 `;
 
 const PageTest = styled.div`

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const PageSubText = styled.div`
     font-size: 20px;
@@ -34,11 +34,9 @@ export const SkillWrapper = styled.div`
 `;
 
 export const SummaryWrapper = styled.div`
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.8rem;
     width: 44.5%;
     align-items: flex-start;
-    /* background: var(--background-project-summary);
-    padding: 1rem 1.3rem; */
     width: 49%;
     border-radius: 1rem;
 `;
@@ -145,7 +143,7 @@ export const ProjectThumbNail = styled.div<{ $thumbNail: string }>`
     background-size: cover;
     background-image: url(${({ $thumbNail }) => $thumbNail});
     padding-bottom: 30%;
-    border: 5px solid rgb(9 17 24);
+    border: 5px solid rgb(9 17 24 / 6%);
 `;
 
 export const ProjectViewFooter = styled.div`
@@ -158,33 +156,4 @@ export const ProjectViewFooter = styled.div`
 
 export const ProjectDescription = styled.div`
     margin-bottom: 20px;
-`;
-
-export const ProjectSkillStyle = styled.div<{ $skill: string }>`
-    display: inline-block;
-    border-radius: 4px;
-    padding: 2px 7px;
-    margin-right: 10px;
-    border-radius: 0.5rem;
-    font-size: 14px;
-    background: rgb(69 70 255);
-    color: #fff;
-    /* ${({ $skill }) => {
-        switch ($skill) {
-            case 'Css':
-                return css`
-                    background: #3b66cd;
-                `;
-            case 'JavaScript':
-                return css`
-                    background: #d3bf1af7;
-                `;
-            case 'JQuery':
-                return css`
-                    background: #be5c04;
-                `;
-            default:
-                return 'blue';
-        }
-    }}; */
 `;

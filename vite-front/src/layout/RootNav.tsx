@@ -14,6 +14,8 @@ import TopButton from 'component/ui/TopButton';
 import { NAVPAGE_OBJECT } from 'constants/routePath';
 import useStore from 'store/zustandStore';
 import useScrollY from '@hooks/useScrollY';
+import { Grid } from '@layout/Grid';
+import { device } from 'config/DeviceConfig';
 
 // Nav 선택
 interface LinkProps {
@@ -34,8 +36,6 @@ const Link: React.FC<LinkProps> = ({
         </li>
     );
 };
-
-//css in js  초기랜더링 > 훅실행 > 스타일 생성
 
 interface ListProps {
     $active?: boolean;
@@ -70,6 +70,7 @@ const Header = styled.header<ListProps>`
     ${({ $scrollOver, $path, $darkMode }) => {
         if (!$path) {
             if ($scrollOver && !$darkMode) {
+                console.log('$darkMode', $darkMode);
                 return css`
                     background: var(--Nav-Background-color);
                     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -81,6 +82,10 @@ const Header = styled.header<ListProps>`
         `;
     }}
     transition: background 1s cubic-bezier(0, 0.88, 0, 1.03);
+
+    @media ${device.laptopL} {
+        display: none;
+    }
 `;
 
 const MyName = styled.div<{ $scrollOver: boolean; $darkMode: boolean }>`
@@ -123,8 +128,12 @@ export default function RootNav() {
                 </Popup>
             )}
 
-            <Header $scrollOver={scrollOver} $path={location.pathname === '/'}>
-                <div className="wrap">
+            <Header
+                $scrollOver={scrollOver}
+                $path={location.pathname === '/'}
+                $darkMode={darkMode}
+            >
+                <Grid>
                     <nav>
                         {' '}
                         <MyName
@@ -179,7 +188,7 @@ export default function RootNav() {
                             )}
                         </UiStyle>
                     </nav>
-                </div>
+                </Grid>
             </Header>
         </>
     );

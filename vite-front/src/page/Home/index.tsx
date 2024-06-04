@@ -4,6 +4,8 @@ import ShootingStar from 'component/animations/ShootingStar';
 import { Grid } from 'layout/Grid';
 import styled, { keyframes } from 'styled-components';
 import BlogNewPostList from 'features/Blog/BlogNewPostList/BlogNewPostList';
+// import EmbosingButton from 'component/ui/EmbosingButton';
+// import Icon from 'component/icon/Icon';
 
 const infiniteBgAni = keyframes`
   0% {
@@ -27,13 +29,14 @@ const HomeContainer = styled.div`
     position: relative;
     padding-top: 13rem;
     padding-bottom: 5rem;
-    /* height: 100vh; */
     overflow: hidden;
     background-image: url('/img/main.jpg');
     background-position: center bottom;
-    background-size: cover;
+    background-repeat: no-repeat;
+
     animation: ${infiniteBgAni} 10s cubic-bezier(0.2, 0.56, 0.38, 0.41) infinite
         forwards alternate;
+    background-size: cover;
     &::after {
         content: '';
         position: absolute;
@@ -64,7 +67,7 @@ const CareerGoal = styled.div`
     font-style: normal;
     font-size: 16px;
     line-height: 24px;
-    color: #898989;
+    color: #d1d2eb;
     margin-bottom: 70px;
     position: relative;
     &::after {
@@ -105,6 +108,17 @@ const TitleWrapper = styled.div`
     }
 `;
 
+// const MainButtonWrap = styled.div`
+//     display: flex;
+
+//     margin-right: 4rem;
+// `;
+
+const ButtomWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
 const Home = () => {
     return (
         <HomeContainer>
@@ -122,9 +136,37 @@ const Home = () => {
                     배운 모든 것을 기록하고 공유하는 것을 좋아합니다. 공유의
                     중요성을 잘 알기에 항상 새기고 실천하려고 노력합니다
                 </CareerGoal>
-
-                <BlogNewPostList />
-
+                <ButtomWrapper>
+                    {/* <MainButtonWrap>
+                        <EmbosingButton>
+                            <Icon
+                                src="img/common/talk2.png"
+                                alt="Talk"
+                                width={40}
+                            />
+                            About me
+                        </EmbosingButton>{' '}
+                        <EmbosingButton>
+                            {' '}
+                            <Icon
+                                src="img/common/talk2.png"
+                                alt="Talk"
+                                width={40}
+                            />
+                            Guest Board
+                        </EmbosingButton>{' '}
+                        <EmbosingButton>
+                            {' '}
+                            <Icon
+                                src="img/common/talk2.png"
+                                alt="Talk"
+                                width={40}
+                            />
+                            Web Project
+                        </EmbosingButton>
+                    </MainButtonWrap> */}
+                    <BlogNewPostList />
+                </ButtomWrapper>
                 {/* <MainNavs /> */}
                 {/* <DashBoardTitle>
                     <b>FRONTEND DEVELOPER</b>

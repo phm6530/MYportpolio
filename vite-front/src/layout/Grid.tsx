@@ -1,11 +1,10 @@
-import Footer from '@layout/Footer';
 import styled from 'styled-components';
 
 const CenteredGrid = styled.div`
-    width: 1180px;
+    max-width: 1180px;
     margin: 0 auto;
+    width: 100%;
     position: relative;
-
     z-index: 1;
 `;
 
@@ -31,6 +30,7 @@ const LayoutSpacer = styled.div`
     justify-content: space-between;
     display: flex;
     margin: 0 auto;
+    align-items: flex-start;
 `;
 
 const BannerSpacer = styled.div`
@@ -61,7 +61,6 @@ const PageGrid = ({ children }: { children: React.ReactNode }) => {
     return (
         <PageCenteredGrid>
             <LayoutSpacer>{children}</LayoutSpacer>
-            <Footer />
         </PageCenteredGrid>
     );
 };
@@ -74,7 +73,7 @@ const PageBannerGrid = ({ children }: { children: React.ReactNode }) => {
     );
 };
 
-const FooterGrid = ({ children }: { children: React.ReactElement }) => {
+const FooterGrid = ({ children }: { children: React.ReactNode }) => {
     return (
         <CenteredGrid>
             <BannerSpacer>{children}</BannerSpacer>

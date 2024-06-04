@@ -16,7 +16,6 @@ import {
     SummaryWrapper,
     SummaryWrap,
     ProjectTitle,
-    ProjectSkillStyle,
     ProjectDescription,
 } from '@features/project/ProjectDetailStyle';
 import { ProjectPostProps } from '@type/ProjectTypes';
@@ -27,6 +26,8 @@ import ProjectNextPrevNav from '@features/project/ProjectNextPrevNav';
 import Prograssbar from 'component/ui/Prograssbar';
 import Icon from 'component/icon/Icon';
 import FadeInAnimation from 'component/animations/FadeInAnimation';
+import EmbosingButton from 'component/ui/EmbosingButton';
+import { HashTag } from '@style/commonStyle';
 const DepsProjectSummary = styled.div`
     display: flex;
     width: 100%;
@@ -38,7 +39,7 @@ const ProgassWrapper = styled.div`
 `;
 const Wrapper = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
     width: 45%;
@@ -48,15 +49,6 @@ const PrograssTitle = styled.div`
     font-size: 14px;
     font-weight: bold;
     margin-bottom: 0.4rem;
-`;
-
-const ButtonStyle = styled.button`
-    font-size: 14px;
-    background-color: var(--button-solide-type-1);
-    padding: 0.8rem 1.2rem;
-    display: flex;
-    align-items: center;
-    border-radius: 0.9rem;
 `;
 
 const TitlePoint = styled.span`
@@ -145,14 +137,7 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
                                 </div>
                             </SummaryWrapper>
                             <SummaryWrapper style={{ width: '100%' }}>
-                                <SummaryType>
-                                    {/* {' '}
-                                    <Icon
-                                        src="/img/project/icon/gear.png"
-                                        alt="skill"
-                                    />{' '} */}
-                                    사용스킬{' '}
-                                </SummaryType>
+                                <SummaryType>사용스킬 </SummaryType>
 
                                 <SkillWrapper>
                                     {skill.map((e: string, idx: number) => {
@@ -161,12 +146,9 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
                                             e.charAt(0).toUpperCase() +
                                             e.slice(1);
                                         return (
-                                            <ProjectSkillStyle
-                                                $skill={fullString}
-                                                key={idx}
-                                            >
+                                            <HashTag key={idx}>
                                                 {fullString}
-                                            </ProjectSkillStyle>
+                                            </HashTag>
                                         );
                                     })}
                                 </SkillWrapper>
@@ -199,15 +181,16 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
                                 {/* <Src onClick={() => projectView(projectUrl)}>
                                     {projectUrl}
                                 </Src> */}
-                                <ButtonStyle
+                                <EmbosingButton
                                     onClick={() => projectView(projectUrl)}
                                 >
                                     <Icon
-                                        src="/img/project/icon/more.png"
-                                        alt="시계 아이콘1"
+                                        src="/img/common/arrow2.png"
+                                        alt="클라이언트"
+                                        width={20}
                                     />
-                                    자세히 보기
-                                </ButtonStyle>
+                                    사이트 보러가기
+                                </EmbosingButton>{' '}
                             </SummaryWrapper>
                         </Wrapper>
                     </SummaryWrap>

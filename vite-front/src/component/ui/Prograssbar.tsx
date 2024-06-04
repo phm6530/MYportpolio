@@ -20,7 +20,13 @@ const PrograssbarStyle = styled.div`
         z-index: 1;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
         border-radius: 10px;
-        background: rgba(114, 100, 239, 1);
+        background: linear-gradient(
+            90deg,
+            #7b69e7 0%,
+            #7498de 100%,
+            #c981cb 100.01%
+        );
+        /* background: rgb(73 53 247); */
     }
 `;
 

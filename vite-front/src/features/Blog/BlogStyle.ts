@@ -24,6 +24,7 @@ const BoardWrapper = styled.div`
     padding: 2rem 2rem;
     border-radius: 2rem;
     min-height: 300px;
+    align-items: flex-start;
 `;
 
 export { Tab, Contents, BoardWrapper };

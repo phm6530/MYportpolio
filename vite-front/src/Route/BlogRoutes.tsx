@@ -10,6 +10,7 @@ import withAuth from 'hoc/WithAuth';
 
 const MotionStyle = styled(Motion.FadeInOut)`
     flex: 1;
+    width: 100%;
 `;
 
 const BlogRoutes = (): JSX.Element => {
@@ -26,11 +27,17 @@ const BlogRoutes = (): JSX.Element => {
             Component: <AuthenticatedBlodAdd />,
         },
     ];
-    console.log(location.pathname);
 
     return (
         <>
-            <AnimatePresence mode="wait" initial={false}>
+            <AnimatePresence
+                mode="wait"
+                initial={false}
+                onExitComplete={() => {
+                    console.log(window.scrollY);
+                    window.scrollTo(0, 0);
+                }}
+            >
                 <Routes location={location} key={location.pathname}>
                     {paths.map(path => {
                         return (

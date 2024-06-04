@@ -61,7 +61,7 @@ export const ProjectCompany = styled.div`
 `;
 export const ProjectDescription = styled.div`
     font-size: 13px;
-    margin-bottom: 10px;
+    margin-bottom: 14px;
     word-break: keep-all;
     display: -webkit-box;
     -webkit-line-clamp: 2;

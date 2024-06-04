@@ -2,6 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
  :root {
+    --perple : #6e31e1;
     --color-white: rgb(182, 190, 201);
     --color-text: ${({ theme }) => theme.textColor};
     --color-background: ${({ theme }) => theme.backgroundColor};
@@ -32,6 +33,7 @@ export const GlobalStyle = createGlobalStyle`
     /* 그라디언트 */
     --gradient-title-color : ${({ theme }) => theme.gradiendtTitle};
     --gradient-subtitle-color : ${({ theme }) => theme.gradiendSubTitle};
+    --gradient-aboutGradient-color : ${({ theme }) => theme.aboutGradient};
 
     /* border 색상 */
     --borer-line-color : ${({ theme }) => theme.borderColor};
@@ -40,6 +42,8 @@ export const GlobalStyle = createGlobalStyle`
 
     /* Description Color */
     --color-description-color : ${({ theme }) => theme.descriptionColor};
+    --color-aboutfont-color : ${({ theme }) => theme.aboutfontColor};
+
 
     /* tab or list hover color */
     --hover-color : #7f8fae;
@@ -66,6 +70,7 @@ export const GlobalStyle = createGlobalStyle`
 
     /* 버튼 */
     --button-solide-type-1 : ${({ theme }) => theme.buttonStyleSolidType_1};
+    --button-EmbosingButton-bg : ${({ theme }) => theme.EmbosingButton};
   }
 
 
@@ -118,8 +123,8 @@ export const lightTheme = {
     // errorColor
     tabCnt: 'rgb(60 114 166)',
 
-    tagColor: 'rgb(139 122 202);',
-    tagBackground: 'rgb(226 226 226 / 32%)',
+    tagColor: '#492a84',
+    tagBackground: '#fff',
 
     btnBackground: '#212b35',
     listBackground: 'rgb(238 238 238 / 15%)',
@@ -151,7 +156,13 @@ export const lightTheme = {
     //project
     ProjectSummaryBackground: 'rgba(0, 0, 0, 0.02)',
 
-    buttonStyleSolidType_1: '#0000000a;',
+    buttonStyleSolidType_1: '#00000005;',
+
+    aboutfontColor: '#333',
+    aboutGradient: 'linear-gradient(to left, #7877af, #45406f, #525db2)',
+
+    EmbosingButton:
+        'linear-gradient(90deg, #53479c 0%, #98b7f4 100%, #c981cb 100.01%)',
 };
 
 export const darkTheme = {
@@ -167,14 +178,14 @@ export const darkTheme = {
 
     btnBackground: '#212b35',
 
-    backgroundColorType1: '#353b3f',
+    backgroundColorType1: '#191e22',
     inputBackground: '#1d2025',
 
     tabCnt: 'rgb(102, 179, 255)',
 
     // hash
-    tagColor: 'rgb(186 179 214);',
-    tagBackground: 'rgb(85 73 129 / 32%)',
+    tagColor: 'rgb(229 223 252)',
+    tagBackground: 'rgb(0 0 0 / 32%)',
 
     listBackground: 'rgb(71 78 87 / 10%)',
     listColor: 'rgba(61, 71, 81, 0.3)',
@@ -203,4 +214,8 @@ export const darkTheme = {
     ProjectSummaryBackground: 'rgb(37 41 56 / 30%)',
 
     buttonStyleSolidType_1: '#00000026;',
+    aboutfontColor: '#d1d2eb',
+    aboutGradient: 'linear-gradient(to left, #f0f0f0, #a9a5cc, #8e9bfc)',
+
+    EmbosingButton: '#252b39',
 };

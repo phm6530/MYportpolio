@@ -89,6 +89,7 @@ const RightWrap = styled.div`
     height: 100%;
     display: flex;
     width: 100%;
+
     transition: all 0.5s ease;
     background: ${({ theme }) => theme.backgroundColor};
     padding: 2rem 2rem;
@@ -127,15 +128,18 @@ const HashTag = styled.div`
     align-items: center;
     display: inline-flex;
     font-weight: 500;
-    font-size: 12px;
-    padding: 3px 10px;
+    font-size: 13px;
+    padding: 6px 12px;
     border-radius: 27px;
     color: var(--color-hash-tag-text);
     background: var(--color-hash-tag-background);
+    font-weight: 500;
+    /* border: 1px solid var(--color-hash-tag-text); */
     margin-right: 0.6rem;
     align-items: center;
-    font-weight: bold;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.7rem;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+
     svg {
         margin-left: 0.4rem;
     }

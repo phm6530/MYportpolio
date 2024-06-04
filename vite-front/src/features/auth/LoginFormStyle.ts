@@ -79,5 +79,7 @@ export const LabelWrap = styled.div<{ $error?: boolean }>`
 
 export const ErrorMessage = styled.div`
     font-weight: bold;
+    font-size: 12px;
+    color: var(--color-error);
     opacity: 0.8;
 `;

@@ -10,6 +10,13 @@
     src: url('//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf')
         format('opentype');
 }
+@font-face {
+    font-family: 'Gms';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+        format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 @font-face {
     font-family: 'IBMPlexSansKR-Regular';

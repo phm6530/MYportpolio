@@ -13,6 +13,7 @@ import BlogPostRelatedList from '@features/Blog/BlogPostRelatedList/BlogPostRela
 
 import styled from 'styled-components';
 import PostTimestamp from 'component/ui/PostTimestamp';
+import useStore from 'store/zustandStore';
 
 const PostTitle = styled.div`
     font-size: 2rem;
@@ -66,7 +67,7 @@ const SummaryDataAlign = styled(PostTimestamp)`
 const BlogDetail = () => {
     const { key } = useParams();
     const navigate = useNavigate();
-
+    const login = useStore(state => state.userAuth.login);
     const { data, isLoading, isError } = useBlogPostDetail(key ? key : '');
 
     if (isLoading) {
@@ -88,7 +89,7 @@ const BlogDetail = () => {
     return (
         <>
             {data && key && (
-                <div>
+                <div style={{ width: '100%' }}>
                     {/* Editor View header */}
                     <PostDetailHeader>
                         <CateGroy>
@@ -108,10 +109,14 @@ const BlogDetail = () => {
                                 <Button onClick={() => navigate(-1)}>
                                     목록
                                 </Button>
-                                {/* 수정 */}
-                                <BlogDetailEditBtn postId={key} />
-                                {/* 삭제 */}
-                                <BlogDetailDeleteBtn postKey={key} />
+                                {login && (
+                                    <>
+                                        {/* 수정 */}
+                                        <BlogDetailEditBtn postId={key} />
+                                        {/* 삭제 */}
+                                        <BlogDetailDeleteBtn postKey={key} />
+                                    </>
+                                )}
                             </ControlBtnWrap>
                         </PostInfo>
                     </PostDetailHeader>

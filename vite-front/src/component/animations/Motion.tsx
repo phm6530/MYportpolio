@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ReactNode, useRef } from 'react';
+import { ReactNode } from 'react';
 
 type MotionChildren = ReactNode;
 
@@ -48,7 +48,6 @@ export const FadeInOut: React.FC<MotionProps> = ({ className, children }) => {
 };
 
 export const Page: React.FC<MotionProps> = ({ className, children }) => {
-    const scrollYRef = useRef(0);
     return (
         <motion.div
             className={className}
@@ -57,10 +56,6 @@ export const Page: React.FC<MotionProps> = ({ className, children }) => {
             exit={{ opacity: 0 }}
             transition={{
                 duration: 0.3,
-            }}
-            onAnimationStart={() => {
-                // 애니메이션 시작 전 스크롤 위치 저장
-                scrollYRef.current = window.scrollY;
             }}
         >
             {children}

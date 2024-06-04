@@ -5,24 +5,18 @@ import Motion from 'component/animations/Motion';
 
 import RootNav from '@layout/RootNav';
 import { ROUTE_PATH } from 'constants/routePath';
-import { useEffect, useRef } from 'react';
+import Footer from '@layout/Footer';
 
 const AppRoute = (): JSX.Element => {
     const location = useLocation();
     const pageKey = location.pathname.split('/')[1];
-
-    const scrollYRef = useRef(0);
-
-    useEffect(() => {
-        console.log(scrollYRef.current);
-    }, []);
 
     return (
         <>
             <RootNav />
             <AnimatePresence
                 mode="wait"
-                onExitComplete={() => window.scrollTo(0, scrollYRef.current)}
+                onExitComplete={() => window.scrollTo(0, 0)}
             >
                 <Routes location={location} key={pageKey}>
                     {ROUTE_PATH.map(({ path, Component }) => (
@@ -34,6 +28,7 @@ const AppRoute = (): JSX.Element => {
                     ))}
                 </Routes>
             </AnimatePresence>
+            <Footer />
         </>
     );
 };

@@ -62,6 +62,7 @@ const PopupWrap = styled.div<{ $close: boolean }>`
                 forwards;
         `};
     box-shadow: 15px 55px 55px rgba(0, 0, 0, 0.9);
+    border: 1px solid var(--borer-line-color);
 `;
 
 export { PopupWrap, PopupStyle };

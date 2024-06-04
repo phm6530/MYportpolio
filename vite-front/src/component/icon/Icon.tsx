@@ -8,22 +8,23 @@ import { MdCancel } from 'react-icons/md';
 
 import styled from 'styled-components';
 
-const IconStyle = styled.div`
+const IconStyle = styled.div<{ $width?: number }>`
     display: inline-block;
     margin-right: 10px;
     img {
-        width: 20px;
+        width: ${({ $width }) => ($width ? `${$width}px` : '20px')};
     }
 `;
 
 interface IconProps {
     src: string;
     alt: string;
+    width?: number;
 }
 
-const Icon: React.FC<IconProps> = ({ src, alt }) => {
+const Icon: React.FC<IconProps> = ({ src, alt, width }) => {
     return (
-        <IconStyle>
+        <IconStyle $width={width}>
             <img src={src} alt={alt} />
         </IconStyle>
     );

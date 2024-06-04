@@ -45,7 +45,7 @@ export const ProfilePicture = styled.div<{ $isOnline: boolean }>`
         border-radius: 5em;
 
         background: ${props =>
-            props.$isOnline ? 'rgb(51 156 73)' : 'rgb(127 127 127)'};
+            props.$isOnline ? 'rgb(48 255 192)' : 'rgb(127 127 127)'};
     }
 `;
 export const ProfileInfo = styled.div``;
