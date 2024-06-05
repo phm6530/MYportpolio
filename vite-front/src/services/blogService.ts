@@ -10,6 +10,7 @@ import {
     BlogPostRequestProps,
 } from '@type/BlogTypes';
 import { requestHandler } from 'utils/apiUtils';
+import { resolve } from 'path';
 
 //카테고리
 const fetchBlogCategory = async (): Promise<BlogCategorylist> => {
@@ -56,6 +57,7 @@ const fetchBlogPageData = async (
     const result = await requestHandler<BlogMainContentsProps>(async () =>
         axios.get(url),
     );
+    await new Promise(resolve => setTimeout(resolve, 1000));
     return result;
 };
 

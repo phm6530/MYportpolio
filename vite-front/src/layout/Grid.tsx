@@ -1,3 +1,4 @@
+import { device } from 'config/DeviceConfig';
 import styled from 'styled-components';
 
 const CenteredGrid = styled.div`
@@ -17,6 +18,10 @@ const BannerCenteredGrid = styled.div`
     position: relative;
     margin: 0 auto;
     width: 1180px;
+
+    @media ${device.laptop} {
+        margin-left: 1rem;
+    }
 `;
 
 const MainSpacer = styled.div`

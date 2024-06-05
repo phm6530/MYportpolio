@@ -1,18 +1,32 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Thumbnail from 'component/ui/Thumbnail';
 
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { BlogPostRelated } from '@type/BlogTypes';
 import { ENDPOINT_URL } from 'constants/apiUrl';
+import { device } from 'config/DeviceConfig';
 
-const Container = styled.div`
+const Container = styled.div<{ $even: boolean }>`
     display: flex;
     flex-direction: column;
 
     margin-right: 2rem;
     cursor: pointer;
     width: calc(25% - 2rem);
+    @media ${device.tablet} {
+        width: 47%;
+        margin-bottom: 1.2rem;
+        margin-right: 6%;
+        ${({ $even }) => {
+            return (
+                $even &&
+                css`
+                    margin-right: 0 !important;
+                `
+            );
+        }}
+    }
 `;
 
 const Summary = styled.div`
@@ -27,19 +41,24 @@ const Summary = styled.div`
 `;
 
 const ThumbnailCustom = styled(Thumbnail)`
-    height: 8.6rem !important;
     border-radius: 2px;
+    padding-bottom: 60%;
 `;
 
 const BlogPostRelatedItem: React.FC<BlogPostRelated> = ({
+    idx,
     post_id,
     post_title,
     create_at,
     thumnail_url,
 }) => {
     const navigate = useNavigate();
+    console.log('idx?', idx, idx! % 2);
     return (
-        <Container onClick={() => navigate(`/blog/${post_id}`)}>
+        <Container
+            $even={(idx! + 1) % 2 === 0}
+            onClick={() => navigate(`/blog/${post_id}`)}
+        >
             <ThumbnailCustom img={`${ENDPOINT_URL}/${thumnail_url}`} />
             <Summary>
                 <div className="title">{post_title}</div>

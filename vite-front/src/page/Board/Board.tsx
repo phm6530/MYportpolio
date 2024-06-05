@@ -41,15 +41,11 @@ export default function Board(): JSX.Element {
                 pageTitle={'Board'}
                 subComment={'"퍼블리셔와 개발자 사이 그어딘가"'}
             />
-
-            {/* Body */}
-            <PageGrid>
-                {/* Prifile */}
-                <Motion.FadeInOut>
+            {/* Body */}{' '}
+            <Motion.FadeInOut>
+                <PageGrid>
+                    {/* Prifile */}
                     <UserProfile />
-                </Motion.FadeInOut>
-
-                <Motion.FadeInOut>
                     <RightWrap>
                         <BoardDashBoard>
                             <SubTitle>
@@ -70,8 +66,8 @@ export default function Board(): JSX.Element {
                         {/* BoardComment */}
                         <BoardCommentList />
                     </RightWrap>{' '}
-                </Motion.FadeInOut>
-            </PageGrid>
+                </PageGrid>
+            </Motion.FadeInOut>
         </PageWrapper>
     );
 }

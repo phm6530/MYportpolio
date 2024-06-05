@@ -4,6 +4,7 @@ import { IoMoon } from 'react-icons/io5';
 
 import useStore from 'store/zustandStore';
 import useScrollY from '@hooks/useScrollY';
+import { device } from 'config/DeviceConfig';
 
 const DarkmodeButton = styled.div<{ $scrollOver: boolean }>`
     border-radius: 1em;
@@ -25,6 +26,9 @@ const DarkmodeButton = styled.div<{ $scrollOver: boolean }>`
     margin-right: auto;
     &:active {
         box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.8);
+    }
+    @media ${device.laptopL} {
+        margin-right: initial;
     }
 `;
 const IconAnimation = keyframes`

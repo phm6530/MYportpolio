@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import useBlogPostRelated from '../hooks/useBlogPostRelated';
 import styled from 'styled-components';
 import BlogPostRelatedItem from '@features/Blog/BlogPostRelatedList/BlogPostRelatedItem';
+import { device } from 'config/DeviceConfig';
 
 const RelatedPostsContainer = styled.div``;
 
@@ -10,6 +11,11 @@ const ListWrapper = styled.div`
     width: 100%;
     & div:last-child {
         margin-right: 0;
+    }
+    @media ${device.tablet} {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
     }
 `;
 
@@ -30,7 +36,7 @@ const BlogPostRelatedList = () => {
                 <RelatedPostsContainer>
                     <SubCategory>관련 포스트</SubCategory>
                     <ListWrapper>
-                        {relatedList.map(item => {
+                        {relatedList.map((item, idx) => {
                             const {
                                 post_id,
                                 post_title,
@@ -39,6 +45,7 @@ const BlogPostRelatedList = () => {
                             } = item;
                             return (
                                 <BlogPostRelatedItem
+                                    idx={idx}
                                     key={item.post_id}
                                     post_id={post_id}
                                     post_title={post_title}

@@ -2,9 +2,13 @@ import useBlogNewPostList from '@features/Blog/hooks/useBlogNewPostLIst';
 import styled from 'styled-components';
 import PostItem from './BlogPostItem';
 import { useLocation } from 'react-router-dom';
+import { device } from 'config/DeviceConfig';
 
 const Container = styled.div<{ $isMain?: boolean }>`
     ${({ $isMain }) => $isMain && 'color: #fff;'}
+    @media ${device.tablet} {
+        display: none;
+    }
 `;
 
 const Title = styled.div`

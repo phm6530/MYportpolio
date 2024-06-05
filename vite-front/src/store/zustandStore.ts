@@ -72,8 +72,9 @@ const useStore = create<StoreState>(set => ({
             const userData = { id, access: role, name };
             localStorage.setItem('user', JSON.stringify(userData));
             localStorage.setItem('token', token);
+
             return {
-                userAuth: { ...state.userAuth, login: true },
+                userAuth: { ...state.userAuth, login: true, user: userData },
             };
         }),
     userAuthLogout: () => {

@@ -4,9 +4,17 @@ import DashBoard from 'component/ui/DashBoard';
 import ProjectRoutes from 'Route/ProjectRoutes';
 
 import { PageGrid, PageWrapper } from '@layout/Grid';
+import { useEffect, useState } from 'react';
 // import Motion from 'component/animations/Motion';
 
 export default function Project() {
+    const [boolean, setBoolean] = useState(false);
+
+    useEffect(() => {
+        console.log('!');
+        setBoolean(prev => !prev);
+    }, [boolean]);
+
     return (
         <PageWrapper>
             <DashBoard

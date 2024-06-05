@@ -28,6 +28,7 @@ import Icon from 'component/icon/Icon';
 import FadeInAnimation from 'component/animations/FadeInAnimation';
 import EmbosingButton from 'component/ui/EmbosingButton';
 import { HashTag } from '@style/commonStyle';
+import { Grid } from '@layout/Grid';
 const DepsProjectSummary = styled.div`
     display: flex;
     width: 100%;
@@ -84,18 +85,19 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
 
     return (
         <>
-            <CustumStyle>
-                <ProjectSummary>
-                    <ProjectTitle>
-                        {title} <TitlePoint /> {/* 버튼 wrapper */}
-                        {projectKey && (
-                            <ProjectDetailControlsWrap
-                                projectKey={projectKey}
-                            />
-                        )}
-                    </ProjectTitle>
-                    <ProjectDescription>{description}</ProjectDescription>
-                    {/* <HashtagArea>
+            <Grid>
+                <CustumStyle>
+                    <ProjectSummary>
+                        <ProjectTitle>
+                            {title} <TitlePoint /> {/* 버튼 wrapper */}
+                            {projectKey && (
+                                <ProjectDetailControlsWrap
+                                    projectKey={projectKey}
+                                />
+                            )}
+                        </ProjectTitle>
+                        <ProjectDescription>{description}</ProjectDescription>
+                        {/* <HashtagArea>
                         {hashtag.map((e: string, idx: number) => {
                             return (
                                 <HashTag
@@ -105,112 +107,113 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
                             );
                         })}
                     </HashtagArea> */}
-                </ProjectSummary>
-                <DepsProjectSummary>
-                    <SummaryWrap>
-                        <ProjectThumbNail
-                            $thumbNail={`${ENDPOINT_URL}/${thumbnail}`}
-                        />
+                    </ProjectSummary>
+                    <DepsProjectSummary>
+                        <SummaryWrap>
+                            <ProjectThumbNail
+                                $thumbNail={`${ENDPOINT_URL}/${thumbnail}`}
+                            />
 
-                        <Wrapper>
-                            <SummaryWrapper>
-                                <SummaryType>
-                                    {' '}
-                                    <Icon
-                                        src="/img/project/icon/client.png"
-                                        alt="클라이언트"
-                                    />{' '}
-                                    클라이언트
-                                </SummaryType>
-                                <div className="project_date">
-                                    <SKill>{company}</SKill>
-                                </div>
-                            </SummaryWrapper>
-                            <SummaryWrapper>
-                                <SummaryType>프로젝트 기간</SummaryType>
+                            <Wrapper>
+                                <SummaryWrapper>
+                                    <SummaryType>
+                                        {' '}
+                                        <Icon
+                                            src="/img/project/icon/client.png"
+                                            alt="클라이언트"
+                                        />{' '}
+                                        클라이언트
+                                    </SummaryType>
+                                    <div className="project_date">
+                                        <SKill>{company}</SKill>
+                                    </div>
+                                </SummaryWrapper>
+                                <SummaryWrapper>
+                                    <SummaryType>프로젝트 기간</SummaryType>
 
-                                <div className="project_date">
-                                    <SKill>
-                                        {startDate?.toString()} -{' '}
-                                        {endDate?.toString()}
-                                    </SKill>
-                                </div>
-                            </SummaryWrapper>
-                            <SummaryWrapper style={{ width: '100%' }}>
-                                <SummaryType>사용스킬 </SummaryType>
+                                    <div className="project_date">
+                                        <SKill>
+                                            {startDate?.toString()} -{' '}
+                                            {endDate?.toString()}
+                                        </SKill>
+                                    </div>
+                                </SummaryWrapper>
+                                <SummaryWrapper style={{ width: '100%' }}>
+                                    <SummaryType>사용스킬 </SummaryType>
 
-                                <SkillWrapper>
-                                    {skill.map((e: string, idx: number) => {
-                                        // 첫 문자를 대문자로 변환하고 나머지 문자열과 이어붙입니다.
-                                        const fullString =
-                                            e.charAt(0).toUpperCase() +
-                                            e.slice(1);
-                                        return (
-                                            <HashTag key={idx}>
-                                                {fullString}
-                                            </HashTag>
-                                        );
-                                    })}
-                                </SkillWrapper>
-                            </SummaryWrapper>
+                                    <SkillWrapper>
+                                        {skill.map((e: string, idx: number) => {
+                                            // 첫 문자를 대문자로 변환하고 나머지 문자열과 이어붙입니다.
+                                            const fullString =
+                                                e.charAt(0).toUpperCase() +
+                                                e.slice(1);
+                                            return (
+                                                <HashTag key={idx}>
+                                                    {fullString}
+                                                </HashTag>
+                                            );
+                                        })}
+                                    </SkillWrapper>
+                                </SummaryWrapper>
 
-                            <SummaryWrapper style={{ width: '100%' }}>
-                                <SummaryType>
-                                    {/* <Icon
+                                <SummaryWrapper style={{ width: '100%' }}>
+                                    <SummaryType>
+                                        {/* <Icon
                                         src="/img/project/icon/grape.png"
                                         alt="시계 아이콘1"
                                     /> */}
-                                    참여도
-                                </SummaryType>
+                                        참여도
+                                    </SummaryType>
 
-                                {projectRoles.map((e, idx) => {
-                                    return (
-                                        <ProgassWrapper key={idx}>
-                                            <PrograssTitle>
-                                                {e.roleName}
-                                            </PrograssTitle>
-                                            <Prograssbar
-                                                percent={e.rolePercent}
-                                                key={idx}
-                                            />
-                                        </ProgassWrapper>
-                                    );
-                                })}
-                            </SummaryWrapper>
-                            <SummaryWrapper>
-                                {/* <Src onClick={() => projectView(projectUrl)}>
+                                    {projectRoles.map((e, idx) => {
+                                        return (
+                                            <ProgassWrapper key={idx}>
+                                                <PrograssTitle>
+                                                    {e.roleName}
+                                                </PrograssTitle>
+                                                <Prograssbar
+                                                    percent={e.rolePercent}
+                                                    key={idx}
+                                                />
+                                            </ProgassWrapper>
+                                        );
+                                    })}
+                                </SummaryWrapper>
+                                <SummaryWrapper>
+                                    {/* <Src onClick={() => projectView(projectUrl)}>
                                     {projectUrl}
                                 </Src> */}
-                                <EmbosingButton
-                                    onClick={() => projectView(projectUrl)}
-                                >
-                                    <Icon
-                                        src="/img/common/arrow2.png"
-                                        alt="클라이언트"
-                                        width={20}
-                                    />
-                                    사이트 보러가기
-                                </EmbosingButton>{' '}
-                            </SummaryWrapper>
-                        </Wrapper>
-                    </SummaryWrap>
-                </DepsProjectSummary>{' '}
-                {/* quill-view */}+{' '}
+                                    <EmbosingButton
+                                        onClick={() => projectView(projectUrl)}
+                                    >
+                                        <Icon
+                                            src="/img/common/arrow2.png"
+                                            alt="클라이언트"
+                                            width={20}
+                                        />
+                                        사이트 보러가기
+                                    </EmbosingButton>{' '}
+                                </SummaryWrapper>
+                            </Wrapper>
+                        </SummaryWrap>
+                    </DepsProjectSummary>{' '}
+                    {/* quill-view */}+{' '}
+                    <FadeInAnimation>
+                        <QuillView contents={projectDescription} />{' '}
+                        <Button.Type onClick={() => navigate('/project')}>
+                            목록으로
+                        </Button.Type>{' '}
+                    </FadeInAnimation>
+                </CustumStyle>{' '}
                 <FadeInAnimation>
-                    <QuillView contents={projectDescription} />{' '}
-                    <Button.Type onClick={() => navigate('/project')}>
-                        목록으로
-                    </Button.Type>{' '}
+                    <ProjectViewFooter>
+                        ※ 본 게시물은 상업적 목적이 아닌 포트폴리오 목적으로만
+                        사용됩니다. 아직 공개되지 않은 작업물은 포함하지 않으며,
+                        오직 공개된 작업물만을 게시합니다.
+                    </ProjectViewFooter>
+                    <ProjectNextPrevNav />
                 </FadeInAnimation>
-            </CustumStyle>{' '}
-            <FadeInAnimation>
-                <ProjectViewFooter>
-                    ※ 본 게시물은 상업적 목적이 아닌 포트폴리오 목적으로만
-                    사용됩니다. 아직 공개되지 않은 작업물은 포함하지 않으며,
-                    오직 공개된 작업물만을 게시합니다.
-                </ProjectViewFooter>
-                <ProjectNextPrevNav />
-            </FadeInAnimation>
+            </Grid>
         </>
     );
 };

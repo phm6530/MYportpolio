@@ -1,3 +1,4 @@
+import { device } from 'config/DeviceConfig';
 import styled from 'styled-components';
 
 export const ProfileCard = styled.div`
@@ -9,7 +10,9 @@ export const ProfileCard = styled.div`
     margin-right: 2rem;
     /* height: 70vh; */
     padding: 2rem;
-    width: 17rem;
+    max-width: 17rem;
+    width: 24%;
+    margin-left: 1rem;
     flex-shrink: 0;
     position: sticky;
     top: 100px;
@@ -18,6 +21,12 @@ export const ProfileCard = styled.div`
     align-items: center;
     text-align: center;
     margin-top: -3rem;
+    @media ${device.laptopL} {
+        margin-right: 0rem;
+    }
+    @media ${device.laptop} {
+        display: none;
+    }
 `;
 export const ProfilePicture = styled.div<{ $isOnline: boolean }>`
     width: 4.5rem;

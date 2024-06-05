@@ -35,12 +35,12 @@ export const AboutMeDeps = styled.div``;
 export const AboutMeTitle = styled.div``;
 
 export const IconWrapper = styled.div`
-    display: inline-flex;
     align-items: center;
     font-size: 1.3rem;
     border-radius: 0.8rem;
     margin-bottom: 2rem;
     margin-top: 2rem;
+    word-break: keep-all;
     span {
         background: var(--gradient-aboutGradient-color);
         color: transparent;

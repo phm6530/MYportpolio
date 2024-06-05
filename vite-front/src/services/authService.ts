@@ -12,6 +12,7 @@ const fetchLogin = async (loginData: {
     const result = await requestHandler<LoginResponseProps>(() =>
         axios.post(url, loginData),
     );
+    console.log(result);
     return result;
 };
 

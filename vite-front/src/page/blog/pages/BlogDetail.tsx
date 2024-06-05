@@ -14,10 +14,14 @@ import BlogPostRelatedList from '@features/Blog/BlogPostRelatedList/BlogPostRela
 import styled from 'styled-components';
 import PostTimestamp from 'component/ui/PostTimestamp';
 import useStore from 'store/zustandStore';
+import { device } from 'config/DeviceConfig';
 
 const PostTitle = styled.div`
     font-size: 2rem;
     padding: 1rem 0;
+    @media ${device.tablet} {
+        font-size: 1.5rem;
+    }
 `;
 const CateGroy = styled.div`
     opacity: 0.3;

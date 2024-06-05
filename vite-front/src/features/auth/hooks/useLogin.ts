@@ -9,7 +9,7 @@ const useLogin = () => {
     const { login } = useStore(state => ({ login: state.userAuthLogin }));
     const st = useStore(state => state.userAuth);
 
-    console.log(st);
+    console.log('st', st);
 
     // 로그인 로직
     return useMutation<LoginResponseProps, Error, LoginRequestProps>({

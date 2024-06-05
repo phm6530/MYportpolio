@@ -46,8 +46,8 @@ const About: React.FC = () => {
                                         width={50}
                                     />
                                     안녕하세요! 퍼블리셔에서{' '}
-                                    <span>FRONT END</span> 개발자를 꿈꾸는
-                                    박현민입니다.
+                                    <span>FRONT END</span> 개발자로 도전을 하고
+                                    있는 박현민입니다.
                                 </S.IconWrapper>{' '}
                                 <S.CertWrap>
                                     {ABOUTCONSTANS.SKILL_TAG.map((e, idx) => {

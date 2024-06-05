@@ -4,13 +4,14 @@ import styled from 'styled-components';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 // import { HashTag } from 'component/CommonStyle';
 import { thumnail_url } from '@type/BlogTypes';
+import { device } from 'config/DeviceConfig';
 
 const ThumbNailContainer = styled.div<{
     $backImg: string | null;
     $badge?: string;
 }>`
     width: 100%;
-    height: 10.6rem;
+
     position: relative;
     overflow: hidden;
     border-radius: 0.3rem;
@@ -35,6 +36,11 @@ const ThumbNailContainer = styled.div<{
                 transform: translateY(0px);
             }
         }
+    }
+
+    @media ${device.tablet} {
+        width: 100%;
+        margin-right: 0rem;
     }
 `;
 

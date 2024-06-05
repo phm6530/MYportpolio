@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import React, { ReactNode } from 'react';
+import { device } from 'config/DeviceConfig';
 const animation = keyframes`
     from{
         opacity: 0;
@@ -35,6 +36,9 @@ const DashBoardTitleStyle = styled.div`
     font-size: 5rem;
     font-weight: bold;
     animation: ${animation} 1s 0.5s cubic-bezier(0.1, 0.45, 0, 1.09) forwards;
+    @media ${device.tablet} {
+        font-size: 4rem;
+    }
 `;
 
 const DashBoardShadow = styled.div`

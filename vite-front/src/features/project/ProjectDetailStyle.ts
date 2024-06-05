@@ -1,3 +1,4 @@
+import { device } from 'config/DeviceConfig';
 import styled from 'styled-components';
 
 export const PageSubText = styled.div`
@@ -47,6 +48,9 @@ export const ProjectTitle = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    @media ${device.tablet} {
+        font-size: 1.5rem;
+    }
 `;
 
 export const ProjectWrapStyle = styled.div`

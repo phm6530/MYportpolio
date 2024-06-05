@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import FadeInAnimation from 'component/animations/FadeInAnimation';
+import { device } from 'config/DeviceConfig';
 
 export const ProjectFadeinStyle = styled(FadeInAnimation)`
     margin-bottom: 2rem;
@@ -9,8 +10,8 @@ export const ProjectFadeinStyle = styled(FadeInAnimation)`
     flex: 0 0 calc(33.333% - 1.34rem);
     width: 100%;
     align-items: start;
-    cursor: pointer;
     margin-right: 2rem;
+    cursor: pointer;
 
     &:nth-child(3n + 2) {
         margin-right: 0rem;
@@ -19,6 +20,23 @@ export const ProjectFadeinStyle = styled(FadeInAnimation)`
     img {
         transition: all 0.2s ease;
     }
+
+    /* 랩탑 */
+    @media ${device.laptop} {
+        flex: 0 0 calc(50% - 1rem);
+        &:nth-child(3n + 2) {
+            margin-right: 2rem;
+        }
+        &:nth-child(2n + 2) {
+            margin-right: 0rem;
+        }
+    }
+    /* 모바일 */
+    @media ${device.tablet} {
+        margin-right: 0 !important;
+        flex: auto;
+    }
+
     &:hover {
         .projectItemImg {
             transform: scale(1.05);
@@ -38,7 +56,7 @@ export const ProjectFadeinStyle = styled(FadeInAnimation)`
 
 export const ProjectImgArea = styled.div<{ $backImg: string }>`
     width: 100%;
-    height: 16.6rem;
+    padding-bottom: 70%;
     position: relative;
     overflow: hidden;
     border-radius: 1rem;

@@ -4,9 +4,13 @@ import { useEffect, useState } from 'react';
 import { type BlogCategorylist } from '@type/BlogTypes';
 import AccodianTab from '@features/Blog/BlogTab.js/BlogTabAcodian';
 import styled from 'styled-components';
+import { device } from 'config/DeviceConfig';
 
 const TabWrapper = styled.div`
     margin-left: 4rem;
+    @media ${device.tablet} {
+        margin-left: 0;
+    }
 `;
 
 const BlogTab = () => {

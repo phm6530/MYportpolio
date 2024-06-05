@@ -5,6 +5,7 @@ import BlogTabDetail from './BlogTabDetail';
 import useQueryString from '../../../hooks/useSearchQueryString';
 import { useRef, useState } from 'react';
 import { BlogCategory } from '@type/BlogTypes';
+import { device } from 'config/DeviceConfig';
 
 const ListWrapper = styled.div<ListWrapperProps>`
     overflow: hidden;
@@ -12,6 +13,12 @@ const ListWrapper = styled.div<ListWrapperProps>`
     transition: 0.3s ease;
     display: flex;
     /* border-bottom: 1px solid var(--borer-line-color); */
+    @media ${device.tablet} {
+        padding-left: 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
 `;
 
 const CateGory = styled.div`
@@ -38,6 +45,9 @@ const LeftAlign = styled.div`
 const CategoryWrapper = styled.div`
     display: flex;
     align-items: flex-start;
+    @media ${device.tablet} {
+        flex-direction: column;
+    }
 `;
 
 interface ListWrapperProps {

@@ -1,44 +1,40 @@
 input:focus {
-  outline: none;
+    outline: none;
 }
 
 button {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 textarea {
-  white-space: pre-line;
-  resize: none;
+    white-space: pre-line;
+    resize: none;
 }
 
 textarea:focus {
-  outline: none;
+    outline: none;
 }
 
-textarea::-moz-placeholder, input::-moz-placeholder {
-  font-size: 12px;
+textarea::-moz-placeholder,
+input::-moz-placeholder {
+    font-size: 12px;
 }
 
 textarea::placeholder,
 input::placeholder {
-  font-size: 12px;
+    font-size: 12px;
 }
 
 .errorMessage {
-  color: rgb(233, 97, 97);
+    color: rgb(233, 97, 97);
 }
 
 nav {
-  display: flex;
-  justify-content: space-between;
-  cursor: pointer;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    align-items: center;
 }
 nav ul {
-  display: flex;
+    display: flex;
 }
-nav ul li {
-  margin-left: 30px;
-  padding: 25px 0px;
-  font-size: 14px;
-}/*# sourceMappingURL=variable.css.map */

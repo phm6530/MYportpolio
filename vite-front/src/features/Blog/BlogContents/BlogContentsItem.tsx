@@ -6,20 +6,24 @@ import Thumbnail from 'component/ui/Thumbnail';
 import SummaryData from 'component/ui/PostTimestamp';
 import { BlogMainContentsItemProps } from '@type/BlogTypes';
 import { ENDPOINT_URL } from 'constants/apiUrl';
+import { device } from 'config/DeviceConfig';
 
 const ProjectFadeinStyle = styled(FadeInAnimation)`
     /* margin-bottom: 1.5rem; */
-    padding-bottom: 2.5rem;
+    padding-bottom: 3.5rem;
     display: flex;
     flex-direction: row;
     /* flex: 0 0 calc(33.333% - 1.34rem); */
     width: 100%;
     margin-right: 2rem;
     cursor: pointer;
+    @media ${device.tablet} {
+        flex-direction: column;
+    }
 `;
 
 const ProjectDescription = styled.div`
-    font-size: 13px;
+    font-size: 14px;
     /* white-space: pre-line; */
     margin-bottom: 7px;
     word-break: keep-all;
@@ -29,6 +33,11 @@ const ProjectDescription = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     color: var(--color-description-color);
+    @media ${device.tablet} {
+        line-height: 1.4rem;
+        margin-bottom: 1rem;
+        font-size: 14px;
+    }
 `;
 
 const ProjectItemHeaderStyle = styled.div`
@@ -45,6 +54,9 @@ const ContentsWrap = styled.div`
     flex-direction: column;
     align-items: flex-start;
     width: calc(70% - 3rem);
+    @media ${device.tablet} {
+        width: 100%;
+    }
 `;
 
 const CreateDate = styled(SummaryData)`
@@ -53,6 +65,11 @@ const CreateDate = styled(SummaryData)`
 `;
 const CustomThumNail = styled(Thumbnail)`
     width: 25%;
+    padding-bottom: 17%;
+    @media ${device.tablet} {
+        width: 100%;
+        padding-bottom: 55%;
+    }
 `;
 
 const BlogContentsItem: React.FC<{ item: BlogMainContentsItemProps }> = ({

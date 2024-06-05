@@ -18,6 +18,7 @@ export type thumnail_url = string | null;
 
 //블로그 관련카테고리 리스트
 export interface BlogPostRelated {
+    idx?: number;
     create_at: post_date;
     post_id: post_id;
     post_title: post_title;
