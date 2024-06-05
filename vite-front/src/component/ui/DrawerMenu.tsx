@@ -1,6 +1,8 @@
 import { device } from 'config/DeviceConfig';
+import useStore from 'store/zustandStore';
 import styled from 'styled-components';
-const MenuToggle = styled.div`
+
+const MenuToggle = styled.div<{ $darkMode: boolean }>`
     /* ALL */
     z-index: 999;
     .row .three {
@@ -14,16 +16,16 @@ const MenuToggle = styled.div`
     }
 
     .hamburger .line {
-        width: 30px;
-        height: 3px;
-        background-color: #000000ea;
+        width: 25px;
+        height: 2px;
         display: block;
-        margin: 5px auto;
+        margin: 6px auto;
         border-radius: 1rem;
         transition:
             transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
             background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
             opacity 0.55s ease;
+        background-color: var(--Nav-color);
     }
 
     .hamburger:hover {
@@ -58,11 +60,16 @@ const DrawerMenu: React.FC<{
     drawerView: boolean;
     setDrawerView: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ drawerView, setDrawerView }) => {
+    const darkMode = useStore(state => state.darkMode);
+
     const className = drawerView ? 'hamburger is-active' : 'hamburger';
 
     return (
         <>
-            <MenuToggle onClick={() => setDrawerView(prev => !prev)}>
+            <MenuToggle
+                $darkMode={darkMode}
+                onClick={() => setDrawerView(prev => !prev)}
+            >
                 <div className="three col">
                     <div className={className} id="hamburger-1">
                         <span className="line"></span>

@@ -36,7 +36,7 @@ const ContactButton = styled.div`
         ${props =>
             props.onClick &&
             `
-            color: #3963a7;
+            color: var(--color-link);
             text-decoration: underline;
         `}
     }

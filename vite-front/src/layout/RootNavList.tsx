@@ -72,6 +72,7 @@ const RootNavList: React.FC<{ drawerView: boolean; scrollOver: boolean }> = ({
                             $darkMode={darkMode}
                             onClick={() => mutateAsync()}
                             not={true}
+                            $logout={true}
                         >
                             로그아웃
                         </S.List>

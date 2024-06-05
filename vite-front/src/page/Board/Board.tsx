@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { PageGrid, PageWrapper } from '@layout/Grid';
+import { Grid, PageWrapper } from '@layout/Grid';
 import { RightWrap } from '@style/commonStyle';
 import { SubTitle } from 'component/ui/Subtitle';
 
@@ -10,12 +10,17 @@ import UserProfile from 'component/profile/UserProfile';
 import BoardCommentList from '@features/Board/BoardCommentList/BoardCommentList';
 // import FadeInAnimation from 'component/animations/FadeInAnimation';
 import Motion from 'component/animations/Motion';
+import { device } from 'config/DeviceConfig';
 
 const PageText = styled.div`
     word-break: keep-all;
     margin-top: 10px;
     font-size: 14px;
     padding-bottom: 20px;
+
+    @media ${device.tablet} {
+        margin-bottom: 30px;
+    }
 `;
 
 const BoardDashBoard = styled.div`
@@ -32,6 +37,19 @@ const BoardDashBoard = styled.div`
     }
 `;
 
+const CustomGrid = styled(Grid)`
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+`;
+
+const CustomRightWrap = styled(RightWrap)`
+    margin-left: 3rem;
+    @media ${device.laptop} {
+        margin-left: 0;
+    }
+`;
+
 export default function Board(): JSX.Element {
     console.log('board 랜더');
     return (
@@ -39,14 +57,14 @@ export default function Board(): JSX.Element {
             {/* Header */}
             <DashBoard
                 pageTitle={'Board'}
-                subComment={'"퍼블리셔와 개발자 사이 그어딘가"'}
+                subComment={'"궁금하신 사항이 있으시면 문의주세요!"'}
             />
             {/* Body */}{' '}
             <Motion.FadeInOut>
-                <PageGrid>
+                <CustomGrid>
                     {/* Prifile */}
                     <UserProfile />
-                    <RightWrap>
+                    <CustomRightWrap>
                         <BoardDashBoard>
                             <SubTitle>
                                 <div className="subText">
@@ -65,8 +83,8 @@ export default function Board(): JSX.Element {
 
                         {/* BoardComment */}
                         <BoardCommentList />
-                    </RightWrap>{' '}
-                </PageGrid>
+                    </CustomRightWrap>{' '}
+                </CustomGrid>
             </Motion.FadeInOut>
         </PageWrapper>
     );

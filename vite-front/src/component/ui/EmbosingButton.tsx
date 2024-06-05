@@ -1,3 +1,4 @@
+import { device } from 'config/DeviceConfig';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -23,6 +24,12 @@ export const EmbosingBtn = styled.button`
     }
     img {
         margin-right: 1rem;
+    }
+    @media ${device.tablet} {
+        font-size: 0.8rem;
+        img {
+            margin-right: 0.3rem;
+        }
     }
 `;
 

@@ -29,6 +29,7 @@ import FadeInAnimation from 'component/animations/FadeInAnimation';
 import EmbosingButton from 'component/ui/EmbosingButton';
 import { HashTag } from '@style/commonStyle';
 import { Grid } from '@layout/Grid';
+import { device } from 'config/DeviceConfig';
 const DepsProjectSummary = styled.div`
     display: flex;
     width: 100%;
@@ -40,10 +41,14 @@ const ProgassWrapper = styled.div`
 `;
 const Wrapper = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
     width: 45%;
+    @media ${device.tablet} {
+        width: 100%;
+        flex-direction: column;
+    }
 `;
 
 const PrograssTitle = styled.div`

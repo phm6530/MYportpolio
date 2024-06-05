@@ -14,6 +14,7 @@ import {
 
 import useFetchProjectList from '@features/project/hooks/useFetchProjectList';
 import useStore from 'store/zustandStore';
+import { Grid } from '@layout/Grid';
 
 const { useSearchParams } = ReactRouteDom;
 
@@ -36,7 +37,7 @@ export default function ProjectList(): JSX.Element {
     const CateGory = ['All', '반응형', 'React', '참여율 100%'];
 
     return (
-        <>
+        <Grid>
             <ProjectListStyle>
                 <SubTitle>
                     <div className="subText">
@@ -78,6 +79,6 @@ export default function ProjectList(): JSX.Element {
                     </>
                 )}
             </ProjectListStyle>
-        </>
+        </Grid>
     );
 }

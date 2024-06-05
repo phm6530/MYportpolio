@@ -1,3 +1,4 @@
+import { device } from 'config/DeviceConfig';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -23,6 +24,10 @@ const SubTitleStyle = styled.div`
             background-clip: text;
             margin-right: 0.5rem;
             font-family: 'Montserrat';
+        }
+
+        @media ${device.tablet} {
+            font-size: 1.4rem;
         }
     }
     img {

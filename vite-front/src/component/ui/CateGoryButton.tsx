@@ -1,11 +1,15 @@
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button } from 'component/ui/Button';
+import { device } from 'config/DeviceConfig';
 
 const CateGoryArea = styled.div`
     width: 100%;
     margin-bottom: 1.5rem;
     margin-top: 1.5rem;
+    @media ${device.tablet} {
+        margin: 0.2rem 0 1rem;
+    }
 `;
 
 const CateGoryButton: React.FC<{ CateGory: string[]; type: string }> = ({

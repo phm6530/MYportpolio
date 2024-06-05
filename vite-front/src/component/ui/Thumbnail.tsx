@@ -14,14 +14,12 @@ const ThumbNailContainer = styled.div<{
 
     position: relative;
     overflow: hidden;
-    border-radius: 0.3rem;
+    border-radius: 1rem;
     margin-right: 3rem;
     transition: all 0.5s ease;
     background: #6f6f6f42;
     background-size: 110%;
     background-position: center;
-    overflow: hidden;
-    border-radius: 0.3rem;
     /* border: 1px solid var(--borer-line-color); */
 
     background-image: ${({ $backImg }) =>

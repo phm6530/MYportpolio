@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { device } from 'config/DeviceConfig';
 
 const TabWrapper = styled.div`
-    margin-left: 4rem;
+    margin-left: 3rem;
     @media ${device.tablet} {
         margin-left: 0;
     }

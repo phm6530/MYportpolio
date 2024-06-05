@@ -7,6 +7,7 @@ interface ListProps {
     $scrollOver?: boolean;
     $darkMode?: boolean;
     $path?: boolean;
+    $logout?: boolean;
 }
 
 const ScrollOverColor = ({ $scrollOver, $darkMode, $path }: ListProps) => {
@@ -25,6 +26,13 @@ export const List = styled(Link)<ListProps>`
     transition: color 1s ease;
     @media ${device.laptopL} {
         padding: 17px 0;
+        margin-left: 2rem;
+        ${({ $logout }) =>
+            $logout &&
+            css`
+                font-family: 'Pretendard-Regular';
+                font-size: 12px;
+            `};
     }
 `;
 
@@ -56,11 +64,11 @@ export const Header = styled.header<ListProps>`
 export const Nav = styled.nav`
     display: flex;
     justify-content: space-between;
-    cursor: pointer;
+
     align-items: center;
 
     @media ${device.laptopL} {
-        padding: 20px 0;
+        padding: 15px 0;
     }
 `;
 
@@ -83,7 +91,7 @@ export const LinkWrapper = styled.div<{ $toggle: boolean }>`
         height: 100vh;
         right: 0%;
         top: 0;
-        background-color: #151515;
+        background-color: #1b1e23;
         flex-direction: column-reverse;
         justify-content: flex-end;
 
@@ -91,6 +99,10 @@ export const LinkWrapper = styled.div<{ $toggle: boolean }>`
         transition:
             transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
             right 0.75s cubic-bezier(0.77, 0.2, 0.05, 1);
+    }
+
+    @media ${device.tablet} {
+        width: 80%;
     }
 `;
 
@@ -100,8 +112,8 @@ export const UiStyle = styled.ul<{ $link?: boolean }>`
     ${({ $link }) => $link && 'margin-right : 4rem;'}
 
     @media ${device.laptopL} {
-        margin-left: 2rem;
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
+        padding-top: 7px;
         ${({ $link }) =>
             !$link
                 ? css`

@@ -1,35 +1,27 @@
 import { device } from 'config/DeviceConfig';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const CenteredGrid = styled.div`
-    max-width: 1180px;
-    margin: 0 auto;
-    width: 100%;
-    position: relative;
-    z-index: 1;
-`;
-
-const BannerCenteredGrid = styled.div`
-    padding-top: 12.5rem;
-    padding-bottom: 6rem;
-    /* padding-top: 10.5rem;
-    padding-bottom: 2rem; */
-    margin-left: 4rem;
-    position: relative;
-    margin: 0 auto;
-    width: 1180px;
-
-    @media ${device.laptop} {
-        margin-left: 1rem;
+const MainSpacer = css`
+    @media ${device.laptopL} {
+        margin: 0 60px;
+    }
+    @media ${device.tablet} {
+        margin: 0 40px;
+    }
+    @media ${device.mobileL} {
+        margin: 0 0px;
     }
 `;
 
-const MainSpacer = styled.div`
-    margin: 0 20px;
+const CenteredGrid = styled.div`
+    position: relative;
+    z-index: 1;
+    ${MainSpacer}
+    max-width: 1180px;
+    margin: 0 auto;
 `;
 
 const LayoutSpacer = styled.div`
-    margin: 0 20px;
     flex-grow: 1;
     width: 100%;
     justify-content: space-between;
@@ -38,13 +30,7 @@ const LayoutSpacer = styled.div`
     align-items: flex-start;
 `;
 
-const BannerSpacer = styled.div`
-    margin: 0 20px;
-    flex-grow: 1;
-    width: 100%;
-`;
-
-const PageCenteredGrid = styled(CenteredGrid)`
+const PageCenteredGrid = styled.div`
     display: flex;
     flex-direction: column;
 `;
@@ -54,12 +40,15 @@ const PageWrapperStyle = styled.div`
     flex-direction: column;
 `;
 
-const Grid = ({ children }: { children: React.ReactNode }) => {
-    return (
-        <CenteredGrid>
-            <MainSpacer>{children}</MainSpacer>
-        </CenteredGrid>
-    );
+// center Grid
+const Grid = ({
+    className,
+    children,
+}: {
+    className?: string;
+    children: React.ReactNode;
+}) => {
+    return <CenteredGrid className={className}>{children}</CenteredGrid>;
 };
 
 const PageGrid = ({ children }: { children: React.ReactNode }) => {
@@ -70,32 +59,9 @@ const PageGrid = ({ children }: { children: React.ReactNode }) => {
     );
 };
 
-const PageBannerGrid = ({ children }: { children: React.ReactNode }) => {
-    return (
-        <BannerCenteredGrid>
-            <BannerSpacer>{children}</BannerSpacer>
-        </BannerCenteredGrid>
-    );
-};
-
-const FooterGrid = ({ children }: { children: React.ReactNode }) => {
-    return (
-        <CenteredGrid>
-            <BannerSpacer>{children}</BannerSpacer>
-        </CenteredGrid>
-    );
-};
-
+//Wrapper
 const PageWrapper = ({ children }: { children: React.ReactNode }) => {
     return <PageWrapperStyle>{children}</PageWrapperStyle>;
 };
 
-export {
-    Grid,
-    FooterGrid,
-    BannerCenteredGrid,
-    LayoutSpacer,
-    PageGrid,
-    PageBannerGrid,
-    PageWrapper,
-};
+export { Grid, LayoutSpacer, MainSpacer, PageGrid, PageWrapper };

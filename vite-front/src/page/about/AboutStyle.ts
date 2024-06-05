@@ -1,3 +1,4 @@
+import { device } from 'config/DeviceConfig';
 import styled, { keyframes } from 'styled-components';
 
 export const BoxTitle = styled.div`
@@ -59,6 +60,13 @@ export const AboutMe = styled.div`
     p {
         color: var(--color-aboutfont-color);
         line-height: 2rem;
+    }
+    @media ${device.tablet} {
+        font-size: 15px;
+        margin: 0px 10px;
+    }
+    @media ${device.mobileL} {
+        margin: 0px 0px;
     }
 `;
 

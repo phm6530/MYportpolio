@@ -29,6 +29,7 @@ const DarkmodeButton = styled.div<{ $scrollOver: boolean }>`
     }
     @media ${device.laptopL} {
         margin-right: initial;
+        margin-left: 2rem;
     }
 `;
 const IconAnimation = keyframes`

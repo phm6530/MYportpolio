@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import ContactButtons from './ContactButtons';
+import { device } from 'config/DeviceConfig';
 
 const LeftComponent = styled.div`
     position: sticky;
@@ -10,6 +11,9 @@ const LeftComponent = styled.div`
     padding: 2rem;
     border-radius: 1rem;
     margin-right: 2rem;
+    @media ${device.laptop} {
+        display: none;
+    }
 `;
 const PageSubText = styled.div`
     font-size: 16px;

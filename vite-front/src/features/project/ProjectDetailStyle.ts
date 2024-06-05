@@ -17,7 +17,7 @@ export const PageSubText = styled.div`
 export const SummaryType = styled.div`
     display: inline-flex;
     font-size: 0.9rem;
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.5rem;
     margin-right: 1rem;
     align-items: center;
 `;
@@ -27,6 +27,9 @@ export const SummaryWrap = styled.div`
     border-bottom: 1px solid var(--borer-line-color);
     align-items: flex-start;
     margin-bottom: 3rem;
+    @media ${device.tablet} {
+        flex-direction: column;
+    }
 `;
 
 export const SkillWrapper = styled.div`
@@ -35,16 +38,19 @@ export const SkillWrapper = styled.div`
 `;
 
 export const SummaryWrapper = styled.div`
-    margin-bottom: 1.8rem;
+    margin-bottom: 1rem;
     width: 44.5%;
     align-items: flex-start;
     width: 49%;
     border-radius: 1rem;
+    @media ${device.tablet} {
+        width: 100%;
+    }
 `;
 
 export const ProjectTitle = styled.div`
     font-size: 2rem;
-    padding: 1rem 0;
+    padding: 1rem 0 0.5rem;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -87,6 +93,20 @@ export const SKill = styled.span`
     margin-right: 13px;
     display: flex;
     font-weight: bold;
+    align-items: center;
+    display: inline-flex;
+    font-weight: 500;
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 27px;
+    color: var(--color-hash-tag-text);
+    background: var(--color-hash-tag-background);
+    font-weight: 500;
+    margin-right: 0.6rem;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 0.7rem;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
 `;
 
 export const CustumStyle = styled(ProjectWrapStyle)`
@@ -148,6 +168,10 @@ export const ProjectThumbNail = styled.div<{ $thumbNail: string }>`
     background-image: url(${({ $thumbNail }) => $thumbNail});
     padding-bottom: 30%;
     border: 5px solid rgb(9 17 24 / 6%);
+    @media ${device.tablet} {
+        width: 100%;
+        padding-bottom: 70%;
+    }
 `;
 
 export const ProjectViewFooter = styled.div`
@@ -160,4 +184,5 @@ export const ProjectViewFooter = styled.div`
 
 export const ProjectDescription = styled.div`
     margin-bottom: 20px;
+    opacity: 0.6;
 `;

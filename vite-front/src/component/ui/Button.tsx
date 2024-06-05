@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { IoMdArrowForward } from 'react-icons/io';
 import { MdUpload } from 'react-icons/md';
+import { device } from 'config/DeviceConfig';
 
 interface ButtonProps {
     style?: React.CSSProperties;
@@ -101,13 +102,26 @@ const UploadButton: React.FC<UploadButtnProps> = ({ children, ...props }) => {
 
 const BtnSubmitStyle = styled.button<{ $active?: boolean }>`
     background: var(--background-category-color);
+    height: 2.4rem;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 3rem;
+    margin: 0.4rem;
+    background: var(--background-category-color);
     ${props =>
         props.$active &&
         `            
-            background-color: #333;
+            background-color: #000;
             color: rgba(255, 255, 255, 1);
     `};
     /* border: 1px solid var(--borer-line-color); */
+    @media ${device.tablet} {
+        margin: 0.2rem;
+        height: 2.2rem;
+    }
 `;
 
 const SubmitButton: React.FC<ButtonProps> = ({
@@ -116,7 +130,7 @@ const SubmitButton: React.FC<ButtonProps> = ({
     ...props
 }) => {
     return (
-        <BtnSubmitStyle className="btn-submit" $active={active} {...props}>
+        <BtnSubmitStyle $active={active} {...props}>
             {children}
         </BtnSubmitStyle>
     );

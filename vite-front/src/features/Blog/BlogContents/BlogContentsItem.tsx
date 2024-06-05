@@ -65,7 +65,7 @@ const CreateDate = styled(SummaryData)`
 `;
 const CustomThumNail = styled(Thumbnail)`
     width: 25%;
-    padding-bottom: 17%;
+    padding-bottom: 14%;
     @media ${device.tablet} {
         width: 100%;
         padding-bottom: 55%;

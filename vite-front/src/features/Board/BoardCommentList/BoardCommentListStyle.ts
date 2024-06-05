@@ -11,8 +11,9 @@ export const FirstDayStyle = styled.div<{ $first: boolean }>`
         font-size: 14px;
         display: inline-block;
         font-weight: normal;
-        margin-left: 1rem;
+        margin-left: 0.6rem;
         opacity: 0.7;
+        margin-bottom: 0.3rem;
     }
     ${props => props.$first && 'margin-top: 0;'}
     &:after {
@@ -29,7 +30,7 @@ export const FirstDayStyle = styled.div<{ $first: boolean }>`
 export const BoardReplyWrap = styled.div`
     height: 100%;
     /* background: #9bbbd4; */
-    padding: 20px 0;
+    padding: 50px 0;
     &::-webkit-scrollbar {
         width: 4px; /* 스크롤바의 너비 */
     }

@@ -12,7 +12,6 @@ export const ProfileCard = styled.div`
     padding: 2rem;
     max-width: 17rem;
     width: 24%;
-    margin-left: 1rem;
     flex-shrink: 0;
     position: sticky;
     top: 100px;

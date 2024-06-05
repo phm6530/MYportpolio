@@ -69,7 +69,7 @@ export const RadioWrap = styled.div`
 export const CrectorDeScription = styled.span`
     font-size: 12px;
     opacity: 0.5;
-    margin-left: 1rem;
+    margin-left: 0.3rem;
 `;
 
 export const Label = styled.span`

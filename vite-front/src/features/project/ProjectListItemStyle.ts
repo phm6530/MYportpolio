@@ -35,6 +35,8 @@ export const ProjectFadeinStyle = styled(FadeInAnimation)`
     @media ${device.tablet} {
         margin-right: 0 !important;
         flex: auto;
+        margin-bottom: 1rem;
+        padding-bottom: 2.5rem;
     }
 
     &:hover {
@@ -129,6 +131,10 @@ export const ProjectItemHeaderStyle = styled.div`
     align-items: center;
     position: relative;
     color: ${({ theme }) => theme.textColor};
+    @media ${device.tablet} {
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
 `;
 
 export const ProjectItemWrap = styled.div`

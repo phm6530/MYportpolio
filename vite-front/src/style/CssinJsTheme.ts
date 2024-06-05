@@ -71,6 +71,11 @@ export const GlobalStyle = createGlobalStyle`
     /* 버튼 */
     --button-solide-type-1 : ${({ theme }) => theme.buttonStyleSolidType_1};
     --button-EmbosingButton-bg : ${({ theme }) => theme.EmbosingButton};
+
+    /* Link */
+    --color-link : ${({ theme }) => theme.link};
+
+    --bold : ${({ theme }) => theme.fontBold}
   }
 
 
@@ -123,7 +128,7 @@ export const lightTheme = {
     // errorColor
     tabCnt: 'rgb(60 114 166)',
 
-    tagColor: '#492a84',
+    tagColor: '#19171d',
     tagBackground: '#fff',
 
     btnBackground: '#212b35',
@@ -163,6 +168,10 @@ export const lightTheme = {
 
     EmbosingButton:
         'linear-gradient(90deg, #53479c 0%, #98b7f4 100%, #c981cb 100.01%)',
+
+    //linkCOlor
+    link: '#3963a7',
+    fontBold: 'bold',
 };
 
 export const darkTheme = {
@@ -209,7 +218,7 @@ export const darkTheme = {
     navBorder: '1px solid rgb(158 158 158 / 10%)',
 
     // tabBUtton
-    tabButtonColor: '#05050552',
+    tabButtonColor: '#2d2d2d52',
     boderDarkModeButton: '#ffffff2b',
     ProjectSummaryBackground: 'rgb(37 41 56 / 30%)',
 
@@ -218,4 +227,9 @@ export const darkTheme = {
     aboutGradient: 'linear-gradient(to left, #f0f0f0, #a9a5cc, #8e9bfc)',
 
     EmbosingButton: '#252b39',
+
+    //linkCOlor
+    link: '#7baed8',
+
+    fontBold: 'auto',
 };

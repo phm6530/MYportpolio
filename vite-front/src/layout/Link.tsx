@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { device } from 'config/DeviceConfig';
 
 interface LinkProps {
@@ -12,12 +12,19 @@ const LiStyle = styled.li<{ $not?: boolean }>`
     margin-left: 30px;
     padding: 25px 0px;
     font-size: 14px;
+    cursor: pointer;
     @media ${device.laptopL} {
-        ${({ $not }) => !$not && 'font-size: 1.4rem;'}
+        margin-left: 0px;
+        ${({ $not }) =>
+            !$not &&
+            css`
+                font-size: 1.4rem;
+                width: 100%;
+            `}
         font-family: 'Montserrat';
         font-weight: bold;
         padding: 16px 0px;
-        width: 100%;
+
         &:hover {
             color: #9a18b4;
         }

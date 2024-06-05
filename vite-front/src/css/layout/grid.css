@@ -1,9 +1,8 @@
 .wrap {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
+  min-width: 1200px;
+  margin: 0 auto;
 }
 
 .width-100 {
-    width: 100%;
-} /*# sourceMappingURL=grid.css.map */
+  width: 100%;
+}/*# sourceMappingURL=grid.css.map */

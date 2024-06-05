@@ -32,9 +32,12 @@ input::placeholder {
 nav {
     display: flex;
     justify-content: space-between;
-    cursor: pointer;
     align-items: center;
 }
 nav ul {
     display: flex;
 }
+nav ul li {
+    padding: 25px 0px;
+    font-size: 14px;
+} /*# sourceMappingURL=variable.css.map */

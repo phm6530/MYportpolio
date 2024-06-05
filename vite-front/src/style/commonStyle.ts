@@ -1,3 +1,4 @@
+import { device } from 'config/DeviceConfig';
 import styled from 'styled-components';
 
 const FlexRowDiv = styled.div`
@@ -92,10 +93,14 @@ const RightWrap = styled.div`
 
     transition: all 0.5s ease;
     background: ${({ theme }) => theme.backgroundColor};
-    padding: 2rem 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     border-radius: 1.5rem;
     /* box-shadow: var(--box-shadow-style); */
     flex-direction: column;
+    @media ${device.tablet} {
+        padding: 2rem 0rem;
+    }
 `;
 
 const LeftLayOut = styled.div`
@@ -133,7 +138,7 @@ const HashTag = styled.div`
     border-radius: 27px;
     color: var(--color-hash-tag-text);
     background: var(--color-hash-tag-background);
-    font-weight: 500;
+    font-weight: var(--bold);
     /* border: 1px solid var(--color-hash-tag-text); */
     margin-right: 0.6rem;
     align-items: center;

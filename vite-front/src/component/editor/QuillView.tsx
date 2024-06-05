@@ -1,4 +1,5 @@
 import { transImgSrc } from 'component/editor/EditorGetPreview';
+import { device } from 'config/DeviceConfig';
 
 import styled from 'styled-components';
 
@@ -11,6 +12,10 @@ const QuillContainer = styled.div`
         padding: 0;
         line-height: 1.8 !important;
         font-family: 'Poppins', 'SUIT-Regular', sans-serif;
+    }
+
+    @media ${device.tablet} {
+        margin: 0 10px;
     }
 `;
 

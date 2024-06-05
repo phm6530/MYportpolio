@@ -1,6 +1,5 @@
 import { BoardWrapper } from '@features/Blog/BlogStyle';
-import { PageGrid, PageWrapper } from '@layout/Grid';
-import Motion from 'component/animations/Motion';
+import { Grid, PageWrapper } from '@layout/Grid';
 import UserProfile from 'component/profile/UserProfile';
 import DashBoard from 'component/ui/DashBoard';
 import * as S from '@page/about/AboutStyle';
@@ -10,6 +9,22 @@ import Icon from 'component/icon/Icon';
 import EmbosingButton from 'component/ui/EmbosingButton';
 import { useNavigate } from 'react-router-dom';
 import { HashTag } from '@style/commonStyle';
+import styled from 'styled-components';
+import { device } from 'config/DeviceConfig';
+import Motion from 'component/animations/Motion';
+
+const CustomGrid = styled(Grid)`
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+`;
+
+const CustomBoardWrapper = styled(BoardWrapper)`
+    margin-left: 3rem;
+    @media ${device.laptop} {
+        margin-left: 0;
+    }
+`;
 
 const About: React.FC = () => {
     const navigate = useNavigate();
@@ -19,11 +34,10 @@ const About: React.FC = () => {
                 pageTitle={'About'}
                 subComment={'"퍼블리셔와 개발자 사이 그어딘가"'}
             />
-
-            <Motion.FadeUp>
-                <PageGrid>
+            <Motion.FadeInOut>
+                <CustomGrid>
                     <UserProfile />
-                    <BoardWrapper>
+                    <CustomBoardWrapper>
                         <S.AboutMeDeps>
                             <SubTitle>
                                 {/* <img src="/img/contact/dev_person_1.png" alt="dev_icon" className='dev_icon'/> */}
@@ -194,9 +208,9 @@ const About: React.FC = () => {
                                 })}
                             </S.CertList>
                         </S.AboutContentWrap>
-                    </BoardWrapper>
-                </PageGrid>
-            </Motion.FadeUp>
+                    </CustomBoardWrapper>
+                </CustomGrid>
+            </Motion.FadeInOut>
         </PageWrapper>
     );
 };

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FooterGrid } from 'layout/Grid';
+import { Grid } from 'layout/Grid';
 import { FaGit } from 'react-icons/fa6';
 import { TfiEmail } from 'react-icons/tfi';
 import { TbPhoneCall } from 'react-icons/tb';
@@ -67,7 +67,7 @@ const Link = (url: string) => {
 export default function Footer() {
     return (
         <FooterStyle>
-            <FooterGrid>
+            <Grid>
                 <FooterIconAlign>
                     <FooterIcon onClick={() => Link('https:/naver.com')}>
                         <FaGit size={'15'} />
@@ -97,7 +97,7 @@ export default function Footer() {
                 <span style={{ marginTop: '20px', opacity: '.5' }}>
                     CopyRight ⓒ p. Hyun
                 </span>
-            </FooterGrid>
+            </Grid>
         </FooterStyle>
     );
 }

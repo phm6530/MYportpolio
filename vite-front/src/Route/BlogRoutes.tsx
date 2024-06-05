@@ -17,8 +17,6 @@ const BlogRoutes = (): JSX.Element => {
     const location = useLocation();
     const AuthenticatedBlodAdd = withAuth(BlogAdd, '/blog');
 
-    console.log('blog Route 랜더');
-
     const paths = [
         { path: '/', index: true, Component: <BlogPage /> },
         { path: '/:key', Component: <BlogDetail /> },

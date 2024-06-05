@@ -44,7 +44,8 @@ export const ContactContents = styled.div`
     opacity: 0;
     flex-grow: 1;
     /* background: ${({ theme }) => theme.backgroundColor}; */
-    padding: 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     border-radius: 1em;
     display: flex;
     flex-direction: column;
@@ -63,7 +64,7 @@ export const RadioLabel = styled.label<{ $check: boolean }>`
     border-radius: 2em;
     margin-right: 10px;
     align-items: center;
-    background: rgba(0, 0, 0, 0.05);
+    background: var(--background-category-color);
     cursor: pointer;
     svg {
         opacity: 0.3;

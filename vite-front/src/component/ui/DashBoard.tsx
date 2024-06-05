@@ -1,8 +1,6 @@
-// import { useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
-// import VideoCanvas from '../common/VideoCanvas';
 
-import { PageBannerGrid } from '@layout/Grid';
+import { Grid } from '@layout/Grid';
 
 import DashBoardTitle from './DashBoardTitle';
 import ShootingStar from 'component/animations/ShootingStar';
@@ -27,22 +25,19 @@ const opacityAni = keyframes`
 
 const PageBanner = styled.div<{ $page: string }>`
     width: 100%;
-    min-width: 1280px;
-    /* height: 100vh; */
     overflow: hidden;
     position: relative;
     z-index: -1;
     background-image: url('/img/main.jpg');
     background-position: center calc(100% + 350px);
     background-size: cover;
-    /* position: sticky; */
     top: 0;
     transition: background-position 1s ease;
     animation: ${infiniteBgAni} 10s cubic-bezier(0.2, 0.56, 0.38, 0.41) infinite
         forwards alternate;
 `;
 
-const PageTest = styled.div`
+const BackgroundGradient = styled.div`
     position: absolute;
     left: 0;
     top: 0;
@@ -110,11 +105,18 @@ interface DashBoardProps {
     page?: string;
     children?: React.ReactNode;
 }
-// const Division = styled.span`
-//     color: #6e31e1;
-//     font-weight: 400;
-//     font-size: 50px;
-// `;
+
+const BannerGrid = styled(Grid)`
+    padding-top: 12.5rem;
+    padding-bottom: 6rem;
+    width: 100%;
+
+    position: relative;
+    max-width: 1180px;
+    flex-grow: 1;
+    width: 100%;
+`;
+
 const DashBoard: React.FC<DashBoardProps> = ({
     className,
     pageTitle,
@@ -141,8 +143,8 @@ const DashBoard: React.FC<DashBoardProps> = ({
     return (
         <PageBanner id="parallaxEvent" $page={page} className={className}>
             <ShootingStar />
-            <PageTest />
-            <PageBannerGrid>
+            <BackgroundGradient />
+            <BannerGrid>
                 <DashBoardTitle>
                     {pageTitle}
                     {/* <Division>.me()</Division> */}
@@ -161,7 +163,7 @@ const DashBoard: React.FC<DashBoardProps> = ({
                 {/* <PathStyle>
                     <IoMdHome /> HOME {pathname.replace('/', ' / ')}
                 </PathStyle> */}
-            </PageBannerGrid>
+            </BannerGrid>
         </PageBanner>
     );
 };

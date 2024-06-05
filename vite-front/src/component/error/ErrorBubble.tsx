@@ -17,7 +17,7 @@ const ErrorStyle = styled.div`
     position: absolute;
     display: inline-block;
     bottom: 100%;
-    right: -50px;
+    right: 0px;
     font-size: 12px;
     font-weight: bold;
     box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.2);

@@ -6,6 +6,7 @@ const Tab = styled.div`
     margin-bottom: 3rem;
     width: 100%;
     display: flex;
+    flex-grow: 1;
     padding-bottom: 2rem;
     border-bottom: 1px solid var(--borer-line-color);
 `;
@@ -21,7 +22,8 @@ const BoardWrapper = styled.div`
     width: 100%;
     transition: all 0.5s ease;
     background: ${({ theme }) => theme.backgroundColor};
-    padding: 2rem 2rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     border-radius: 2rem;
     min-height: 300px;
     align-items: flex-start;

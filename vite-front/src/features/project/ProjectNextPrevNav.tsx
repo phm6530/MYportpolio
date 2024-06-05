@@ -1,5 +1,6 @@
 import useFetchNextPrevList from '@features/project/hooks/useFetchNextPrevList';
 import Thumbnail from 'component/ui/Thumbnail';
+import { device } from 'config/DeviceConfig';
 import { ENDPOINT_URL } from 'constants/apiUrl';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -26,10 +27,16 @@ const Wrap = styled.div`
 const PrevnextTitle = styled.div`
     font-size: 1.1rem;
     margin-bottom: 0.2rem;
+    @media ${device.tablet} {
+        font-size: 0.9rem;
+    }
 `;
 
 const PrevnextSummary = styled.div`
     margin-left: 1rem;
+    @media ${device.tablet} {
+        margin-left: 0rem;
+    }
 `;
 
 const PrevnextSummaryWrapper = styled.div`
@@ -39,13 +46,20 @@ const PrevnextSummaryWrapper = styled.div`
 `;
 
 const ThumbNailStyle = styled(Thumbnail)`
-    width: 15%;
-    height: 100px;
+    width: 17%;
+    padding-bottom: 11%;
     margin-right: 1.5rem;
+    @media ${device.tablet} {
+        width: 40%;
+        padding-bottom: 20%;
+    }
 `;
 
 const PrevnextDescription = styled.div`
     opacity: 0.5;
+    @media ${device.tablet} {
+        font-size: 0.9rem;
+    }
 `;
 
 const ProjectNextPrevNav = () => {

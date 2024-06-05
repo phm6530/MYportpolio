@@ -23,7 +23,7 @@ export const ReplyWrap = styled.div<{ $admin?: boolean }>`
     margin: 0 1rem;
     border-radius: 1em;
     margin-bottom: 10px;
-    padding: 0 10px;
+    /* padding: 0 10px; */
     display: flex;
     position: relative;
 
