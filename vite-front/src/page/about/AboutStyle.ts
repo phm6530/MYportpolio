@@ -28,7 +28,10 @@ export const AboutContentsTitle = styled.div`
     margin-bottom: 1rem;
     font-size: 1.3rem;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    svg {
+        margin-right: 0.3rem;
+    }
 `;
 
 export const AboutMeDeps = styled.div``;

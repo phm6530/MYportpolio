@@ -103,6 +103,7 @@ export const LinkWrapper = styled.div<{ $toggle: boolean }>`
 
     @media ${device.tablet} {
         width: 80%;
+        border-left: 1px solid var(--borer-line-color);
     }
 `;
 

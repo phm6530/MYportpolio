@@ -1,4 +1,5 @@
 import useCheckPermission from '@hooks/useAuthServer';
+import { Button } from 'component/ui/Button';
 import { MdModeEdit } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -18,9 +19,9 @@ const ProjectEditBtn: React.FC<{ projectKey: string }> = ({ projectKey }) => {
 
     return (
         <>
-            <button onClick={() => navEdit(projectKey)}>
-                <MdModeEdit />
-            </button>
+            <Button.Action onClick={() => navEdit(projectKey)}>
+                수정
+            </Button.Action>
         </>
     );
 };

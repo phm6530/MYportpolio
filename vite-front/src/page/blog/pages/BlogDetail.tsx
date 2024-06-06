@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { Button } from '@mui/material';
 import { SpinnerLoading } from 'component/loading/SpinnerLoading';
 
 import QuillView from 'component/editor/QuillView';
@@ -15,6 +14,7 @@ import styled from 'styled-components';
 import PostTimestamp from 'component/ui/PostTimestamp';
 import useStore from 'store/zustandStore';
 import { device } from 'config/DeviceConfig';
+import { Button } from 'component/ui/Button';
 
 const PostTitle = styled.div`
     font-size: 2rem;
@@ -31,11 +31,16 @@ const PostInfo = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
     .create_at {
         opacity: 0.6;
         display: inline-block;
         margin-left: 0.6rem;
         margin-right: auto;
+    }
+    @media ${device.tablet} {
+        flex-direction: column;
+        align-items: flex-start;
     }
 `;
 const ControlBtnWrap = styled.span``;
@@ -55,6 +60,9 @@ const PostDetailHeader = styled.div`
     border-bottom: 1px solid var(--borer-line-color);
     margin-bottom: 2rem;
     padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 `;
 
 const QuillViewWrapper = styled.div`
@@ -103,16 +111,25 @@ const BlogDetail = () => {
                         <PostTitle>{data.post_title}</PostTitle>
 
                         <PostInfo>
-                            <UserPictrue>
-                                <img src="/img/me.jpg" alt="" />
-                            </UserPictrue>
-                            {data.user}
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <UserPictrue>
+                                    <img src="/img/me.jpg" alt="me" />
+                                </UserPictrue>
+                                {data.user}
 
-                            <SummaryDataAlign date={data.create_date} />
+                                <SummaryDataAlign date={data.create_date} />
+                            </div>
                             <ControlBtnWrap>
-                                <Button onClick={() => navigate(-1)}>
+                                <Button.Action
+                                    onClick={() => navigate('/blog')}
+                                >
                                     목록
-                                </Button>
+                                </Button.Action>
                                 {login && (
                                     <>
                                         {/* 수정 */}

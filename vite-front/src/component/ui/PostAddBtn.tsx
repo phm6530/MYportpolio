@@ -1,6 +1,6 @@
-import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useAuthCheck } from 'hooks/useAuthCheck';
+import { Button } from 'component/ui/Button';
 
 const PostAddBtn = (): JSX.Element => {
     const navigate = useNavigate();
@@ -13,17 +13,7 @@ const PostAddBtn = (): JSX.Element => {
 
     return (
         <>
-            <Button
-                sx={{
-                    borderRadius: '20px',
-                    padding: '7px 16px',
-                }}
-                variant="text"
-                size="small"
-                onClick={nav}
-            >
-                글쓰기
-            </Button>
+            <Button.Action onClick={nav}>글쓰기</Button.Action>
         </>
     );
 };

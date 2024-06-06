@@ -1,10 +1,10 @@
-import { Button } from '@mui/material';
 import { toast } from 'react-toastify';
 import { useRef } from 'react';
 
 import useCheckpermission from 'hooks/useAuthServer';
 import useBlogPostDelete from '@features/Blog/hooks/useBlogPostDelete';
 import usePopup from 'hooks/usePopup';
+import { Button } from 'component/ui/Button';
 
 const BlogDetailDeleteBtn: React.FC<{ postKey: string }> = ({ postKey }) => {
     const checkPermission = useCheckpermission();
@@ -39,7 +39,7 @@ const BlogDetailDeleteBtn: React.FC<{ postKey: string }> = ({ postKey }) => {
     return (
         <>
             <PopupComponent event={deleteHandler} />
-            <Button onClick={authCheck}>삭제</Button>
+            <Button.Action onClick={authCheck}>삭제</Button.Action>
         </>
     );
 };

@@ -30,6 +30,7 @@ import EmbosingButton from 'component/ui/EmbosingButton';
 import { HashTag } from '@style/commonStyle';
 import { Grid } from '@layout/Grid';
 import { device } from 'config/DeviceConfig';
+import useStore from 'store/zustandStore';
 const DepsProjectSummary = styled.div`
     display: flex;
     width: 100%;
@@ -57,19 +58,18 @@ const PrograssTitle = styled.div`
     margin-bottom: 0.4rem;
 `;
 
-const TitlePoint = styled.span`
+const Title = styled.div`
     display: inline-block;
-    width: 7px;
-    height: 7px;
-    border-radius: 100%;
-    background: rgb(69 70 255);
-    margin-right: auto;
-    margin-bottom: 0.6rem;
-    margin-left: 0.3rem;
+    background: var(--gradient-aboutGradient-color);
+    color: transparent;
+    background-clip: text;
+    font-weight: bold;
 `;
 
 const ProjectDetail: React.FC<ProjectPostProps> = props => {
     const navigate = useNavigate();
+    const login = useStore(state => state.userAuth.login);
+
     const {
         projectKey,
         title,
@@ -93,15 +93,14 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
             <Grid>
                 <CustumStyle>
                     <ProjectSummary>
-                        <ProjectTitle>
-                            {title} <TitlePoint /> {/* 버튼 wrapper */}
-                            {projectKey && (
-                                <ProjectDetailControlsWrap
-                                    projectKey={projectKey}
-                                />
-                            )}
-                        </ProjectTitle>
-                        <ProjectDescription>{description}</ProjectDescription>
+                        <div>
+                            <ProjectTitle>
+                                <Title> {title}</Title>
+                            </ProjectTitle>
+                            <ProjectDescription>
+                                {description}
+                            </ProjectDescription>
+                        </div>
                         {/* <HashtagArea>
                         {hashtag.map((e: string, idx: number) => {
                             return (
@@ -112,6 +111,15 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
                             );
                         })}
                     </HashtagArea> */}
+                        {login && (
+                            <div>
+                                {projectKey && (
+                                    <ProjectDetailControlsWrap
+                                        projectKey={projectKey}
+                                    />
+                                )}
+                            </div>
+                        )}
                     </ProjectSummary>
                     <DepsProjectSummary>
                         <SummaryWrap>
@@ -203,12 +211,10 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
                         </SummaryWrap>
                     </DepsProjectSummary>{' '}
                     {/* quill-view */}+{' '}
-                    <FadeInAnimation>
-                        <QuillView contents={projectDescription} />{' '}
-                        <Button.Type onClick={() => navigate('/project')}>
-                            목록으로
-                        </Button.Type>{' '}
-                    </FadeInAnimation>
+                    <QuillView contents={projectDescription} />{' '}
+                    <Button.Type onClick={() => navigate('/project')}>
+                        목록으로
+                    </Button.Type>{' '}
                 </CustumStyle>{' '}
                 <FadeInAnimation>
                     <ProjectViewFooter>

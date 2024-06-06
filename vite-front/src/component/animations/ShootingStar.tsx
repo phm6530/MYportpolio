@@ -18,6 +18,7 @@ const AnimationSection = styled.section`
         position: absolute;
         top: 50%;
         left: 50%;
+        z-index: 0;
         width: 4px;
         height: 4px;
         background: #fff;

@@ -19,7 +19,7 @@ const SubTitleStyle = styled.div`
         align-items: center;
         justify-content: space-between;
         .point {
-            background: var(--gradient-title-color);
+            background: var(--gradient-aboutGradient-color);
             color: transparent;
             background-clip: text;
             margin-right: 0.5rem;

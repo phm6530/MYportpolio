@@ -12,7 +12,11 @@ import { HashTag } from '@style/commonStyle';
 import styled from 'styled-components';
 import { device } from 'config/DeviceConfig';
 import Motion from 'component/animations/Motion';
-
+import { AiFillSafetyCertificate } from 'react-icons/ai';
+import { IoSchool } from 'react-icons/io5';
+import ReactIcon from 'component/icon/ReactIcon';
+import { RiAwardFill } from 'react-icons/ri';
+import { MdOutlineWork } from 'react-icons/md';
 const CustomGrid = styled(Grid)`
     display: flex;
     flex-direction: row;
@@ -110,6 +114,11 @@ const About: React.FC = () => {
                         <S.AboutContentWrap>
                             <S.CertList>
                                 <S.AboutContentsTitle>
+                                    <ReactIcon
+                                        IconComponent={
+                                            <AiFillSafetyCertificate />
+                                        }
+                                    />
                                     CERTIFICATE
                                 </S.AboutContentsTitle>
                                 <S.CertWrap>
@@ -124,6 +133,10 @@ const About: React.FC = () => {
                             </S.CertList>{' '}
                             <S.CertList>
                                 <S.AboutContentsTitle>
+                                    {' '}
+                                    <ReactIcon
+                                        IconComponent={<MdOutlineWork />}
+                                    />
                                     Experience
                                 </S.AboutContentsTitle>
                                 {ABOUTCONSTANS.EXPERIENCE.map((e, idx) => {
@@ -185,6 +198,8 @@ const About: React.FC = () => {
                             </S.CertList>
                             <S.CertList>
                                 <S.AboutContentsTitle>
+                                    {' '}
+                                    <ReactIcon IconComponent={<IoSchool />} />
                                     Education
                                 </S.AboutContentsTitle>
                                 {ABOUTCONSTANS.EDUCATION.map((e, idx) => {
@@ -197,6 +212,10 @@ const About: React.FC = () => {
                             </S.CertList>
                             <S.CertList>
                                 <S.AboutContentsTitle>
+                                    {' '}
+                                    <ReactIcon
+                                        IconComponent={<RiAwardFill />}
+                                    />
                                     AWARD
                                 </S.AboutContentsTitle>
                                 {ABOUTCONSTANS.AWARD.map((e, idx) => {

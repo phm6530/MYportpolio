@@ -8,6 +8,7 @@ const FooterStyle = styled.div`
     /* background: rgb(0 0 0 / 4%); */
     padding: 50px 0px;
     display: flex;
+
     span {
         font-size: 12px;
         opacity: 0.9;
@@ -60,6 +61,10 @@ const FooterList = styled.div`
     }
 `;
 
+const FooterGrid = styled(Grid)`
+    width: 100%;
+`;
+
 const Link = (url: string) => {
     window.open(url, '_blank');
 };
@@ -67,7 +72,7 @@ const Link = (url: string) => {
 export default function Footer() {
     return (
         <FooterStyle>
-            <Grid>
+            <FooterGrid>
                 <FooterIconAlign>
                     <FooterIcon onClick={() => Link('https:/naver.com')}>
                         <FaGit size={'15'} />
@@ -97,7 +102,7 @@ export default function Footer() {
                 <span style={{ marginTop: '20px', opacity: '.5' }}>
                     CopyRight ⓒ p. Hyun
                 </span>
-            </Grid>
+            </FooterGrid>
         </FooterStyle>
     );
 }

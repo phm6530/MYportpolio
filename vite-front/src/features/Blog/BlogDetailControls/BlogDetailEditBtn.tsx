@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button } from 'component/ui/Button';
 import { useAuthCheck } from 'hooks/useAuthCheck';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +18,9 @@ const BlogDetailEditBtn: React.FC<{ postId: string }> = ({ postId }) => {
 
     return (
         <>
-            <Button onClick={() => EditCheckHandler(postId)}>수정</Button>
+            <Button.Action onClick={() => EditCheckHandler(postId)}>
+                수정
+            </Button.Action>
         </>
     );
 };

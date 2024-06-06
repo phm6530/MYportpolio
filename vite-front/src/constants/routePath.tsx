@@ -10,7 +10,7 @@ import MySchedule from '@page/MySchedule/MySchedule';
 
 interface RoutePath {
     path: string;
-    Component: JSX.Element;
+    Component: React.ReactNode;
 }
 
 interface NavPage {

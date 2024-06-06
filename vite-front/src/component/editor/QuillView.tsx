@@ -7,6 +7,7 @@ const QuillContainer = styled.div`
     width: 100%;
     border: 0 !important;
     font-size: 16px; //기존 텍스트 사이즈
+    word-break: keep-all;
     .ql-editor {
         min-height: 200px !important;
         padding: 0;
@@ -14,9 +15,9 @@ const QuillContainer = styled.div`
         font-family: 'Poppins', 'SUIT-Regular', sans-serif;
     }
 
-    @media ${device.tablet} {
+    /* @media ${device.tablet} {
         margin: 0 10px;
-    }
+    } */
 `;
 
 const QuillView: React.FC<{ contents: string }> = ({ contents }) => {

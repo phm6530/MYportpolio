@@ -1,5 +1,3 @@
-// import { LuMinus } from 'react-icons/lu';
-// import { GoPlus } from 'react-icons/go';
 import styled from 'styled-components';
 import BlogTabDetail from './BlogTabDetail';
 import useQueryString from '../../../hooks/useSearchQueryString';
@@ -29,6 +27,9 @@ const CateGory = styled.div`
     align-items: center;
     font-weight: bold;
     justify-content: space-between;
+    @media ${device.tablet} {
+        padding: 0.5rem 0 0.3rem;
+    }
 `;
 const Cnt = styled.span`
     color: ${({ theme }) => theme.tabCnt};
@@ -50,6 +51,13 @@ const CategoryWrapper = styled.div`
     }
 `;
 
+const CategoryType = styled.div`
+    @media ${device.tablet} {
+        font-size: 12px;
+        font-weight: initial;
+    }
+`;
+
 interface ListWrapperProps {
     $first: boolean;
     $view: boolean;
@@ -64,7 +72,6 @@ interface AccodianTabProps {
 
 const AccodianTab: React.FC<AccodianTabProps> = ({ list, idx, category }) => {
     const [view, setView] = useState<boolean>(true);
-    // const [height, setHeight] = useState<number>(0);
     const ref = useRef<HTMLInputElement>(null);
     const { navigateHandler } = useQueryString('blog');
 
@@ -93,12 +100,13 @@ const AccodianTab: React.FC<AccodianTabProps> = ({ list, idx, category }) => {
                         {category} <Cnt>( {allCnt} )</Cnt>
                     </LeftAlign>
                 ) : (
-                    <>{category}</>
+                    <CategoryType>{category}</CategoryType>
                 )}
                 {/* {idx !== 0 ? !view ? <GoPlus /> : <LuMinus /> : undefined} */}
             </CateGory>
 
             {/* 타입가드로 number가 아닐때만 확실하게  */}
+
             <ListWrapper
                 $first={idx === 0}
                 $view={view}

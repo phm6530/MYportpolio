@@ -136,6 +136,24 @@ const SubmitButton: React.FC<ButtonProps> = ({
     );
 };
 
+const ActionButtonStyle = styled.button`
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    background: #ffffff05;
+    margin-left: 0.5rem;
+    font-size: 14px;
+    font-family: var(--fontfamily-type-1);
+
+    &:hover {
+        background: #3a363623;
+    }
+    transition: background 0.3s ease;
+`;
+
+const Action: React.FC<ButtonProps> = ({ children, ...props }) => {
+    return <ActionButtonStyle {...props}>{children}</ActionButtonStyle>;
+};
+
 export function Button({ children }: ButtonProps) {
     return <button>{children}</button>;
 }
@@ -148,3 +166,4 @@ Button.ConfirmButton = ConfirmButton;
 Button.Cancle = Cancle;
 Button.UploadButton = UploadButton;
 Button.SubmitButton = SubmitButton;
+Button.Action = Action;

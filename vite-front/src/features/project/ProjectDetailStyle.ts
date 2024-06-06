@@ -15,7 +15,7 @@ export const PageSubText = styled.div`
     }
 `;
 export const SummaryType = styled.div`
-    display: inline-flex;
+    display: flex;
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
     margin-right: 1rem;
@@ -43,17 +43,24 @@ export const SummaryWrapper = styled.div`
     align-items: flex-start;
     width: 49%;
     border-radius: 1rem;
+    @media ${device.laptop} {
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: space-between;
+    }
     @media ${device.tablet} {
         width: 100%;
     }
 `;
 
 export const ProjectTitle = styled.div`
-    font-size: 2rem;
+    font-size: 1.8rem;
     padding: 1rem 0 0.5rem;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+
     @media ${device.tablet} {
         font-size: 1.5rem;
     }
@@ -101,6 +108,7 @@ export const SKill = styled.span`
     border-radius: 27px;
     color: var(--color-hash-tag-text);
     background: var(--color-hash-tag-background);
+
     font-weight: 500;
     margin-right: 0.6rem;
     align-items: center;
@@ -120,6 +128,11 @@ export const CustumStyle = styled(ProjectWrapStyle)`
 export const ProjectSummary = styled.div`
     margin-bottom: 1rem;
     width: 100%;
+    /* border-bottom: 1px solid var(--borer-line-color); */
+    /* margin-bottom: 2rem; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     .title {
         font-size: 2rem;
         padding: 1rem 0;
@@ -148,6 +161,10 @@ export const ProjectSummary = styled.div`
             font-weight: normal;
         }
     }
+    @media ${device.tablet} {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 `;
 
 export const HashtagArea = styled.div`
@@ -171,6 +188,7 @@ export const ProjectThumbNail = styled.div<{ $thumbNail: string }>`
     @media ${device.tablet} {
         width: 100%;
         padding-bottom: 70%;
+        display: none;
     }
 `;
 

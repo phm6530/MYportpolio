@@ -9,7 +9,9 @@ import NonData from 'component/NonData';
 import Paging from 'component/Paging';
 import PostAddBtn from 'component/ui/PostAddBtn';
 import useStore from 'store/zustandStore';
-
+import { Tab } from 'features/Blog/BlogStyle';
+import BlogTab from '@features/Blog/BlogTab.js/BlogTab';
+import BlogNewPostList from 'features/Blog/BlogNewPostList/BlogNewPostList';
 const BlogPage = (): JSX.Element => {
     const [searchParams] = useSearchParams();
     const { data, isLoading } = useBlog();
@@ -21,6 +23,11 @@ const BlogPage = (): JSX.Element => {
 
     return (
         <>
+            <Tab>
+                {/* 최신글 */}
+                <BlogNewPostList />
+                <BlogTab />
+            </Tab>
             <SubTitle>
                 <div className="subText">
                     <span className="point">{item}</span>

@@ -7,6 +7,7 @@ import { Grid } from '@layout/Grid';
 import * as S from '@layout/RootNavStyle';
 import DrawerMenu from 'component/ui/DrawerMenu';
 import RootNavList from '@layout/RootNavList';
+import BackDrop from 'component/popup/Backdrop';
 
 export default function RootNav() {
     const darkMode = useStore(state => state.darkMode);
@@ -21,9 +22,29 @@ export default function RootNav() {
         setDrawerView(false);
     }, [location.pathname]);
 
+    useEffect(() => {
+        const handleScroll = (event: WheelEvent) => {
+            if (drawerView) {
+                event.preventDefault();
+            }
+        };
+
+        if (drawerView) {
+            window.addEventListener('wheel', handleScroll, { passive: false });
+        } else {
+            window.removeEventListener('wheel', handleScroll);
+        }
+
+        // cleanup 함수를 사용하여 useEffect가 unmount될 때 이벤트 리스너를 제거합니다.
+        return () => {
+            window.removeEventListener('wheel', handleScroll);
+        };
+    }, [drawerView]);
+
     return (
         <>
-            {/* TopButton */}
+            {drawerView && <BackDrop onClick={() => setDrawerView(false)} />}
+
             <TopButton />
 
             <S.Header

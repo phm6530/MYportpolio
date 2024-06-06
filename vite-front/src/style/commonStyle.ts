@@ -1,5 +1,5 @@
 import { device } from 'config/DeviceConfig';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const FlexRowDiv = styled.div`
     display: flex;
@@ -129,21 +129,30 @@ const FlexRow = styled.div`
     width: 100%;
 `;
 
-const HashTag = styled.div`
+const HashTag = styled.div<{ $page?: string }>`
     align-items: center;
     display: inline-flex;
     font-weight: 500;
-    font-size: 13px;
-    padding: 6px 12px;
+
+    padding: 6px 10px;
     border-radius: 27px;
     color: var(--color-hash-tag-text);
     background: var(--color-hash-tag-background);
-    font-weight: var(--bold);
-    /* border: 1px solid var(--color-hash-tag-text); */
+
     margin-right: 0.6rem;
+    /* border: 1px solid rgba(0, 0, 0, 0.1); */
     align-items: center;
     margin-bottom: 0.7rem;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
+    ${({ $page }) =>
+        $page === 'project'
+            ? css`
+                  font-size: 12px;
+              `
+            : css`
+                  font-size: 13px;
+                  font-weight: var(--bold);
+              `};
 
     svg {
         margin-left: 0.4rem;

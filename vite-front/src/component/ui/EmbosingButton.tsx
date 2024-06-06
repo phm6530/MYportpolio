@@ -25,6 +25,10 @@ export const EmbosingBtn = styled.button`
     img {
         margin-right: 1rem;
     }
+    @media ${device.laptop} {
+        display: flex;
+        font-size: 0.9rem;
+    }
     @media ${device.tablet} {
         font-size: 0.8rem;
         img {

@@ -16,15 +16,16 @@ const RootNavList: React.FC<{ drawerView: boolean; scrollOver: boolean }> = ({
     const darkMode = useStore(state => state.darkMode);
 
     const { pathname } = useLocation();
-    const [active, setActive] = useState<string>(pathname);
     const { mutateAsync } = useLogout();
-    const openLoginPopup = () => setLoginModal(true);
+
     const [loginModal, setLoginModal] = useState<boolean>(false);
+    const [active, setActive] = useState<string>(pathname);
+
+    const openLoginPopup = () => setLoginModal(true);
     const navigate = useNavigate();
 
     return (
         <>
-            {' '}
             {/* Alert */}
             {loginModal && (
                 <Popup type={'Login'} closePopup={() => setLoginModal(false)}>
@@ -62,6 +63,7 @@ const RootNavList: React.FC<{ drawerView: boolean; scrollOver: boolean }> = ({
                             $darkMode={darkMode}
                             onClick={openLoginPopup}
                             not={true}
+                            $logout={true}
                         >
                             로그인
                         </S.List>

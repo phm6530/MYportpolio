@@ -7,7 +7,7 @@ import { device } from 'config/DeviceConfig';
 const Container = styled.div<{ $isMain?: boolean }>`
     ${({ $isMain }) => $isMain && 'color: #fff;'}
     @media ${device.tablet} {
-        display: none;
+        ${({ $isMain }) => !$isMain && 'display: none;'}
     }
 `;
 

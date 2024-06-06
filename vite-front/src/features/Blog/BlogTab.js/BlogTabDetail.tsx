@@ -1,12 +1,12 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import useQueryString from '../../../hooks/useSearchQueryString';
 import { useSearchParams } from 'react-router-dom';
 import { BlogCategoryDetail } from '@type/BlogTypes';
+import { device } from 'config/DeviceConfig';
 
 const CategoryList = styled.div<{ $select: boolean }>`
     height: 2.4rem;
     font-size: 14px;
-
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -18,7 +18,22 @@ const CategoryList = styled.div<{ $select: boolean }>`
         color: var(--hover-color);
     }
     background: var(--background-category-color);
-    ${props => props.$select && `color: #7f8fae`};
+    ${props =>
+        props.$select
+            ? css`
+                  background: var(--background-category-active);
+                  color: #fff;
+              `
+            : css`
+                  color: var(--color-hash-tag-text);
+              `};
+    @media ${device.tablet} {
+        height: 2rem;
+        padding: 0.9rem;
+    }
+
+    /* background: var(--color-hash-tag-background);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1); */
 `;
 
 const Cnt = styled.span`

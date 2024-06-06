@@ -21,7 +21,7 @@ const Option = styled.option``;
 
 interface BlogCategoryProps {
     error?: FieldError;
-    register: UseFormRegisterReturn;
+    register?: UseFormRegisterReturn;
 }
 
 const BlogSelectCategory: React.FC<BlogCategoryProps> = ({

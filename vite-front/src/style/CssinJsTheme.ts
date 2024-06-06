@@ -8,6 +8,9 @@ export const GlobalStyle = createGlobalStyle`
     --color-background: ${({ theme }) => theme.backgroundColor};
     --color-popup-background: ${({ theme }) => theme.backgroundColorType1};
 
+    --fontfamily-type-1 : 'SUIT-Regular', sans-serif;
+
+
     --color-hash-tag-text: ${({ theme }) => theme.tagColor};
     --color-hash-tag-background: ${({ theme }) => theme.tagBackground};
 
@@ -75,7 +78,10 @@ export const GlobalStyle = createGlobalStyle`
     /* Link */
     --color-link : ${({ theme }) => theme.link};
 
-    --bold : ${({ theme }) => theme.fontBold}
+    --bold : ${({ theme }) => theme.fontBold};
+
+    --background-category-active :  ${({ theme }) => theme.categoryActive}
+
   }
 
 
@@ -172,6 +178,8 @@ export const lightTheme = {
     //linkCOlor
     link: '#3963a7',
     fontBold: 'bold',
+
+    categoryActive: '#2e2e2e',
 };
 
 export const darkTheme = {
@@ -232,4 +240,6 @@ export const darkTheme = {
     link: '#7baed8',
 
     fontBold: 'auto',
+
+    categoryActive: 'rgb(0 0 0 / 32%)',
 };

@@ -48,6 +48,7 @@ const ProjectListItem: React.FC<{ project: ProjectPostProps }> = ({
                                 <HashTag
                                     className="hashTag"
                                     key={`hash-${idx}`}
+                                    $page="project"
                                 >
                                     # {e}
                                 </HashTag>

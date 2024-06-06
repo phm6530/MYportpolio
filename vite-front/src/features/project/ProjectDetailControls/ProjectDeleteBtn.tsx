@@ -5,6 +5,7 @@ import useProjectDelete from '@features/project/hooks/useProjectDelete';
 import { ProjectKey } from '@type/ProjectTypes';
 import { FaTrashAlt } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import { Button } from 'component/ui/Button';
 
 const ProjectDeleteBtn: React.FC<{ projectKey: ProjectKey }> = ({
     projectKey,
@@ -30,9 +31,7 @@ const ProjectDeleteBtn: React.FC<{ projectKey: ProjectKey }> = ({
     return (
         <>
             <PopupComponent event={deleteHandler} />
-            <button onClick={authCheck}>
-                <FaTrashAlt />
-            </button>
+            <Button.Action onClick={authCheck}>삭제</Button.Action>
         </>
     );
 };

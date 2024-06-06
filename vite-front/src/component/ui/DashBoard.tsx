@@ -112,7 +112,7 @@ const BannerGrid = styled(Grid)`
     width: 100%;
 
     position: relative;
-    max-width: 1180px;
+    max-width: 1080px;
     flex-grow: 1;
     width: 100%;
 `;

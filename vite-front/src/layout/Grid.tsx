@@ -3,13 +3,13 @@ import styled, { css } from 'styled-components';
 
 const MainSpacer = css`
     @media ${device.laptopL} {
-        margin: 0 60px;
+        padding: 0 60px;
     }
     @media ${device.tablet} {
-        margin: 0 40px;
+        padding: 0 40px;
     }
     @media ${device.mobileL} {
-        margin: 0 0px;
+        padding: 0 15px;
     }
 `;
 
@@ -17,7 +17,7 @@ const CenteredGrid = styled.div`
     position: relative;
     z-index: 1;
     ${MainSpacer}
-    max-width: 1180px;
+    max-width: 1080px;
     margin: 0 auto;
 `;
 

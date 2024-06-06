@@ -10,9 +10,10 @@ import { device } from 'config/DeviceConfig';
 
 const ProjectFadeinStyle = styled(FadeInAnimation)`
     /* margin-bottom: 1.5rem; */
-    padding-bottom: 3.5rem;
+    padding-bottom: 4.5rem;
     display: flex;
     flex-direction: row;
+    align-items: center;
     /* flex: 0 0 calc(33.333% - 1.34rem); */
     width: 100%;
     margin-right: 2rem;
@@ -41,12 +42,15 @@ const ProjectDescription = styled.div`
 `;
 
 const ProjectItemHeaderStyle = styled.div`
-    margin-bottom: 0.5rem;
-    margin-top: 1rem;
-    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
     font-weight: bold;
     letter-spacing: -0.7px;
     align-items: center;
+    @media ${device.tablet} {
+        margin-top: 1.2rem;
+        font-size: 1.2rem;
+    }
 `;
 
 const ContentsWrap = styled.div`
@@ -65,10 +69,10 @@ const CreateDate = styled(SummaryData)`
 `;
 const CustomThumNail = styled(Thumbnail)`
     width: 25%;
-    padding-bottom: 14%;
+    padding-bottom: 17%;
     @media ${device.tablet} {
         width: 100%;
-        padding-bottom: 55%;
+        padding-bottom: 65%;
     }
 `;
 

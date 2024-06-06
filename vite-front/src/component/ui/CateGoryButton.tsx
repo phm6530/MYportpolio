@@ -8,7 +8,7 @@ const CateGoryArea = styled.div`
     margin-bottom: 1.5rem;
     margin-top: 1.5rem;
     @media ${device.tablet} {
-        margin: 0.2rem 0 1rem;
+        margin: 0.2rem 0 2rem;
     }
 `;
 
