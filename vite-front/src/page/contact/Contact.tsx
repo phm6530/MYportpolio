@@ -1,4 +1,4 @@
-import DashBoard from 'component/ui/DashBoard';
+import DashBoard from 'component/ui/DashBoard/DashBoard';
 import { Grid, PageWrapper } from '@layout/Grid';
 import styled from 'styled-components';
 import MailComponent from '@features/contact/MailComponent';

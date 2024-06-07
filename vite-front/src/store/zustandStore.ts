@@ -17,9 +17,6 @@ interface AuthState {
     user: User;
 }
 
-const initialDarkModeState: boolean =
-    localStorage.getItem('darkMode') === 'true';
-
 //get userData
 const getUserdataLocalstorage = () => {
     const userFromStorage = localStorage.getItem('user');
@@ -45,6 +42,12 @@ interface UserAuthTypes {
 interface ModalTypes {
     modal: boolean;
 }
+
+//첫진입시에 darkMode true
+const initialDarkModeState: boolean =
+    localStorage.getItem('darkMode') === null
+        ? true
+        : localStorage.getItem('darkMode') === 'true';
 
 //Store 전체 타입
 interface StoreState extends DarkModeTypes, UserAuthTypes, ModalTypes {}

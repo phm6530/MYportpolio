@@ -2,18 +2,43 @@ import { device } from 'config/DeviceConfig';
 import useStore from 'store/zustandStore';
 import styled from 'styled-components';
 
-const MenuToggle = styled.div<{ $darkMode: boolean }>`
+interface ListProps {
+    $active?: boolean;
+    $scrollOver?: boolean;
+    $darkMode?: boolean;
+    $path?: boolean;
+    $logout?: boolean;
+    $drawerView: boolean;
+}
+
+const ScrollOverColor = ({
+    $scrollOver,
+    $darkMode,
+    $drawerView,
+}: ListProps) => {
+    if ($drawerView) {
+        return 'rgb(182, 190, 201)';
+    }
+    if ($scrollOver) {
+        return 'var(--Nav-color)';
+    }
+    if (!$scrollOver && $darkMode) {
+        return 'rgb(182, 190, 201)';
+    }
+    if ($drawerView) {
+        return 'rgb(182, 190, 201)';
+    } else {
+        return 'rgb(182, 190, 201)';
+    }
+};
+
+const MenuToggle = styled.div<{
+    $scrollOver: boolean;
+    $darkMode: boolean;
+    $drawerView: boolean;
+}>`
     /* ALL */
     z-index: 999;
-    .row .three {
-        padding: 80px 30px;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        background-color: var(--Nav-color);
-        color: #ecf0f1;
-        text-align: center;
-    }
 
     .hamburger .line {
         width: 25px;
@@ -25,7 +50,8 @@ const MenuToggle = styled.div<{ $darkMode: boolean }>`
             transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
             background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
             opacity 0.55s ease;
-        background-color: var(--Nav-color);
+        background-color: ${({ $scrollOver, $darkMode, $drawerView }) =>
+            ScrollOverColor({ $scrollOver, $darkMode, $drawerView })};
     }
 
     .hamburger:hover {
@@ -45,10 +71,10 @@ const MenuToggle = styled.div<{ $darkMode: boolean }>`
     }
 
     #hamburger-1.is-active .line:nth-child(3) {
-        -webkit-transform: translateY(-9px) rotate(-45deg);
-        -ms-transform: translateY(-9px) rotate(-45deg);
-        -o-transform: translateY(-9px) rotate(-45deg);
-        transform: translateY(-9px) rotate(-45deg);
+        -webkit-transform: translateY(-8px) rotate(-45deg);
+        -ms-transform: translateY(-8px) rotate(-45deg);
+        -o-transform: translateY(-8px) rotate(-45deg);
+        transform: translateY(-8px) rotate(-45deg);
     }
     display: none;
     @media ${device.laptopL} {
@@ -58,8 +84,9 @@ const MenuToggle = styled.div<{ $darkMode: boolean }>`
 
 const DrawerMenu: React.FC<{
     drawerView: boolean;
+    scrollOver: boolean;
     setDrawerView: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ drawerView, setDrawerView }) => {
+}> = ({ drawerView, setDrawerView, scrollOver }) => {
     const darkMode = useStore(state => state.darkMode);
 
     const className = drawerView ? 'hamburger is-active' : 'hamburger';
@@ -67,6 +94,8 @@ const DrawerMenu: React.FC<{
     return (
         <>
             <MenuToggle
+                $drawerView={drawerView}
+                $scrollOver={scrollOver}
                 $darkMode={darkMode}
                 onClick={() => setDrawerView(prev => !prev)}
             >

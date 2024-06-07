@@ -22,6 +22,9 @@ export const CertList = styled.div`
     flex-direction: column;
     align-items: flex-start;
     border: 1px solid var(--borer-line-color);
+    @media ${device.tablet} {
+        padding: 2rem 1rem;
+    }
 `;
 
 export const AboutContentsTitle = styled.div`
@@ -50,8 +53,13 @@ export const IconWrapper = styled.div`
         color: transparent;
         font-weight: bold;
         background-clip: text;
+        -webkit-background-clip: text;
         display: inline-flex;
         margin: 0 10px;
+    }
+    @media ${device.tablet} {
+        font-size: 1.2rem;
+        line-height: 2rem;
     }
 `;
 
@@ -70,6 +78,7 @@ export const AboutMe = styled.div`
     }
     @media ${device.mobileL} {
         margin: 0px 0px;
+        font-size: 14px;
     }
 `;
 
@@ -144,4 +153,33 @@ export const CertWrap = styled.div`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+`;
+export const SkillItem = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+    font-size: 14px;
+`;
+export const SkillText = styled.p`
+    margin-left: 1rem;
+    position: relative;
+    color: var(--color-aboutfont-color);
+    margin-bottom: 0.5rem;
+    &::after {
+        content: '';
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background: #6379b2;
+        left: -15px;
+        top: 8px;
+        border-radius: 100%;
+    }
+    line-height: 1.7rem;
+`;
+
+export const SkillList = styled.div`
+    margin-bottom: 0.5rem;
 `;

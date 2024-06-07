@@ -88,6 +88,7 @@ export interface BlogNewPostListProps {
     post_title: post_title;
     post_description: post_description;
     create_at: post_date;
+    post_new: number;
 }
 
 export interface BlogAddorEditProps {

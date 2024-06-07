@@ -1,3 +1,4 @@
+import { device } from 'config/DeviceConfig';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -11,6 +12,10 @@ const BackdropStyle = styled.div`
     -webkit-backdrop-filter: blur(1px);
     backdrop-filter: blur(1px);
     left: 0;
+    display: none;
+    @media ${device.laptopL} {
+        display: block;
+    }
 `;
 
 const BackDrop: React.FC<{ onClick: () => void }> = ({ onClick }) => {

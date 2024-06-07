@@ -1,11 +1,16 @@
-import DashBoard from 'component/ui/DashBoard';
+import DashBoard from 'component/ui/DashBoard/DashBoard';
 
 // import UserProfile from 'component/profile/UserProfile';
 import ProjectRoutes from 'Route/ProjectRoutes';
 
-import { PageGrid, PageWrapper } from '@layout/Grid';
+import { Grid, PageWrapper } from '@layout/Grid';
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 // import Motion from 'component/animations/Motion';
+
+const FullWidthGrid = styled(Grid)`
+    width: 100%;
+`;
 
 export default function Project() {
     const [boolean, setBoolean] = useState(false);
@@ -22,7 +27,7 @@ export default function Project() {
                 subComment={'저의 프로젝트를 기록합니다.'}
             />
 
-            <PageGrid>
+            <FullWidthGrid>
                 {/* Common */}
                 {/* <Motion.FadeInOut>
                     <UserProfile />
@@ -30,7 +35,7 @@ export default function Project() {
 
                 {/* Route  */}
                 <ProjectRoutes />
-            </PageGrid>
+            </FullWidthGrid>
         </PageWrapper>
     );
 }

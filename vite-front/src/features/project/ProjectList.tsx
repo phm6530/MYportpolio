@@ -14,7 +14,6 @@ import {
 
 import useFetchProjectList from '@features/project/hooks/useFetchProjectList';
 import useStore from 'store/zustandStore';
-import { Grid } from '@layout/Grid';
 
 const { useSearchParams } = ReactRouteDom;
 
@@ -37,48 +36,46 @@ export default function ProjectList(): JSX.Element {
     const CateGory = ['All', '반응형', 'React', '참여율 100%'];
 
     return (
-        <Grid>
-            <ProjectListStyle>
-                <SubTitle>
-                    <div className="subText">
-                        <span className="point">MY PORTPOLIO</span>{' '}
-                        <span style={{ marginRight: 'auto' }}>LIST</span>
-                    </div>
+        <ProjectListStyle>
+            <SubTitle>
+                <div className="subText">
+                    <span className="point">MY PORTPOLIO</span>{' '}
+                    <span style={{ marginRight: 'auto' }}>LIST</span>
+                </div>
 
-                    {/* add Project */}
-                    {login && <PostAddBtn />}
-                </SubTitle>
-                {/* List */}
-                <FlexRow>
-                    <CateGoryButton CateGory={CateGory} type={'queryString'} />
-                    {/* 검색창 */}
-                    <SearchForm />
-                </FlexRow>
-                {!isLoading && SeachValue && SeachArr.length === 0 && (
-                    <NoSeachingData>
-                        &quot;{SeachValue}&quot; 키워드와 일치하는 항목이 없음
-                    </NoSeachingData>
-                )}
-                {!isLoading && isError && 'error'}
-                {!isLoading ? (
-                    <>
-                        {data.length === 0 && '등록된 프로젝트가 없습니다..'}
-                        {ProjectArr.map(project => {
-                            return (
-                                <ProjectListItem
-                                    project={project}
-                                    key={project.projectKey! + SeachValue}
-                                />
-                            );
-                        })}
-                    </>
-                ) : (
-                    <>
-                        {/* 스켈레톤 */}
-                        <SkeletonPost listCnt={6} />
-                    </>
-                )}
-            </ProjectListStyle>
-        </Grid>
+                {/* add Project */}
+                {login && <PostAddBtn />}
+            </SubTitle>
+            {/* List */}
+            <FlexRow>
+                <CateGoryButton CateGory={CateGory} type={'queryString'} />
+                {/* 검색창 */}
+                <SearchForm />
+            </FlexRow>
+            {!isLoading && SeachValue && SeachArr.length === 0 && (
+                <NoSeachingData>
+                    &quot;{SeachValue}&quot; 키워드와 일치하는 항목이 없음
+                </NoSeachingData>
+            )}
+            {!isLoading && isError && 'error'}
+            {!isLoading ? (
+                <>
+                    {data.length === 0 && '등록된 프로젝트가 없습니다..'}
+                    {ProjectArr.map(project => {
+                        return (
+                            <ProjectListItem
+                                project={project}
+                                key={project.projectKey! + SeachValue}
+                            />
+                        );
+                    })}
+                </>
+            ) : (
+                <>
+                    {/* 스켈레톤 */}
+                    <SkeletonPost listCnt={6} />
+                </>
+            )}
+        </ProjectListStyle>
     );
 }

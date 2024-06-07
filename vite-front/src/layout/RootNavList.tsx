@@ -34,24 +34,31 @@ const RootNavList: React.FC<{ drawerView: boolean; scrollOver: boolean }> = ({
             )}
             <S.LinkWrapper $toggle={drawerView}>
                 <S.UiStyle $link={true}>
-                    {NAVPAGE_OBJECT.map((e, idx) => (
-                        <S.List
-                            key={idx}
-                            $active={active === e.path}
-                            $scrollOver={scrollOver}
-                            $darkMode={darkMode}
-                            $path={location.pathname === '/'}
-                            onClick={() => {
-                                if (!e.AuthPage || login) {
-                                    // AuthPage가 필요하면 로그인 확인
-                                    setActive(e.path);
-                                    navigate(e.path);
-                                }
-                            }}
-                        >
-                            {e.pathName}
-                        </S.List>
-                    ))}
+                    {NAVPAGE_OBJECT.map((e, idx) => {
+                        const onAuthPage = e.AuthPage === true;
+                        //권한필요한거는 랜더링 안함
+                        if (!login && onAuthPage) {
+                            return;
+                        }
+                        return (
+                            <S.List
+                                key={idx}
+                                $scrollOver={scrollOver}
+                                $darkMode={darkMode}
+                                $path={location.pathname === '/'}
+                                $active={active === e.path}
+                                onClick={() => {
+                                    if (!e.AuthPage || login) {
+                                        // AuthPage가 필요하면 로그인 확인
+                                        setActive(e.path);
+                                        navigate(e.path);
+                                    }
+                                }}
+                            >
+                                {e.pathName}
+                            </S.List>
+                        );
+                    })}
                 </S.UiStyle>
                 <S.UiStyle>
                     {/* 다크모드 버튼 */}
@@ -62,7 +69,7 @@ const RootNavList: React.FC<{ drawerView: boolean; scrollOver: boolean }> = ({
                             $scrollOver={scrollOver}
                             $darkMode={darkMode}
                             onClick={openLoginPopup}
-                            not={true}
+                            $not={true}
                             $logout={true}
                         >
                             로그인

@@ -28,7 +28,7 @@ const PrevnextTitle = styled.div`
     font-size: 1.1rem;
     margin-bottom: 0.2rem;
     @media ${device.tablet} {
-        font-size: 0.9rem;
+        font-size: 13px;
     }
 `;
 
@@ -36,6 +36,7 @@ const PrevnextSummary = styled.div`
     margin-left: 1rem;
     @media ${device.tablet} {
         margin-left: 0rem;
+        width: 60%;
     }
 `;
 
@@ -58,7 +59,7 @@ const ThumbNailStyle = styled(Thumbnail)`
 const PrevnextDescription = styled.div`
     opacity: 0.5;
     @media ${device.tablet} {
-        font-size: 0.9rem;
+        font-size: 13px;
     }
 `;
 

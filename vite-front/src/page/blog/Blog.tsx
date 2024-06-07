@@ -1,12 +1,13 @@
 import { Grid } from '@layout/Grid';
 import { BoardWrapper } from '@features/Blog/BlogStyle';
-import DashBoard from 'component/ui/DashBoard';
+import DashBoard from 'component/ui/DashBoard/DashBoard';
 
 import BlogRoutes from 'Route/BlogRoutes';
 import styled from 'styled-components';
 
 import { PageWrapper } from '@layout/Grid';
 import { device } from 'config/DeviceConfig';
+import Motion from 'component/animations/Motion';
 
 const CustomGrid = styled(Grid)`
     width: 100%;
@@ -27,7 +28,9 @@ const Blog = (): JSX.Element => {
                 <BoardWrapper>
                     {/* Blog LayOut */}
 
-                    <BlogRoutes />
+                    <Motion.FadeInOut>
+                        <BlogRoutes />
+                    </Motion.FadeInOut>
                 </BoardWrapper>
             </CustomGrid>
         </PageWrapper>

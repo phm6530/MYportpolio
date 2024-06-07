@@ -6,6 +6,7 @@ interface LinkProps {
     className?: string;
     onClick?: () => void;
     not?: boolean;
+    active?: boolean;
 }
 
 const LiStyle = styled.li<{ $not?: boolean }>`
@@ -13,6 +14,7 @@ const LiStyle = styled.li<{ $not?: boolean }>`
     padding: 25px 0px;
     font-size: 14px;
     cursor: pointer;
+
     @media ${device.laptopL} {
         margin-left: 0px;
         ${({ $not }) =>
@@ -21,14 +23,9 @@ const LiStyle = styled.li<{ $not?: boolean }>`
                 font-size: 1.4rem;
                 width: 100%;
             `}
-        font-family: 'Montserrat';
+        font-family: var(--fontfamily-type-2);
         font-weight: bold;
         padding: 16px 0px;
-
-        &:hover {
-            color: #9a18b4;
-        }
-        transition: color 0.5s ease;
     }
 `;
 

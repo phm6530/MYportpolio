@@ -1,7 +1,7 @@
 import { BoardWrapper } from '@features/Blog/BlogStyle';
 import { Grid, PageWrapper } from '@layout/Grid';
 import UserProfile from 'component/profile/UserProfile';
-import DashBoard from 'component/ui/DashBoard';
+import DashBoard from 'component/ui/DashBoard/DashBoard';
 import * as S from '@page/about/AboutStyle';
 import * as ABOUTCONSTANS from 'constants/AboutConstancts';
 import { SubTitle } from 'component/ui/Subtitle';
@@ -67,16 +67,6 @@ const About: React.FC = () => {
                                     <span>FRONT END</span> 개발자로 도전을 하고
                                     있는 박현민입니다.
                                 </S.IconWrapper>{' '}
-                                <S.CertWrap>
-                                    {ABOUTCONSTANS.SKILL_TAG.map((e, idx) => {
-                                        return (
-                                            <HashTag key={`cert_${idx}`}>
-                                                # {e}
-                                            </HashTag>
-                                        );
-                                    })}
-                                </S.CertWrap>
-                                <br></br>
                                 <br></br>
                                 <p>
                                     혼자서 능동적으로 해결하였던 문제 점들과
@@ -95,7 +85,6 @@ const About: React.FC = () => {
                                     있는 기회를 찾고자 도전하고 있습니다.
                                 </p>
                                 <br></br>
-                                <br></br>
                                 <EmbosingButton
                                     onClick={() => navigate('/board')}
                                 >
@@ -112,6 +101,191 @@ const About: React.FC = () => {
                             </S.AboutMe>
                         </S.AboutMeDeps>
                         <S.AboutContentWrap>
+                            <S.CertList>
+                                <S.AboutContentsTitle>
+                                    <ReactIcon
+                                        IconComponent={
+                                            <AiFillSafetyCertificate />
+                                        }
+                                    />
+                                    SKILL
+                                </S.AboutContentsTitle>
+
+                                <S.SkillItem>
+                                    <S.SkillList>
+                                        <HashTag>ReactJs</HashTag>
+                                    </S.SkillList>
+                                    <S.SkillText>
+                                        React Toolkit, Zustand를 이용한 전역
+                                        상태관리를 이해하고 있습니다.
+                                    </S.SkillText>
+                                    <S.SkillText>
+                                        axios , useQuery를 이용하여 데이터의
+                                        패치 mutation을 관리하며 staleTime,
+                                        GcTime등을 이용하여 데이터의 신선도를
+                                        체킹합니다.
+                                    </S.SkillText>
+                                    <S.SkillText>
+                                        useHookForm을 이용하여 request 데이터를
+                                        관리합니다.
+                                    </S.SkillText>
+                                    <S.SkillText>
+                                        Hoc, Custom Hook을 주로 사용하며 VCA
+                                        패턴을 사용합니다.
+                                    </S.SkillText>
+                                    <S.SkillText>
+                                        컴포넌트 분리에 관심이 많으며 재 사용
+                                        가능하도록 추상화하여 보일러플레이트를
+                                        최소화 시키려고 노력합니다.
+                                    </S.SkillText>
+                                    <S.SkillText>
+                                        React를 이용한 디바운싱, 쓰로틀링을
+                                        이해하고 useMemo, useCallback 과 함께
+                                        최적화에 힘쓰고 있으며, Infinity
+                                        Scroll을 useQuery나 observer를 통하여
+                                        구현하고 관리합니다.
+                                    </S.SkillText>
+                                    <S.SkillText>
+                                        fetching 간의 데이터 loading 등
+                                        사용자에게 현 상황에 대해 즉각피드백을
+                                        반영 하도록 노력하고 있습니다.
+                                    </S.SkillText>
+                                </S.SkillItem>
+
+                                <S.SkillItem>
+                                    <S.SkillList>
+                                        <HashTag>javaScript</HashTag>
+                                        <HashTag>typeScript</HashTag>
+                                    </S.SkillList>
+                                    <S.SkillText>
+                                        ES6 문법을 사용하며, 비동기 ,스코프
+                                        클로저 개념을 이해하며 심도 있게 공부
+                                        중에 있습니다.
+                                    </S.SkillText>
+                                    <S.SkillText>
+                                        타입가드 | 유니온 | 제네릭을 이용하여
+                                        데이터의 통일성, 안정화에 힘쓰고
+                                        있습니다.
+                                    </S.SkillText>
+                                </S.SkillItem>
+
+                                <S.SkillItem>
+                                    <S.SkillList>
+                                        <HashTag>Css</HashTag>
+                                        <HashTag>Scss</HashTag>
+                                        <HashTag>Styled Component</HashTag>
+                                    </S.SkillList>
+                                    <S.SkillText>
+                                        flex, grid , position을 이해하고 있으며,
+                                        css 선택자 , 가상 선택자를 활용합니다.
+                                    </S.SkillText>
+                                    <S.SkillText>
+                                        반응형 웹에 익숙하며 미디어 쿼리를 주로
+                                        max-width기준으로 분기점을 나눠
+                                        작업합니다.
+                                    </S.SkillText>
+                                    <S.SkillText>
+                                        동적 스타일링을 통해 사용자에게
+                                        직관적이고 좋은 UX를 제공하기 위해
+                                        고민합니다.
+                                    </S.SkillText>
+                                </S.SkillItem>
+
+                                <S.SkillItem>
+                                    <S.SkillList>
+                                        <HashTag>Mysql</HashTag>
+                                    </S.SkillList>
+                                    <S.SkillText>
+                                        WorkBench와 PhpMyAdmin을 주로
+                                        사용합니다.
+                                    </S.SkillText>
+                                    <S.SkillText>
+                                        최대 3NF를 고려하여 테이블의 중복을
+                                        최소화합니다.
+                                    </S.SkillText>
+                                    <S.SkillText>
+                                        Join과 Case End 문을 사용하여 데이터를
+                                        정규화하고, 트랜잭션을 이용해 작업
+                                        단위의 REDO/UNDO를 이해합니다.
+                                    </S.SkillText>
+                                </S.SkillItem>
+
+                                <S.SkillItem>
+                                    <S.SkillList>
+                                        <HashTag>Php</HashTag>
+                                        <HashTag>Express</HashTag>
+                                    </S.SkillList>
+                                    <S.SkillText>
+                                        SSR 형식의 Php를 이용하여 게시판,
+                                        설문조사 툴 등을 구축한 경험이 있습니다.
+                                    </S.SkillText>
+                                    <S.SkillText>
+                                        Express를 통해 사용자 Token을 관리하고
+                                        MVC패턴이용하여 Controller , Service ,
+                                        Model로 분리 하여 구조 컨벤션을 지키려
+                                        노력합니다.
+                                    </S.SkillText>
+                                    <S.SkillText>
+                                        쿼리스트링, 파라미터를 이용한 구조화,
+                                        페이징을 다루며 , 데이터 가공에 노력하고
+                                        있습니다.
+                                    </S.SkillText>
+                                </S.SkillItem>
+
+                                <S.SkillItem>
+                                    <S.SkillList>
+                                        <HashTag>Svn</HashTag>
+                                        <HashTag>Git</HashTag>
+                                    </S.SkillList>
+                                    <S.SkillText>
+                                        전 회사에서 주로 SVN을 이용하여
+                                        형상관리를 하였습니다.
+                                    </S.SkillText>
+                                    <S.SkillText>
+                                        Git - Branch, Merge등을 이해하고 있으며
+                                        협업 위해 익숙해지려고 훈련하고
+                                        있습니다.
+                                    </S.SkillText>
+                                </S.SkillItem>
+
+                                <S.SkillItem>
+                                    <S.SkillList>
+                                        <HashTag>Adobe PhotoShop</HashTag>
+                                        <HashTag>Illustrator</HashTag>
+                                        <HashTag>Figma</HashTag>
+                                        <HashTag>Adobe XD</HashTag>
+                                    </S.SkillList>
+                                    <S.SkillText>
+                                        Adobe XD를 주로 사용하였으며, 현재는
+                                        Figma를 활용하여 UI 작업을 진행하고
+                                        있습니다.
+                                    </S.SkillText>
+                                    <S.SkillText>
+                                        Photo Shop을 이용한 보정 작업, Mask ,
+                                        filter 작업에 익숙합니다.{' '}
+                                    </S.SkillText>
+                                </S.SkillItem>
+
+                                <S.SkillItem>
+                                    <S.SkillList>
+                                        <HashTag>Centos 7</HashTag>
+                                        <HashTag>Linux</HashTag>
+                                    </S.SkillList>
+                                    <S.SkillText>
+                                        Centos 7 + Tomcat을 이용하여 IDC, Home
+                                        Server를 구축한 경험이 있습니다.
+                                    </S.SkillText>
+                                </S.SkillItem>
+
+                                <S.SkillItem>
+                                    <S.SkillList>
+                                        <HashTag>관심..</HashTag>
+                                    </S.SkillList>
+                                    <S.SkillText>
+                                        Next.js , Nest.js에 관심이 있습니다.
+                                    </S.SkillText>
+                                </S.SkillItem>
+                            </S.CertList>
                             <S.CertList>
                                 <S.AboutContentsTitle>
                                     <ReactIcon

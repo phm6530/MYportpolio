@@ -65,6 +65,7 @@ export default function RootNav() {
                         {/* 햄버거 메뉴 */}
                         <DrawerMenu
                             drawerView={drawerView}
+                            scrollOver={scrollOver}
                             setDrawerView={setDrawerView}
                         />
                         {/* Nav */}

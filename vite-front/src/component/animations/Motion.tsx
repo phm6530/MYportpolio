@@ -35,6 +35,7 @@ export const FadeInOut: React.FC<MotionProps> = ({ className, children }) => {
         <motion.div
             className={className}
             initial={{ opacity: 0, y: -100 }}
+            style={{ width: '100%' }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 100 }}
             transition={{

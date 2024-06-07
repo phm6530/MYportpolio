@@ -38,6 +38,7 @@ const FormStyle = styled.form`
     flex-grow: 1;
     align-items: flex-start;
     background-clip: text;
+    -webkit-background-clip: text;
 `;
 
 export default function BoardCommentForm() {

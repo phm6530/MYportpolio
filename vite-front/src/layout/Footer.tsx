@@ -3,6 +3,7 @@ import { Grid } from 'layout/Grid';
 import { FaGit } from 'react-icons/fa6';
 import { TfiEmail } from 'react-icons/tfi';
 import { TbPhoneCall } from 'react-icons/tb';
+import { device } from 'config/DeviceConfig';
 
 const FooterStyle = styled.div`
     /* background: rgb(0 0 0 / 4%); */
@@ -12,6 +13,11 @@ const FooterStyle = styled.div`
     span {
         font-size: 12px;
         opacity: 0.9;
+    }
+
+    @media ${device.laptopL} {
+        position: absolute;
+        background: var(--color-background);
     }
 `;
 const FooterIconAlign = styled.div`

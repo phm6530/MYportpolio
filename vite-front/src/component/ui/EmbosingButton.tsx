@@ -19,6 +19,7 @@ export const EmbosingBtn = styled.button`
         color: transparent;
         font-weight: bold;
         background-clip: text;
+        -webkit-background-clip: text;
         display: inline-flex;
         margin: 0 10px;
     }

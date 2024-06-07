@@ -16,18 +16,12 @@ const AnimationWrapper = styled.div`
         animation: ${viewAnimation} 1s cubic-bezier(0.1, 0.45, 0, 1.09) forwards;
     }
     & .view-animation:nth-of-type(1) {
-        animation-delay: 0.2s;
-    }
-    & .view-animation:nth-of-type(2) {
-        animation-delay: 0.4s;
-    }
-    & .view-animation:nth-of-type(3) {
         animation-delay: 0.6s;
     }
-    & .view-animation:nth-of-type(4) {
+    & .view-animation:nth-of-type(2) {
         animation-delay: 0.8s;
     }
-    & .view-animation:nth-of-type(5) {
+    & .view-animation:nth-of-type(3) {
         animation-delay: 1s;
     }
 `;

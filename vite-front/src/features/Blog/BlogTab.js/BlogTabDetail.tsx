@@ -3,6 +3,7 @@ import useQueryString from '../../../hooks/useSearchQueryString';
 import { useSearchParams } from 'react-router-dom';
 import { BlogCategoryDetail } from '@type/BlogTypes';
 import { device } from 'config/DeviceConfig';
+import PostNewIcon from 'component/ui/PostNewIcon';
 
 const CategoryList = styled.div<{ $select: boolean }>`
     height: 2.4rem;
@@ -42,19 +43,6 @@ const Cnt = styled.span`
     margin: 0 5px 0 2px;
 `;
 
-const NewIcon = styled.span`
-    width: 12px;
-    height: 12px;
-    font-size: 0.5rem;
-    color: #fff;
-    display: inline-flex;
-    background: rgb(255 99 99);
-    border-radius: 3px;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-`;
-
 interface BlogTabDetailProps extends BlogCategoryDetail {
     category: string;
     item: string;
@@ -83,7 +71,7 @@ const BlogTabDetail: React.FC<BlogTabDetailProps> = ({
                     })
                 }
             >
-                {item} <Cnt>({cnt})</Cnt> {newPost && <NewIcon>N</NewIcon>}
+                {item} <Cnt>({cnt})</Cnt> {newPost && <PostNewIcon />}
             </CategoryList>
         </>
     );

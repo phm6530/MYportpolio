@@ -5,7 +5,7 @@ import { RightWrap } from '@style/commonStyle';
 import { SubTitle } from 'component/ui/Subtitle';
 
 import BoardCommentForm from '@features/Board/BoardCommentForm/BoardCommentForm';
-import DashBoard from '../../component/ui/DashBoard';
+import DashBoard from 'component/ui/DashBoard/DashBoard';
 import UserProfile from 'component/profile/UserProfile';
 import BoardCommentList from '@features/Board/BoardCommentList/BoardCommentList';
 // import FadeInAnimation from 'component/animations/FadeInAnimation';

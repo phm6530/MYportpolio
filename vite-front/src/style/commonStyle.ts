@@ -92,7 +92,7 @@ const RightWrap = styled.div`
     width: 100%;
 
     transition: all 0.5s ease;
-    background: ${({ theme }) => theme.backgroundColor};
+    /* background: ${({ theme }) => theme.backgroundColor}; */
     padding-top: 2rem;
     padding-bottom: 2rem;
     border-radius: 1.5rem;

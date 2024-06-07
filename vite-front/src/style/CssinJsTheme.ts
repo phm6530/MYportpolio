@@ -3,13 +3,14 @@ import { createGlobalStyle } from 'styled-components';
 export const GlobalStyle = createGlobalStyle`
  :root {
     --perple : #6e31e1;
+    --white :#fff;
     --color-white: rgb(182, 190, 201);
     --color-text: ${({ theme }) => theme.textColor};
     --color-background: ${({ theme }) => theme.backgroundColor};
     --color-popup-background: ${({ theme }) => theme.backgroundColorType1};
 
     --fontfamily-type-1 : 'SUIT-Regular', sans-serif;
-
+    --fontfamily-type-2 : 'Montserrat';
 
     --color-hash-tag-text: ${({ theme }) => theme.tagColor};
     --color-hash-tag-background: ${({ theme }) => theme.tagBackground};

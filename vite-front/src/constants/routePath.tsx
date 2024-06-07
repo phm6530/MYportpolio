@@ -35,7 +35,7 @@ export const NAVPAGE_OBJECT: NavPage[] = [
     { path: '/', pathName: 'HOME', AuthPage: false },
     { path: '/about', pathName: 'About', AuthPage: false },
     { path: '/project', pathName: 'PROJECT', AuthPage: false },
-    { path: '/myschedule', pathName: 'MY Calendar', AuthPage: false },
+    { path: '/myschedule', pathName: 'MY Calendar', AuthPage: true },
     { path: '/blog', pathName: 'Blog', AuthPage: false },
     { path: '/Board', pathName: 'Board', AuthPage: false },
     { path: '/contact', pathName: 'Contact', AuthPage: false },

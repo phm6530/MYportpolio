@@ -4,73 +4,14 @@ import { Grid } from '@layout/Grid';
 
 import DashBoardTitle from './DashBoardTitle';
 import ShootingStar from 'component/animations/ShootingStar';
+import BackgroundImgCover from 'component/ui/BackgroundImgCover';
 
-const infiniteBgAni = keyframes`
-  0% {
-    background-size: 100%;
-  }
-  100% {
-    background-size: 120%;
-  }
-`;
+// import { useEffect } from 'react';
 
-const opacityAni = keyframes`
-    0%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-    }
-`;
-
-const PageBanner = styled.div<{ $page: string }>`
-    width: 100%;
+const PageBanner = styled.div`
     overflow: hidden;
     position: relative;
-    z-index: -1;
-    background-image: url('/img/main.jpg');
-    background-position: center calc(100% + 350px);
-    background-size: cover;
-    top: 0;
-    transition: background-position 1s ease;
-    animation: ${infiniteBgAni} 10s cubic-bezier(0.2, 0.56, 0.38, 0.41) infinite
-        forwards alternate;
-`;
-
-const BackgroundGradient = styled.div`
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 0;
-    height: 100vh;
     width: 100%;
-    opacity: 0;
-    background: linear-gradient(
-        to right,
-        rgb(0 0 0 / 66%),
-        rgb(40 33 27 / 65%),
-        rgb(26 27 32 / 56%)
-    );
-    background: linear-gradient(
-        to right,
-        rgb(0 0 0 / 89%),
-        rgb(18 9 1 / 73%),
-        rgb(26 27 32 / 56%)
-    );
-
-    box-shadow: linear-gradient(
-        to right,
-        rgb(0 0 0 / 72%),
-        rgb(60 30 30 / 55%),
-        rgb(54 74 107 / 56%)
-    );
-    box-shadow: linear-gradient(
-        to right,
-        rgb(0 0 0 / 66%),
-        rgb(40 33 27 / 65%),
-        rgb(26 27 32 / 56%)
-    );
-    animation: ${opacityAni} 1s ease-in-out forwards;
 `;
 
 const animation = keyframes`
@@ -94,6 +35,7 @@ const PageInfoText = styled.div`
     color: transparent;
     font-weight: bold;
     background-clip: text;
+    -webkit-background-clip: text;
     display: inline-flex;
     animation: ${animation} 1s 0.6s cubic-bezier(0.1, 0.45, 0, 1.09) forwards;
 `;
@@ -116,34 +58,64 @@ const BannerGrid = styled(Grid)`
     flex-grow: 1;
     width: 100%;
 `;
-
+const Star = styled.div``;
 const DashBoard: React.FC<DashBoardProps> = ({
     className,
     pageTitle,
     subComment,
-    page = '',
     // children,
 }) => {
     // const { pathname } = useLocation();
 
+    // class star {
+    //     x: number;
+    //     y: number;
+    //     size: number;
+    //     time: number;
+
+    //     constructor(x = 0, y = 0, size = 0, time = 1) {
+    //         this.x = x;
+    //         this.y = y;
+    //         this.size = size;
+    //         this.time = time;
+    //     }
+
+    //     set() {
+    //         this.x = Math.random() * window.innerWidth;
+    //         this.y = Math.random() * window.innerHeight;
+    //         this.size = Math.random() * 12;
+    //         this.time = (Math.random() + 0.2) * 8;
+
+    //         const background = document.getElementById('main')!;
+    //         const starDiv = document.createElement('div');
+    //         starDiv.className = 'star';
+
+    //         starDiv.style.position = 'absolute';
+    //         starDiv.style.left = this.x + 'px';
+    //         starDiv.style.top = this.y + 'px';
+    //         starDiv.style.width = this.size + 'px';
+    //         starDiv.style.height = this.size + 'px';
+    //         starDiv.style.backgroundColor = 'white';
+    //         starDiv.style.filter = 'blur(5px)';
+    //         starDiv.style.animation = `ani ${this.time}s  infinite`;
+    //         background.appendChild(starDiv);
+    //     }
+    // }
+
     // useEffect(() => {
-    //     const target = document.getElementById('parallaxEvent');
-    //     const ParallaxHandler = () => {
-    //         const ScrollBackgroundPosition = window.scrollY / 60;
-    //         if (target) {
-    //             target.style.backgroundPositionY = `${ScrollBackgroundPosition}px`;
-    //         }
-    //     };
-    //     window.addEventListener('scroll', ParallaxHandler);
-    //     return () => {
-    //         window.removeEventListener('scroll', ParallaxHandler);
-    //     };
+    //     for (let i = 0; i < 15; i++) {
+    //         const newStar = new star();
+    //         newStar.set();
+    //     }
     // }, []);
 
     return (
-        <PageBanner id="parallaxEvent" $page={page} className={className}>
-            <ShootingStar />
-            <BackgroundGradient />
+        <PageBanner className={className}>
+            {/* 백그라운드 */}
+            <BackgroundImgCover imgSrc="/img/4.jpg">
+                <ShootingStar /> <Star id="main"></Star>
+            </BackgroundImgCover>
+
             <BannerGrid>
                 <DashBoardTitle>
                     {pageTitle}

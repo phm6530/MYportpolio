@@ -21,7 +21,6 @@ const BoardWrapper = styled.div`
     flex-direction: column;
     width: 100%;
     transition: all 0.5s ease;
-    background: ${({ theme }) => theme.backgroundColor};
     padding-top: 2rem;
     padding-bottom: 2rem;
     border-radius: 2rem;

@@ -3,11 +3,12 @@ import { device } from 'config/DeviceConfig';
 import Link from '@layout/Link';
 
 interface ListProps {
-    $active?: boolean;
     $scrollOver?: boolean;
     $darkMode?: boolean;
     $path?: boolean;
+    $not?: boolean;
     $logout?: boolean;
+    $active?: boolean;
 }
 
 const ScrollOverColor = ({ $scrollOver, $darkMode, $path }: ListProps) => {
@@ -20,19 +21,73 @@ const ScrollOverColor = ({ $scrollOver, $darkMode, $path }: ListProps) => {
     }
 };
 
+const afterStyle = css`
+    content: '';
+    display: block;
+    width: 5px;
+    height: 30px;
+    background: var(--white);
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+`;
+
 export const List = styled(Link)<ListProps>`
     color: ${({ $scrollOver, $darkMode, $path }) =>
         ScrollOverColor({ $scrollOver, $darkMode, $path })};
-    transition: color 1s ease;
+
+    ${({ $active }) =>
+        $active &&
+        css`
+            font-weight: bold;
+            color: rgb(162 197 244);
+        `}
+
     @media ${device.laptopL} {
         padding: 17px 0;
         margin-left: 2rem;
+        position: relative;
+
         ${({ $logout }) =>
             $logout &&
             css`
                 font-family: 'Pretendard-Regular';
                 font-size: 12px;
             `};
+
+        ${({ $not, $active }) => {
+            if (!$not) {
+                if ($active) {
+                    return css`
+                        color: var(--white);
+                        transform: translateX(20px);
+                        &::after {
+                            ${afterStyle}
+                            opacity: 1;
+                        }
+                    `;
+                }
+                return css`
+                    &:hover {
+                        color: var(--white);
+                        transform: translateX(20px);
+                        &::after {
+                            opacity: 1;
+                        }
+                    }
+
+                    &::after {
+                        ${afterStyle}
+
+                        opacity: 0;
+                    }
+                `;
+            }
+        }}
+        transition:
+                        color 0.5s cubic-bezier(0.1, 0.45, 0, 1.09),
+                        all 0.5s cubic-bezier(0.1, 0.45, 0, 1.09);
     }
 `;
 
@@ -42,7 +97,6 @@ export const Header = styled.header<ListProps>`
     width: 100%;
     backdrop-filter: blur(10px);
     border-bottom: var(--Nav-navBorder);
-    font-family: 'Pretendard-Regular';
 
     ${({ $scrollOver, $path, $darkMode }) => {
         if (!$path) {
@@ -64,7 +118,6 @@ export const Header = styled.header<ListProps>`
 export const Nav = styled.nav`
     display: flex;
     justify-content: space-between;
-
     align-items: center;
 
     @media ${device.laptopL} {
@@ -74,7 +127,7 @@ export const Nav = styled.nav`
 
 export const MyName = styled.div<{ $scrollOver: boolean; $darkMode: boolean }>`
     color: rgb(182, 190, 201);
-    font-family: 'Montserrat';
+    font-family: var(--fontfamily-type-2);
     font-weight: bold;
     color: ${({ $scrollOver, $darkMode }) =>
         ScrollOverColor({ $scrollOver, $darkMode })};

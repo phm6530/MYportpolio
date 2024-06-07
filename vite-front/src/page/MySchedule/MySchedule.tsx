@@ -1,8 +1,7 @@
-import DashBoard from '../../component/ui/DashBoard';
+import DashBoard from 'component/ui/DashBoard/DashBoard';
 
 import BannerCommon from 'component/ui/BannerCommon';
-import DashBoardTitle from 'component/ui/DashBoardTitle';
-
+import DashBoardTitle from 'component/ui/DashBoard/DashBoardTitle';
 import { ReactQuery, ReactRouteDom } from 'lib/lib';
 import { useEffect, useState } from 'react';
 

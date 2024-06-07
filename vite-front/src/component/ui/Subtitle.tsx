@@ -22,6 +22,7 @@ const SubTitleStyle = styled.div`
             background: var(--gradient-aboutGradient-color);
             color: transparent;
             background-clip: text;
+            -webkit-background-clip: text;
             margin-right: 0.5rem;
             font-family: 'Montserrat';
         }

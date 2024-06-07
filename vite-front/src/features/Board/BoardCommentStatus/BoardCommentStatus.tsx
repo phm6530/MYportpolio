@@ -12,6 +12,7 @@ const CurruntReplyState = styled.div`
         background: var(--gradient-subtitle-color);
         color: transparent;
         background-clip: text;
+        -webkit-background-clip: text;
         position: relative;
         margin-right: 2rem;
         span {
