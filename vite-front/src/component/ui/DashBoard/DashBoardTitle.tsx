@@ -47,7 +47,8 @@ const DashBoardShadow = styled.div`
     z-index: 0;
     font-family: 'Poppins';
     bottom: -25px;
-    background: linear-gradient(to top, #ffffff2b, #a1a1a16e, #0000004a);
+    background: linear-gradient(to top, #ffffff11, #c2c2c22b, #0000004a);
+    /* background: linear-gradient(to top, #000000c4, #000000, #000000); */
     left: 10px;
     color: transparent;
     font-weight: bold;

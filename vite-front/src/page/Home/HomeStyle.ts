@@ -27,7 +27,7 @@ export const HomeContainer = styled.div`
     min-height: 100vh;
 
     @media ${device.tablet} {
-        padding-top: 10rem;
+        padding-top: 13rem;
     }
 `;
 
@@ -46,7 +46,7 @@ export const CareerGoal = styled.div`
     padding-top: 20px;
     font-style: normal;
     font-size: 16px;
-    line-height: 2rem;
+    line-height: 1.7rem;
     color: #d1d2eb;
     margin-bottom: 70px;
     position: relative;
@@ -65,7 +65,7 @@ export const CareerGoal = styled.div`
         width: 100%;
         padding-top: 40px;
         margin-top: 0;
-        line-height: 1.5rem;
+        line-height: 1.7rem;
         margin-top: 20px;
     }
 `;
@@ -98,7 +98,7 @@ export const CustomDashBoardTitle = styled(DashBoardTitle)<tst>`
     }
     @media ${device.tablet} {
         font-size: ${({ $mobileBiger }) => ($mobileBiger ? '13vw' : '9.5vw')};
-        line-height: 12vw;
+        line-height: 11vw;
         margin-right: 0;
     }
 `;
@@ -156,7 +156,7 @@ export const BlogNewList = styled(BlogNewPostList)`
     /* padding: 0.6rem 2rem; */
     border-radius: 1rem;
     margin-left: 2rem;
-    width: 30%;
+    width: 35%;
     @media ${device.laptop} {
         margin-left: 0;
         width: 100%;

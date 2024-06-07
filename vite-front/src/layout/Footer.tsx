@@ -4,7 +4,7 @@ import { FaGit } from 'react-icons/fa6';
 import { TfiEmail } from 'react-icons/tfi';
 import { TbPhoneCall } from 'react-icons/tb';
 import { device } from 'config/DeviceConfig';
-
+import { SiTistory } from 'react-icons/si';
 const FooterStyle = styled.div`
     /* background: rgb(0 0 0 / 4%); */
     padding: 50px 0px;
@@ -81,7 +81,7 @@ export default function Footer() {
             <FooterGrid>
                 <FooterIconAlign>
                     <FooterIcon onClick={() => Link('https:/naver.com')}>
-                        <FaGit size={'15'} />
+                        <FaGit size={15} />
                     </FooterIcon>
 
                     <FooterIcon
@@ -89,7 +89,7 @@ export default function Footer() {
                             Link('https://squirrel-story.tistory.com/')
                         }
                     >
-                        <img src="/img/footer/footerTstory.png" alt="" />
+                        <SiTistory size={15} />
                     </FooterIcon>
                 </FooterIconAlign>
                 <FooterList>

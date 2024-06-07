@@ -53,7 +53,6 @@ const BlogPostRelatedItem: React.FC<BlogPostRelated> = ({
     thumnail_url,
 }) => {
     const navigate = useNavigate();
-    console.log('idx?', idx, idx! % 2);
     return (
         <Container
             $even={(idx! + 1) % 2 === 0}

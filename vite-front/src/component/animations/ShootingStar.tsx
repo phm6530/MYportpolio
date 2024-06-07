@@ -4,13 +4,26 @@ import styled from 'styled-components';
 const AnimationSection = styled.section`
     overflow: hidden;
 
-    @keyframes animateBg {
-        0%,
-        100% {
-            transform: scale(1);
+    @keyframes animate {
+        0% {
+            transform: rotate(315deg) translateX(0);
+            opacity: 1;
         }
         50% {
-            transform: scale(1.2);
+            opacity: 1;
+        }
+        100% {
+            transform: rotate(315deg) translateX(-1000px);
+            opacity: 0;
+        }
+    }
+    @keyframes Light {
+        0%,
+        100% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
         }
     }
 
@@ -27,7 +40,9 @@ const AnimationSection = styled.section`
             0 0 0 4px rgba(255, 255, 255, 0.1),
             0 0 0 8px rgba(255, 255, 255, 0.1),
             0 0 20px rgba(255, 255, 255, 0.1);
-        animation: animate 3s linear infinite;
+        animation:
+            animate 0.5s linear infinite,
+            Light 1s ease-in-out infinite;
     }
 
     span::before {
@@ -37,21 +52,7 @@ const AnimationSection = styled.section`
         transform: translateY(-50%);
         width: 300px;
         height: 1px;
-        background: linear-gradient(90deg, #fff, transparent);
-    }
-
-    @keyframes animate {
-        0% {
-            transform: rotate(315deg) translateX(0);
-            opacity: 1;
-        }
-        70% {
-            opacity: 1;
-        }
-        100% {
-            transform: rotate(315deg) translateX(-1000px);
-            opacity: 0;
-        }
+        background: linear-gradient(90deg, #ffffffa4, transparent);
     }
 
     .span-1 {

@@ -51,13 +51,12 @@ const CustomRightWrap = styled(RightWrap)`
 `;
 
 export default function Board(): JSX.Element {
-    console.log('board 랜더');
     return (
         <PageWrapper>
             {/* Header */}
             <DashBoard
                 pageTitle={'Board'}
-                subComment={'"궁금하신 사항이 있으시면 문의주세요!"'}
+                subComment={'"Guest Board"  한마디 부탁드려요"'}
             />
             {/* Body */}{' '}
             <Motion.FadeInOut>

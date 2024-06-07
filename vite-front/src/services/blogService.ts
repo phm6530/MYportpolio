@@ -10,7 +10,6 @@ import {
     BlogPostRequestProps,
 } from '@type/BlogTypes';
 import { requestHandler } from 'utils/apiUtils';
-import { resolve } from 'path';
 
 //카테고리
 const fetchBlogCategory = async (): Promise<BlogCategorylist> => {
@@ -33,7 +32,9 @@ const blogPostDetail = async (key: string): Promise<BlogPostDetailProps> => {
 };
 
 //관련 포스팅
-const fetchPostRelated = async (postId: string): Promise<BlogPostRelated[]> => {
+const fetchPostRelated = async (
+    postId?: string,
+): Promise<BlogPostRelated[]> => {
     const { resData } = await requestHandler<ApiResData<BlogPostRelated[]>>(
         () => axios.get(`${ENDPOINT_URL}/blog/posts/${postId}/related`),
     );

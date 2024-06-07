@@ -209,7 +209,7 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
                 </DepsProjectSummary>{' '}
                 {/* quill-view */}+ <QuillView contents={projectDescription} />{' '}
                 <Button.Type onClick={() => navigate('/project')}>
-                    목록으로
+                    &lt;&nbsp;&nbsp; 목록으로
                 </Button.Type>{' '}
             </CustumStyle>{' '}
             <FadeInAnimation>

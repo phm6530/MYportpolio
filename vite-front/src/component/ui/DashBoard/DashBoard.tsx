@@ -3,8 +3,8 @@ import styled, { keyframes } from 'styled-components';
 import { Grid } from '@layout/Grid';
 
 import DashBoardTitle from './DashBoardTitle';
-import ShootingStar from 'component/animations/ShootingStar';
 import BackgroundImgCover from 'component/ui/BackgroundImgCover';
+import StarAnimation from 'component/animations/StarAnimation';
 
 // import { useEffect } from 'react';
 
@@ -58,7 +58,7 @@ const BannerGrid = styled(Grid)`
     flex-grow: 1;
     width: 100%;
 `;
-const Star = styled.div``;
+
 const DashBoard: React.FC<DashBoardProps> = ({
     className,
     pageTitle,
@@ -113,7 +113,8 @@ const DashBoard: React.FC<DashBoardProps> = ({
         <PageBanner className={className}>
             {/* 백그라운드 */}
             <BackgroundImgCover imgSrc="/img/4.jpg">
-                <ShootingStar /> <Star id="main"></Star>
+                <StarAnimation />
+                {/* <ShootingStar /> <Star id="main"></Star> */}
             </BackgroundImgCover>
 
             <BannerGrid>

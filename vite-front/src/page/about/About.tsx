@@ -44,7 +44,6 @@ const About: React.FC = () => {
                     <CustomBoardWrapper>
                         <S.AboutMeDeps>
                             <SubTitle>
-                                {/* <img src="/img/contact/dev_person_1.png" alt="dev_icon" className='dev_icon'/> */}
                                 <div className="subText">
                                     <span className="point">HELLO!</span>
                                     <S.AniPoint
@@ -63,9 +62,9 @@ const About: React.FC = () => {
                                         alt="클라이언트"
                                         width={50}
                                     />
-                                    안녕하세요! 퍼블리셔에서{' '}
-                                    <span>FRONT END</span> 개발자로 도전을 하고
-                                    있는 박현민입니다.
+                                    안녕하세요! <br></br>더욱 전문적인 UX와
+                                    기술을 반영하여 성장하는
+                                    <span>FRONT END</span> 개발자가 되려합니다.
                                 </S.IconWrapper>{' '}
                                 <br></br>
                                 <p>
@@ -158,8 +157,8 @@ const About: React.FC = () => {
                                         <HashTag>typeScript</HashTag>
                                     </S.SkillList>
                                     <S.SkillText>
-                                        ES6 문법을 사용하며, 비동기 ,스코프
-                                        클로저 개념을 이해하며 심도 있게 공부
+                                        ES6 문법을 사용하며, 프로미스 ,스코프
+                                        ,클로저 개념을 이해하며 심도 있게 공부
                                         중에 있습니다.
                                     </S.SkillText>
                                     <S.SkillText>

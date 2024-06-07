@@ -25,11 +25,11 @@ const SubCategory = styled.div`
 
 const BlogPostRelatedList = () => {
     const { key: postId } = useParams();
-    const { data } = useBlogPostRelated(postId ?? '');
+    const { data } = useBlogPostRelated(postId ?? null);
 
     const relatedList = data || [];
 
-    console.log('랜더');
+    console.log('랜더', data);
     return (
         <>
             {relatedList.length !== 0 && (

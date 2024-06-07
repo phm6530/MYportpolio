@@ -40,7 +40,7 @@ const ItemPostDate = styled.div`
 `;
 
 const ItemDescription = styled.div`
-    margin-top: 1rem;
+    margin-top: 5px;
     overflow: hidden;
     white-space: normal;
     text-overflow: ellipsis;

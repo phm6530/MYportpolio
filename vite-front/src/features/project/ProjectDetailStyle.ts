@@ -193,11 +193,12 @@ export const ProjectThumbNail = styled.div<{ $thumbNail: string }>`
 `;
 
 export const ProjectViewFooter = styled.div`
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     margin-bottom: 2rem;
     padding-bottom: 1rem;
     border-bottom: 1px solid var(--borer-line-color);
-    opacity: 0.8;
+
+    font-weight: normal;
 `;
 
 export const ProjectDescription = styled.div`

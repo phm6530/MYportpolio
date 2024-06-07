@@ -11,12 +11,12 @@ interface ButtonProps {
     onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
+const SimpleBtn = styled.button`
+    font-size: 0.9rem;
+`;
+
 const Type: React.FC<ButtonProps> = ({ children, ...props }) => {
-    return (
-        <button className="btn-borderStyle" {...props}>
-            {children}
-        </button>
-    );
+    return <SimpleBtn {...props}>{children}</SimpleBtn>;
 };
 
 const Submit: React.FC<ButtonProps> = ({ children, disabled, ...props }) => {
