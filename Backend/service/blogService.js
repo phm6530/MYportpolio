@@ -1,6 +1,27 @@
 require('dotenv').config();
 const blogModel = require('../models/blogModel');
 
+// newPostList 새글
+const getNewPostList = async (conn) => {
+    const sql_getNewpost = `
+    select 
+        post_id,
+        post_title,
+        post_description,
+        create_at,
+        (
+            CASE
+                WHEN create_at >= CURRENT_DATE - INTERVAL 2 DAY THEN 1
+                ELSE 0
+            END
+        ) AS post_new
+    from
+        blog_metadata as bm
+    order by post_id desc limit ? offset 0;`;
+    const [rows] = await conn.query(sql_getNewpost, [5]);
+    return rows;
+};
+
 const postInsert = async (conn, body, id) => {
     const { title, category, post, user, key, thumNail, description } = body;
     const [mainCategory, subCategory] = category.split(':');
@@ -203,4 +224,5 @@ module.exports = {
     blogtabService,
     getBlogDetail,
     postUpdate,
+    getNewPostList,
 };

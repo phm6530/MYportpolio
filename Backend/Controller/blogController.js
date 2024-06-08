@@ -1,5 +1,12 @@
 const { NotFoundError } = require('../util/error');
-const { postInsert, postUpdate, renderingData, blogtabService, getBlogDetail } = require('../service/blogService');
+const {
+    postInsert,
+    postUpdate,
+    renderingData,
+    blogtabService,
+    getBlogDetail,
+    getNewPostList,
+} = require('../service/blogService');
 const { runTransaction, getConn } = require('../util/dbUtil');
 
 // 동적 카테고리 탭
@@ -76,6 +83,7 @@ const HandleDeletePost = async (req, res, next) => {
     }
 };
 
+// update
 const handleUpdatePost = async (req, res, next) => {
     try {
         const id = req.params.id;
@@ -92,20 +100,11 @@ const handleUpdatePost = async (req, res, next) => {
     }
 };
 
+// 새글 컨트롤러
 const HandleNewPostList = async (_, res, next) => {
     try {
-        const result = await getConn(async (conn) => {
-            const sql_getNewpost = `
-            select 
-                post_id,
-                post_title,
-                post_description,
-                create_at
-            from
-                blog_metadata
-            order by post_id desc limit ? offset 0;`;
-            const [rows] = await conn.query(sql_getNewpost, [5]);
-            return rows;
+        const result = await getConn((conn) => {
+            return getNewPostList(conn);
         });
 
         res.status(200).json({ message: 'success', resData: result });
@@ -114,6 +113,7 @@ const HandleNewPostList = async (_, res, next) => {
     }
 };
 
+// 관련 댓글 get
 const handlePostRelated = async (req, res, next) => {
     try {
         const postId = req.params.id;
