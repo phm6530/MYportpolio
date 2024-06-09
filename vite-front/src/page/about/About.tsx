@@ -7,16 +7,15 @@ import * as ABOUTCONSTANS from 'constants/AboutConstancts';
 import { SubTitle } from 'component/ui/Subtitle';
 import Icon from 'component/icon/Icon';
 import EmbosingButton from 'component/ui/EmbosingButton';
-import { useNavigate } from 'react-router-dom';
 import { HashTag } from '@style/commonStyle';
 import styled from 'styled-components';
 import { device } from 'config/DeviceConfig';
 import Motion from 'component/animations/Motion';
 import { AiFillSafetyCertificate } from 'react-icons/ai';
 import { IoSchool } from 'react-icons/io5';
-import ReactIcon from 'component/icon/ReactIcon';
 import { RiAwardFill } from 'react-icons/ri';
 import { MdOutlineWork } from 'react-icons/md';
+import ReactIcon from 'component/icon/ReactIcon';
 const CustomGrid = styled(Grid)`
     display: flex;
     flex-direction: row;
@@ -30,8 +29,7 @@ const CustomBoardWrapper = styled(BoardWrapper)`
     }
 `;
 
-const About: React.FC = () => {
-    const navigate = useNavigate();
+const About = (): JSX.Element => {
     return (
         <PageWrapper>
             <DashBoard
@@ -84,9 +82,7 @@ const About: React.FC = () => {
                                     있는 기회를 찾고자 도전하고 있습니다.
                                 </p>
                                 <br></br>
-                                <EmbosingButton
-                                    onClick={() => navigate('/board')}
-                                >
+                                <EmbosingButton to={'/board'}>
                                     <Icon
                                         src="img/common/talk2.png"
                                         alt="클라이언트"

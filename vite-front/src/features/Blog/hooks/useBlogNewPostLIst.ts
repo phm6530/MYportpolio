@@ -7,6 +7,7 @@ const useBlogNewPostList = () => {
     return useQuery<BlogNewPostListProps[]>({
         queryKey: [queryKey.blogNewPostLIst],
         queryFn: fetchNewPostlist,
+        staleTime: 5 * 60 * 1000,
     });
 };
 

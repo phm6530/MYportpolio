@@ -67,8 +67,6 @@ const ProjectNextPrevNav = () => {
     const { data: list } = useFetchNextPrevList();
     const navigate = useNavigate();
 
-    console.log(list);
-
     return (
         <>
             {list &&

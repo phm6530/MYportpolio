@@ -2,6 +2,7 @@ import styled, { keyframes } from 'styled-components';
 import BlogNewPostList from 'features/Blog/BlogNewPostList/BlogNewPostList';
 import { device } from 'config/DeviceConfig';
 import DashBoardTitle from 'component/ui/DashBoard/DashBoardTitle';
+import { Link } from 'react-router-dom';
 
 export const infiniteBgAni = keyframes`
   0% {
@@ -120,7 +121,7 @@ export const MainButtonWrap = styled.div`
     }
 `;
 
-export const EmbosingButton = styled.div`
+export const EmbosingButton = styled(Link)`
     display: flex;
     align-items: center;
     font-size: 14px;

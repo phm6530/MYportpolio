@@ -11,6 +11,7 @@ const NewIcon = styled.span`
     align-items: center;
     justify-content: center;
     font-weight: bold;
+    margin-left: 5px;
 `;
 
 const PostNewIcon = (): JSX.Element => {

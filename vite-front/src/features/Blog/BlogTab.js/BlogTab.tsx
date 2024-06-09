@@ -17,8 +17,6 @@ const BlogTab = () => {
     const { data, isLoading } = useBlogCategory();
     const [categories, setCategories] = useState<BlogCategorylist | null>(null);
 
-    console.log(data);
-
     useEffect(() => {
         if (!isLoading && data) {
             setCategories(data);

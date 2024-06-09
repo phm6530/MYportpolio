@@ -1,4 +1,5 @@
 import { Pagination, Stack } from '@mui/material';
+import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -27,6 +28,9 @@ const Paging: React.FC<{ paging: number }> = ({ paging }) => {
         navigate(`?${searchParams}`);
     };
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pageParam]);
     return (
         <Stack spacing={0} alignItems="center" justifyContent="center">
             <StyledPagination

@@ -7,7 +7,6 @@ import withAuth from 'hoc/WithAuth';
 import styled from 'styled-components';
 import ProjectList from '@features/project/ProjectList';
 
-import { AnimatePresence } from 'framer-motion';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { fetchDetail } from 'services/projectService';
 
@@ -40,24 +39,17 @@ const ProjectRoutes = (): JSX.Element => {
 
     return (
         <>
-            <AnimatePresence
-                mode="wait"
-                onExitComplete={() => window.scrollTo(0, 0)}
-            >
-                <Routes location={location} key={location.pathname}>
-                    {paths.map(path => {
-                        return (
-                            <Route
-                                path={path.path}
-                                key={path.path}
-                                element={
-                                    <FlexMotion>{path.Component}</FlexMotion>
-                                }
-                            />
-                        );
-                    })}
-                </Routes>
-            </AnimatePresence>
+            <Routes location={location} key={location.pathname}>
+                {paths.map(path => {
+                    return (
+                        <Route
+                            path={path.path}
+                            key={path.path}
+                            element={<FlexMotion>{path.Component}</FlexMotion>}
+                        />
+                    );
+                })}
+            </Routes>
         </>
     );
 };

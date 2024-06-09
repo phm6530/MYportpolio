@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
 const StartAniWrapper = styled.div`
@@ -7,7 +7,26 @@ const StartAniWrapper = styled.div`
     position: relative;
 `;
 
-const transformY = keyframes`
+const opacity = keyframes`
+    0%{
+        opacity: 0;
+    }
+    50%{
+        opacity: 1;
+    }
+`;
+
+const transformYOdd = keyframes`
+    0%,
+    100%{
+        transform: translateY(0px);
+    }
+    50%{
+        transform: translateY(30px);
+    }
+`;
+
+const transformYEven = keyframes`
     0%,
     100%{
         transform: translateY(30px);
@@ -32,6 +51,7 @@ interface StartPositionProps {
     $left: number;
     $top: number;
     $duration: number;
+    $idx: boolean;
 }
 
 const StarItem = styled.div.attrs<StartPositionProps>(props => ({
@@ -46,11 +66,15 @@ const StarItem = styled.div.attrs<StartPositionProps>(props => ({
     position: absolute;
     z-index: 1;
     border-radius: 100%;
-    animation: ${transformY} ${props => `${props.$duration + 4}s`} ease infinite;
-
+    animation:
+        ${props => (props.$idx ? transformYEven : transformYOdd)}
+            ${props => `${props.$duration + 4}s`} ease infinite,
+        ${opacity} 3s ease forwards;
+    /* ,${LightAnimation} ${props =>
+        `${props.$duration + 1}s`} ease infinite; */
     &:after {
-        filter: blur(10px);
-        animation: ${LightAnimation} ${props => `${props.$duration + 4}s`} ease
+        filter: blur(8px);
+        animation: ${LightAnimation} ${props => `${props.$duration + 2}s`} ease
             infinite;
         padding: 10px;
         display: block;
@@ -59,7 +83,7 @@ const StarItem = styled.div.attrs<StartPositionProps>(props => ({
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        background: #ffffff39;
+        background: #f5e9d04e;
     }
 `;
 
@@ -75,14 +99,15 @@ const StarAnimation = () => {
     // 반짝이 갯수 배열
     const starCntArr = [...Array(15)].map((_, idx) => idx + 1);
 
-    useEffect(() => {
-        if (ref.current) {
+    useLayoutEffect(() => {
+        if (ref.current && !offset) {
+            const { offsetWidth, offsetHeight } = ref.current;
             setOffset({
-                height: ref.current.offsetHeight,
-                width: ref.current.offsetWidth,
+                height: offsetHeight,
+                width: offsetWidth,
             });
         }
-    }, [ref.current]);
+    }, [ref]);
 
     const offsetCalculator = (offset: offsetProps) => {
         return [
@@ -92,23 +117,22 @@ const StarAnimation = () => {
     };
 
     return (
-        <>
-            <StartAniWrapper ref={ref}>
-                {offset &&
-                    starCntArr.map((_, idx) => {
-                        const [left, top] = offsetCalculator(offset);
-                        const random = Math.floor(Math.random() * 10) + 1;
-                        return (
-                            <StarItem
-                                key={`star_${idx}`}
-                                $left={left}
-                                $top={top}
-                                $duration={random}
-                            />
-                        );
-                    })}
-            </StartAniWrapper>
-        </>
+        <StartAniWrapper ref={ref}>
+            {offset &&
+                starCntArr.map((_, idx) => {
+                    const [left, top] = offsetCalculator(offset);
+                    const random = Math.floor(Math.random() * 10) + 1;
+                    return (
+                        <StarItem
+                            key={`star_${idx}`}
+                            $idx={idx % 2 === 0}
+                            $left={left}
+                            $top={top}
+                            $duration={random}
+                        />
+                    );
+                })}
+        </StartAniWrapper>
     );
 };
 

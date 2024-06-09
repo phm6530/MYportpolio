@@ -4,7 +4,6 @@ import DashBoard from 'component/ui/DashBoard/DashBoard';
 import ProjectRoutes from 'Route/ProjectRoutes';
 
 import { Grid, PageWrapper } from '@layout/Grid';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 // import Motion from 'component/animations/Motion';
 
@@ -13,13 +12,7 @@ const FullWidthGrid = styled(Grid)`
 `;
 
 export default function Project() {
-    const [boolean, setBoolean] = useState(false);
-
-    useEffect(() => {
-        console.log('!');
-        setBoolean(prev => !prev);
-    }, [boolean]);
-
+    console.log('프로젝트 랜더링');
     return (
         <PageWrapper>
             <DashBoard

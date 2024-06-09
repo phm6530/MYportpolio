@@ -84,10 +84,6 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
         projectRoles,
     } = props;
 
-    const projectView = (url: string) => {
-        window.open(url, '_blank');
-    };
-
     return (
         <>
             <CustumStyle>
@@ -193,9 +189,7 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
                                 {/* <Src onClick={() => projectView(projectUrl)}>
                                     {projectUrl}
                                 </Src> */}
-                                <EmbosingButton
-                                    onClick={() => projectView(projectUrl)}
-                                >
+                                <EmbosingButton to={projectUrl}>
                                     <Icon
                                         src="/img/common/arrow2.png"
                                         alt="클라이언트"

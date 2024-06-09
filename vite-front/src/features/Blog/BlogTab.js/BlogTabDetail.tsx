@@ -40,7 +40,7 @@ const CategoryList = styled.div<{ $select: boolean }>`
 const Cnt = styled.span`
     color: ${({ theme }) => theme.tabCnt};
     font-size: 12px;
-    margin: 0 5px 0 2px;
+    margin: 0 1px 0 2px;
 `;
 
 interface BlogTabDetailProps extends BlogCategoryDetail {

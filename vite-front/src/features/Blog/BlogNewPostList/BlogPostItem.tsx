@@ -32,6 +32,8 @@ const ItemPostTitle = styled.div`
     white-space: nowrap;
     text-overflow: ellipsis;
     word-break: break-all;
+    display: inline-block;
+    max-width: calc(100% - 17px);
 `;
 
 const ItemPostDate = styled.div`
@@ -48,6 +50,11 @@ const ItemDescription = styled.div`
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     word-break: keep-all;
+`;
+
+const ItemTitleWrapper = styled.div`
+    display: flex;
+    align-items: center;
 `;
 
 type PostItemProps = {
@@ -78,9 +85,10 @@ const PostItem: React.FC<PostItemProps> = ({
             $mainPage={mainPage}
             onClick={() => navigate(`/blog/${post_id}`)}
         >
-            <ItemPostTitle>
-                {post_title} &nbsp; {post_new && <PostNewIcon />}
-            </ItemPostTitle>
+            <ItemTitleWrapper style={{ display: 'flex' }}>
+                <ItemPostTitle>{post_title}</ItemPostTitle>
+                {post_new && <PostNewIcon />}
+            </ItemTitleWrapper>
             {mainPage && firstIdx && (
                 <ItemDescription>{post_description}</ItemDescription>
             )}

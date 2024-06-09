@@ -18,14 +18,16 @@ const AppRoute = (): JSX.Element => {
                 mode="wait"
                 onExitComplete={() => window.scrollTo(0, 0)}
             >
-                <Routes location={location} key={pageKey}>
-                    {ROUTE_PATH.map(({ path, Component }) => (
-                        <Route
-                            key={path}
-                            path={path}
-                            element={<Motion.Page>{Component}</Motion.Page>}
-                        />
-                    ))}
+                <Routes location={location} key={`path_${pageKey}`}>
+                    {ROUTE_PATH.map(({ path, Component }) => {
+                        return (
+                            <Route
+                                key={path}
+                                path={path}
+                                element={<Motion.Page>{Component}</Motion.Page>}
+                            />
+                        );
+                    })}
                 </Routes>
             </AnimatePresence>
             <Footer />

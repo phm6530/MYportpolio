@@ -49,8 +49,9 @@ const CustomRightWrap = styled(RightWrap)`
         margin-left: 0;
     }
 `;
-
 export default function Board(): JSX.Element {
+    console.log('Board Form !!!');
+
     return (
         <PageWrapper>
             {/* Header */}

@@ -1,8 +1,9 @@
 import { device } from 'config/DeviceConfig';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const EmbosingBtn = styled.button`
+export const EmbosingBtn = styled(Link)`
     display: inline-flex;
     align-items: center;
     margin-right: 1rem;
@@ -40,14 +41,11 @@ export const EmbosingBtn = styled.button`
 
 interface EmbosingButtonProps {
     children: React.ReactNode;
-    onClick?: () => void;
+    to: string;
 }
 
-const EmbosingButton: React.FC<EmbosingButtonProps> = ({
-    children,
-    ...prop
-}) => {
-    return <EmbosingBtn {...prop}>{children}</EmbosingBtn>;
+const EmbosingButton: React.FC<EmbosingButtonProps> = ({ children, to }) => {
+    return <EmbosingBtn to={to}>{children}</EmbosingBtn>;
 };
 
 export default EmbosingButton;

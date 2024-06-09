@@ -7,11 +7,8 @@ import ViewAnimation from 'component/animations/ViewAnimation';
 import { VscProject } from 'react-icons/vsc';
 import { IoChatbubbleEllipsesSharp } from 'react-icons/io5';
 import { BsPersonCircle } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-    const navigate = useNavigate();
-
     return (
         <S.HomeContainer>
             <BackgroundImgCover mainPage={true} imgSrc="/img/4.jpg">
@@ -44,22 +41,16 @@ const Home = () => {
                             </S.CareerGoal>
 
                             <S.MainButtonWrap>
-                                <S.EmbosingButton
-                                    onClick={() => navigate('/about')}
-                                >
+                                <S.EmbosingButton to="/about">
                                     <BsPersonCircle size={20} />
                                     About me
                                 </S.EmbosingButton>{' '}
-                                <S.EmbosingButton
-                                    onClick={() => navigate('/board')}
-                                >
+                                <S.EmbosingButton to="/board">
                                     {' '}
                                     <IoChatbubbleEllipsesSharp size={20} />
                                     Guest Board
                                 </S.EmbosingButton>{' '}
-                                <S.EmbosingButton
-                                    onClick={() => navigate('/project')}
-                                >
+                                <S.EmbosingButton to="/project">
                                     <VscProject size={20} />
                                     Web Project
                                 </S.EmbosingButton>

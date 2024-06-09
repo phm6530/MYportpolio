@@ -22,9 +22,6 @@ const withFetchData = <P extends object, R extends P>(
     }: WithFetchDataReturnProps & Partial<P>) => {
         const { key } = useParams<{ key: string }>();
 
-        console.log('실행!');
-        console.count();
-
         const { data, isLoading } = useQuery<R>({
             queryKey: [queryKeyPrefix, key],
             queryFn: () => fetchFunction(key!),

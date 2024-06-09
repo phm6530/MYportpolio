@@ -6,8 +6,6 @@ import DashBoardTitle from './DashBoardTitle';
 import BackgroundImgCover from 'component/ui/BackgroundImgCover';
 import StarAnimation from 'component/animations/StarAnimation';
 
-// import { useEffect } from 'react';
-
 const PageBanner = styled.div`
     overflow: hidden;
     position: relative;
@@ -50,7 +48,7 @@ interface DashBoardProps {
 
 const BannerGrid = styled(Grid)`
     padding-top: 12.5rem;
-    padding-bottom: 6rem;
+    padding-bottom: 8rem;
     width: 100%;
 
     position: relative;

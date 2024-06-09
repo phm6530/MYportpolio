@@ -4,7 +4,8 @@ import PostItem from './BlogPostItem';
 import { useLocation } from 'react-router-dom';
 import { device } from 'config/DeviceConfig';
 const Container = styled.div<{ $isMain?: boolean }>`
-    ${({ $isMain }) => $isMain && 'color: #fff;'}
+    ${({ $isMain }) => ($isMain ? 'color: #fff' : 'width: 25%')};
+
     @media ${device.tablet} {
         ${({ $isMain }) => !$isMain && 'display: none;'}
     }

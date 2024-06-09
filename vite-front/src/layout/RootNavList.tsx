@@ -48,8 +48,8 @@ const RootNavList: React.FC<{ drawerView: boolean; scrollOver: boolean }> = ({
                                 $path={location.pathname === '/'}
                                 $active={active === e.path}
                                 onClick={() => {
+                                    if (e.path === active) return; //같은 path 재랜더링 방지
                                     if (!e.AuthPage || login) {
-                                        // AuthPage가 필요하면 로그인 확인
                                         setActive(e.path);
                                         navigate(e.path);
                                     }

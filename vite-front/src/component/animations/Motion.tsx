@@ -49,14 +49,20 @@ export const FadeInOut: React.FC<MotionProps> = ({ className, children }) => {
 };
 
 export const Page: React.FC<MotionProps> = ({ className, children }) => {
+    const scrollOffsetY = () => {
+        console.log('실행');
+        window.scrollTo(0, window.scrollY);
+    };
+
     return (
         <motion.div
             className={className}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            onAnimationStart={scrollOffsetY}
             transition={{
-                duration: 0.3,
+                duration: 0.4,
             }}
         >
             {children}
