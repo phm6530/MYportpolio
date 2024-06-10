@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LoginResponseProps } from '@type/AuthTypes';
+import { LoginResponseProps, tokenResponseProps } from '@type/AuthTypes';
 import { ENDPOINT_URL } from 'constants/apiUrl';
 import { requestHandler } from 'utils/apiUtils';
 
@@ -26,7 +26,7 @@ const fetchLogout = async (token: string) => {
 };
 
 // 토큰체크
-const tokenCheck = async () => {
+const tokenCheck = async (): Promise<tokenResponseProps> => {
     const token: string | null = localStorage.getItem('token');
 
     if (!token) {
@@ -37,7 +37,9 @@ const tokenCheck = async () => {
         Authorization: `Bearer ${token}`,
     };
     const url = `${ENDPOINT_URL}/auth`;
-    return requestHandler(() => axios.post(url, {}, { headers }));
+    return requestHandler<tokenResponseProps>(() =>
+        axios.post(url, {}, { headers }),
+    );
 };
 
 export { tokenCheck, fetchLogout, fetchLogin };

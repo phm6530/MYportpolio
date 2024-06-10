@@ -58,13 +58,13 @@ const ItemTitleWrapper = styled.div`
 `;
 
 type PostItemProps = {
-    idx: number;
+    idx?: number;
     page?: boolean;
+    post_description?: string;
+    post_new?: boolean;
     post_id: number;
     post_title: string;
-    post_description: string;
     create_at: Date;
-    post_new: boolean;
 };
 
 const PostItem: React.FC<PostItemProps> = ({

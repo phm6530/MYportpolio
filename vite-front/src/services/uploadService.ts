@@ -26,9 +26,11 @@ const uploadContentsImg = async ({
     key: string;
     formData: FormData;
     page: string;
-}) => {
+}): Promise<UploadThumbnailResponseProps> => {
     const url = `${ENDPOINT_URL}/${page}/uploadimg/${key}?page=${page}`;
-    return requestHandler(() => axios.post(url, formData));
+    return requestHandler<UploadThumbnailResponseProps>(() =>
+        axios.post(url, formData),
+    );
 };
 
 export { uploadThumbNail, uploadContentsImg };

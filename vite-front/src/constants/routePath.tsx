@@ -1,5 +1,4 @@
 import Contact from 'page/contact/Contact';
-import InfiniteScrollTest from 'test.bak';
 import NotfoundPage from 'component/error/NotfoundPage';
 import Blog from 'page/blog/Blog';
 import Project from '@page/Project';
@@ -27,7 +26,6 @@ export const ROUTE_PATH: RoutePath[] = [
     { path: '/Board', Component: <Board /> },
     { path: '/contact', Component: <Contact /> },
     { path: '/blog/*', Component: <Blog /> },
-    { path: '/test', Component: <InfiniteScrollTest /> },
     { path: '/*', Component: <NotfoundPage redirectPath={'/'} /> },
 ];
 

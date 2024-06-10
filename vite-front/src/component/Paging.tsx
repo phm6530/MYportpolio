@@ -17,7 +17,7 @@ const StyledPagination = styled(Pagination)`
 const Paging: React.FC<{ paging: number }> = ({ paging }) => {
     const navigate = useNavigate();
     const [param] = useSearchParams();
-    const pageParam = param.get('page') || 1;
+    const pageParam = param.get('page');
 
     const setPageQueryString = (
         _: React.ChangeEvent<unknown>,
@@ -29,13 +29,16 @@ const Paging: React.FC<{ paging: number }> = ({ paging }) => {
     };
 
     useEffect(() => {
-        window.scrollTo(0, 0);
+        if (pageParam) {
+            window.scrollTo(0, 0);
+        }
     }, [pageParam]);
+
     return (
         <Stack spacing={0} alignItems="center" justifyContent="center">
             <StyledPagination
                 count={paging}
-                page={+pageParam}
+                page={pageParam ? +pageParam : 1}
                 onChange={setPageQueryString}
             />
         </Stack>

@@ -14,3 +14,8 @@ export interface userData {
     access: string;
     name: string;
 }
+
+export interface tokenResponseProps {
+    Auth: boolean;
+    message: string;
+}

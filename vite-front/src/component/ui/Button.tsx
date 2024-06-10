@@ -9,6 +9,7 @@ interface ButtonProps {
     disabled?: boolean;
     active?: boolean;
     onClick?: React.MouseEventHandler<HTMLElement>;
+    type?: 'button' | 'submit' | 'reset';
 }
 
 const SimpleBtn = styled.button`

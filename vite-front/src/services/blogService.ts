@@ -58,7 +58,7 @@ const fetchBlogPageData = async (
     const result = await requestHandler<BlogMainContentsProps>(async () =>
         axios.get(url),
     );
-    // await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 500));
     return result;
 };
 

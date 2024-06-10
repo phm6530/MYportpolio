@@ -24,9 +24,7 @@ export default function Confirm({ message, confirm }: ConfirmProps) {
             <p>
                 [<span>{message}</span>]을/를 삭제하시겠습니까?
             </p>
-            <Button.ConfirmButton type={'Confirm'} onClick={confirm}>
-                YES
-            </Button.ConfirmButton>
+            <Button.ConfirmButton onClick={confirm}>YES</Button.ConfirmButton>
         </ConfirmStyle>
     );
 }

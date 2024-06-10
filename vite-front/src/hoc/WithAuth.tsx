@@ -22,6 +22,8 @@ const withAuth = <P extends object>(
             queryFn: tokenCheck,
         });
 
+        console.log('token:', data);
+
         useEffect(() => {
             if (!isAuth || isError) {
                 logout();

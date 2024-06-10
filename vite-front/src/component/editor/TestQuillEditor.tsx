@@ -55,8 +55,17 @@ const ReactQuillStyle = styled(ReactQuill)`
     }
 `;
 
-const TestQuillEditor = ({ postKey, page, ...props }) => {
-    const quillRef = useRef<HTMLDivElement>(null);
+interface testQuillProps {
+    postKey: string;
+    page: string;
+}
+
+const TestQuillEditor: React.FC<testQuillProps> = ({
+    postKey,
+    page,
+    ...props
+}) => {
+    const quillRef = useRef<ReactQuill>(null);
 
     const { mutateAsync } = useMutation({
         mutationFn: uploadContentsImg,
@@ -65,45 +74,50 @@ const TestQuillEditor = ({ postKey, page, ...props }) => {
         },
     });
 
-    const previewImage = async file => {
+    const previewImage = async (file: File) => {
         const formData = new FormData();
 
         const newFileName = file.name.replace(/[^\w.-]/g, '_');
         formData.append('image', file, newFileName); // 'img' 필드에 파일 추가
 
         //quill editor
-        const editor = quillRef.current.getEditor();
+        if (quillRef.current) {
+            const editor = quillRef.current.getEditor();
 
-        //커서위치 가져옴
-        const range = editor.getSelection();
-        if (range) {
-            console.log('postKey:::', postKey);
-            const result = await mutateAsync({
-                key: postKey,
-                formData,
-                page,
-            });
+            //커서위치 가져옴
+            const range = editor.getSelection();
+            if (range) {
+                const result = await mutateAsync({
+                    key: postKey,
+                    formData,
+                    page,
+                });
 
-            editor.insertEmbed(
-                range.index,
-                'image',
-                `${ENDPOINT_URL}/${result.imgUrl}`,
-            );
-            editor.insertText(range.index + 1, '\n'); //뒤로 한칸가서 엔터 치기
-            editor.setSelection(range.index + 2, 0); //마우커서는 엔터 뒤로
+                editor.insertEmbed(
+                    range.index,
+                    'image',
+                    `${ENDPOINT_URL}/${result.imgUrl}`,
+                );
+                editor.insertText(range.index + 1, '\n'); //뒤로 한칸가서 엔터 치기
+                editor.setSelection(range.index + 2, 0); //마우커서는 엔터 뒤로
+            }
         }
     };
 
     const imageHandler = () => {
-        const input = document.createElement('input');
+        const input = document.createElement('input')!;
         input.setAttribute('type', 'file');
         input.setAttribute('accept', 'image/*');
 
         input.click(); // 이미지 input 강제 트리거 시키는거
 
         input.addEventListener('change', async () => {
-            const file = input.files[0];
-            previewImage(file);
+            const file = input.files && input.files[0];
+            if (file instanceof File) {
+                previewImage(file);
+            } else {
+                toast.error('파일형식이 아닙니다');
+            }
         });
     };
 
@@ -143,7 +157,7 @@ const TestQuillEditor = ({ postKey, page, ...props }) => {
                 },
             },
             syntax: {
-                highlight: text => hljs.highlightAuto(text).value,
+                highlight: (text: string) => hljs.highlightAuto(text).value,
                 languages: hljs.registerLanguage('javascript', javascript),
             },
             history: {

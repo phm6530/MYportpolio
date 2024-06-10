@@ -16,10 +16,7 @@ import {
 
 const DashBoardPage = props => {
     const { DdayArr } = props;
-
     const today = TodaySeletor();
-
-    console.log(props);
 
     return (
         <>

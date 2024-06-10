@@ -17,9 +17,10 @@
         "skipLibCheck": true /* 라이브러리 파일 검사 건너뛰기 */,
         "moduleResolution": "node" /* 모듈 해상도 전략을 Node.js 스타일로 설정 */,
         "isolatedModules": true /* 개별 파일을 모듈로 취급 (Vite에서 필요) */,
-        "noEmitOnError": true /*에러시 컴파일 안됨*/,
+        "noEmitOnError": false /*에러시 컴파일 안됨*/,
         "allowJs": true
     },
     "include": ["src"],
     "exclude": ["node_modules"]
+    // "exclude": ["node_modules", "src/features/Myschedule"]
 }

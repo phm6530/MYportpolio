@@ -18,7 +18,7 @@ const BackdropStyle = styled.div`
     }
 `;
 
-const BackDrop: React.FC<{ onClick: () => void }> = ({ onClick }) => {
+const BackDrop: React.FC<{ onClick?: () => void }> = ({ onClick }) => {
     return <BackdropStyle onClick={onClick} />;
 };
 
