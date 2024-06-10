@@ -49,7 +49,8 @@ app.get('/test', (req, res, next) => {
 
 // 에러 미들웨어
 app.use((err, req, res, next) => {
-    res.status(err.status).json({ message: err.message }); // 에러 메시지를 JSON 응답으로 전송
+    console.log(err.message);
+    res.status(500).json({ message: err.message }); // 에러 메시지를 JSON 응답으로 전송
 });
 
 httpServer.listen(8080, () => {

@@ -6,6 +6,7 @@ const handleImgUploader = async (req, res, next) => {
 
     try {
         const file = req.file;
+        console.log('file:::', file);
         res.json({ message: 'success', imgUrl: file.url });
     } catch (error) {
         const err = new NotFoundError(error.message);
