@@ -23,8 +23,6 @@ const RootNavList: React.FC<{ drawerView: boolean; scrollOver: boolean }> = ({
     const openLoginPopup = () => setLoginModal(true);
     const navigate = useNavigate();
 
-    console.log(pathname);
-
     return (
         <>
             {/* Alert */}
