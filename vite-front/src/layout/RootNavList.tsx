@@ -19,10 +19,11 @@ const RootNavList: React.FC<{ drawerView: boolean; scrollOver: boolean }> = ({
     const { mutateAsync } = useLogout();
 
     const [loginModal, setLoginModal] = useState<boolean>(false);
-    const [active, setActive] = useState<string>(pathname);
 
     const openLoginPopup = () => setLoginModal(true);
     const navigate = useNavigate();
+
+    console.log(pathname);
 
     return (
         <>
@@ -46,11 +47,10 @@ const RootNavList: React.FC<{ drawerView: boolean; scrollOver: boolean }> = ({
                                 $scrollOver={scrollOver}
                                 $darkMode={darkMode}
                                 $path={location.pathname === '/'}
-                                $active={active === e.path}
+                                $active={pathname === e.path}
                                 onClick={() => {
-                                    if (e.path === active) return; //같은 path 재랜더링 방지
+                                    if (e.path === pathname) return; //같은 path 재랜더링 방지
                                     if (!e.AuthPage || login) {
-                                        setActive(e.path);
                                         navigate(e.path);
                                     }
                                 }}
