@@ -11,6 +11,7 @@ import BoardCommentList from '@features/Board/BoardCommentList/BoardCommentList'
 // import FadeInAnimation from 'component/animations/FadeInAnimation';
 import Motion from 'component/animations/Motion';
 import { device } from 'config/DeviceConfig';
+import HelmetComponent from '@features/seo/HelmetComponent';
 
 const PageText = styled.div`
     word-break: keep-all;
@@ -53,39 +54,46 @@ export default function Board(): JSX.Element {
     console.log('Board Form !!!');
 
     return (
-        <PageWrapper>
-            {/* Header */}
-            <DashBoard
-                pageTitle={'Board'}
-                subComment={'"Guest Board"  한마디 부탁드려요"'}
-            />
-            {/* Body */}{' '}
-            <Motion.FadeInOut>
-                <CustomGrid>
-                    {/* Prifile */}
-                    <UserProfile />
-                    <CustomRightWrap>
-                        <BoardDashBoard>
-                            <SubTitle>
-                                <div className="subText">
-                                    <span className="point">GUEST BOARD</span>
-                                </div>
-                            </SubTitle>
-                            <PageText>
-                                brycpt를 이용하여 암호화 저장하고 있으며 해싱된
-                                비밀번호 이외 어떠한 정보도 수집하지 않습니다.
-                            </PageText>
-                        </BoardDashBoard>
+        <>
+            <HelmetComponent description="한마디 남겨주시면 감사드리겠습니다!" />
 
-                        {/* addForm  */}
+            <PageWrapper>
+                {/* Header */}
+                <DashBoard
+                    pageTitle={'Board'}
+                    subComment={'"Guest Board"  한마디 부탁드려요"'}
+                />
+                {/* Body */}{' '}
+                <Motion.FadeInOut>
+                    <CustomGrid>
+                        {/* Prifile */}
+                        <UserProfile />
+                        <CustomRightWrap>
+                            <BoardDashBoard>
+                                <SubTitle>
+                                    <div className="subText">
+                                        <span className="point">
+                                            GUEST BOARD
+                                        </span>
+                                    </div>
+                                </SubTitle>
+                                <PageText>
+                                    brycpt를 이용하여 암호화 저장하고 있으며
+                                    해싱된 비밀번호 이외 어떠한 정보도 수집하지
+                                    않습니다.
+                                </PageText>
+                            </BoardDashBoard>
 
-                        <BoardCommentForm />
+                            {/* addForm  */}
 
-                        {/* BoardComment */}
-                        <BoardCommentList />
-                    </CustomRightWrap>{' '}
-                </CustomGrid>
-            </Motion.FadeInOut>
-        </PageWrapper>
+                            <BoardCommentForm />
+
+                            {/* BoardComment */}
+                            <BoardCommentList />
+                        </CustomRightWrap>{' '}
+                    </CustomGrid>
+                </Motion.FadeInOut>
+            </PageWrapper>
+        </>
     );
 }

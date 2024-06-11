@@ -1,42 +1,35 @@
 import useLogout from '@features/auth/hooks/useLogout';
 import DarkModeBtn from 'component/ui/DarkModeBtn';
 import { NAVPAGE_OBJECT } from 'constants/routePath';
-import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useStore from 'store/zustandStore';
 import LoginForm from '@features/auth/LoginForm'; // Component
-import Popup from 'component/popup/Popup';
 import * as S from '@layout/RootNavStyle';
+import usePopupHook from '@hooks/usePopupHook';
 
 const RootNavList: React.FC<{ drawerView: boolean; scrollOver: boolean }> = ({
     drawerView,
     scrollOver,
 }) => {
-    const login = useStore(state => state.userAuth.login);
-    const darkMode = useStore(state => state.darkMode);
-
+    const { darkMode, userAuth } = useStore(state => state);
     const { pathname } = useLocation();
     const { mutateAsync } = useLogout();
+    const { popupSetView, PopupComponent } = usePopupHook();
 
-    const [loginModal, setLoginModal] = useState<boolean>(false);
-
-    const openLoginPopup = () => setLoginModal(true);
     const navigate = useNavigate();
 
     return (
         <>
-            {/* Alert */}
-            {loginModal && (
-                <Popup type={'Login'} closePopup={() => setLoginModal(false)}>
-                    <LoginForm />
-                </Popup>
-            )}
+            {/* 팝업 커스텀 훅 */}
+            <PopupComponent type="modal" Component={LoginForm} />
+
             <S.LinkWrapper $toggle={drawerView}>
                 <S.UiStyle $link={true}>
                     {NAVPAGE_OBJECT.map((e, idx) => {
                         const onAuthPage = e.AuthPage === true;
+
                         //권한필요한거는 랜더링 안함
-                        if (!login && onAuthPage) {
+                        if (!userAuth.login && onAuthPage) {
                             return;
                         }
                         return (
@@ -48,7 +41,7 @@ const RootNavList: React.FC<{ drawerView: boolean; scrollOver: boolean }> = ({
                                 $active={pathname === e.path}
                                 onClick={() => {
                                     if (e.path === pathname) return; //같은 path 재랜더링 방지
-                                    if (!e.AuthPage || login) {
+                                    if (!e.AuthPage || userAuth.login) {
                                         navigate(e.path);
                                     }
                                 }}
@@ -62,22 +55,22 @@ const RootNavList: React.FC<{ drawerView: boolean; scrollOver: boolean }> = ({
                     {/* 다크모드 버튼 */}
                     <DarkModeBtn />
                     {/* login Component */}
-                    {!login && (
+                    {!userAuth.login && (
                         <S.List
                             $scrollOver={scrollOver}
                             $darkMode={darkMode}
-                            onClick={openLoginPopup}
+                            onClick={() => popupSetView(true)}
                             $not={true}
                             $logout={true}
                         >
                             로그인
                         </S.List>
                     )}
-                    {login && (
+                    {userAuth.login && (
                         <S.List
                             $scrollOver={scrollOver}
                             $darkMode={darkMode}
-                            onClick={() => mutateAsync()}
+                            onClick={async () => await mutateAsync()}
                             not={true}
                             $logout={true}
                         >

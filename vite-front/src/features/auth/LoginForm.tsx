@@ -6,7 +6,7 @@ import { RiLockPasswordFill } from 'react-icons/ri';
 import { IoPersonCircleSharp } from 'react-icons/io5';
 // 인증로직
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useState } from 'react';
+import { useRef } from 'react';
 import LoginHeader from '@features/auth/LoginHeader';
 import {
     LoginInputStyle,
@@ -24,7 +24,7 @@ const schema = Yup.object({
 });
 
 export default function LoginForm() {
-    const [throttle, setThorttle] = useState<boolean>(false);
+    const ref = useRef<boolean>(false);
     const { mutate } = useLogin();
 
     const {
@@ -34,17 +34,13 @@ export default function LoginForm() {
     } = useForm({
         resolver: yupResolver(schema),
     });
-
     const onSubmitHandler = async (loginData: LoginRequestProps) => {
-        if (throttle) return;
-        setThorttle(true);
-
-        console.log(loginData);
-
+        if (ref.current) return;
+        ref.current = true;
         mutate(loginData);
 
         setTimeout(() => {
-            setThorttle(false);
+            ref.current = false;
         }, 1000);
     };
 

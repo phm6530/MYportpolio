@@ -19,7 +19,7 @@ import {
     ReplyUserName,
 } from '@features/Board/BoardComment/BoardCommentStyle';
 
-import usePopup from '@hooks/usePopup';
+import usePopupHook from '@hooks/usePopupHook';
 
 import { type BoardCommentItemProps } from '@type/BoardTypes';
 import { userRole } from '@type/CommonTypes';
@@ -59,7 +59,7 @@ const BoardComment = forwardRef<HTMLDivElement, BoardCommentProps>(
     ({ item, role, selectIdx, setSelectIdx }, ref) => {
         const login = useStore(state => state.userAuth.login);
         const { mutate } = useCommentDelete();
-        const { showPopup, PopupComponent } = usePopup();
+        const { popupSetView, PopupComponent } = usePopupHook();
 
         const { user_icon, user_name, contents, date, board_key } = item;
 
@@ -77,12 +77,16 @@ const BoardComment = forwardRef<HTMLDivElement, BoardCommentProps>(
         });
 
         const deleteHandler = (key: string) => {
-            login ? showPopup('댓글') : setSelectIdx(key);
+            login ? popupSetView(true) : setSelectIdx(key);
+        };
+
+        const deleteConfirm = async () => {
+            mutate({ board_key });
         };
 
         return (
             <>
-                <PopupComponent event={() => mutate({ board_key })} />
+                <PopupComponent type="confirm" event={() => deleteConfirm()} />
 
                 <ReplyWrap ref={ref} $admin={role === userRole.Admin}>
                     <ReplyPicture

@@ -50,7 +50,6 @@ export const FadeInOut: React.FC<MotionProps> = ({ className, children }) => {
 
 export const Page: React.FC<MotionProps> = ({ className, children }) => {
     const scrollOffsetY = () => {
-        console.log('실행');
         window.scrollTo(0, window.scrollY);
     };
 

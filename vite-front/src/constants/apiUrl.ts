@@ -1,7 +1,7 @@
 // dev
-// export const ENDPOINT_URL = 'http://localhost:8080';
-export const ENDPOINT_URL =
-    'http://ec2-3-38-247-140.ap-northeast-2.compute.amazonaws.com/api/';
+export const ENDPOINT_URL = 'http://localhost:8080';
+// export const ENDPOINT_URL =
+//     'http://ec2-3-38-247-140.ap-northeast-2.compute.amazonaws.com/api/';
 
 export const IMG_UPLOAD_PATH = 'uploads';
 

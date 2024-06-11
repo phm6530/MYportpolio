@@ -16,7 +16,6 @@ const MotionStyle = styled(Motion.FadeInOut)`
 const BlogRoutes = (): JSX.Element => {
     const location = useLocation();
     const AuthenticatedBlodAdd = withAuth(BlogAdd, '/blog');
-
     const paths = [
         { path: '/', index: true, Component: <BlogPage /> },
         { path: '/:key', Component: <BlogDetail /> },
@@ -32,7 +31,6 @@ const BlogRoutes = (): JSX.Element => {
                 mode="wait"
                 initial={false}
                 onExitComplete={() => {
-                    console.log(window.scrollY);
                     window.scrollTo(0, 0);
                 }}
             >

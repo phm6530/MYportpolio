@@ -5,6 +5,7 @@ import ProjectRoutes from 'Route/ProjectRoutes';
 
 import { Grid, PageWrapper } from '@layout/Grid';
 import styled from 'styled-components';
+
 // import Motion from 'component/animations/Motion';
 
 const FullWidthGrid = styled(Grid)`
@@ -12,7 +13,6 @@ const FullWidthGrid = styled(Grid)`
 `;
 
 export default function Project() {
-    console.log('프로젝트 랜더링');
     return (
         <PageWrapper>
             <DashBoard

@@ -19,7 +19,7 @@ import {
     ProjectDescription,
 } from '@features/project/ProjectDetailStyle';
 import { ProjectPostProps } from '@type/ProjectTypes';
-import { ENDPOINT_URL } from 'constants/apiUrl';
+import { IMG_URL } from 'constants/apiUrl';
 import styled from 'styled-components';
 
 import ProjectNextPrevNav from '@features/project/ProjectNextPrevNav';
@@ -117,7 +117,7 @@ const ProjectDetail: React.FC<ProjectPostProps> = props => {
                 <DepsProjectSummary>
                     <SummaryWrap>
                         <ProjectThumbNail
-                            $thumbNail={`${ENDPOINT_URL}/${thumbnail}`}
+                            $thumbNail={`${IMG_URL}/${thumbnail}`}
                         />
 
                         <Wrapper>

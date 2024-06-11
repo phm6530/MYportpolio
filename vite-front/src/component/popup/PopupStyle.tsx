@@ -55,12 +55,15 @@ const PopupWrap = styled.div<{ $close: boolean }>`
     border-radius: 1em;
     background: var(--color-popup-background);
     animation: ${onPopup} 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
-    ${props =>
-        props.$close &&
-        css`
-            animation: ${offPopup} 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)
-                forwards;
-        `};
+    ${({ $close }) => {
+        if ($close) {
+            return css`
+                animation: ${offPopup} 0.4s
+                    cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            `;
+        }
+    }}
+
     box-shadow: 15px 55px 55px rgba(0, 0, 0, 0.9);
     border: 1px solid var(--borer-line-color);
 `;
