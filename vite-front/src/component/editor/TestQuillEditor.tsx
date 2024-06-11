@@ -8,7 +8,7 @@ import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';
 
 import 'highlight.js/styles/atom-one-dark.min.css';
-import { ENDPOINT_URL } from 'constants/apiUrl';
+import { IMG_URL } from 'constants/apiUrl';
 import { uploadContentsImg } from 'services/uploadService';
 const EditorStyle = styled.div`
     /* padding: 2rem 0; */
@@ -96,7 +96,7 @@ const TestQuillEditor: React.FC<testQuillProps> = ({
                 editor.insertEmbed(
                     range.index,
                     'image',
-                    `${ENDPOINT_URL}/${result.imgUrl}`,
+                    `${IMG_URL}/${result.imgUrl}`,
                 );
                 editor.insertText(range.index + 1, '\n'); //뒤로 한칸가서 엔터 치기
                 editor.setSelection(range.index + 2, 0); //마우커서는 엔터 뒤로

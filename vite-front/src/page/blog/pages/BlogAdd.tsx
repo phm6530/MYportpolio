@@ -16,7 +16,7 @@ import useBlogPostAction from '@features/Blog/hooks/useBlogPostAction';
 
 //타입 get
 import { BlogAddorEditProps, BlogPostRequestProps } from '@type/BlogTypes';
-import { ENDPOINT_URL } from 'constants/apiUrl';
+import { IMG_URL } from 'constants/apiUrl';
 import useStore from 'store/zustandStore';
 
 interface FormValue extends BlogAddorEditProps {
@@ -58,7 +58,7 @@ const BlogAdd = (): JSX.Element => {
                 const originalDomain = 'uploads/';
                 const updatedContents = contents.replaceAll(
                     originalDomain,
-                    `${ENDPOINT_URL}/uploads/`,
+                    `${IMG_URL}/uploads/`,
                 );
 
                 reset({

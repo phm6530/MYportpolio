@@ -1,7 +1,7 @@
 import useFetchNextPrevList from '@features/project/hooks/useFetchNextPrevList';
 import Thumbnail from 'component/ui/Thumbnail';
 import { device } from 'config/DeviceConfig';
-import { ENDPOINT_URL } from 'constants/apiUrl';
+import { IMG_URL } from 'constants/apiUrl';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -83,7 +83,7 @@ const ProjectNextPrevNav = () => {
                                 }
                             >
                                 <ThumbNailStyle
-                                    img={`${ENDPOINT_URL}/${item.thumbnail}`}
+                                    img={`${IMG_URL}/${item.thumbnail}`}
                                 />
 
                                 <PrevnextSummary>

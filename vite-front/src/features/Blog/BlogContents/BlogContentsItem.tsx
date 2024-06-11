@@ -5,7 +5,7 @@ import FadeInAnimation from 'component/animations/FadeInAnimation';
 import Thumbnail from 'component/ui/Thumbnail';
 import SummaryData from 'component/ui/PostTimestamp';
 import { BlogMainContentsItemProps } from '@type/BlogTypes';
-import { ENDPOINT_URL } from 'constants/apiUrl';
+import { IMG_URL } from 'constants/apiUrl';
 import { device } from 'config/DeviceConfig';
 
 const ProjectFadeinStyle = styled(FadeInAnimation)`
@@ -87,7 +87,7 @@ const BlogContentsItem: React.FC<{ item: BlogMainContentsItemProps }> = ({
         <ProjectFadeinStyle onClick={() => navigate(`${post_id}`)}>
             {/* 썸네일  */}
             <CustomThumNail
-                img={`${ENDPOINT_URL}/${thumnail}`} //이미지 썸네일 엔드포인트
+                img={`${IMG_URL}/${thumnail}`} //이미지 썸네일 엔드포인트
                 badge={subcategory}
             />
             <ContentsWrap>

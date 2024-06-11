@@ -4,7 +4,7 @@ import Thumbnail from 'component/ui/Thumbnail';
 import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 import { BlogPostRelated } from '@type/BlogTypes';
-import { ENDPOINT_URL } from 'constants/apiUrl';
+import { IMG_URL } from 'constants/apiUrl';
 import { device } from 'config/DeviceConfig';
 
 const Container = styled.div<{ $even: boolean }>`
@@ -58,7 +58,7 @@ const BlogPostRelatedItem: React.FC<BlogPostRelated> = ({
             $even={(idx! + 1) % 2 === 0}
             onClick={() => navigate(`/blog/${post_id}`)}
         >
-            <ThumbnailCustom img={`${ENDPOINT_URL}/${thumnail_url}`} />
+            <ThumbnailCustom img={`${IMG_URL}/${thumnail_url}`} />
             <Summary>
                 <div className="title">{post_title}</div>
 

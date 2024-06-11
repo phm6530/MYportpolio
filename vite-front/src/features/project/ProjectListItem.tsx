@@ -13,6 +13,7 @@ import {
 } from '@features/project/ProjectListItemStyle';
 
 import { ProjectPostProps } from '@type/ProjectTypes';
+import { IMG_URL } from 'constants/apiUrl';
 
 const ProjectListItem: React.FC<{ project: ProjectPostProps }> = ({
     project,
@@ -24,7 +25,7 @@ const ProjectListItem: React.FC<{ project: ProjectPostProps }> = ({
         <>
             <ProjectFadeinStyle onClick={() => navigate(`${projectKey}`)}>
                 <ProjectImgArea
-                    $backImg={`http://localhost:8080/${thumbnail}`}
+                    $backImg={`${IMG_URL}/${thumbnail}`}
                     className="projectItemImg"
                 >
                     <ViewIconAnimation className="aniTarget">

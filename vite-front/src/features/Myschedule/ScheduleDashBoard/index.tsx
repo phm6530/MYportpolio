@@ -30,6 +30,8 @@ const ScheduleDashBoard = () => {
         return <SpinnerLoading />;
     }
 
+    console.log('data:::', data);
+
     return (
         <>
             {/* myStatus */}
