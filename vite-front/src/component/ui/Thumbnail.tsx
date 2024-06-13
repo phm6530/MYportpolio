@@ -72,6 +72,8 @@ interface thumbNailProps {
 
 const Thumbnail: React.FC<thumbNailProps> = ({ className, img, badge }) => {
     const isNullImage = img && img.includes('/null') ? null : img;
+
+    console.log(isNullImage);
     return (
         <>
             <ThumbNailContainer

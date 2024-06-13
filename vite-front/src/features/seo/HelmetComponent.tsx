@@ -1,3 +1,4 @@
+import { IMG_URL } from 'constants/apiUrl';
 import { Helmet } from 'react-helmet-async';
 
 interface HelmetProps {
@@ -7,8 +8,7 @@ interface HelmetProps {
     keyword?: string;
 }
 
-const DEFAULT_META_IMG =
-    'https://myportpolio-storage-s3.s3.ap-northeast-2.amazonaws.com/metaImg.jpg';
+const DEFAULT_META_IMG = `${IMG_URL}/metaImg.jpg`;
 const currentUrl = window.location.href;
 const defaultUrl =
     '프론트엔드, frontEnd , backend, 퍼블리셔 , 포트폴리오 , portpolio , 개발블로그';
@@ -29,7 +29,10 @@ const HelmetComponent: React.FC<HelmetProps> = ({
             {/* Open Graph Meta Tags */}
             <meta property="og:title" content={defaultTitle} />
             <meta property="og:description" content={description} />
-            <meta property="og:image" content={ogImage || DEFAULT_META_IMG} />
+            <meta
+                property="og:image"
+                content={`${IMG_URL}${ogImage}` || DEFAULT_META_IMG}
+            />
             <meta property="og:url" content={currentUrl} />
             <meta property="og:type" content="website" />
         </Helmet>

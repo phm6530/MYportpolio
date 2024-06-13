@@ -60,6 +60,8 @@ export interface BlogPostDetailProps {
     subcategory: post_subcategory;
     update_date: post_date;
     user: post_username;
+    description: string;
+    thumbNail: string;
 }
 
 // 카테고리 List

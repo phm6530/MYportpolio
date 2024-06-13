@@ -38,22 +38,6 @@ const BlogDetail = (): JSX.Element => {
         );
     }
 
-    const descriptionText = (content: string) => {
-        const div = document.createElement('div');
-        div.innerHTML = content;
-        const imgElement = div.querySelector('img');
-        const ogImage = imgElement ? imgElement.src : '';
-        const description = div.textContent
-            ? div.textContent.slice(0, 100)
-            : '';
-        return { ogImage, description };
-    };
-
-    // descriptionText 함수를 한 번만 호출하고 결과를 저장
-    const meta = data
-        ? descriptionText(data.contents)
-        : { ogImage: '', description: '' };
-
     return (
         <>
             {data && key && (
@@ -61,8 +45,8 @@ const BlogDetail = (): JSX.Element => {
                     {/* Blog Helmet */}
                     <HelmetComponent
                         title={data.post_title}
-                        description={meta.description}
-                        ogImage={meta.ogImage}
+                        description={data.description}
+                        ogImage={data.thumbNail}
                     />
                     <div style={{ width: '100%' }}>
                         {/* Editor View header */}
