@@ -93,8 +93,6 @@ export default function BoardCommentForm() {
             page: new URLSearchParams(location.search).get('page') || 1,
         };
 
-        console.log(formData);
-
         // 요청
         addMutate(formData);
 

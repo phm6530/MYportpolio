@@ -83,8 +83,6 @@ const BlogContentsItem: React.FC<{ item: BlogMainContentsItemProps }> = ({
         item;
     const navigate = useNavigate();
 
-    console.log('썸네일Url ', IMG_URL, thumnail);
-
     return (
         <ProjectFadeinStyle onClick={() => navigate(`${post_id}`)}>
             {/* 썸네일  */}

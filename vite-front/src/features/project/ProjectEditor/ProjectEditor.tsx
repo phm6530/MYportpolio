@@ -83,9 +83,6 @@ export default function ProjectEditor() {
     const { data } = useEditorFetchDetail(projectKey, pageType);
     const { mutate } = useEditorAction(pageType, projectKey);
 
-    const test = formhookMethod.watch('projectRoles');
-    console.log(test);
-
     useEffect(() => {
         if (data && pageType === 'edit') {
             const updatedData = {
@@ -105,7 +102,6 @@ export default function ProjectEditor() {
     const onSubmitHandler: SubmitHandler<ProjectDetailProps> = data => {
         const getItem = EditorGetPreview(data.projectDescription);
         const newProjectDescription = getItem.getPost();
-        console.log(data);
 
         const updatedData = {
             ...data,

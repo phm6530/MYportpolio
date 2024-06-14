@@ -16,7 +16,7 @@ const useAuthCheck = () => {
         setTimeout(() => {
             throttle.current = false;
         }, 1000);
-        console.log(login);
+
         return login ? true : false;
     };
 

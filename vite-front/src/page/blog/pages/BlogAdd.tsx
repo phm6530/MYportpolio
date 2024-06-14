@@ -26,7 +26,6 @@ const BlogAdd = (): JSX.Element => {
     const [params] = useSearchParams();
     const userData = useStore(state => state.userAuth.user);
 
-    console.log(userData);
     const postId = params.get('post') || '';
     const editorType = params.get('type') || '';
 

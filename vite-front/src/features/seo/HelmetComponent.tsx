@@ -20,6 +20,7 @@ const HelmetComponent: React.FC<HelmetProps> = ({
     description,
     keyword,
 }) => {
+    const metaImg = ogImage ? `${IMG_URL}/${ogImage}` : DEFAULT_META_IMG;
     return (
         <Helmet>
             <title>{title || defaultTitle}</title>
@@ -29,10 +30,7 @@ const HelmetComponent: React.FC<HelmetProps> = ({
             {/* Open Graph Meta Tags */}
             <meta property="og:title" content={defaultTitle} />
             <meta property="og:description" content={description} />
-            <meta
-                property="og:image"
-                content={`${IMG_URL}${ogImage}` || DEFAULT_META_IMG}
-            />
+            <meta property="og:image" content={metaImg} />
             <meta property="og:url" content={currentUrl} />
             <meta property="og:type" content="website" />
         </Helmet>

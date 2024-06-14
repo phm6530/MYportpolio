@@ -10,6 +10,8 @@ const ListWrapper = styled.div<ListWrapperProps>`
     padding-left: 1rem;
     transition: 0.3s ease;
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     /* border-bottom: 1px solid var(--borer-line-color); */
     @media ${device.tablet} {
         padding-left: 0;

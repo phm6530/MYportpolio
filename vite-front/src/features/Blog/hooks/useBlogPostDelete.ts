@@ -12,7 +12,6 @@ const useBlogPostDelete = (postKey: string) => {
     const { mutate } = useMutation({
         mutationFn: () => deleteBlogPost(postKey),
         onSuccess: data => {
-            console.log(data);
             toast.success('삭제되었습니다.');
 
             // 블로그 갱신

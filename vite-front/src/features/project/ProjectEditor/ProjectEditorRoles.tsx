@@ -15,8 +15,6 @@ const ProjectEditorRoles: React.FC<ProjectRolesProps> = ({ keyName }) => {
         register,
     } = useFormContext();
 
-    console.log('test::', getValues('projectRoles'));
-
     const selectRoles = [
         { roleName: '디자인', rolePercent: 0, role_id: 1 },
         { roleName: '퍼블리싱', rolePercent: 0, role_id: 2 },
