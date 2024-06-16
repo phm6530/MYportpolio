@@ -122,21 +122,25 @@ export default function ProjectEditor() {
                         placeholder="프로젝트 명을 입력해주세요."
                         value="title"
                     />
+
                     <EditorInput
                         label="프로젝트 의뢰기관"
                         placeholder="프로젝트 의뢰 기간을 입력해주세요."
                         value="company"
                     />
+
                     <CustumDatePicker
                         label="프로젝트 기간"
                         startDateName="startDate"
                         endDateName="endDate"
                     />
+
                     <EditorChecklist
                         label="프로젝트 기술스택"
                         value="skill"
                         list={PROJECT_STACK}
                     />
+
                     {/* 해시태그 */}
                     <EditorAddHash label="# 해시태그" value="hashtag" />
 

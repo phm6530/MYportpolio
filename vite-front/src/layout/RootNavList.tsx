@@ -12,9 +12,10 @@ const RootNavList: React.FC<{ drawerView: boolean; scrollOver: boolean }> = ({
     scrollOver,
 }) => {
     const { darkMode, userAuth } = useStore(state => state);
-    const { pathname } = useLocation();
-    const { mutateAsync } = useLogout();
     const { popupSetView, PopupComponent } = usePopupHook();
+
+    const { mutateAsync } = useLogout();
+    const { pathname } = useLocation();
 
     const navigate = useNavigate();
 
@@ -37,7 +38,7 @@ const RootNavList: React.FC<{ drawerView: boolean; scrollOver: boolean }> = ({
                                 key={idx}
                                 $scrollOver={scrollOver}
                                 $darkMode={darkMode}
-                                $path={location.pathname === '/'}
+                                $path={pathname === '/'}
                                 $active={pathname === e.path}
                                 onClick={() => {
                                     if (e.path === pathname) return; //같은 path 재랜더링 방지

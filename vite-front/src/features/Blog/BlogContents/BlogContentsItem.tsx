@@ -10,7 +10,7 @@ import { device } from 'config/DeviceConfig';
 
 const ProjectFadeinStyle = styled(FadeInAnimation)`
     /* margin-bottom: 1.5rem; */
-    padding-bottom: 4.5rem;
+    padding-bottom: 3.5rem;
     display: flex;
     flex-direction: row;
     align-items: center;

@@ -41,7 +41,7 @@ const Summary = styled.div`
 `;
 
 const ThumbnailCustom = styled(Thumbnail)`
-    border-radius: 2px;
+    border-radius: 0.5rem;
     padding-bottom: 60%;
 `;
 

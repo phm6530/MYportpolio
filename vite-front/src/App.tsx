@@ -2,8 +2,6 @@
 import { BrowserRouter } from 'react-router-dom';
 import AppRoute from 'Route/AppRoute';
 
-// redux
-
 // layOut
 import ThemeWrapper from 'style/ThemeWrapper';
 import { GlobalStyle } from 'style/CssinJsTheme';

@@ -14,6 +14,9 @@ const QuillContainer = styled.div`
         line-height: 1.8 !important;
         font-family: 'Poppins', 'SUIT-Regular', sans-serif;
     }
+    img {
+        border-radius: 1.5rem;
+    }
 
     /* @media ${device.tablet} {
         margin: 0 10px;

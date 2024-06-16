@@ -18,7 +18,7 @@ const ThumbNailContainer = styled.div<{
     margin-right: 3rem;
     transition: all 0.5s ease;
     background: #6f6f6f42;
-    background-size: 110%;
+    background-size: cover;
     background-position: center;
     /* border: 1px solid var(--borer-line-color); */
 
@@ -26,7 +26,7 @@ const ThumbNailContainer = styled.div<{
         `url(${$backImg || '/img/blog/noimg.png'})`};
 
     &:hover {
-        background-size: 120%;
+        transform: scale(1.02);
         .aniTarget {
             background: rgba(0, 0, 0, 0.3);
             svg {

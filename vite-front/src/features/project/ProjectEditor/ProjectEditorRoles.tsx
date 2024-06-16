@@ -13,6 +13,7 @@ const ProjectEditorRoles: React.FC<ProjectRolesProps> = ({ keyName }) => {
         getValues,
         setValue,
         register,
+        watch,
     } = useFormContext();
 
     const selectRoles = [
@@ -34,13 +35,16 @@ const ProjectEditorRoles: React.FC<ProjectRolesProps> = ({ keyName }) => {
                         roleName={role.roleName}
                         getRoles={getRoles}
                         roleId={role.role_id}
+                        watch={watch}
                         setValue={setValue}
                         getValues={getValues}
                         register={register}
                     />
                 );
             })}
+
             {keyName}
+
             {typeof errorMessage === 'string' && (
                 <InputErrorMessage>{errorMessage}</InputErrorMessage>
             )}

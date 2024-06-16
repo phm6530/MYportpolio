@@ -3,6 +3,7 @@ import {
     UseFormGetValues,
     UseFormRegister,
     UseFormSetValue,
+    UseFormWatch,
 } from 'react-hook-form';
 import styled from 'styled-components';
 
@@ -20,6 +21,7 @@ interface ItemProps {
     roleName: string;
     getRoles: Roles[];
     roleId: number;
+    watch: UseFormWatch<FieldValues>;
     getValues: UseFormGetValues<FieldValues>;
     setValue: UseFormSetValue<FieldValues>;
     register: UseFormRegister<FieldValues>;
@@ -30,13 +32,13 @@ const ProjectEditorRolesItem: React.FC<ItemProps> = ({
     roleId,
     getRoles,
     setValue,
-    getValues,
+    watch,
 }) => {
     const [test] = getRoles.filter(role => {
         return role.role_id === roleId;
     });
-    // console.log(test);
-    const prevValue = getValues('projectRoles');
+
+    const prevValue = watch('projectRoles');
     const initalRole = { roleName, rolePercent: 0, role_id: roleId };
     // console.log(initalRole);
 
@@ -52,6 +54,7 @@ const ProjectEditorRolesItem: React.FC<ItemProps> = ({
             setValue('projectRoles', newValue);
         }
     };
+
     const rangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newPercent = Number(e.target.value); // 입력받은 새로운 백분율
         const updatedRoles = prevValue.map((role: Roles) => {
