@@ -7,13 +7,10 @@ import ViewAnimation from 'component/animations/ViewAnimation';
 import { VscProject } from 'react-icons/vsc';
 import { IoChatbubbleEllipsesSharp } from 'react-icons/io5';
 import { BsPersonCircle } from 'react-icons/bs';
-import HelmetComponent from '@features/seo/HelmetComponent';
 
 const Home = () => {
     return (
         <>
-            {/* Helmet  */}
-            <HelmetComponent description="저의 포트폴리오에 방문해 주셔서 감사합니다." />
             <S.HomeContainer>
                 <BackgroundImgCover mainPage={true} imgSrc="/img/4.jpg">
                     <ShootingStar />

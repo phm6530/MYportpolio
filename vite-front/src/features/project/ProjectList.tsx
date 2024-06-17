@@ -14,7 +14,6 @@ import {
 
 import useFetchProjectList from '@features/project/hooks/useFetchProjectList';
 import useStore from 'store/zustandStore';
-import HelmetComponent from '@features/seo/HelmetComponent';
 
 const { useSearchParams } = ReactRouteDom;
 
@@ -38,8 +37,6 @@ export default function ProjectList(): JSX.Element {
 
     return (
         <>
-            <HelmetComponent description="저의 포트폴리오에 방문해 주셔서 감사합니다." />
-
             <ProjectListStyle>
                 <SubTitle>
                     <div className="subText">

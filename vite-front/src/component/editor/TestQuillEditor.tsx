@@ -42,7 +42,7 @@ const ReactQuillStyle = styled(ReactQuill)`
     }
     .ql-editor {
         max-height: 500px !important;
-        line-height: 1.8 !important;
+        line-height: 2 !important;
         font-size: 16px;
         font-family: 'Poppins', 'SUIT-Regular', sans-serif;
     }

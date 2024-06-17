@@ -26,7 +26,7 @@ const ProjectFadeinStyle = styled(FadeInAnimation)`
 const ProjectDescription = styled.div`
     font-size: 14px;
     /* white-space: pre-line; */
-    margin-bottom: 7px;
+    margin-bottom: 10px;
     word-break: keep-all;
     display: -webkit-box;
     -webkit-line-clamp: 2; /* 표시할 줄 수 */
@@ -69,7 +69,7 @@ const CreateDate = styled(SummaryData)`
 `;
 const CustomThumNail = styled(Thumbnail)`
     width: 25%;
-    padding-bottom: 17%;
+    padding-bottom: 16%;
     @media ${device.tablet} {
         width: 100%;
         padding-bottom: 65%;

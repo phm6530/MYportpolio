@@ -176,15 +176,14 @@ export const HashtagArea = styled.div`
 export const ProjectThumbNail = styled.div<{ $thumbNail: string }>`
     overflow: hidden;
     border-radius: 2rem;
-    width: 35%;
+    width: 45%;
     margin-right: 10%;
     margin-bottom: 3rem;
-    /* margin-left: 5%; */
     background-position: center center;
     background-size: cover;
     background-image: url(${({ $thumbNail }) => $thumbNail});
     padding-bottom: 30%;
-    border: 5px solid rgb(9 17 24 / 6%);
+    /* border: 5px solid rgb(9 17 24 / 6%); */
     @media ${device.tablet} {
         width: 100%;
         padding-bottom: 70%;

@@ -80,7 +80,11 @@ export default function Footer() {
         <FooterStyle>
             <FooterGrid>
                 <FooterIconAlign>
-                    <FooterIcon onClick={() => Link('https:/naver.com')}>
+                    <FooterIcon
+                        onClick={() =>
+                            Link('https://github.com/phm6530/MYportpolio')
+                        }
+                    >
                         <FaGit size={15} />
                     </FooterIcon>
 
@@ -106,7 +110,7 @@ export default function Footer() {
                 </span>
                 <br></br>
                 <span style={{ marginTop: '20px', opacity: '.5' }}>
-                    CopyRight ⓒ p. Hyun
+                    Copyright ⓒ p. Hyun
                 </span>
             </FooterGrid>
         </FooterStyle>

@@ -14,6 +14,8 @@ interface ButtonProps {
 
 const SimpleBtn = styled.button`
     font-size: 0.9rem;
+    background: #000;
+    padding: 1rem;
 `;
 
 const Type: React.FC<ButtonProps> = ({ children, ...props }) => {

@@ -25,7 +25,7 @@ const Wrap = styled.div`
 `;
 
 const PrevnextTitle = styled.div`
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     margin-bottom: 0.2rem;
     @media ${device.tablet} {
         font-size: 13px;
@@ -58,6 +58,7 @@ const ThumbNailStyle = styled(Thumbnail)`
 
 const PrevnextDescription = styled.div`
     opacity: 0.5;
+    font-size: 12px;
     @media ${device.tablet} {
         font-size: 13px;
     }

@@ -55,6 +55,10 @@ export const EXPERIENCE = [
                 summary: ['퍼블리싱 & 유지보수'],
             },
             {
+                work: '국회도서관 웹진',
+                summary: ['퍼블리싱 & 유지보수'],
+            },
+            {
                 work: '한국전파진흥원(KCA) All Digital 이벤트',
                 summary: ['디자인 및 인증샷 이벤트 폼 개발'],
             },

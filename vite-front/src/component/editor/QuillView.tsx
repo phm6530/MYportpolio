@@ -11,16 +11,19 @@ const QuillContainer = styled.div`
     .ql-editor {
         min-height: 200px !important;
         padding: 0;
-        line-height: 1.8 !important;
+        line-height: 2 !important;
         font-family: 'Poppins', 'SUIT-Regular', sans-serif;
     }
     img {
         border-radius: 1.5rem;
+        border: 5px solid;
     }
 
-    /* @media ${device.tablet} {
-        margin: 0 10px;
-    } */
+    @media ${device.tablet} {
+        img {
+            border: 1px solid;
+        }
+    }
 `;
 
 const QuillView: React.FC<{ contents: string }> = ({ contents }) => {

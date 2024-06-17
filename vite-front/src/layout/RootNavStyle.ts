@@ -101,7 +101,6 @@ export const Header = styled.header<ListProps>`
     ${({ $scrollOver, $path, $darkMode }) => {
         if (!$path) {
             if ($scrollOver && !$darkMode) {
-                console.log('$darkMode', $darkMode);
                 return css`
                     background: var(--Nav-Background-color);
                     border-bottom: 1px solid rgba(0, 0, 0, 0.1);

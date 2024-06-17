@@ -17,7 +17,7 @@ export default function Project() {
         <PageWrapper>
             <DashBoard
                 pageTitle={'PROJECT'}
-                subComment={'저의 프로젝트를 기록합니다.'}
+                subComment={'외부로 공개된 참여한 프로젝트만 기재합니다.'}
             />
 
             <FullWidthGrid>

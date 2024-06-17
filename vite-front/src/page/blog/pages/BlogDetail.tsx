@@ -13,7 +13,6 @@ import useStore from 'store/zustandStore';
 import * as S from './BlogDetailStyle';
 
 import { Button } from 'component/ui/Button';
-import HelmetComponent from '@features/seo/HelmetComponent';
 import PostTimestamp from 'component/ui/PostTimestamp';
 
 const BlogDetail = (): JSX.Element => {
@@ -42,12 +41,6 @@ const BlogDetail = (): JSX.Element => {
         <>
             {data && key && (
                 <>
-                    {/* Blog Helmet */}
-                    <HelmetComponent
-                        title={data.post_title}
-                        description={data.description}
-                        ogImage={data.thumbNail}
-                    />
                     <div style={{ width: '100%' }}>
                         {/* Editor View header */}
                         <S.PostDetailHeader>

@@ -16,7 +16,6 @@ import { IoSchool } from 'react-icons/io5';
 import { RiAwardFill } from 'react-icons/ri';
 import { MdOutlineWork } from 'react-icons/md';
 import ReactIcon from 'component/icon/ReactIcon';
-import HelmetComponent from '@features/seo/HelmetComponent';
 
 const CustomGrid = styled(Grid)`
     display: flex;
@@ -34,7 +33,6 @@ const CustomBoardWrapper = styled(BoardWrapper)`
 const About = (): JSX.Element => {
     return (
         <>
-            <HelmetComponent description="혼자서 능동적으로 해결하였던 문제 점들과 퍼블리셔로서의 경험을 바탕으로 프론트엔드 개발자로의 전환을 모색하고 있으며, 이를 통해 사용자 경험을 개선하고 더 나은 사용자 인터페이스를 제공하는 데 기여하고자 합니다." />
             <PageWrapper>
                 <DashBoard
                     pageTitle={'About'}
