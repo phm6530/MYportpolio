@@ -145,7 +145,7 @@ export const WorkItem = styled.div`
 `;
 
 export const Client = styled.div`
-    text-decoration: underline;
+    /* text-decoration: underline; */
     color: var(--color-aboutfont-color);
 `;
 

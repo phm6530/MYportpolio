@@ -92,7 +92,7 @@ const About = (): JSX.Element => {
                                             alt="클라이언트"
                                             width={20}
                                         />
-                                        방명록에 한줄 남기기
+                                        응원 한줄 남기기
                                     </EmbosingButton>{' '}
                                     <br></br>
                                     <br></br>
