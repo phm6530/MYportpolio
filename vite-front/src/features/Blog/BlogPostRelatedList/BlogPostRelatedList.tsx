@@ -1,8 +1,11 @@
 import { useParams } from 'react-router-dom';
-import useBlogPostRelated from '../hooks/useBlogPostRelated';
 import styled from 'styled-components';
 import BlogPostRelatedItem from '@features/Blog/BlogPostRelatedList/BlogPostRelatedItem';
 import { device } from 'config/DeviceConfig';
+import { useQuery } from '@tanstack/react-query';
+import { queryKey } from 'services/queryKey';
+import { fetchPostRelated } from 'services/blogService';
+import { BlogPostRelated } from '@type/BlogTypes';
 
 const RelatedPostsContainer = styled.div``;
 
@@ -25,39 +28,51 @@ const SubCategory = styled.div`
 
 const BlogPostRelatedList = () => {
     const { key: postId } = useParams();
-    const { data } = useBlogPostRelated(postId ?? null);
+
+    const { data, isLoading, error } = useQuery<BlogPostRelated[]>({
+        queryKey: [queryKey.blogRelated],
+        queryFn: () => fetchPostRelated(postId),
+        enabled: !!postId,
+        staleTime: 5 * 60 * 1000,
+    });
 
     const relatedList = data || [];
 
-    return (
-        <>
-            {relatedList.length !== 0 && (
-                <RelatedPostsContainer>
-                    <SubCategory>관련 포스트</SubCategory>
-                    <ListWrapper>
-                        {relatedList.map((item, idx) => {
-                            const {
-                                post_id,
-                                post_title,
-                                create_at,
-                                thumnail_url,
-                            } = item;
-                            return (
-                                <BlogPostRelatedItem
-                                    idx={idx}
-                                    key={item.post_id}
-                                    post_id={post_id}
-                                    post_title={post_title}
-                                    create_at={create_at}
-                                    thumnail_url={thumnail_url}
-                                />
-                            );
-                        })}
-                    </ListWrapper>
-                </RelatedPostsContainer>
-            )}
-        </>
-    );
+    if (isLoading) return 'loading';
+
+    if (error) return 'error';
+
+    if (data) {
+        return (
+            <>
+                {relatedList.length !== 0 && (
+                    <RelatedPostsContainer>
+                        <SubCategory>관련 포스트</SubCategory>
+                        <ListWrapper>
+                            {relatedList.map((item, idx) => {
+                                const {
+                                    post_id,
+                                    post_title,
+                                    create_at,
+                                    thumnail_url,
+                                } = item;
+                                return (
+                                    <BlogPostRelatedItem
+                                        idx={idx}
+                                        key={item.post_id}
+                                        post_id={post_id}
+                                        post_title={post_title}
+                                        create_at={create_at}
+                                        thumnail_url={thumnail_url}
+                                    />
+                                );
+                            })}
+                        </ListWrapper>
+                    </RelatedPostsContainer>
+                )}
+            </>
+        );
+    }
 };
 
 export default BlogPostRelatedList;

@@ -3,9 +3,8 @@ const joi = require('joi');
 // 댓글 유효성검사
 const validation_Reply = (req, res, next) => {
     const body = req.body;
-    console.log(body);
     const verifyState = req.headers?.authState;
-    console.log('verifyState :::: ', verifyState);
+
     const schema = joi.object({
         idx: joi.string().required(),
         userIcon: joi.string().required(),

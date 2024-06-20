@@ -23,7 +23,31 @@ const authRouter = require('./page/authRouter'); //login logout 로직
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+//전체허용
 app.use(cors());
+
+//CORS 내꺼만 허용
+// const allowedOrigins = ['http://localhost:3000'];
+// app.use(
+//     cors({
+//         origin: function (origin, callback) {
+//             if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+//                 callback(null, true);
+//             } else {
+//                 callback(new Error('Not allowed by CORS'));
+//             }
+//         },
+//     }),
+// );
+
+// // //브라우저 요청 막기
+// app.use('/', (req, res, next) => {
+//     if (req.headers.referer !== 'http://localhost:3000/') {
+//         return res.status(403).send('허용된 도메인이 아닙니다. ');
+//     }
+//     next();
+// });
 
 // 게시판 로직
 app.use(authRouter);

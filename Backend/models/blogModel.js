@@ -80,7 +80,9 @@ const blogDetailModel = (conn) => {
                     bc.category_name as category,
                     bs.subcategory_name as subcategory,
                     bp.contents_key as imgkey,
-                    bm.update_at as update_date
+                    bm.update_at as update_date,
+                    bt.thumnail_url as thumbNail,
+                    bm.post_description as description
                 from 
                     blog_metadata bm 
                 join 
@@ -89,6 +91,8 @@ const blogDetailModel = (conn) => {
                     blog_categories bc on bm.category_id = bc.category_id
                 join
                     blog_subcategories bs on bm.subcategory_id = bs.subcategory_id
+				join
+					blog_thumnail bt on bm.post_id = bt.post_id
                 where bm.post_id = ?;
 `;
 

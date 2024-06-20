@@ -1,11 +1,13 @@
 import { Wrapper } from 'component/editor/EditorStyle';
 import InputErrorMessage from 'component/error/InputErrorMessage';
 import styled from 'styled-components';
-import useBlogCategory from '../hooks/useBlogCategory';
 import { useEffect, useState } from 'react';
 import { InputLabel } from 'component/ui/TextArea';
 import { BlogCategorylist } from '@type/BlogTypes';
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
+import { useQuery } from '@tanstack/react-query';
+import { queryKey } from 'services/queryKey';
+import { fetchBlogCategory } from 'services/blogService';
 
 const Select = styled.select<{ $error: boolean }>`
     background: var(--color-background-input);
@@ -28,7 +30,11 @@ const BlogSelectCategory: React.FC<BlogCategoryProps> = ({
     error,
     register,
 }) => {
-    const { data, isLoading } = useBlogCategory();
+    const { data, isLoading } = useQuery<BlogCategorylist, Error>({
+        queryKey: [queryKey.blogCategory],
+        queryFn: fetchBlogCategory,
+    });
+
     const [categories, setCategories] = useState<string[]>([]);
     const [list, setList] = useState<BlogCategorylist>();
 

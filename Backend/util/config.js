@@ -31,16 +31,16 @@ module.exports = pool;
 //     timezone: '+09:00',
 // });
 
-// const test = async () => {
-//     try {
-//         const connection = await pool.getConnection();
-//         connection.release();
-//         console.log('연결완료');
-//     } catch (error) {
-//         console.log('연결오류', error.message);
-//     }
-// };
+const DBconnect = async () => {
+    try {
+        const connection = await pool.getConnection();
+        connection.release();
+        console.log('연결완료');
+    } catch (error) {
+        console.log('연결오류', error.message);
+    }
+};
 
-// test();
+DBconnect();
 
 // module.exports = pool;

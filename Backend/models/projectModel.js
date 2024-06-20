@@ -30,7 +30,6 @@ const projectActionModel = (conn) => {
     return {
         projectRole: async (values, id, pageType) => {
             console.log(values, id, pageType);
-
             let sql = '';
             if (pageType === 'add') {
                 sql = `INSERT INTO project_roles_data (role_id, project_id, percent) VALUES ${values}`;

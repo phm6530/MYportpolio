@@ -87,19 +87,18 @@ const actionProjectDetail = async (req, conn) => {
         hashtag: data.hashtag.join(','),
     };
 
-    console.log('zzzz', project.projectRoles);
-    // 룰 부분 일괄처리 위해서 이렇게했음
-    const ProjectRolesValues = project.projectRoles
-        .map((e) => {
-            return `(${e.role_id},${project.id},${e.rolePercent})`;
-        })
-        .join(', ');
-
     //add 면 insertID반환해서 업데이트
     const [res] = await actionModel.projectAction(project, pageType);
 
     // 아니면 그냥 프론트에서 보낸 id 반영
-    const projectId = pageType === 'add' ? res.insertID : project.id;
+    const projectId = pageType === 'add' ? res.insertId : project.id;
+
+    // 룰 부분 일괄처리 위해서 이렇게했음
+    const ProjectRolesValues = project.projectRoles
+        .map((e) => {
+            return `(${e.role_id},${projectId},${e.rolePercent})`;
+        })
+        .join(', ');
 
     await actionModel.projectActionDescription(project, pageType);
     await actionModel.projectRole(ProjectRolesValues, projectId, pageType);
