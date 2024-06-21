@@ -3,7 +3,7 @@ import { AnimatePresence } from 'framer-motion';
 import Motion from 'component/animations/Motion';
 import DashBoardPage from 'page/MySchedule/Detail/DashBoardPage';
 import ScheduleReport from 'page/MySchedule/Detail/ScheduleReport';
-import TaskPage from 'page/MySchedule/Detail/TaskPage';
+import TaskPage from '@features/Myschedule/Detail/TaskPage';
 import styled from 'styled-components';
 import NotfoundPage from 'component/error/NotfoundPage';
 
@@ -33,14 +33,14 @@ const ScheduleRoute = props => {
                         </MotionStyle>
                     }
                 />
-                <Route
+                {/* <Route
                     path="report"
                     element={
                         <Motion.FadeInOut>
                             <ScheduleReport {...props} />
                         </Motion.FadeInOut>
                     }
-                />
+                /> */}
                 <Route
                     path="*"
                     element={

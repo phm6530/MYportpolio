@@ -5,7 +5,7 @@ import Project from '@page/Project';
 import About from '@page/about/About';
 import Home from '@page/Home';
 import Board from '@page/Board/Board';
-// import MySchedule from '@page/MySchedule/MySchedule';
+import MySchedule from '@page/MySchedule/MySchedule';
 
 interface RoutePath {
     path: string;
@@ -22,7 +22,7 @@ export const ROUTE_PATH: RoutePath[] = [
     { path: '/', Component: <Home /> },
     { path: '/about', Component: <About /> },
     { path: '/project/*', Component: <Project /> },
-    // { path: '/myschedule/*', Component: <MySchedule /> },
+    { path: '/myschedule/*', Component: <MySchedule /> },
     { path: '/Board', Component: <Board /> },
     { path: '/contact', Component: <Contact /> },
     { path: '/blog/*', Component: <Blog /> },

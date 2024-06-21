@@ -1,10 +1,11 @@
-import useBlogCategory from '../hooks/useBlogCategory';
-
 import { useEffect, useState } from 'react';
 import { type BlogCategorylist } from '@type/BlogTypes';
 import AccodianTab from '@features/Blog/BlogTab.js/BlogTabAcodian';
 import styled from 'styled-components';
 import { device } from 'config/DeviceConfig';
+import { useQuery } from '@tanstack/react-query';
+import { queryKey } from 'services/queryKey';
+import { fetchBlogCategory } from 'services/blogService';
 
 const TabWrapper = styled.div`
     margin-left: 3rem;
@@ -14,7 +15,11 @@ const TabWrapper = styled.div`
 `;
 
 const BlogTab = () => {
-    const { data, isLoading } = useBlogCategory();
+    const { data, isLoading } = useQuery<BlogCategorylist, Error>({
+        queryKey: [queryKey.blogCategory],
+        queryFn: fetchBlogCategory,
+    });
+
     const [categories, setCategories] = useState<BlogCategorylist | null>(null);
 
     useEffect(() => {
