@@ -151,6 +151,7 @@ const TestQuillEditor: React.FC<testQuillProps> = ({
                         { align: 'right' },
                         { align: 'justify' },
                     ],
+                    [{ color: [] }],
                 ],
                 handlers: {
                     image: imageHandler,

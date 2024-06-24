@@ -7,7 +7,6 @@ import { TodaySeletor } from 'utils/TodaySeletor';
 //그래프
 import ScheduleHeader from 'features/Myschedule/Layout/ScheduleHeader';
 import ScheduleRoute from 'Route/ScheduleRoute';
-import styled from 'styled-components';
 import { keepPreviousData, useQueryClient } from '@tanstack/react-query';
 import { SpinnerLoading } from 'component/loading/SpinnerLoading';
 import { Grid } from '@layout/Grid';

@@ -63,6 +63,7 @@ const ScheduleGit = () => {
     const { data, isLoading } = useQuery({
         queryKey: ['git'],
         queryFn: fetchGit,
+        staleTime: 5 * 60 * 3600,
     });
 
     const getUtcKrDate = () => {
