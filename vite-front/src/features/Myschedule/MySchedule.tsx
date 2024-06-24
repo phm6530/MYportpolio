@@ -68,6 +68,7 @@ export default function MySchedule() {
                 // console.log('test ::: ', test);
             });
     }, [getYear, getMonth, queryClient]);
+    console.log('변경되나?');
 
     useEffect(() => {
         if (isSuccess) {
